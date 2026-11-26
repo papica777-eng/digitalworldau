@@ -5,7 +5,7 @@
 >
   <url>
     <loc>https://digitalworldau.com/</loc>
-    <lastmod>2026-11-26</lastmod>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -13,12 +13,24 @@
       <image:title>Digital World AU — Web Design, E-Commerce &amp; Google Ads Agency</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://digitalworldau.com/media/mockup-anchialo.webp</image:loc>
+      <image:loc>https://digitalworldau.com/media/showcase/poster-anchialo-store.webp</image:loc>
       <image:title>ANCHIALO Australia — Magnesium Recovery Online Store</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://digitalworldau.com/media/mockup-cptmma.webp</image:loc>
+      <image:loc>https://digitalworldau.com/media/showcase/poster-cpt-combat.webp</image:loc>
       <image:title>CPT MMA Melbourne — Sotir Kichukov Sports Platform</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://digitalworldau.com/media/showcase/immersion-ringwood-hero.webp</image:loc>
+      <image:title>Immersion MMA Melbourne — Head Coach Lee Academy</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://digitalworldau.com/media/showcase/geelong-interior-hero.webp</image:loc>
+      <image:title>Painters of Geelong — Residential &amp; Commercial Painting</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://digitalworldau.com/media/showcase/astro-trappist-1e.jpg</image:loc>
+      <image:title>ASTRO Cosmic Observatory — 4K Exoplanet Render</image:title>
     </image:image>
     <image:image>
       <image:loc>https://digitalworldau.com/media/mockup-aeterna.webp</image:loc>
@@ -31,13 +43,13 @@
   </url>
   <url>
     <loc>https://digitalworldau.com/privacy/</loc>
-    <lastmod>2026-11-26</lastmod>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://digitalworldau.com/terms/</loc>
-    <lastmod>2026-11-26</lastmod>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>

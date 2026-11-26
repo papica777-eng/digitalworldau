@@ -1,6 +1,6 @@
 # Digital World AU (`https://digitalworldau.com/`)
 
-> Australian Web Design, E-Commerce & Google Ads Conversion Agency — Sydney & Melbourne HQ (`hello@digitalworldau.com`).
+> Australian & European Web Design, E-Commerce & Google Ads Conversion Agency — Melbourne, Sydney & Sofia/Pomorie HQ (`hello@digitalworldau.com`).
 
 ## Core Services
 - **Free 48-Hour Expert Website Audit**: UX friction review, mobile Core Web Vitals speed diagnostics, and Google SEO opportunities delivered within 48 hours (`https://digitalworldau.com/#contact`).
@@ -17,13 +17,18 @@
 
 ## Verified Live Production Portfolio
 - **ANCHIALO Australia (`https://anchialo.com`)**: Australian D2C online store for certified Lake Pomorie Magnesium Gel & Oil dispatched from Melbourne.
-- **CPT MMA Melbourne (`https://cptmma.com`)**: Coaching academy platform led by ONE Championship veteran Sotir Kichukov (`0.78s` mobile load).
+- **CPT MMA Melbourne (`https://cptmma.com`)**: Dual-division combat coaching & 10-Week K9 portal led by ONE Championship veteran Sotir Kichukov (`0.78s` mobile load).
+- **Immersion Mixed Martial Arts (`https://immersionmma.com.au`)**: Melbourne's #1 rated BJJ, Muay Thai & MMA academy led by Coach Lee in Ringwood.
+- **Painters of Geelong (`https://www.paintersofgeelong.com.au`)**: High-converting residential & commercial painting platform across Geelong & Surf Coast.
+- **ASTRO Cosmic Observatory (`https://papica777-eng.github.io/aeterna-cosmic-observatory/`)**: Real-time WebGL2 & WebAssembly ERFA interplanetary planetarium & 4K exoplanet optical showcase.
 - **AETERNA Digital Flagship (`https://aeterna.website`)**: Interactive 60fps 3D web platform achieving 100/100 Google PageSpeed metrics.
+- **NAsvetlo Civic & Judicial Audit (`https://nasvetlo.website`)**: Production big-data audit cross-referencing 2,234,509 judicial records and €53.22B procurement in Bulgaria & EU.
 
 ## Leadership & Contact
 - **Founder & Lead Architect**: Dimitar Prodromov ([GitHub](https://github.com/papica777-eng), [ORCID](https://orcid.org/0009-0004-8070-1348), [aeterna.website](https://aeterna.website))
-- **Sydney Office**: Level 14, 275 George Street, Sydney NSW 2000, Australia
-- **Direct Desk**: `hello@digitalworldau.com` | `+61 2 8000 4190`
+- **Australia Hub (Melbourne & Sydney)**: 60 Charter Street, Ringwood, Melbourne VIC 3134, Australia | `+61 423 269 586`
+- **Europe & Bulgaria HQ (EU)**: 6 Trapezitsa Street, 8200 Pomorie (Burgas) & Sofia, Bulgaria | `+359 896 849 882`
+- **Direct Desk**: `hello@digitalworldau.com`
 
 ## Key URLs
 - Homepage: https://digitalworldau.com/
