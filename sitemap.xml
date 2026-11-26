@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+>
+  <url>
+    <loc>https://digitalworldau.com/</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://digitalworldau.com/media/og-card.jpg</image:loc>
+      <image:title>Digital World AU — Web Design, E-Commerce &amp; Google Ads Agency</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://digitalworldau.com/media/mockup-anchialo.webp</image:loc>
+      <image:title>ANCHIALO Australia — Magnesium Recovery Online Store</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://digitalworldau.com/media/mockup-cptmma.webp</image:loc>
+      <image:title>CPT MMA Melbourne — Sotir Kichukov Sports Platform</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://digitalworldau.com/media/mockup-aeterna.webp</image:loc>
+      <image:title>AETERNA Digital Flagship Platform</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://digitalworldau.com/privacy/</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://digitalworldau.com/terms/</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+</urlset>
