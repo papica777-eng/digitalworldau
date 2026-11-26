@@ -133,7 +133,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: 'Corporate Website',
     metric: 'Melbourne #1 BJJ & Muay Thai',
     region: 'Ringwood, VIC, Australia',
-    image: '/media/showcase/immersion-ringwood-hero.webp',
+    image: '/media/showcase/immersion-ringwood.webp',
     stack: ['High-Performance Mats', 'Championship Roster', 'Mobile Intake'],
     summary:
       'High-converting flagship platform for Melbourne’s elite martial arts and BJJ training facility led by Head Coach Lee in Ringwood.',
@@ -408,7 +408,7 @@ export const CASE_STUDIES = [
       'Engineered from scratch for speed and scientific credibility—showcasing five signature botanical formulations (253.14 g/L Magnesium Chloride & 70.36 g/L Magnesium Sulfate) dispatched directly from Melbourne for athletes and clinics.',
     author: 'ANCHIALO Australia',
     role: 'Official Australian Store — Melbourne, VIC',
-    avatar: '/media/brands/anchialo-logo.webp',
+    avatar: '/media/brands/anchialo-brand.webp',
     monogram: 'AN',
     stats: [
       { label: 'MgCl₂ Formula', value: '253 g/L' },
@@ -482,7 +482,7 @@ export const CASE_STUDIES = [
     liveUrl: 'https://immersionmma.com.au',
     liveDomain: 'immersionmma.com.au',
     video: '',
-    poster: '/media/showcase/immersion-ringwood-hero.webp',
+    poster: '/media/showcase/immersion-ringwood.webp',
     headline: 'Melbourne’s #1 Rated BJJ, Muay Thai & MMA Academy led by Coach Lee',
     quote:
       'Built for instant mobile class discovery, direct coach trust, and frictionless trial bookings across BJJ, Muay Thai, and MMA programs in Melbourne.',
