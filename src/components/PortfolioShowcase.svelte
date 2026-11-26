@@ -32,7 +32,7 @@
       if (!slidePaused) {
         activeSlideIdx = (activeSlideIdx + 1) % ANCHIALO_SHOWCASE_SLIDES.length;
       }
-    }, 4200);
+    }, 7500);
     return () => clearInterval(timer);
   });
 </script>
@@ -42,13 +42,13 @@
     <div class="marquee-header-frame">
       <h2 class="marquee-title" id="projects-heading">Creating digital masterpieces every day</h2>
       <p class="marquee-subtitle">
-        Aerial Black Sea photography, certified lab dossiers, and high-converting digital flagships built for speed.
+        Live interactive website tours, 4K interplanetary renders, and high-converting flagships engineered for speed.
       </p>
     </div>
   </div>
 
-  <!-- Full-bleed Edge-to-Edge Dual-Row Infinite Marquee -->
-  <div class="marquee-viewport" aria-label="Selected client websites, aerial photography and official documents">
+  <!-- Full-bleed Edge-to-Edge Dual-Row Infinite Video Marquee -->
+  <div class="marquee-viewport" aria-label="Selected live client website tours and showcases">
     <div class="marquee-row">
       <div class="marquee-track marquee-track--left">
         {#each [...rowOne, ...rowOne] as project, idx (`r1-${project.id}-${idx}`)}
@@ -59,9 +59,21 @@
             onclick={() => (lightboxItem = project)}
             aria-label={`Inspect ${project.title}`}
           >
-            <img src={project.image} alt={`${project.title} showcase preview`} loading="lazy" />
+            {#if project.video}
+              <video
+                src={project.video}
+                poster={project.image}
+                autoplay
+                loop
+                muted
+                playsinline
+                preload="metadata"
+              ></video>
+            {:else}
+              <img src={project.image} alt={`${project.title} showcase preview`} loading="lazy" />
+            {/if}
             <span class="marquee-pill marquee-pill--live">
-              {project.isDocument ? `PDF • ${project.title.split('—')[0].trim()}` : `● ${project.liveDomain}`}
+              {project.video ? `▶ LIVE TOUR • ${project.liveDomain}` : project.isDocument ? `PDF • ${project.title.split('—')[0].trim()}` : `● ${project.liveDomain}`}
             </span>
           </button>
         {/each}
@@ -78,9 +90,21 @@
             onclick={() => (lightboxItem = project)}
             aria-label={`Inspect ${project.title}`}
           >
-            <img src={project.image} alt={`${project.title} showcase preview`} loading="lazy" />
+            {#if project.video}
+              <video
+                src={project.video}
+                poster={project.image}
+                autoplay
+                loop
+                muted
+                playsinline
+                preload="metadata"
+              ></video>
+            {:else}
+              <img src={project.image} alt={`${project.title} showcase preview`} loading="lazy" />
+            {/if}
             <span class={project.isDocument ? 'marquee-pill marquee-pill--doc' : 'marquee-pill marquee-pill--live'}>
-              {project.isDocument ? 'OFFICIAL PDF' : project.pdfUrl ? 'AU BROCHURE PDF' : `● ${project.liveDomain}`}
+              {project.video ? `▶ LIVE TOUR • ${project.liveDomain}` : project.isDocument ? 'OFFICIAL PDF' : project.pdfUrl ? 'AU BROCHURE PDF' : `● ${project.liveDomain}`}
             </span>
           </button>
         {/each}
@@ -197,7 +221,19 @@
                 class:is-doc={slide.isDocument}
                 aria-hidden={idx !== activeSlideIdx}
               >
-                <img src={slide.image} alt={slide.title} loading={idx === 0 ? 'eager' : 'lazy'} />
+                {#if slide.video}
+                  <video
+                    src={slide.video}
+                    poster={slide.image}
+                    autoplay
+                    loop
+                    muted
+                    playsinline
+                    preload="metadata"
+                  ></video>
+                {:else}
+                  <img src={slide.image} alt={slide.title} loading={idx === 0 ? 'eager' : 'lazy'} />
+                {/if}
               </div>
             {/each}
 
@@ -330,7 +366,19 @@
       <div class="lightbox__card">
         <button type="button" class="lightbox__close" onclick={() => (lightboxItem = null)} aria-label="Close preview">×</button>
         <div class="lightbox__media" class:is-doc={lightboxItem.isDocument}>
-          <img src={lightboxItem.image} alt={lightboxItem.title} />
+          {#if lightboxItem.video}
+            <video
+              src={lightboxItem.video}
+              poster={lightboxItem.image}
+              autoplay
+              loop
+              muted
+              playsinline
+              controls
+            ></video>
+          {:else}
+            <img src={lightboxItem.image} alt={lightboxItem.title} />
+          {/if}
         </div>
         <div class="lightbox__body">
           <div class="lightbox__head">
@@ -495,7 +543,8 @@
     box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
     transition: transform $transition-smooth, border-color $transition-fast;
 
-    img {
+    img,
+    video {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -515,7 +564,8 @@
     &:hover {
       border-color: rgba(132, 181, 230, 0.55);
 
-      img {
+      img,
+      video {
         transform: scale(1.04);
       }
 
@@ -800,7 +850,8 @@
       z-index: 1;
     }
 
-    img {
+    img,
+    video {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -1142,7 +1193,8 @@
     &__media {
       background: #0a0d14;
 
-      img {
+      img,
+      video {
         width: 100%;
         max-height: 480px;
         object-fit: cover;
