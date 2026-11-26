@@ -18,10 +18,13 @@
   } @else {
     background: $bg-glass;
   }
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(10px) saturate(195%) brightness(1.06);
+  -webkit-backdrop-filter: blur(10px) saturate(195%) brightness(1.06);
   border: 1px solid $border-subtle;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), $shadow-card;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 0 rgba(255, 255, 255, 0.03),
+    $shadow-card;
 }
 
 @mixin interactive-card {
@@ -29,7 +32,11 @@
   border-radius: $radius-lg;
   position: relative;
   overflow: hidden;
-  transition: transform $transition-smooth, border-color $transition-smooth, box-shadow $transition-smooth;
+  transition:
+    transform $transition-smooth,
+    background $transition-smooth,
+    border-color $transition-smooth,
+    box-shadow $transition-smooth;
 
   &::before {
     content: '';
@@ -43,8 +50,12 @@
 
   &:hover {
     transform: translateY(-4px);
-    border-color: rgba(0, 245, 160, 0.28);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 28px rgba(0, 245, 160, 0.09);
+    background: $bg-glass-hover;
+    border-color: rgba(0, 229, 255, 0.34);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.24),
+      0 24px 60px rgba(0, 0, 0, 0.48),
+      0 0 32px rgba(0, 229, 255, 0.1);
 
     &::before {
       opacity: 1;

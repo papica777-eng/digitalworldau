@@ -442,15 +442,23 @@
       width: 100%;
       padding: 0.82rem 0.95rem;
       border-radius: $radius-sm;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(6, 7, 13, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(4, 7, 16, 0.34);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       color: #ffffff;
-      transition: border-color $transition-fast;
+      transition: border-color $transition-fast, background $transition-fast;
 
       &:focus {
         outline: none;
+        background: rgba(6, 10, 24, 0.48);
         border-color: $accent-emerald;
       }
+    }
+
+    select option {
+      background: #0b1022;
+      color: #ffffff;
     }
   }
 
@@ -460,7 +468,9 @@
     border-radius: $radius-md;
     padding: 1.15rem;
     text-align: center;
-    background: rgba(1, 106, 212, 0.06);
+    background: rgba(5, 9, 22, 0.22);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     transition: border-color $transition-fast, background $transition-fast;
 
     &.dragging,

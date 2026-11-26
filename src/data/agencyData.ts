@@ -88,6 +88,20 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     isConcept: false,
   },
   {
+    id: 'nasvetlo-audit',
+    title: 'NAsvetlo — National Civic & Judicial Audit',
+    category: 'Web App',
+    metric: '2.23M Records • Force-Directed Graph',
+    region: 'Bulgaria & EU Open Data',
+    image: '/media/mockup-nasvetlo.png',
+    stack: ['Big Data Visualization', 'Network Graph', 'Benjamini–Hochberg FDR'],
+    summary:
+      'Production big-data civic audit cross-referencing 2,234,509 court records across 180 courts and €53.22B in public procurement contracts with interactive 28-region radar maps and a 7-node force-directed network graph.',
+    liveUrl: 'https://nasvetlo.website',
+    liveDomain: 'nasvetlo.website',
+    isConcept: false,
+  },
+  {
     id: 'bondi-botanicals',
     title: 'Botanical Elixir — Bondi Skincare',
     category: 'Online Store',

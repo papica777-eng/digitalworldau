@@ -11,6 +11,18 @@
 .section {
   padding-block: $section-pad-y;
   position: relative;
+
+  &:not(#top)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(86%, $container-max);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+    pointer-events: none;
+  }
 }
 
 .section-header {
@@ -48,11 +60,21 @@
 .section-title {
   @include heading-display;
   font-size: clamp(2rem, 4.3vw, 3.35rem);
+  letter-spacing: -0.04em;
   margin: 0 0 1rem;
   background: $gradient-text;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.serif-accent {
+  font-family: $font-serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  -webkit-text-fill-color: #ffffff;
+  color: #ffffff;
 }
 
 .section-lead {

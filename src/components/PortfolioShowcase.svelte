@@ -19,7 +19,7 @@
         <span class="eyebrow">Selected Flagships &amp; Own Productions</span>
         <h2 class="section-title" id="projects-heading">Creating digital masterpieces every day.</h2>
         <p class="section-lead">
-          Explore our live production platforms—including <a href="https://anchialo.com" target="_blank" rel="noopener" class="inline-domain">anchialo.com ↗</a>, <a href="https://cptmma.com" target="_blank" rel="noopener" class="inline-domain">cptmma.com ↗</a>, and <a href="https://aeterna.website" target="_blank" rel="noopener" class="inline-domain">aeterna.website ↗</a>—alongside clearly marked UI/UX design concepts.
+          Explore our live production platforms—including <a href="https://anchialo.com" target="_blank" rel="noopener" class="inline-domain">anchialo.com ↗</a>, <a href="https://cptmma.com" target="_blank" rel="noopener" class="inline-domain">cptmma.com ↗</a>, <a href="https://aeterna.website" target="_blank" rel="noopener" class="inline-domain">aeterna.website ↗</a>, and <a href="https://nasvetlo.website" target="_blank" rel="noopener" class="inline-domain">nasvetlo.website ↗</a>—alongside clearly marked UI/UX design concepts.
         </p>
       </div>
       <div class="filter-pills" role="tablist" aria-label="Filter projects by type">
@@ -267,7 +267,9 @@
       font-family: $font-mono;
       font-size: 0.68rem;
       font-weight: 700;
-      background: rgba(6, 7, 13, 0.88);
+      background: rgba(4, 7, 15, 0.56);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
 
       &--live {
         border: 1px solid rgba(0, 245, 160, 0.52);
@@ -286,7 +288,9 @@
       left: 0.75rem;
       padding: 0.3rem 0.72rem;
       border-radius: $radius-pill;
-      background: rgba(6, 7, 13, 0.86);
+      background: rgba(4, 7, 15, 0.56);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(0, 245, 160, 0.42);
       color: $accent-emerald;
       font-family: $font-mono;
@@ -419,7 +423,9 @@
     gap: 0.85rem;
     padding: 1.05rem;
     border-radius: $radius-md;
-    background: rgba(1, 106, 212, 0.1);
+    background: rgba(0, 102, 255, 0.08);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(132, 181, 230, 0.2);
     margin-bottom: 1.3rem;
 

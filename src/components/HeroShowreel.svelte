@@ -13,8 +13,7 @@
 
       <h1 class="hero-title" id="hero-heading">
         Digital solutions<br />
-        that move business<br />
-        forward.
+        that move <em class="serif-accent">business forward.</em>
       </h1>
 
       <p class="hero-sub">
@@ -32,8 +31,17 @@
         </a>
       </div>
 
+      <div class="hero-proof-strip" aria-label="Core studio guarantees">
+        <span><strong>100 / 100</strong> PageSpeed</span>
+        <span class="sep" aria-hidden="true">·</span>
+        <span><strong>&lt; 0.8s</strong> Mobile Load</span>
+        <span class="sep" aria-hidden="true">·</span>
+        <span><strong>100%</strong> IP Ownership</span>
+      </div>
+
       <div class="hero-sub-links">
         <a href="#projects" class="text-action">Explore Live Projects →</a>
+        <a href="#roi-calculator" class="text-action">Estimate Wasm ROI →</a>
       </div>
     </div>
 
@@ -66,13 +74,16 @@
   }
 
   .hero-trust-line {
+    @include glass-surface;
     display: inline-flex;
     align-items: center;
     gap: 0.55rem;
+    padding: 0.42rem 0.95rem;
+    border-radius: $radius-pill;
     font-family: $font-mono;
     font-size: 0.74rem;
     color: $accent-blue-light;
-    margin-bottom: 1.15rem;
+    margin-bottom: 1.25rem;
     letter-spacing: 0.02em;
   }
 
@@ -87,11 +98,33 @@
 
   .hero-title {
     @include heading-display;
-    font-size: clamp(2.65rem, 5.1vw, 4.35rem);
-    line-height: 1.05;
+    font-size: clamp(2.9rem, 5.4vw, 4.7rem);
+    line-height: 1.03;
     letter-spacing: -0.04em;
     margin: 0 0 1.45rem;
-    color: #ffffff;
+    background: linear-gradient(125deg, #ffffff 22%, #e2e8f0 58%, #84b5e6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-proof-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem 0.8rem;
+    margin-bottom: 1.25rem;
+    font-family: $font-mono;
+    font-size: 0.78rem;
+    color: $text-secondary;
+
+    strong {
+      color: $accent-emerald;
+    }
+
+    .sep {
+      color: $text-muted;
+    }
   }
 
   .hero-sub {

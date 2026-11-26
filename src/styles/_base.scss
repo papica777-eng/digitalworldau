@@ -32,11 +32,13 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    radial-gradient(960px 640px at 8% 12%, rgba(1, 106, 212, 0.44), rgba(2, 9, 50, 0.36) 44%, transparent 68%),
-    radial-gradient(760px 560px at 94% 10%, rgba(95, 31, 87, 0.28), transparent 58%),
-    radial-gradient(880px 560px at 78% 68%, rgba(0, 245, 160, 0.06), transparent 60%),
-    #020308;
+  background-color: $bg-canvas;
+  background-image:
+    radial-gradient(900px 500px at 50% -10%, rgba(0, 102, 255, 0.16), transparent 70%),
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: 100% 100%, 64px 64px, 64px 64px;
+  background-attachment: fixed, fixed, fixed;
   color: $text-primary;
   line-height: 1.6;
   overflow-x: clip;
@@ -49,7 +51,7 @@ body {
     inset: 0;
     pointer-events: none;
     z-index: 999;
-    opacity: 0.026;
+    opacity: 0.022;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 }

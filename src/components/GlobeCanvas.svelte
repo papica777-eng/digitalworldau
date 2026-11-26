@@ -181,7 +181,7 @@
     height: 310px;
     cursor: grab;
     border-radius: $radius-lg;
-    background: radial-gradient(circle at 50% 50%, rgba(1, 106, 212, 0.22), rgba(2, 9, 50, 0.35) 58%, transparent 75%);
+    background: radial-gradient(circle at 50% 50%, rgba(0, 102, 255, 0.14), transparent 72%);
     overflow: hidden;
 
     &:active {
@@ -202,8 +202,10 @@
     font-family: $font-mono;
     font-size: 0.68rem;
     color: $accent-blue-light;
-    background: rgba(6, 7, 13, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(4, 7, 15, 0.45);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     padding: 0.25rem 0.7rem;
     border-radius: $radius-pill;
     white-space: nowrap;

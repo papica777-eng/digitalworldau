@@ -21,6 +21,8 @@
             <a href="https://cptmma.com" target="_blank" rel="noopener">cptmma.com ↗</a>
             <span>•</span>
             <a href="https://aeterna.website" target="_blank" rel="noopener">aeterna.website ↗</a>
+            <span>•</span>
+            <a href="https://nasvetlo.website" target="_blank" rel="noopener">nasvetlo.website ↗</a>
           </strong>
           <span class="proof-card__sub">100% Fixed-Scope Milestones • Full IP Ownership</span>
         </div>

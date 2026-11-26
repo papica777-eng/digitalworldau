@@ -188,10 +188,10 @@
     transition: background $transition-fast, border-color $transition-fast, backdrop-filter $transition-fast;
 
     &.scrolled {
-      background: rgba(2, 3, 8, 0.86);
-      backdrop-filter: blur(18px) saturate(140%);
-      -webkit-backdrop-filter: blur(18px) saturate(140%);
-      border-bottom-color: rgba(255, 255, 255, 0.06);
+      background: rgba(4, 6, 14, 0.48);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-bottom-color: rgba(255, 255, 255, 0.08);
     }
   }
 
@@ -209,9 +209,10 @@
     gap: 1.85rem;
     padding: 0.7rem 1.85rem;
     border-radius: $radius-pill;
-    background: rgba(0, 0, 0, 0.56);
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    backdrop-filter: blur(16px);
+    background: rgba(6, 10, 22, 0.32);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px) saturate(185%);
+    -webkit-backdrop-filter: blur(16px) saturate(185%);
 
     @include respond-up(lg) {
       display: flex;
@@ -292,7 +293,7 @@
   .mega-promo {
     border-radius: $radius-md;
     overflow: hidden;
-    background: rgba(2, 9, 50, 0.78);
+    background: rgba(6, 12, 32, 0.42);
     border: 1px solid rgba(252, 193, 244, 0.22);
     display: flex;
     flex-direction: column;

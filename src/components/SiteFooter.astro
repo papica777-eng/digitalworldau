@@ -33,6 +33,7 @@ import BrandLogo from './BrandLogo.svelte';
         <li><a href="https://anchialo.com" target="_blank" rel="noopener">anchialo.com — Magnesium AU ↗</a></li>
         <li><a href="https://cptmma.com" target="_blank" rel="noopener">cptmma.com — CPT MMA Melbourne ↗</a></li>
         <li><a href="https://aeterna.website" target="_blank" rel="noopener">aeterna.website — Sovereign 3D Platform ↗</a></li>
+        <li><a href="https://nasvetlo.website" target="_blank" rel="noopener">nasvetlo.website — 2.23M-Record Civic Audit ↗</a></li>
         <li><a href="/#projects">Case Studies &amp; Work</a></li>
         <li><a href="/#stack">Tech Arsenal</a></li>
         <li><a href="/#blog">Knowledge Hub</a></li>
@@ -70,8 +71,10 @@ import BrandLogo from './BrandLogo.svelte';
   @use '../styles/mixins' as *;
 
   .site-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    background: #020308;
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+    background: rgba(4, 6, 14, 0.32);
+    backdrop-filter: blur(12px) saturate(165%);
+    -webkit-backdrop-filter: blur(12px) saturate(165%);
     padding-block: 4rem 2rem;
   }
 

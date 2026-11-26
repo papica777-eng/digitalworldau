@@ -14,9 +14,12 @@
   @use '../styles/tokens' as *;
 
   .announcement-bar {
-    background: transparent;
+    background: rgba(4, 6, 14, 0.24);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     font-size: 0.8rem;
-    padding-block: 0.65rem 0.25rem;
+    padding-block: 0.62rem;
 
     &__inner {
       display: flex;
