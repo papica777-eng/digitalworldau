@@ -16,15 +16,15 @@ export const MEGA_MENU = {
   design: [
     { label: 'UI/UX Product Design', desc: 'Conversion-focused user journeys & interactive prototypes', href: '/#contact', preset: 'UI/UX & Web Design' },
     { label: 'Bespoke Web Design', desc: 'High-contrast dark & editorial brand experiences', href: '/#contact', preset: 'UI/UX & Web Design' },
-    { label: 'Brand Identity Systems', desc: 'Logo marks, motion guidelines & design tokens', href: '/#contact', preset: 'UI/UX & Web Design' },
+    { label: 'Brand Identity Systems', desc: 'Logo marks, motion guidelines & visual systems', href: '/#contact', preset: 'UI/UX & Web Design' },
   ],
   development: [
-    { label: 'Custom Websites & Astro', desc: 'Sub-second static HTML, Svelte 5 & WebAssembly', href: '/#contact', preset: 'Custom Development' },
+    { label: 'Custom Websites', desc: 'Fast-loading business websites built to convert', href: '/#contact', preset: 'Custom Development' },
     { label: 'E-Commerce Flagships', desc: 'High-volume D2C stores engineered for mobile speed', href: '/#contact', preset: 'E-Commerce Store' },
-    { label: 'Maintenance & Security SLA', desc: '24/7 edge monitoring, backups & hardening', href: '/#contact', preset: 'Custom Development' },
+    { label: 'Maintenance & Security SLA', desc: '24/7 uptime monitoring, backups & hardening', href: '/#contact', preset: 'Custom Development' },
   ],
   marketing: [
-    { label: 'Technical & Local SEO', desc: 'JSON-LD schema, Core Web Vitals & organic pipeline', href: '/#contact', preset: 'SEO & Paid Growth' },
+    { label: 'Technical & Local SEO', desc: 'Higher Google rankings, local visibility & steady leads', href: '/#contact', preset: 'SEO & Paid Growth' },
     { label: 'Paid Search & Google Ads CRO', desc: 'High-converting landing pages & ROI tracking', href: '/#contact', preset: 'SEO & Paid Growth' },
     { label: 'Email & Lifecycle Flows', desc: 'Automated retention, VIP tiers & cart recovery', href: '/#contact', preset: 'SEO & Paid Growth' },
   ],
@@ -52,7 +52,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     metric: '253 g/L MgCl₂ • Melbourne Dispatch',
     region: 'Melbourne, Australia',
     image: '/media/mockup-anchialo.webp',
-    stack: ['E-Commerce Flagship', 'Schema SEO', 'Cloudflare Edge'],
+    stack: ['Online Store', 'Google SEO', 'Fast Mobile Checkout'],
     summary:
       'Official Australian D2C store for certified topical Magnesium Gel & Magnesium Oil (253.14 g/L Magnesium Chloride & 70.36 g/L Magnesium Sulfate from Lake Pomorie) engineered for rapid muscle recovery & joint mobility.',
     liveUrl: 'https://anchialo.com',
@@ -66,7 +66,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     metric: 'ONE Championship Veteran Academy',
     region: 'Melbourne, Australia',
     image: '/media/mockup-cptmma.webp',
-    stack: ['High-Frame Video', 'Application Funnel', 'Local SEO'],
+    stack: ['Video Showcase', 'Lead Funnel', 'Local SEO'],
     summary:
       'Elite MMA, K1 kickboxing, wrestling & submission coaching platform in Melbourne led by ONE Championship veteran Sotir Kichukov—featuring 1-on-1 commitment protocols and private group intake.',
     liveUrl: 'https://cptmma.com',
@@ -75,14 +75,14 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   },
   {
     id: 'aeterna-platform',
-    title: 'AETERNA — Sovereign AI & WebGL2 Platform',
+    title: 'AETERNA — Digital Flagship Platform',
     category: 'Web App',
-    metric: 'WebGL2 SDF • Post-Quantum',
-    region: 'Global Sovereign Cloud',
+    metric: 'Interactive Flagship • Instant Load',
+    region: 'Global Flagship',
     image: '/media/mockup-aeterna.webp',
-    stack: ['WebGL2 Raymarch', 'Rust / Wasm', 'Astro + Svelte 5'],
+    stack: ['Custom Web App', 'Interactive 3D', 'Global Speed'],
     summary:
-      'Real-time WebGL2 SDF 4D/5D interactive biophysics studio, cryptographic telemetry interface, and zero-latency sovereign engineering portal.',
+      'High-impact interactive digital flagship built for instant worldwide loading, luxury visual presentation, and effortless navigation on desktop and mobile.',
     liveUrl: 'https://aeterna.website',
     liveDomain: 'aeterna.website',
     isConcept: false,
@@ -91,10 +91,10 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     id: 'bondi-botanicals',
     title: 'Botanical Elixir — Bondi Skincare',
     category: 'Online Store',
-    metric: '0.85s Mobile LCP Architecture',
+    metric: 'Sub-1s Mobile Shopping',
     region: 'Sydney, Australia',
     image: '/media/mockup-bondi.webp',
-    stack: ['Astro 5', 'Headless Commerce', 'Stripe'],
+    stack: ['Online Store', 'Mobile UX', 'Stripe Checkout'],
     summary:
       'UI/UX Concept for a luxury Australian botanical skincare storefront engineered for sub-second mobile checkout and subscription renewals.',
     isConcept: true,
@@ -103,10 +103,10 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     id: 'kestrel-roasters',
     title: 'Kestrel Specialty Roasters',
     category: 'Online Store',
-    metric: 'Subscription Cadence Engine',
+    metric: 'Recurring Order Subscriptions',
     region: 'Melbourne, Australia',
     image: '/media/mockup-roasters.webp',
-    stack: ['Shopify Plus', 'Svelte 5', 'Klaviyo'],
+    stack: ['E-Commerce', 'Subscription UX', 'Email Flows'],
     summary:
       'UI/UX Concept for a small-batch Melbourne coffee roaster featuring origin tasting notes and a recurring delivery builder.',
     isConcept: true,
@@ -115,12 +115,12 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     id: 'southern-cross-wealth',
     title: 'Southern Cross Wealth Advisory',
     category: 'Corporate Website',
-    metric: 'Interactive Wasm Calculators',
+    metric: 'Interactive Client Calculators',
     region: 'Melbourne & APAC',
     image: '/media/mockup-wealth.webp',
-    stack: ['TypeScript', 'Rust/Wasm', 'Edge CDN'],
+    stack: ['Corporate Website', 'Lead Capture', 'SEO Growth'],
     summary:
-      'UI/UX Concept for institutional wealth advisory teams pairing client education hubs with real-time deterministic financial calculators.',
+      'UI/UX Concept for institutional wealth advisory teams pairing client education hubs with instant, transparent financial calculators.',
     isConcept: true,
   },
 ];
@@ -143,7 +143,7 @@ export const CASE_STUDIES = [
     stats: [
       { label: 'MgCl₂ Formula', value: '253 g/L' },
       { label: 'Product Line', value: '5 Blends' },
-      { label: 'Performance', value: '100/100' },
+      { label: 'Page Speed', value: '100/100' },
     ],
   },
   {
@@ -162,28 +162,28 @@ export const CASE_STUDIES = [
     monogram: 'CP',
     stats: [
       { label: 'Head Coach', value: 'ONE Vet' },
-      { label: 'Mobile Speed', value: '0.78s LCP' },
+      { label: 'Mobile Load', value: '0.78 sec' },
       { label: 'Intake Model', value: 'Application' },
     ],
   },
   {
-    tag: 'Live WebGL2 & Sovereign Platform',
-    client: 'AETERNA Sovereign Platform (aeterna.website)',
+    tag: 'Live Interactive Web Platform',
+    client: 'AETERNA Digital Platform (aeterna.website)',
     liveUrl: 'https://aeterna.website',
     liveDomain: 'aeterna.website',
     video: '/videos/case-aeterna.mp4',
     poster: '/media/mockup-aeterna.webp',
-    headline: 'Interactive 8K WebGL2 SDF 4D/5D visual computation & bare-metal telemetry flagship',
+    headline: 'High-impact interactive flagship built for instant loading and visual authority',
     quote:
-      'Combining custom GLSL raymarched shaders, zero-bloat static Astro delivery, and Rust-powered determinism proves how real-time 3D engineering runs at 60fps directly in mobile and desktop browsers.',
+      'Combining bold dark-mode design, smooth interactive motion, and instant page speed proves how a premium digital platform commands attention on both mobile and desktop.',
     author: 'Dimitar Prodromov',
-    role: 'Founder & Principal Systems Architect — AETERNA',
-    avatar: '/media/mockup-aeterna.webp',
-    monogram: 'AE',
+    role: 'Founder & Lead Architect — Digital World AU / AETERNA',
+    avatar: '/media/founder-portrait.webp',
+    monogram: 'DP',
     stats: [
-      { label: 'Shader Engine', value: 'WebGL2 SDF' },
-      { label: 'Frame Target', value: '60 FPS' },
-      { label: 'Core Web Vitals', value: '100/100' },
+      { label: 'Page Speed', value: '100/100' },
+      { label: 'Smooth Motion', value: '60 FPS' },
+      { label: 'Global Load', value: '< 0.8s' },
     ],
   },
 ];
@@ -223,7 +223,7 @@ export const TESTIMONIALS: ClientTestimonial[] = [
     liveUrl: 'https://cptmma.com',
     liveDomain: 'cptmma.com',
     quote:
-      'Digital World AU engineered cptmma.com with the exact discipline we demand on the mats—instant video playback, razor-sharp fight protocol breakdowns, and an application funnel built for serious Melbourne athletes.',
+      'Digital World AU built cptmma.com with the exact discipline we demand on the mats—instant video playback, razor-sharp fight protocol breakdowns, and an application funnel built for serious Melbourne athletes.',
   },
   {
     name: 'ANCHIALO Australia',
@@ -236,20 +236,20 @@ export const TESTIMONIALS: ClientTestimonial[] = [
     liveUrl: 'https://anchialo.com',
     liveDomain: 'anchialo.com',
     quote:
-      'From interactive Lake Pomorie balneology storytelling to sub-second mobile checkout for our 253 g/L Magnesium Gel and Oil collection, anchialo.com delivers a seamless Australian shopping experience.',
+      'From Lake Pomorie wellness storytelling to effortless mobile checkout for our 253 g/L Magnesium Gel and Oil collection, anchialo.com delivers a seamless Australian shopping experience.',
   },
   {
     name: 'Dimitar Prodromov',
-    role: 'Founder & Principal Systems Architect',
-    company: 'AETERNA Technologies',
+    role: 'Founder & Lead Architect',
+    company: 'Digital World AU / AETERNA',
     country: 'Bulgaria & Australia',
-    avatar: '/media/mockup-aeterna.webp',
-    monogram: 'AE',
+    avatar: '/media/founder-portrait.webp',
+    monogram: 'DP',
     accent: '#e879f9',
     liveUrl: 'https://aeterna.website',
     liveDomain: 'aeterna.website',
     quote:
-      'Every flagship we ship pairs zero-JS static Astro architecture, Dart Sass design systems, Rust/Wasm speed, and interactive WebGL2 geometry—giving ambitious brands measurable speed and authentic engineering ownership.',
+      'Every website and online store we launch is built around three business pillars: unmistakable modern design, instant mobile loading, and higher conversion rates from Google Ads and organic search.',
   },
 ];
 
@@ -258,8 +258,8 @@ export const SERVICES_BENTO = [
     step: '01',
     title: 'Website Audit',
     preset: 'Free 48-Hour Website Audit',
-    subtitle: 'Forensic diagnostics before execution',
-    items: ['UX Heuristic & Funnel Friction Audit', 'Core Web Vitals & Edge Speed Profiling', 'Full Technical SEO & Schema Crawl'],
+    subtitle: 'Clear action plan before you invest',
+    items: ['UX & Conversion Friction Review', 'Mobile Speed & Checkout Diagnostics', 'Google SEO & Ranking Opportunity Audit'],
     highlight: 'Delivered in 48 Hours',
   },
   {
@@ -267,23 +267,23 @@ export const SERVICES_BENTO = [
     title: 'Design',
     preset: 'UI/UX & Web Design',
     subtitle: 'High-contrast visual authority',
-    items: ['UI/UX Product & Journey Architecture', 'Bespoke Dark & Editorial Web Design', 'Component Libraries & Brand Identity'],
-    highlight: 'Interactive Figma Systems',
+    items: ['UI/UX Product & Journey Architecture', 'Bespoke Dark & Editorial Web Design', 'Brand Identity & Reusable Design Systems'],
+    highlight: 'Interactive Prototypes',
   },
   {
     step: '03',
     title: 'Development',
     preset: 'Custom Development',
-    subtitle: 'Sub-second resilient engineering',
-    items: ['Custom Websites (Astro, Svelte, React, WP)', 'High-Converting E-Commerce Platforms', 'Managed Security, Backups & SLA'],
-    highlight: '99.98% Uptime & Wasm',
+    subtitle: 'Fast, reliable & built to scale',
+    items: ['Custom Business & Corporate Websites', 'High-Converting Online Stores', 'Managed Security, Backups & Support'],
+    highlight: '99.98% Uptime & Speed',
   },
   {
     step: '04',
     title: 'Marketing',
     preset: 'SEO & Paid Growth',
-    subtitle: 'Compounding traffic & Google Ads CRO',
-    items: ['Technical, National & Local SEO', 'Google Ads Landing Pages & PPC CRO', 'Social Content & Lifecycle Email Flows'],
+    subtitle: 'Compounding traffic & Google Ads ROI',
+    items: ['National & Local Google SEO', 'High-ROI Google Ads Landing Pages', 'Social Content & Automated Email Flows'],
     highlight: 'Verified Attribution',
   },
 ];
@@ -291,27 +291,27 @@ export const SERVICES_BENTO = [
 export const FAQ_ITEMS = [
   {
     q: 'What does your end-to-end work process look like?',
-    a: 'Every engagement runs in four transparent sprints: (1) Forensic Discovery & Technical Audit, (2) Interactive Wireframes & Figma Design System, (3) Full-Stack Engineering, Motion Polish & Device QA, and (4) Zero-Downtime Launch, Core Web Vitals verification, and conversion tracking.',
+    a: 'Every engagement runs in four transparent sprints: (1) Discovery & Conversion Audit, (2) Interactive Wireframes & Visual Design, (3) Full Website Build, Mobile Polish & Device QA, and (4) Zero-Downtime Launch, Google Speed verification, and conversion tracking.',
   },
   {
     q: 'What do you need from us as a client to get started?',
-    a: 'Just a 30-minute alignment call, any existing brand guidelines or product photography, and read-only analytics/search console access if we are auditing or migrating an existing domain. Our strategists handle information architecture, UX copy refinement, and technical execution.',
+    a: 'Just a 30-minute alignment call, any existing brand guidelines or product photography, and read-only analytics access if we are upgrading an existing site. Our strategists handle page structure, copy refinement, and launch execution.',
   },
   {
     q: 'How do communication and progress reporting work?',
-    a: 'You get a dedicated Slack channel directly with your lead UI/UX designer and principal engineer, weekly recorded video walkthroughs, a live staging preview updated continuously, and clear milestone sign-offs.',
+    a: 'You get a dedicated Slack channel directly with your lead UI/UX designer and senior builder, weekly recorded video walkthroughs, a live staging preview updated continuously, and clear milestone sign-offs.',
   },
   {
     q: 'Who owns the source code, designs, and intellectual property?',
-    a: 'You own 100% of everything. Upon final milestone completion, all Figma design systems, Git repositories, custom WebAssembly/frontend code, and domain configurations belong exclusively to your company with zero vendor lock-in.',
+    a: 'You own 100% of everything. Upon final milestone completion, all Figma design files, website code, custom features, and domain configurations belong exclusively to your company with zero lock-in.',
   },
   {
     q: 'Are all websites built mobile-first and Google Ads ready?',
-    a: 'Unconditionally. Over 68% of modern paid and organic traffic arrives on mobile viewports. Every layout is engineered for sub-second LCP, clean conversion tracking, Privacy Policy/Cookie compliance, and 95–100 Lighthouse scores.',
+    a: 'Unconditionally. Over 68% of modern paid and organic traffic arrives on mobile phones. Every layout is built for sub-second mobile load times, clean conversion tracking, Privacy Policy/Cookie compliance, and 95–100 Google PageSpeed scores.',
   },
   {
     q: 'How is custom project pricing structured?',
-    a: 'We work on fixed-scope, transparent milestones in AUD or EUR—ranging from A$3,300–A$8,250 (€2,000–€5,000) for high-velocity conversion landing systems up to A$33,000–A$82,500 (€20,000–€50,000) for bespoke multi-region e-commerce flagships and custom web applications.',
+    a: 'We work on fixed-scope, transparent milestones in AUD or EUR—ranging from A$3,300–A$8,250 (€2,000–€5,000) for high-velocity conversion landing systems up to A$33,000–A$82,500 (€20,000–€50,000) for bespoke multi-region e-commerce flagships and custom web platforms.',
   },
 ];
 
@@ -327,20 +327,20 @@ export const BLOG_POSTS = [
     takeaways: [
       'Surface sticky one-tap treatment booking above the fold on mobile devices.',
       'Combine transparent duration/pricing tiers with verified client visual proof.',
-      'Deploy HealthAndBeautyBusiness JSON-LD schema for local map-pack dominance.',
+      'Configure Google rich-result business data for local map-pack dominance.',
     ],
   },
   {
     slug: 'scalable-news-portal-architecture',
-    tag: 'Media Engineering',
+    tag: 'Media Publishing',
     readTime: '8 min read',
-    title: 'Architecting High-Traffic News Portals for Instant Edge Delivery',
+    title: 'Scaling High-Traffic News Portals for Instant Global Delivery',
     excerpt:
-      'How static-first Astro islands, Cloudflare Anycast caching, and structured editorial pipelines absorb viral breaking-news spikes with sub-50ms TTFB.',
+      'How modern edge-cached layouts and clean editorial pipelines absorb viral breaking-news spikes with instant page delivery worldwide.',
     image: '/media/blog-news.webp',
     takeaways: [
-      'Pre-render article shells at the CDN edge while isolating live tickers into tiny islands.',
-      'Automate Google News XML sitemaps, NewsArticle schema, and Core Web Vitals budgets.',
+      'Serve instant-loading article pages globally while keeping live tickers lightweight.',
+      'Automate Google News XML sitemaps and strict mobile performance budgets.',
       'Design high-readability dark/light typographic rhythm that lifts ad & subscription retention.',
     ],
   },
@@ -350,11 +350,11 @@ export const BLOG_POSTS = [
     readTime: '7 min read',
     title: 'Launching a Profitable Classifieds Platform: Search, Trust & Monetisation',
     excerpt:
-      'Engineering sub-second faceted search, zero-trust media upload checks, and promoted seller tiers that compound marketplace liquidity.',
+      'Designing sub-second category search, safe media uploads, and promoted seller tiers that compound marketplace liquidity.',
     image: '/media/blog-classifieds.webp',
     takeaways: [
       'Keep multi-filter category + radius search under 80ms with clean indexable URLs.',
-      'Validate uploaded listing photos in-browser via WebAssembly magic-byte inspection.',
+      'Run built-in browser security checks on uploaded listing photos automatically.',
       'Balance free organic listings with featured boosts and verified dealer subscriptions.',
     ],
   },
@@ -364,12 +364,12 @@ export const BLOG_POSTS = [
     readTime: '5 min read',
     title: 'The Modern Corporate Website Blueprint for Enterprise Trust & Pipeline',
     excerpt:
-      'Why generic corporate sites leak deals—and how verifiable video case studies, interactive ROI models, and executive clarity multiply inbound RFPs.',
+      'Why generic corporate sites leak deals—and how verifiable video case studies, interactive calculators, and executive clarity multiply inbound inquiries.',
     image: '/media/blog-corporate.webp',
     takeaways: [
       'Replace vague slogans with quantified client outcomes and live production case studies.',
       'Pair primary quote forms with a low-friction Free Expert Audit lead magnet.',
-      'Enforce strict WCAG AA contrast, instant asset delivery, and full IP transparency.',
+      'Enforce crisp contrast, instant media delivery, and full ownership transparency.',
     ],
   },
 ];

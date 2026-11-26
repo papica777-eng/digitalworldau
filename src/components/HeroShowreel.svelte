@@ -1,17 +1,14 @@
 <script lang="ts">
-  import HeroSculpture3D from './HeroSculpture3D.svelte';
-
-  let activeMode = $state<'dna' | 'reel'>('dna');
-  let reelModalOpen = $state(false);
+  import HeroDeviceShowcase from './HeroDeviceShowcase.svelte';
 </script>
 
 <section class="hero" id="top" aria-labelledby="hero-heading">
   <div class="container hero-grid">
-    <!-- Left Column: Streamlined high-converting CRO Hero -->
+    <!-- Left Column: High-converting CRO Hero written for business buyers -->
     <div class="hero-copy">
       <div class="hero-trust-line">
         <span class="trust-dot" aria-hidden="true"></span>
-        <span>Sydney &amp; Melbourne • 100% Client IP Ownership • 24h Response SLA</span>
+        <span>Sydney &amp; Melbourne • 100% Client Ownership • 24h Response SLA</span>
       </div>
 
       <h1 class="hero-title" id="hero-heading">
@@ -21,7 +18,7 @@
       </h1>
 
       <p class="hero-sub">
-        Your website shouldn’t merely look impressive—it must convert high-intent visitors into qualified revenue. We unite bespoke UI/UX design, Rust-speed engineering, and Google Ads conversion architecture for ambitious brands.
+        Your website shouldn’t merely look impressive—it must turn clicks into booked calls and online sales. We unite modern luxury design, instant page speed, and high-converting Google Ads funnels for ambitious brands.
       </p>
 
       <div class="hero-action-row">
@@ -36,67 +33,15 @@
       </div>
 
       <div class="hero-sub-links">
-        <a href="#projects" class="text-action">Explore Live Productions →</a>
+        <a href="#projects" class="text-action">Explore Live Projects →</a>
       </div>
     </div>
 
-    <!-- Right Column: Interactive 4D/5D Kintsugi DNA + Real Live Sites Reel -->
+    <!-- Right Column: Live Laptop + iPhone Device Showcase -->
     <div class="hero-visual">
-      {#if activeMode === 'dna'}
-        <div class="floating-3d-wrap">
-          <HeroSculpture3D />
-        </div>
-      {:else}
-        <div class="floating-media-wrap">
-          <video
-            src="/videos/hero-showreel.mp4"
-            poster="/media/mockup-anchialo.webp"
-            autoplay
-            loop
-            muted
-            playsinline
-          ></video>
-          <button
-            type="button"
-            class="expand-link"
-            onclick={() => (reelModalOpen = true)}
-          >
-            ▶ Fullscreen Reel
-          </button>
-        </div>
-      {/if}
-
-      <div class="mode-switcher" role="tablist" aria-label="Interactive hero showcase modes">
-        <button
-          type="button"
-          role="tab"
-          aria-selected={activeMode === 'dna'}
-          class:active={activeMode === 'dna'}
-          onclick={() => (activeMode = 'dna')}
-        >
-          Interactive 4D/5D DNA
-        </button>
-        <button
-          type="button"
-          role="tab"
-          aria-selected={activeMode === 'reel'}
-          class:active={activeMode === 'reel'}
-          onclick={() => (activeMode = 'reel')}
-        >
-          Live Sites Reel
-        </button>
-      </div>
+      <HeroDeviceShowcase />
     </div>
   </div>
-
-  {#if reelModalOpen}
-    <div class="reel-modal" role="dialog" aria-modal="true" aria-label="Digital World AU Live Sites Showreel">
-      <div class="reel-modal__inner">
-        <button type="button" class="reel-modal__close" onclick={() => (reelModalOpen = false)} aria-label="Close showreel">×</button>
-        <video src="/videos/hero-showreel.mp4" poster="/media/mockup-anchialo.webp" controls autoplay loop playsinline></video>
-      </div>
-    </div>
-  {/if}
 </section>
 
 <style lang="scss">
@@ -104,7 +49,7 @@
   @use '../styles/mixins' as *;
 
   .hero {
-    padding-block: clamp(2.8rem, 6vw, 5.2rem) clamp(3.5rem, 6vw, 5.5rem);
+    padding-block: clamp(2.6rem, 5.5vw, 4.8rem) clamp(3.4rem, 6vw, 5.2rem);
     position: relative;
     overflow: hidden;
   }
@@ -115,8 +60,8 @@
     align-items: center;
 
     @include respond-up(lg) {
-      grid-template-columns: 0.96fr 1.04fr;
-      gap: 2rem;
+      grid-template-columns: 0.94fr 1.06fr;
+      gap: 2.25rem;
     }
   }
 
@@ -151,7 +96,7 @@
 
   .hero-sub {
     font-size: clamp(0.98rem, 1.32vw, 1.1rem);
-    color: rgba(255, 255, 255, 0.74);
+    color: rgba(255, 255, 255, 0.76);
     margin: 0 0 2.25rem;
     max-width: 50ch;
     line-height: 1.65;
@@ -231,123 +176,5 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  .floating-3d-wrap {
-    width: 100%;
-    max-width: 680px;
-  }
-
-  .floating-media-wrap {
-    width: 100%;
-    max-width: 640px;
-    position: relative;
-    border-radius: $radius-lg;
-    overflow: hidden;
-    -webkit-mask-image: radial-gradient(ellipse 88% 88% at 50% 50%, #000 72%, transparent 100%);
-    mask-image: radial-gradient(ellipse 88% 88% at 50% 50%, #000 72%, transparent 100%);
-
-    video {
-      width: 100%;
-      aspect-ratio: 16 / 11;
-      object-fit: cover;
-    }
-  }
-
-  .expand-link {
-    position: absolute;
-    bottom: 1.25rem;
-    right: 1.45rem;
-    background: rgba(2, 3, 8, 0.75);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    color: #ffffff;
-    border-radius: $radius-pill;
-    padding: 0.4rem 0.9rem;
-    font-size: 0.76rem;
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  .mode-switcher {
-    margin-top: 0.7rem;
-    display: inline-flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-
-    button {
-      background: transparent;
-      border: none;
-      padding: 0.3rem 0;
-      font-family: $font-mono;
-      font-size: 0.76rem;
-      letter-spacing: 0.04em;
-      color: rgba(255, 255, 255, 0.48);
-      cursor: pointer;
-      position: relative;
-      transition: color $transition-fast;
-
-      &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 2px;
-        background: linear-gradient(90deg, #016ad4, #00f5a0);
-        transform: scaleX(0);
-        transition: transform $transition-fast;
-      }
-
-      &:hover,
-      &.active {
-        color: #ffffff;
-      }
-
-      &.active::after {
-        transform: scaleX(1);
-      }
-    }
-  }
-
-  .reel-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 120;
-    background: rgba(2, 3, 8, 0.92);
-    backdrop-filter: blur(14px);
-    display: grid;
-    place-items: center;
-    padding: 1.25rem;
-
-    &__inner {
-      position: relative;
-      width: min(1040px, 100%);
-      border-radius: $radius-lg;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      background: #000;
-
-      video {
-        width: 100%;
-        height: auto;
-      }
-    }
-
-    &__close {
-      position: absolute;
-      top: 0.85rem;
-      right: 0.85rem;
-      z-index: 5;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      background: rgba(6, 7, 13, 0.8);
-      color: #fff;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
   }
 </style>

@@ -1,20 +1,36 @@
 <script lang="ts">
   import BrandLogo from './BrandLogo.svelte';
   import { MEGA_MENU } from '../data/agencyData';
-  import { currencyStore } from '../lib/currency.svelte';
+  import { currencyStore, CURRENCY_EVENT, type CurrencyCode } from '../lib/currency.svelte';
 
   let megaOpen = $state(false);
   let mobileOpen = $state(false);
   let scrolled = $state(false);
+  let activeCurrency = $state<CurrencyCode>(currencyStore.code);
 
   $effect(() => {
     const onScroll = () => {
       scrolled = window.scrollY > 24;
     };
+    const onCurrencyChange = (ev: Event) => {
+      const next = (ev as CustomEvent<CurrencyCode>).detail;
+      if (next === 'AUD' || next === 'EUR') {
+        activeCurrency = next;
+      }
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener(CURRENCY_EVENT, onCurrencyChange);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener(CURRENCY_EVENT, onCurrencyChange);
+    };
   });
+
+  function switchCurrency() {
+    currencyStore.toggle();
+    activeCurrency = currencyStore.code;
+  }
 
   function closeAll() {
     megaOpen = false;
@@ -95,13 +111,13 @@
       <button
         type="button"
         class="currency-text"
-        onclick={() => currencyStore.toggle()}
+        onclick={switchCurrency}
         aria-label="Toggle display currency between AUD and EUR"
-        title="Switch currency display (AUD / EUR)"
+        title="Switch currency across pricing & quote form (AUD / EUR)"
       >
-        <span class:active={currencyStore.code === 'AUD'}>AUD</span>
+        <span class:active={activeCurrency === 'AUD'}>AUD</span>
         <span class="sep">/</span>
-        <span class:active={currencyStore.code === 'EUR'}>EUR</span>
+        <span class:active={activeCurrency === 'EUR'}>EUR</span>
       </button>
 
       <a href="/#contact" class="cobalt-quote-cta">
@@ -317,17 +333,30 @@
   .currency-text {
     display: inline-flex;
     align-items: center;
-    gap: 0.3rem;
-    background: transparent;
-    border: none;
-    padding: 0.25rem;
+    gap: 0.28rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: $radius-pill;
+    padding: 0.34rem 0.68rem;
     font-family: $font-mono;
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.74rem;
+    color: rgba(255, 255, 255, 0.55);
     cursor: pointer;
+    transition: border-color $transition-fast, background $transition-fast;
+
+    &:hover {
+      border-color: rgba(0, 245, 160, 0.52);
+    }
+
+    span:not(.sep) {
+      padding: 0.08rem 0.34rem;
+      border-radius: $radius-pill;
+      transition: background $transition-fast, color $transition-fast;
+    }
 
     .active {
-      color: #ffffff;
+      background: rgba(1, 106, 212, 0.45);
+      color: $accent-emerald;
       font-weight: 700;
     }
 

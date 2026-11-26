@@ -14,25 +14,31 @@
       <span class="eyebrow">Founder Spotlight</span>
       <div class="founder-card__portrait">
         <img
-          src="/media/aeterna-dna-studio.webp"
-          alt="Dimitar Prodromov — AETERNA & Digital World AU Studio Architecture"
+          src="/media/founder-portrait.webp"
+          alt="Dimitar Prodromov — Founder & Principal Architect, Digital World AU"
           loading="lazy"
         />
         <span class="founder-badge">Sydney • Melbourne • Sofia</span>
       </div>
       <blockquote>
-        “A website shouldn’t be a passive digital brochure—it should be your hardest-working revenue engineer. We pair Awwwards-level visual craft with relentless Rust, Astro, and WebGL2 engineering speed so every interaction earns verifiable trust.”
+        “A website shouldn’t be a passive online brochure—it should be your hardest-working salesperson. We pair unmistakable modern design with instant speed and clear conversion paths so more visitors turn into paying customers.”
       </blockquote>
       <div class="founder-card__footer">
         <div class="founder-card__meta">
           <strong>Dimitar Prodromov</strong>
-          <span>Founder &amp; Principal Systems Architect, Digital World AU</span>
+          <span>Founder &amp; Lead Architect, Digital World AU</span>
           <div class="founder-links">
             <a href="https://aeterna.website" target="_blank" rel="noopener">aeterna.website ↗</a>
             <a href="https://github.com/papica777-eng" target="_blank" rel="noopener">GitHub ↗</a>
             <a href="https://orcid.org/0009-0004-8070-1348" target="_blank" rel="noopener">ORCID ↗</a>
           </div>
         </div>
+        <img
+          src="/media/dimitar-signature.png"
+          alt="Dimitar Prodromov signature"
+          class="founder-signature"
+          loading="lazy"
+        />
       </div>
     </aside>
 
@@ -95,6 +101,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center top;
       }
     }
 
@@ -145,6 +152,14 @@
         border-bottom-color: $accent-emerald;
       }
     }
+  }
+
+  .founder-signature {
+    height: 38px;
+    width: auto;
+    filter: invert(1) brightness(1.85);
+    opacity: 0.86;
+    flex-shrink: 0;
   }
 
   .founder-badge {

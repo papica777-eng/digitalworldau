@@ -1,6 +1,6 @@
 <script lang="ts">
   import { BUDGET_TIERS } from '../data/agencyData';
-  import { currencyStore } from '../lib/currency.svelte';
+  import { currencyStore, CURRENCY_EVENT, type CurrencyCode } from '../lib/currency.svelte';
   import { generateInquiryRef, validateBriefAttachment } from '../lib/wasm';
 
   const SCOPE_OPTIONS = [
@@ -12,6 +12,7 @@
   ];
 
   let selectedScopes = $state<string[]>(['UI/UX & Web Design']);
+  let activeCurrency = $state<CurrencyCode>(currencyStore.code);
   let name = $state('');
   let email = $state('');
   let phone = $state('');
@@ -48,6 +49,15 @@
   }
 
   $effect(() => {
+    activeCurrency = currencyStore.code;
+    const onCurrencyChange = (ev: Event) => {
+      const next = (ev as CustomEvent<CurrencyCode>).detail;
+      if (next === 'AUD' || next === 'EUR') {
+        activeCurrency = next;
+      }
+    };
+    window.addEventListener(CURRENCY_EVENT, onCurrencyChange);
+
     const onDocumentClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
       if (!target) return;
@@ -58,7 +68,7 @@
           selectedScopes = ['Free 48-Hour Website Audit', ...selectedScopes];
         }
         if (!message.trim()) {
-          message = 'Requesting the Free 48-Hour Expert Website Audit (UX, Technical Core Web Vitals & SEO).';
+          message = 'Requesting the Free 48-Hour Expert Website Audit (UX, Mobile Speed & SEO).';
         }
         return;
       }
@@ -73,7 +83,10 @@
     };
 
     document.addEventListener('click', onDocumentClick);
-    return () => document.removeEventListener('click', onDocumentClick);
+    return () => {
+      window.removeEventListener(CURRENCY_EVENT, onCurrencyChange);
+      document.removeEventListener('click', onDocumentClick);
+    };
   });
 
   async function processFile(file: File | undefined) {
@@ -127,7 +140,7 @@
       const w = window as unknown as { gtag?: (...args: unknown[]) => void };
       if (typeof w.gtag === 'function') {
         w.gtag('event', 'generate_lead', {
-          currency: currencyStore.code,
+          currency: activeCurrency,
           event_label: selectedScopes.join(', '),
         });
       }
@@ -222,10 +235,10 @@
                 <input type="tel" placeholder="+61 400 000 000" bind:value={phone} />
               </label>
               <label class="field">
-                <span>Estimated Budget ({currencyStore.code})</span>
+                <span>Estimated Budget ({activeCurrency})</span>
                 <select id="budget-select" bind:value={budgetIndex}>
                   {#each BUDGET_TIERS as _, idx}
-                    <option value={idx}>{currencyStore.getTierLabel(idx)}</option>
+                    <option value={idx}>{currencyStore.getTierLabelFor(idx, activeCurrency)}</option>
                   {/each}
                 </select>
               </label>
@@ -259,7 +272,7 @@
               <label for="brief-upload">
                 {#if attachmentName}
                   <strong class="ok">✓ Verified {attachmentKind}: {attachmentName}</strong>
-                  <span>Checked locally via Rust/WebAssembly magic-byte inspector.</span>
+                  <span>Checked privately inside your browser for security.</span>
                 {:else}
                   <strong>Attach Project Brief, RFP or Wireframes</strong>
                   <span>Drag &amp; drop or browse — .pdf, .doc, .png, .jpg up to 10MB</span>
