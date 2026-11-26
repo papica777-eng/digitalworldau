@@ -39,43 +39,6 @@
         {/each}
       </div>
     </div>
-
-    <!-- Prominent Live Australian Flagship Spotlight Banner for anchialo.com & cptmma.com -->
-    <div class="flagship-spotlight-grid" data-reveal>
-      <a href="https://anchialo.com" target="_blank" rel="noopener" class="flagship-banner" data-glow-card>
-        <div class="flagship-banner__media">
-          <img src="/media/mockup-anchialo.webp" alt="ANCHIALO Australia — anchialo.com" loading="lazy" />
-          <span class="live-pill">● LIVE IN AUSTRALIA</span>
-        </div>
-        <div class="flagship-banner__body">
-          <div class="flagship-banner__top">
-            <span class="tag">Official D2C Store • Melbourne Dispatch</span>
-            <span class="visit-cta">Visit anchialo.com ↗</span>
-          </div>
-          <h3>ANCHIALO Australia — Magnesium Gel &amp; Oil (253 g/L MgCl₂)</h3>
-          <p>
-            Five signature Lake Pomorie botanical formulations for rapid muscle recovery, joint mobility, and evening relaxation. Dispatched directly from Melbourne ($49 AUD).
-          </p>
-        </div>
-      </a>
-
-      <a href="https://cptmma.com" target="_blank" rel="noopener" class="flagship-banner" data-glow-card>
-        <div class="flagship-banner__media">
-          <img src="/media/mockup-cptmma.webp" alt="CPT MMA Melbourne — cptmma.com" loading="lazy" />
-          <span class="live-pill">● LIVE IN MELBOURNE</span>
-        </div>
-        <div class="flagship-banner__body">
-          <div class="flagship-banner__top">
-            <span class="tag">Combat Sports Academy • Melbourne VIC</span>
-            <span class="visit-cta">Visit cptmma.com ↗</span>
-          </div>
-          <h3>CPT MMA Melbourne — Sotir Kichukov (ONE Championship Vet)</h3>
-          <p>
-            Elite MMA, K1 kickboxing, wrestling &amp; submission coaching in Melbourne. Small-group intake by application and 1-on-1 fight protocols.
-          </p>
-        </div>
-      </a>
-    </div>
   </div>
 
   <!-- Dual-Row Counter-Scrolling Mockup Wall -->
