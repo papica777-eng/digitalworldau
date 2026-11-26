@@ -16,6 +16,7 @@
   let lightboxItem = $state<PortfolioItem | null>(null);
   let activeSlideIdx = $state(0);
   let slidePaused = $state(false);
+  let deckStageEl: HTMLDivElement | undefined = $state();
   let currentSlide = $derived(ANCHIALO_SHOWCASE_SLIDES[activeSlideIdx]);
 
   function prevSlide() {
@@ -35,7 +36,30 @@
     }, 7500);
     return () => clearInterval(timer);
   });
+
+  $effect(() => {
+    const idx = activeSlideIdx;
+    if (!deckStageEl) return;
+    const slides = deckStageEl.querySelectorAll('.deck-slide');
+    slides.forEach((slideEl, sIdx) => {
+      const vid = slideEl.querySelector('video');
+      if (!vid) return;
+      if (sIdx === idx) {
+        vid.play().catch(() => {});
+      } else {
+        vid.pause();
+      }
+    });
+  });
 </script>
+
+<svelte:window
+  onkeydown={(e) => {
+    if (e.key === 'Escape' && lightboxItem) {
+      lightboxItem = null;
+    }
+  }}
+/>
 
 <section class="section portfolio-section" id="projects" aria-labelledby="projects-heading">
   <div class="container" data-reveal>
@@ -47,11 +71,11 @@
     </div>
   </div>
 
-  <!-- Full-bleed Edge-to-Edge Dual-Row Infinite Video Marquee -->
+  <!-- Full-bleed Edge-to-Edge Dual-Row Synchronized Showcase Wall (1x unique render per item) -->
   <div class="marquee-viewport" aria-label="Selected live client website tours and showcases">
     <div class="marquee-row">
       <div class="marquee-track marquee-track--left">
-        {#each [...rowOne, ...rowOne] as project, idx (`r1-${project.id}-${idx}`)}
+        {#each rowOne as project (project.id)}
           <button
             type="button"
             class="marquee-card"
@@ -89,7 +113,7 @@
 
     <div class="marquee-row">
       <div class="marquee-track marquee-track--right">
-        {#each [...rowTwo, ...rowTwo] as project, idx (`r2-${project.id}-${idx}`)}
+        {#each rowTwo as project (project.id)}
           <button
             type="button"
             class="marquee-card"
@@ -186,7 +210,14 @@
           <div class="white-footer">
             <div class="white-author">
               {#if featuredStudy.avatar}
-                <img src={featuredStudy.avatar} alt={featuredStudy.author} loading="lazy" />
+                <img
+                  src={featuredStudy.avatar}
+                  alt={`${featuredStudy.client} brand mark`}
+                  class="brand-badge-img"
+                  loading="lazy"
+                />
+              {:else}
+                <span class="monogram-avatar" aria-hidden="true">{featuredStudy.monogram}</span>
               {/if}
               <div>
                 <strong>{featuredStudy.author}</strong>
@@ -227,7 +258,7 @@
             {/if}
           </div>
 
-          <div class="deck-stage" class:is-doc={currentSlide.isDocument}>
+          <div class="deck-stage" class:is-doc={currentSlide.isDocument} bind:this={deckStageEl}>
             {#each ANCHIALO_SHOWCASE_SLIDES as slide, idx (slide.id)}
               <div
                 class="deck-slide"
@@ -239,11 +270,11 @@
                   <video
                     src={slide.video}
                     poster={slide.image}
-                    autoplay
+                    autoplay={idx === 0}
                     loop
                     muted
                     playsinline
-                    preload="metadata"
+                    preload={idx === 0 ? 'metadata' : 'none'}
                   ></video>
                 {:else}
                   <img src={slide.image} alt={slide.title} loading={idx === 0 ? 'eager' : 'lazy'} />
@@ -376,7 +407,19 @@
   </div>
 
   {#if lightboxItem}
-    <div class="lightbox" role="dialog" aria-modal="true" aria-label={lightboxItem.title}>
+    <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+    <div
+      class="lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label={lightboxItem.title}
+      onclick={(e) => {
+        if (e.target === e.currentTarget) lightboxItem = null;
+      }}
+      onkeydown={(e) => {
+        if (e.key === 'Escape') lightboxItem = null;
+      }}
+    >
       <div class="lightbox__card">
         <button type="button" class="lightbox__close" onclick={() => (lightboxItem = null)} aria-label="Close preview">×</button>
         <div class="lightbox__media" class:is-doc={lightboxItem.isDocument}>
@@ -447,13 +490,13 @@
       transform: translate3d(0, 0, 0);
     }
     100% {
-      transform: translate3d(-50%, 0, 0);
+      transform: translate3d(calc(-100% + 100vw), 0, 0);
     }
   }
 
   @keyframes marqueeRight {
     0% {
-      transform: translate3d(-50%, 0, 0);
+      transform: translate3d(calc(-100% + 100vw), 0, 0);
     }
     100% {
       transform: translate3d(0, 0, 0);
@@ -532,6 +575,8 @@
   .marquee-track {
     display: flex;
     width: max-content;
+    min-width: 100vw;
+    padding-inline: 1.25rem;
     gap: 1.25rem;
     will-change: transform;
     transform: translate3d(0, 0, 0);
@@ -540,11 +585,21 @@
     contain: layout style paint;
 
     &--left {
-      animation: marqueeLeft 58s linear infinite;
+      animation: marqueeLeft 52s ease-in-out infinite alternate;
     }
 
     &--right {
-      animation: marqueeRight 58s linear infinite;
+      animation: marqueeRight 52s ease-in-out infinite alternate;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-row {
+      overflow-x: auto;
     }
   }
 
@@ -779,8 +834,10 @@
     img {
       width: 44px;
       height: 44px;
-      border-radius: 50%;
-      object-fit: cover;
+      border-radius: 12px;
+      object-fit: contain;
+      padding: 5px;
+      background: #0d111a;
       border: 1px solid rgba(13, 13, 13, 0.14);
     }
 
@@ -1157,9 +1214,11 @@
     img {
       width: 44px;
       height: 44px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 12px;
+      object-fit: contain;
+      padding: 5px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.18);
     }
 
     strong {

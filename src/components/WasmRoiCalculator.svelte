@@ -6,25 +6,26 @@
   let monthlyVisitors = $state(25000);
   let currentConvPct = $state(1.4);
   let convLiftPct = $state(1.1);
-  let aovEur = $state(240);
-
-  let baselineRevCents = $state(0);
-  let projectedRevCents = $state(0);
-  let legacyScore = $state(44);
-  let modernScore = $state(100);
+  let aovAmount = $state(400);
 
   const EUR_TO_AUD_RATE = 1.65;
+
+  function computeRoiCentsSync(visitors: number, convBps: number, aovCents: number): number {
+    if (visitors <= 0 || convBps <= 0 || aovCents <= 0) return 0;
+    return Math.floor((visitors * convBps * aovCents + 5000) / 10000);
+  }
+
+  let baselineRevCents = $state(computeRoiCentsSync(25000, 140, 40000));
+  let projectedRevCents = $state(computeRoiCentsSync(25000, 250, 40000));
+  let legacyScore = $state(35);
+  let modernScore = $state(100);
 
   function formatMoney(cents: number, currency: CurrencyCode): string {
     const val = Math.round(cents / 100);
     return currency === 'AUD' ? `A$${val.toLocaleString('en-AU')}` : `€${val.toLocaleString('en-IE')}`;
   }
 
-  let displayAovCents = $derived(
-    activeCurrency === 'AUD'
-      ? Math.round(aovEur * 100 * EUR_TO_AUD_RATE)
-      : Math.round(aovEur * 100)
-  );
+  let displayAovCents = $derived(Math.round(aovAmount * 100));
 
   let monthlyLiftCents = $derived(Math.max(0, projectedRevCents - baselineRevCents));
   let annualLiftCents = $derived(monthlyLiftCents * 12);
@@ -33,7 +34,9 @@
     activeCurrency = currencyStore.code;
     const onCurrencyChange = (ev: Event) => {
       const next = (ev as CustomEvent<CurrencyCode>).detail;
-      if (next === 'AUD' || next === 'EUR') {
+      if ((next === 'AUD' || next === 'EUR') && next !== activeCurrency) {
+        const converted = next === 'EUR' ? aovAmount / EUR_TO_AUD_RATE : aovAmount * EUR_TO_AUD_RATE;
+        aovAmount = Math.max(100, Math.min(3000, Math.round(converted / 25) * 25));
         activeCurrency = next;
       }
     };
@@ -48,6 +51,9 @@
     const baseBps = Math.round(currentConvPct * 100);
     const nextBps = Math.round((currentConvPct + convLiftPct) * 100);
     const aov = displayAovCents;
+
+    baselineRevCents = computeRoiCentsSync(vis, baseBps, aov);
+    projectedRevCents = computeRoiCentsSync(vis, nextBps, aov);
 
     let cancelled = false;
     void (async () => {
@@ -128,12 +134,12 @@
             min="100"
             max="3000"
             step="25"
-            bind:value={aovEur}
+            bind:value={aovAmount}
           />
           <div class="slider-scale">
-            <span>{formatMoney(activeCurrency === 'AUD' ? 16500 : 10000, activeCurrency)}</span>
-            <span>{formatMoney(activeCurrency === 'AUD' ? 247500 : 150000, activeCurrency)}</span>
-            <span>{formatMoney(activeCurrency === 'AUD' ? 495000 : 300000, activeCurrency)}</span>
+            <span>{formatMoney(10000, activeCurrency)}</span>
+            <span>{formatMoney(150000, activeCurrency)}</span>
+            <span>{formatMoney(300000, activeCurrency)}</span>
           </div>
         </div>
       </div>

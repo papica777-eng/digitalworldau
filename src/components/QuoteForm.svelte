@@ -28,6 +28,9 @@
 
   let formError = $state('');
   let submittedRef = $state('');
+  let submittedMailto = $state('');
+  let submittedWhatsAppAu = $state('');
+  let submittedWhatsAppEu = $state('');
   let submitting = $state(false);
 
   function toggleScope(scope: string) {
@@ -137,11 +140,34 @@
       const refCode = await generateInquiryRef(name.trim(), email.trim(), budgetIndex + 1);
       submittedRef = refCode;
 
+      const scopesText = selectedScopes.join(', ') || 'Custom Scope';
+      const budgetText = currencyStore.getTierLabelFor(budgetIndex, activeCurrency);
+      const summaryLines = [
+        `Reference: ${refCode}`,
+        `Name: ${name.trim()}`,
+        `Work Email: ${email.trim()}`,
+        `Phone: ${phone.trim() || 'Not provided'}`,
+        `Selected Services: ${scopesText}`,
+        `Estimated Budget (${activeCurrency}): ${budgetText}`,
+        `Attachment Verified: ${attachmentName || 'None'}`,
+        '',
+        'Project Overview:',
+        message.trim() || '(No additional notes)',
+      ];
+      const summaryBody = summaryLines.join('\n');
+      submittedMailto = `mailto:hello@digitalworldau.com?subject=${encodeURIComponent(`[${refCode}] Project Inquiry — ${name.trim()}`)}&body=${encodeURIComponent(summaryBody)}`;
+      submittedWhatsAppAu = `https://wa.me/61423269586?text=${encodeURIComponent(summaryBody)}`;
+      submittedWhatsAppEu = `https://wa.me/359896849882?text=${encodeURIComponent(summaryBody)}`;
+
+      if (typeof window !== 'undefined') {
+        window.location.href = submittedMailto;
+      }
+
       const w = window as unknown as { gtag?: (...args: unknown[]) => void };
       if (typeof w.gtag === 'function') {
         w.gtag('event', 'generate_lead', {
           currency: activeCurrency,
-          event_label: selectedScopes.join(', '),
+          event_label: scopesText,
         });
       }
     } finally {
@@ -156,7 +182,7 @@
       <span class="eyebrow">Start a Conversation</span>
       <h2 class="section-title" id="contact-heading">Book a Call or Request a Tailored Proposal.</h2>
       <p class="section-lead">
-        Share your goals, timeline, and optional brief. Our Sydney and Melbourne leads respond within 1 business day with a structured scope—or your complimentary 48-hour expert website audit.
+        Share your goals, timeline, and optional brief. Our Melbourne, Sydney, and Bulgaria (EU) engineering leads respond within 1 business day with a structured scope—or your complimentary 48-hour expert website audit.
       </p>
 
       <div class="contact-cards">
@@ -170,12 +196,18 @@
           </button>
         </div>
         <div class="info-pill">
-          <span>Australian Flagship</span>
-          <strong>Level 14, 275 George St, Sydney NSW 2000</strong>
+          <span>Australia Hub (Melbourne &amp; Sydney)</span>
+          <a href="tel:+61423269586">+61 423 269 586</a>
+          <small>60 Charter St, Ringwood, Melbourne VIC 3134 &amp; Sydney NSW</small>
+        </div>
+        <div class="info-pill">
+          <span>Europe &amp; Bulgaria HQ (EU)</span>
+          <a href="tel:+359896849882">+359 896 849 882</a>
+          <small>6 Trapezitsa St, 8200 Pomorie (Burgas) &amp; Sofia, Bulgaria</small>
         </div>
         <div class="info-pill">
           <span>Guaranteed Turnaround</span>
-          <strong>Under 24 Hours (AEST / CET / EST)</strong>
+          <strong>Under 24 Hours (AEST / EET / CET)</strong>
         </div>
       </div>
     </div>
@@ -187,8 +219,19 @@
             <span class="pill-badge">Brief Verified &amp; Logged</span>
             <h3>Thank you, {name}.</h3>
             <p>
-              Your inquiry ({selectedScopes.join(', ') || 'Custom Scope'}) has been registered under deterministic reference <code class="ref-code">{submittedRef}</code>. Our senior strategist will email <strong>{email}</strong> within one business day.
+              Your inquiry ({selectedScopes.join(', ') || 'Custom Scope'}) has been registered under deterministic reference <code class="ref-code">{submittedRef}</code>. Send directly via email or WhatsApp below—our senior strategist will reply to <strong>{email}</strong> within one business day.
             </p>
+            <div class="success-actions">
+              <a href={submittedMailto} class="btn btn-primary">
+                Open in Email App ↗
+              </a>
+              <a href={submittedWhatsAppAu} target="_blank" rel="noopener" class="btn btn-ghost">
+                WhatsApp Australia (+61) ↗
+              </a>
+              <a href={submittedWhatsAppEu} target="_blank" rel="noopener" class="btn btn-ghost">
+                WhatsApp Europe (+359) ↗
+              </a>
+            </div>
             <button
               type="button"
               class="btn btn-ghost"
@@ -350,8 +393,16 @@
 
     a,
     strong {
+      display: block;
       font-size: 0.98rem;
       color: $text-primary;
+    }
+
+    small {
+      display: block;
+      margin-top: 0.2rem;
+      font-size: 0.78rem;
+      color: $text-muted;
     }
   }
 
@@ -553,8 +604,16 @@
 
     p {
       color: $text-secondary;
-      margin: 0 0 1.5rem;
+      margin: 0 0 1.35rem;
     }
+  }
+
+  .success-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
   }
 
   .ref-code {

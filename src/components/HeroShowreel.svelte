@@ -6,9 +6,10 @@
       <div class="hero-trust-cluster">
         <div class="trust-top-row">
           <div class="avatar-stack" aria-hidden="true">
-            <img src="/media/founder-portrait.webp" alt="" />
-            <img src="/media/sotir-kichukov.webp" alt="" />
-            <img src="/media/anchialo-gel.webp" alt="" />
+            <span>AN</span>
+            <span>CP</span>
+            <span>IM</span>
+            <span>PG</span>
           </div>
           <span class="stars" aria-label="5 out of 5 stars">
             {#each [0, 1, 2, 3, 4] as _}
@@ -18,7 +19,7 @@
             {/each}
           </span>
         </div>
-        <span class="trust-caption">100 / 100 PageSpeed • Sydney &amp; Global Studio</span>
+        <span class="trust-caption">100 / 100 PageSpeed • Melbourne, Sydney &amp; EU Studio</span>
       </div>
 
       <h1 class="hero-title" id="hero-heading">
@@ -151,12 +152,20 @@
     display: inline-flex;
     align-items: center;
 
-    img {
+    span {
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      object-fit: cover;
-      border: 1.5px solid #000000;
+      display: grid;
+      place-items: center;
+      font-family: $font-mono;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #e0f2fe;
+      background: linear-gradient(135deg, rgba(1, 106, 212, 0.85), rgba(11, 15, 26, 0.96));
+      border: 1.5px solid rgba(132, 181, 230, 0.55);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.65);
       margin-left: -8px;
 
       &:first-child {

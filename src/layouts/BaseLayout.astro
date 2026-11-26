@@ -55,7 +55,7 @@ const graph: Record<string, unknown>[] = [
     image: ogImage,
     description,
     email: 'hello@digitalworldau.com',
-    telephone: '+61 2 8000 4190',
+    telephone: '+61 423 269 586',
     priceRange: 'A$3,300 – A$82,500',
     founder: {
       '@type': 'Person',
@@ -70,12 +70,54 @@ const graph: Record<string, unknown>[] = [
     },
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Level 14, 275 George Street',
-      addressLocality: 'Sydney',
-      addressRegion: 'NSW',
-      postalCode: '2000',
+      streetAddress: '60 Charter Street',
+      addressLocality: 'Ringwood, Melbourne',
+      addressRegion: 'VIC',
+      postalCode: '3134',
       addressCountry: 'AU',
     },
+    location: [
+      {
+        '@type': 'Place',
+        name: 'Digital World AU — Melbourne & Sydney Hub',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: '60 Charter Street',
+          addressLocality: 'Ringwood, Melbourne',
+          addressRegion: 'VIC',
+          postalCode: '3134',
+          addressCountry: 'AU',
+        },
+      },
+      {
+        '@type': 'Place',
+        name: 'Digital World AU — European Engineering HQ',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: '6 Trapezitsa Street',
+          addressLocality: 'Pomorie & Sofia',
+          addressRegion: 'Burgas',
+          postalCode: '8200',
+          addressCountry: 'BG',
+        },
+      },
+    ],
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        telephone: '+61 423 269 586',
+        contactType: 'sales',
+        areaServed: 'AU',
+        availableLanguage: ['English'],
+      },
+      {
+        '@type': 'ContactPoint',
+        telephone: '+359 896 849 882',
+        contactType: 'technical support',
+        areaServed: ['BG', 'EU'],
+        availableLanguage: ['English', 'Bulgarian'],
+      },
+    ],
     areaServed: ['Australia', 'Europe', 'United States', 'Canada'],
     sameAs: [
       'https://github.com/papica777-eng/digitalworldau',
@@ -106,7 +148,7 @@ const graph: Record<string, unknown>[] = [
     url: 'https://digitalworldau.com/',
     name: 'Digital World AU',
     inLanguage: 'en-AU',
-    dateModified: '2026-11-26',
+    dateModified: '2026-11-27',
     publisher: {
       '@id': 'https://digitalworldau.com/#organization',
     },

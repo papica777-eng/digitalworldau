@@ -18,7 +18,7 @@
           alt="Dimitar Prodromov — Founder & Principal Architect, Digital World AU"
           loading="lazy"
         />
-        <span class="founder-badge">Sydney • Melbourne • Sofia</span>
+        <span class="founder-badge">Melbourne • Sydney • Sofia &amp; Burgas</span>
       </div>
       <blockquote>
         “A website shouldn’t be a passive online brochure—it should be your hardest-working salesperson. We pair unmistakable modern design with instant speed and clear conversion paths so more visitors turn into paying customers.”

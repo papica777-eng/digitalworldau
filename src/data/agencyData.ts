@@ -133,7 +133,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: 'Corporate Website',
     metric: 'Melbourne #1 BJJ & Muay Thai',
     region: 'Ringwood, VIC, Australia',
-    image: '/media/showcase/immersion-lee.webp',
+    image: '/media/showcase/immersion-ringwood-hero.webp',
     stack: ['High-Performance Mats', 'Championship Roster', 'Mobile Intake'],
     summary:
       'High-converting flagship platform for Melbourne’s elite martial arts and BJJ training facility led by Head Coach Lee in Ringwood.',
@@ -356,7 +356,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: 'Corporate Website',
     metric: 'Olympic Mats • Fight Team',
     region: 'Melbourne, Australia',
-    image: '/media/anchialo/mma-slide-1.webp',
+    image: '/media/showcase/immersion-team-mats.webp',
     stack: ['Elite Facilities', 'Fighter Conditioning', 'Class Schedule'],
     summary:
       'High-performance martial arts facility showcase featuring Olympic tatami mats, cage enclosures, and structured adult and junior coaching schedules.',
@@ -408,7 +408,7 @@ export const CASE_STUDIES = [
       'Engineered from scratch for speed and scientific credibility—showcasing five signature botanical formulations (253.14 g/L Magnesium Chloride & 70.36 g/L Magnesium Sulfate) dispatched directly from Melbourne for athletes and clinics.',
     author: 'ANCHIALO Australia',
     role: 'Official Australian Store — Melbourne, VIC',
-    avatar: '/media/anchialo-gel.webp',
+    avatar: '/media/brands/anchialo-logo.webp',
     monogram: 'AN',
     stats: [
       { label: 'MgCl₂ Formula', value: '253 g/L' },
@@ -428,7 +428,7 @@ export const CASE_STUDIES = [
       'Every frame carries the discipline of a real fight camp. The dark video architecture, clear training protocols, and streamlined application funnel keep our Melbourne small-group and 1-on-1 coaching rosters filled with committed athletes.',
     author: 'Sotir Kichukov',
     role: 'Head Coach & ONE Championship Veteran — CPT MMA Melbourne',
-    avatar: '/media/sotir-kichukov.webp',
+    avatar: '/media/brands/cpt-mark.webp',
     monogram: 'CP',
     stats: [
       { label: 'Head Coach', value: 'ONE Vet' },
@@ -446,9 +446,9 @@ export const CASE_STUDIES = [
     headline: 'Dual-Division Platform with an Interactive 10-Week K9 Progress Tracker & Client Portal',
     quote:
       'Built seamlessly inside the CPT Melbourne ecosystem—owners switch straight into CPT Canine Personal Training to follow a 10-week behavioral progression checklist, manual PDFs, and private application intake.',
-    author: 'Sotir Kichukov',
-    role: 'Founder & Head Handler — CPT Canine Melbourne',
-    avatar: '/media/sotir-kichukov.webp',
+    author: 'CPT Canine Division',
+    role: 'Behavioral & Obedience Division — Melbourne, VIC',
+    avatar: '/media/brands/canine-seal.webp',
     monogram: 'K9',
     stats: [
       { label: 'Tracker App', value: '10-Week K9' },
@@ -466,10 +466,10 @@ export const CASE_STUDIES = [
     headline: 'High-impact interactive flagship built for instant loading and visual authority',
     quote:
       'Combining bold dark-mode design, smooth interactive motion, and instant page speed proves how a premium digital platform commands attention on both mobile and desktop.',
-    author: 'Dimitar Prodromov',
-    role: 'Founder & Lead Architect — Digital World AU / AETERNA',
-    avatar: '/media/founder-portrait.webp',
-    monogram: 'DP',
+    author: 'AETERNA Technologies',
+    role: 'Flagship Engineering — Bulgaria & Australia',
+    avatar: '',
+    monogram: 'AE',
     stats: [
       { label: 'Page Speed', value: '100/100' },
       { label: 'Smooth Motion', value: '60 FPS' },
@@ -481,14 +481,14 @@ export const CASE_STUDIES = [
     client: 'Immersion Mixed Martial Arts (immersionmma.com.au)',
     liveUrl: 'https://immersionmma.com.au',
     liveDomain: 'immersionmma.com.au',
-    video: '/videos/tour-cpt-combat.mp4',
-    poster: '/media/showcase/immersion-lee.webp',
+    video: '',
+    poster: '/media/showcase/immersion-ringwood-hero.webp',
     headline: 'Melbourne’s #1 Rated BJJ, Muay Thai & MMA Academy led by Coach Lee',
     quote:
       'Built for instant mobile class discovery, direct coach trust, and frictionless trial bookings across BJJ, Muay Thai, and MMA programs in Melbourne.',
     author: 'Coach Lee',
     role: 'Head Coach & Founder — Immersion Mixed Martial Arts',
-    avatar: '/media/showcase/immersion-lee.webp',
+    avatar: '/media/brands/immersion-logo.webp',
     monogram: 'IM',
     stats: [
       { label: 'Academy Rating', value: 'Melbourne #1' },
@@ -508,7 +508,7 @@ export const CASE_STUDIES = [
       'Pairing real Geelong project transformations, Dulux specification boards, and instant quote funnels transformed organic searches into booked residential and commercial painting jobs.',
     author: 'Painters of Geelong',
     role: 'House & Commercial Painting — Geelong & Surf Coast, VIC',
-    avatar: '/media/showcase/geelong-apartment-hero.webp',
+    avatar: '',
     monogram: 'PG',
     stats: [
       { label: 'Service Region', value: 'Geelong & Surf Coast' },
@@ -526,14 +526,34 @@ export const CASE_STUDIES = [
     headline: 'Real-time WebGL2 & WebAssembly Interplanetary Planetarium & 4K Exoplanet Optical Showcase',
     quote:
       'Compiled ERFA astrometry in WebAssembly paired with 4K NASA EPIC Earth and TRAPPIST-1e orbital optical renders demonstrates scientific-grade browser engineering at 60 FPS.',
-    author: 'Dimitar Prodromov',
-    role: 'Lead Architect — ASTRO Cosmic Observatory & Stellarium Ultra',
-    avatar: '/media/founder-portrait.webp',
+    author: 'ASTRO Cosmic Observatory',
+    role: 'WebGL2 + ERFA Astrometry — Open Science Showcase',
+    avatar: '',
     monogram: 'AS',
     stats: [
       { label: 'Planet Renders', value: '4K Optical' },
       { label: 'Core Engine', value: 'WebGL2 + Wasm' },
       { label: 'Frame Rate', value: '60 FPS' },
+    ],
+  },
+  {
+    tag: 'Live European Open-Data Platform',
+    client: 'NAsvetlo Civic & Judicial Audit (nasvetlo.website)',
+    liveUrl: 'https://nasvetlo.website',
+    liveDomain: 'nasvetlo.website',
+    video: '',
+    poster: '/media/mockup-nasvetlo.png',
+    headline: '2.23M court records & €53.22B procurement cross-referenced in a sub-second force-directed graph',
+    quote:
+      'Engineered in Bulgaria for instant analytical clarity across 2,234,509 judicial acts, 180 courts, and 28 regional radar maps—proving how static Astro + WebAssembly architectures handle massive datasets effortlessly.',
+    author: 'NAsvetlo Open-Data Initiative',
+    role: 'Civic & Judicial Analytics — Sofia & Burgas, Bulgaria (EU)',
+    avatar: '',
+    monogram: 'NS',
+    stats: [
+      { label: 'Dataset Scale', value: '2.23M Rows' },
+      { label: 'Public Tenders', value: '€53.22B' },
+      { label: 'Query Speed', value: '< 50 ms' },
     ],
   },
 ];
@@ -679,17 +699,17 @@ export const TESTIMONIALS: ClientTestimonial[] = [
       'From Lake Pomorie wellness storytelling to effortless mobile checkout for our 253 g/L Magnesium Gel and Oil collection, anchialo.com delivers a seamless Australian shopping experience.',
   },
   {
-    name: 'Dimitar Prodromov',
-    role: 'Founder & Lead Architect',
-    company: 'Digital World AU / AETERNA',
-    country: 'Bulgaria & Australia',
-    avatar: '/media/founder-portrait.webp',
-    monogram: 'DP',
-    accent: '#e879f9',
-    liveUrl: 'https://aeterna.website',
-    liveDomain: 'aeterna.website',
+    name: 'Coach Lee',
+    role: 'Head Coach & Founder',
+    company: 'Immersion Mixed Martial Arts',
+    country: 'Australia',
+    avatar: '/media/showcase/immersion-lee.webp',
+    monogram: 'IM',
+    accent: '#38bdf8',
+    liveUrl: 'https://immersionmma.com.au',
+    liveDomain: 'immersionmma.com.au',
     quote:
-      'Every website and online store we launch is built around three business pillars: unmistakable modern design, instant mobile loading, and higher conversion rates from Google Ads and organic search.',
+      'Our Melbourne academy needed a platform that immediately communicates championship-level BJJ, Muay Thai, and MMA standards on mobile while making trial class bookings effortless for new students across Ringwood.',
   },
 ];
 

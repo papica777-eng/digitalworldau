@@ -5,6 +5,12 @@
   let showArchive = $state(false);
 </script>
 
+<svelte:window
+  onkeydown={(e) => {
+    if (e.key === 'Escape' && activePost) activePost = null;
+  }}
+/>
+
 <section class="section" id="blog" aria-labelledby="blog-heading">
   <div class="container">
     <div class="blog-head" data-reveal>
@@ -59,7 +65,19 @@
   </div>
 
   {#if activePost}
-    <div class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-article-title">
+    <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+    <div
+      class="modal-backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-article-title"
+      onclick={(e) => {
+        if (e.target === e.currentTarget) activePost = null;
+      }}
+      onkeydown={(e) => {
+        if (e.key === 'Escape') activePost = null;
+      }}
+    >
       <div class="modal-card">
         <button type="button" class="modal-close" aria-label="Close article" onclick={() => (activePost = null)}>×</button>
         <span class="tag">{activePost.tag} • {activePost.readTime}</span>

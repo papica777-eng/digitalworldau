@@ -14,10 +14,10 @@ import { SERVICES_BENTO } from '../data/agencyData';
 
     <div class="bento-services">
       {SERVICES_BENTO.map((service, idx) => (
-        <article class="service-card" data-glow-card data-reveal>
+        <article class="service-card" id={`service-${service.step}`} data-glow-card data-reveal>
           <div class="service-card__viz" aria-hidden="true">
             {idx === 0 && (
-              <svg viewBox="0 0 260 110" class="viz-svg">
+              <svg viewBox="0 0 260 110" class="viz-svg" aria-hidden="true" focusable="false">
                 <defs>
                   <linearGradient id="auditGrad" x1="0" y1="0" x2="1" y2="1">
                     <stop offset="0%" stop-color="#00f5a0"/>
@@ -26,7 +26,7 @@ import { SERVICES_BENTO } from '../data/agencyData';
                 </defs>
                 <circle cx="58" cy="55" r="38" stroke="rgba(255,255,255,0.08)" stroke-width="7" fill="none"/>
                 <circle cx="58" cy="55" r="38" stroke="url(#auditGrad)" stroke-width="7" stroke-dasharray="226 240" stroke-linecap="round" fill="none" transform="rotate(-90 58 55)"/>
-                <text x="58" y="61" text-anchor="middle" fill="#ffffff" font-family="Plus Jakarta Sans" font-weight="800" font-size="20">99</text>
+                <path d="M45 55.5 54 64.5 72 46.5" stroke="#00f5a0" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                 <rect x="116" y="24" width="124" height="14" rx="7" fill="rgba(255,255,255,0.06)"/>
                 <rect x="116" y="24" width="114" height="14" rx="7" fill="#00f5a0" opacity="0.85"/>
                 <rect x="116" y="48" width="124" height="14" rx="7" fill="rgba(255,255,255,0.06)"/>
@@ -36,7 +36,7 @@ import { SERVICES_BENTO } from '../data/agencyData';
               </svg>
             )}
             {idx === 1 && (
-              <svg viewBox="0 0 260 110" class="viz-svg">
+              <svg viewBox="0 0 260 110" class="viz-svg" aria-hidden="true" focusable="false">
                 <rect x="18" y="18" width="140" height="74" rx="12" fill="rgba(1,106,212,0.18)" stroke="rgba(132,181,230,0.35)"/>
                 <rect x="30" y="30" width="64" height="10" rx="5" fill="#ffffff" opacity="0.9"/>
                 <rect x="30" y="46" width="98" height="7" rx="3.5" fill="rgba(255,255,255,0.4)"/>
@@ -49,18 +49,19 @@ import { SERVICES_BENTO } from '../data/agencyData';
               </svg>
             )}
             {idx === 2 && (
-              <svg viewBox="0 0 260 110" class="viz-svg">
+              <svg viewBox="0 0 260 110" class="viz-svg" aria-hidden="true" focusable="false">
                 <rect x="14" y="16" width="232" height="78" rx="12" fill="rgba(5,9,22,0.45)" stroke="rgba(56,189,248,0.32)"/>
                 <circle cx="30" cy="30" r="3.5" fill="#fb7185"/>
                 <circle cx="42" cy="30" r="3.5" fill="#ffc200"/>
                 <circle cx="54" cy="30" r="3.5" fill="#00f5a0"/>
-                <text x="28" y="54" fill="#00f5a0" font-family="JetBrains Mono, monospace" font-size="10">✓ Mobile Speed Score: 100 / 100</text>
-                <text x="28" y="70" fill="#84b5e6" font-family="JetBrains Mono, monospace" font-size="10">✓ Page Load Time: 0.6 sec</text>
-                <text x="28" y="84" fill="#fcc1f4" font-family="JetBrains Mono, monospace" font-size="9.5">✓ Google Ads &amp; SSL Ready</text>
+                <rect x="28" y="46" width="136" height="8" rx="4" fill="#00f5a0" opacity="0.88"/>
+                <rect x="28" y="62" width="108" height="8" rx="4" fill="#84b5e6" opacity="0.82"/>
+                <rect x="28" y="76" width="122" height="8" rx="4" fill="#fcc1f4" opacity="0.82"/>
+                <path d="M204 42l-10 16h9l-4 15 14-18h-9l4-13Z" fill="#00f5a0" opacity="0.92"/>
               </svg>
             )}
             {idx === 3 && (
-              <svg viewBox="0 0 260 110" class="viz-svg">
+              <svg viewBox="0 0 260 110" class="viz-svg" aria-hidden="true" focusable="false">
                 <defs>
                   <linearGradient id="growthArea" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stop-color="#00f5a0" stop-opacity="0.42"/>
@@ -70,8 +71,8 @@ import { SERVICES_BENTO } from '../data/agencyData';
                 <path d="M18 88 C65 84, 95 62, 138 54 C178 46, 205 24, 242 18 L242 94 L18 94 Z" fill="url(#growthArea)"/>
                 <path d="M18 88 C65 84, 95 62, 138 54 C178 46, 205 24, 242 18" fill="none" stroke="#00f5a0" stroke-width="3" stroke-linecap="round"/>
                 <circle cx="242" cy="18" r="5" fill="#ffffff" stroke="#00f5a0" stroke-width="3"/>
-                <rect x="24" y="20" width="88" height="24" rx="12" fill="rgba(0,245,160,0.14)" stroke="rgba(0,245,160,0.4)"/>
-                <text x="68" y="36" text-anchor="middle" fill="#00f5a0" font-family="JetBrains Mono, monospace" font-weight="700" font-size="10.5">+260% ROI</text>
+                <rect x="24" y="18" width="64" height="28" rx="14" fill="rgba(0,245,160,0.14)" stroke="rgba(0,245,160,0.4)"/>
+                <path d="M38 36 47 27 53 33 65 21 M58 21h7v7" stroke="#00f5a0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
               </svg>
             )}
           </div>

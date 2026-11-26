@@ -4,43 +4,57 @@
     <title>Digital World AU — Web Design, E-Commerce &amp; Growth Feed</title>
     <link>https://digitalworldau.com/</link>
     <atom:link href="https://digitalworldau.com/feed.xml" rel="self" type="application/rss+xml" />
-    <description>Australian digital agency building fast websites, high-converting online stores, and Google Ads funnels for Sydney, Melbourne &amp; global brands.</description>
+    <description>Australian &amp; European digital agency building fast websites, high-converting online stores, and Google Ads funnels for Melbourne, Sydney, Sofia &amp; global brands.</description>
     <language>en-AU</language>
-    <lastBuildDate>Thu, 26 Nov 2026 08:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 27 Nov 2026 01:00:00 +0000</lastBuildDate>
     <item>
       <title>Free 48-Hour Expert Website Audit — UX, Mobile Speed &amp; Google SEO</title>
       <link>https://digitalworldau.com/#contact</link>
       <guid isPermaLink="false">digitalworldau-audit-48h</guid>
-      <pubDate>Thu, 26 Nov 2026 08:00:00 +0000</pubDate>
+      <pubDate>Fri, 27 Nov 2026 01:00:00 +0000</pubDate>
       <description>Complimentary conversion, mobile speed, and SEO diagnostic delivered as an actionable roadmap within 48 hours.</description>
     </item>
     <item>
       <title>ANCHIALO Australia (anchialo.com) — Magnesium Recovery D2C Store Launch</title>
       <link>https://digitalworldau.com/#projects</link>
       <guid isPermaLink="false">digitalworldau-case-anchialo</guid>
-      <pubDate>Thu, 26 Nov 2026 08:00:00 +0000</pubDate>
+      <pubDate>Fri, 27 Nov 2026 01:00:00 +0000</pubDate>
       <description>High-speed Australian online store for 253 g/L Lake Pomorie Magnesium Gel and Oil products dispatched from Melbourne.</description>
     </item>
     <item>
-      <title>CPT MMA Melbourne (cptmma.com) — Coaching &amp; Intake Platform</title>
+      <title>CPT MMA Melbourne &amp; K9 Portal (cptmma.com) — Dual-Division Platform</title>
       <link>https://digitalworldau.com/#projects</link>
       <guid isPermaLink="false">digitalworldau-case-cptmma</guid>
-      <pubDate>Thu, 26 Nov 2026 08:00:00 +0000</pubDate>
-      <description>Mobile-first martial arts and athletic coaching platform for ONE Championship veteran Sotir Kichukov with 0.78s mobile loading.</description>
+      <pubDate>Fri, 27 Nov 2026 01:00:00 +0000</pubDate>
+      <description>Mobile-first martial arts and 10-week K9 training platform for ONE Championship veteran Sotir Kichukov with 0.78s mobile loading.</description>
     </item>
     <item>
-      <title>AETERNA Platform (aeterna.website) — Interactive Digital Flagship</title>
+      <title>Immersion MMA Melbourne (immersionmma.com.au) — Coach Lee Academy</title>
       <link>https://digitalworldau.com/#projects</link>
-      <guid isPermaLink="false">digitalworldau-case-aeterna</guid>
-      <pubDate>Thu, 26 Nov 2026 08:00:00 +0000</pubDate>
-      <description>Interactive 60fps 3D web platform delivering instant global edge performance and 100/100 Google PageSpeed metrics.</description>
+      <guid isPermaLink="false">digitalworldau-case-immersion</guid>
+      <pubDate>Fri, 27 Nov 2026 01:00:00 +0000</pubDate>
+      <description>Melbourne's #1 rated BJJ, Muay Thai &amp; MMA academy flagship built for mobile class discovery and trial intake.</description>
     </item>
     <item>
-      <title>How to Build a High-Converting Website for Beauty Salons &amp; Medspas</title>
-      <link>https://digitalworldau.com/#blog</link>
-      <guid isPermaLink="false">digitalworldau-blog-beauty-salon</guid>
-      <pubDate>Thu, 26 Nov 2026 08:00:00 +0000</pubDate>
-      <description>Frictionless 3-tap mobile booking flows, treatment menu psychology, and local Australian Google Business SEO.</description>
+      <title>Painters of Geelong (paintersofgeelong.com.au) — Local SEO &amp; Commercial Finishes</title>
+      <link>https://digitalworldau.com/#projects</link>
+      <guid isPermaLink="false">digitalworldau-case-geelong</guid>
+      <pubDate>Fri, 27 Nov 2026 01:00:00 +0000</pubDate>
+      <description>High-converting residential &amp; commercial painting platform serving Geelong, Armstrong Creek, and Surf Coast.</description>
+    </item>
+    <item>
+      <title>ASTRO Cosmic Observatory — 4K WebGL2 &amp; WebAssembly Planetarium</title>
+      <link>https://digitalworldau.com/#projects</link>
+      <guid isPermaLink="false">digitalworldau-case-astro</guid>
+      <pubDate>Fri, 27 Nov 2026 01:00:00 +0000</pubDate>
+      <description>Compiled ERFA astrometry in WebAssembly paired with 4K TRAPPIST-1e and NASA EPIC Earth optical renders at 60 FPS.</description>
+    </item>
+    <item>
+      <title>NAsvetlo (nasvetlo.website) — 2.23M-Record European Civic &amp; Judicial Audit</title>
+      <link>https://digitalworldau.com/#projects</link>
+      <guid isPermaLink="false">digitalworldau-case-nasvetlo</guid>
+      <pubDate>Fri, 27 Nov 2026 01:00:00 +0000</pubDate>
+      <description>Big-data open governance portal cross-referencing 2,234,509 judicial acts and €53.22B procurement contracts in Bulgaria &amp; EU.</description>
     </item>
   </channel>
 </rss>

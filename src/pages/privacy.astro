@@ -1,12 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import AnnouncementBar from '../components/AnnouncementBar.astro';
 import HeaderNav from '../components/HeaderNav.svelte';
 import SiteFooter from '../components/SiteFooter.astro';
 ---
 
 <BaseLayout title="Privacy Policy & Cookie Notice — Digital World AU" canonical="https://digitalworldau.com/privacy/" pageType="legal">
-  <AnnouncementBar />
   <HeaderNav client:load />
   <main class="section">
     <div class="container legal-wrap">
@@ -26,7 +24,7 @@ import SiteFooter from '../components/SiteFooter.astro';
         <p>Uploaded project briefs (.pdf, .doc, .docx, .png, .jpg up to 10MB) are verified locally inside your browser using <code>agency_wasm.wasm</code> magic-byte inspection before submission.</p>
 
         <h2>4. Data Access, Erasure &amp; Contact</h2>
-        <p>We never sell or rent personal information. To request access, correction, or deletion of your inquiry data, email <a href="mailto:hello@digitalworldau.com">hello@digitalworldau.com</a> or write to Level 14, 275 George Street, Sydney NSW 2000, Australia.</p>
+        <p>We never sell or rent personal information. To request access, correction, or deletion of your inquiry data under Australian Privacy Principles or EU GDPR, email <a href="mailto:hello@digitalworldau.com">hello@digitalworldau.com</a>, call our Australian Desk (<a href="tel:+61423269586">+61 423 269 586</a>, 60 Charter Street, Ringwood, Melbourne VIC 3134, Australia) or our European Union GDPR Desk (<a href="tel:+359896849882">+359 896 849 882</a>, 6 Trapezitsa St, 8200 Pomorie, Burgas Region, Bulgaria, EU).</p>
 
         <a href="/" class="btn btn-ghost">← Return to Digital World AU</a>
       </div>
