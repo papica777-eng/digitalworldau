@@ -7,8 +7,9 @@
     type PortfolioItem,
   } from '../data/agencyData';
 
-  const rowOne = PORTFOLIO_ITEMS.slice(0, 6);
-  const rowTwo = PORTFOLIO_ITEMS.slice(6, 12);
+  const half = Math.ceil(PORTFOLIO_ITEMS.length / 2);
+  const rowOne = PORTFOLIO_ITEMS.slice(0, half);
+  const rowTwo = PORTFOLIO_ITEMS.slice(half);
   const featuredStudy = CASE_STUDIES[0];
   const clientShowcaseStudies = CASE_STUDIES.slice(1);
 
@@ -305,14 +306,18 @@
             </div>
 
             <div class="client-row__visual">
-              <video
-                src={study.video}
-                poster={study.poster}
-                autoplay
-                loop
-                muted
-                playsinline
-              ></video>
+              {#if study.video}
+                <video
+                  src={study.video}
+                  poster={study.poster}
+                  autoplay
+                  loop
+                  muted
+                  playsinline
+                ></video>
+              {:else}
+                <img src={study.poster} alt={study.client} loading="lazy" />
+              {/if}
             </div>
           </article>
         {/each}
@@ -1039,7 +1044,8 @@
       background: #0d0d0d;
       box-shadow: 0 22px 54px rgba(0, 0, 0, 0.62);
 
-      video {
+      video,
+      img {
         width: 100%;
         aspect-ratio: 16 / 10;
         object-fit: cover;
