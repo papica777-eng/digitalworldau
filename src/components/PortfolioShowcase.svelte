@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { PORTFOLIO_ITEMS, CASE_STUDIES, type PortfolioItem } from '../data/agencyData';
+  import { onMount } from 'svelte';
+  import {
+    PORTFOLIO_ITEMS,
+    CASE_STUDIES,
+    ANCHIALO_SHOWCASE_SLIDES,
+    type PortfolioItem,
+  } from '../data/agencyData';
 
   const rowOne = PORTFOLIO_ITEMS.slice(0, 6);
   const rowTwo = PORTFOLIO_ITEMS.slice(6, 12);
@@ -7,6 +13,27 @@
   const clientShowcaseStudies = CASE_STUDIES.slice(1);
 
   let lightboxItem = $state<PortfolioItem | null>(null);
+  let activeSlideIdx = $state(0);
+  let slidePaused = $state(false);
+  let currentSlide = $derived(ANCHIALO_SHOWCASE_SLIDES[activeSlideIdx]);
+
+  function prevSlide() {
+    activeSlideIdx =
+      (activeSlideIdx - 1 + ANCHIALO_SHOWCASE_SLIDES.length) % ANCHIALO_SHOWCASE_SLIDES.length;
+  }
+
+  function nextSlide() {
+    activeSlideIdx = (activeSlideIdx + 1) % ANCHIALO_SHOWCASE_SLIDES.length;
+  }
+
+  onMount(() => {
+    const timer = setInterval(() => {
+      if (!slidePaused) {
+        activeSlideIdx = (activeSlideIdx + 1) % ANCHIALO_SHOWCASE_SLIDES.length;
+      }
+    }, 4200);
+    return () => clearInterval(timer);
+  });
 </script>
 
 <section class="section portfolio-section" id="projects" aria-labelledby="projects-heading">
@@ -14,25 +41,26 @@
     <div class="marquee-header-frame">
       <h2 class="marquee-title" id="projects-heading">Creating digital masterpieces every day</h2>
       <p class="marquee-subtitle">
-        Visuals that convert. Code that performs. Results that captivate visitors.
+        Aerial Black Sea photography, certified lab dossiers, and high-converting digital flagships built for speed.
       </p>
     </div>
   </div>
 
   <!-- Full-bleed Edge-to-Edge Dual-Row Infinite Marquee -->
-  <div class="marquee-viewport" aria-label="Selected client websites and UI/UX showcases">
+  <div class="marquee-viewport" aria-label="Selected client websites, aerial photography and official documents">
     <div class="marquee-row">
       <div class="marquee-track marquee-track--left">
         {#each [...rowOne, ...rowOne] as project, idx (`r1-${project.id}-${idx}`)}
           <button
             type="button"
             class="marquee-card"
+            class:marquee-card--doc={project.isDocument}
             onclick={() => (lightboxItem = project)}
             aria-label={`Inspect ${project.title}`}
           >
             <img src={project.image} alt={`${project.title} showcase preview`} loading="lazy" />
-            <span class={project.isConcept ? 'marquee-pill marquee-pill--concept' : 'marquee-pill marquee-pill--live'}>
-              {project.isConcept ? 'UI/UX Concept' : `● ${project.liveDomain}`}
+            <span class="marquee-pill marquee-pill--live">
+              {project.isDocument ? `PDF • ${project.title.split('—')[0].trim()}` : `● ${project.liveDomain}`}
             </span>
           </button>
         {/each}
@@ -45,12 +73,13 @@
           <button
             type="button"
             class="marquee-card"
+            class:marquee-card--doc={project.isDocument}
             onclick={() => (lightboxItem = project)}
             aria-label={`Inspect ${project.title}`}
           >
             <img src={project.image} alt={`${project.title} showcase preview`} loading="lazy" />
-            <span class={project.isConcept ? 'marquee-pill marquee-pill--concept' : 'marquee-pill marquee-pill--live'}>
-              {project.isConcept ? 'UI/UX Concept' : `● ${project.liveDomain}`}
+            <span class={project.isDocument ? 'marquee-pill marquee-pill--doc' : 'marquee-pill marquee-pill--live'}>
+              {project.isDocument ? 'OFFICIAL PDF' : project.pdfUrl ? 'AU BROCHURE PDF' : `● ${project.liveDomain}`}
             </span>
           </button>
         {/each}
@@ -87,6 +116,34 @@
             {/each}
           </div>
 
+          <!-- Quick-Access Official PDF Document Strip -->
+          <div class="white-pdf-strip" aria-label="Official ANCHIALO PDF Dossiers">
+            <a
+              href="https://anchialo.com/assets/official_drive_assets/Quality_Certificate.docx.pdf"
+              target="_blank"
+              rel="noopener"
+              class="pdf-pill"
+            >
+              Quality Certificate PDF ↗
+            </a>
+            <a
+              href="https://anchialo.com/assets/brochures/ANCHIALO_Product_Guide_AU.pdf"
+              target="_blank"
+              rel="noopener"
+              class="pdf-pill"
+            >
+              AU Product Guide PDF ↗
+            </a>
+            <a
+              href="https://anchialo.com/assets/brochures/ANCHIALO_Partner_Wholesale_Guide_AU.pdf"
+              target="_blank"
+              rel="noopener"
+              class="pdf-pill"
+            >
+              Wholesale Guide PDF ↗
+            </a>
+          </div>
+
           <div class="white-footer">
             <div class="white-author">
               {#if featuredStudy.avatar}
@@ -106,23 +163,80 @@
           </div>
         </div>
 
-        <div class="case-white-card__visual">
+        <!-- Rotating Aerial Red Salt Lakes + Official Lab Certificate PDF Deck -->
+        <div
+          class="case-white-card__visual"
+          onmouseenter={() => (slidePaused = true)}
+          onmouseleave={() => (slidePaused = false)}
+          role="region"
+          aria-label="ANCHIALO aerial red salt lakes photography and certified PDF documents carousel"
+        >
           <div class="white-browser-bar">
-            <span></span><span></span><span></span>
-            {#if featuredStudy.liveUrl}
-              <a href={featuredStudy.liveUrl} target="_blank" rel="noopener">
-                https://{featuredStudy.liveDomain} ↗
+            <div class="browser-dots" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <a href="https://anchialo.com" target="_blank" rel="noopener" class="browser-domain">
+              https://anchialo.com ↗
+            </a>
+            <span class="slide-counter">
+              {String(activeSlideIdx + 1).padStart(2, '0')} / {String(ANCHIALO_SHOWCASE_SLIDES.length).padStart(2, '0')}
+            </span>
+            {#if currentSlide.pdfUrl}
+              <a href={currentSlide.pdfUrl} target="_blank" rel="noopener" class="bar-pdf-btn">
+                Open Official PDF ↗
               </a>
             {/if}
           </div>
-          <video
-            src={featuredStudy.video}
-            poster={featuredStudy.poster}
-            autoplay
-            loop
-            muted
-            playsinline
-          ></video>
+
+          <div class="deck-stage" class:is-doc={currentSlide.isDocument}>
+            {#each ANCHIALO_SHOWCASE_SLIDES as slide, idx (slide.id)}
+              <div
+                class="deck-slide"
+                class:active={idx === activeSlideIdx}
+                class:is-doc={slide.isDocument}
+                aria-hidden={idx !== activeSlideIdx}
+              >
+                <img src={slide.image} alt={slide.title} loading={idx === 0 ? 'eager' : 'lazy'} />
+              </div>
+            {/each}
+
+            <button
+              type="button"
+              class="deck-nav deck-nav--prev"
+              onclick={prevSlide}
+              aria-label="Previous visual or document"
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              class="deck-nav deck-nav--next"
+              onclick={nextSlide}
+              aria-label="Next visual or document"
+            >
+              ›
+            </button>
+
+            <div class="deck-overlay">
+              <div class="deck-caption">
+                <span class="deck-badge">{currentSlide.badge}</span>
+                <strong>{currentSlide.title}</strong>
+              </div>
+
+              <div class="deck-dots" role="tablist" aria-label="Select ANCHIALO photo or PDF slide">
+                {#each ANCHIALO_SHOWCASE_SLIDES as slide, idx (slide.id)}
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={idx === activeSlideIdx}
+                    aria-label={slide.title}
+                    class:active={idx === activeSlideIdx}
+                    onclick={() => (activeSlideIdx = idx)}
+                  ></button>
+                {/each}
+              </div>
+            </div>
+          </div>
         </div>
       </article>
     {/if}
@@ -210,12 +324,14 @@
     <div class="lightbox" role="dialog" aria-modal="true" aria-label={lightboxItem.title}>
       <div class="lightbox__card">
         <button type="button" class="lightbox__close" onclick={() => (lightboxItem = null)} aria-label="Close preview">×</button>
-        <img src={lightboxItem.image} alt={lightboxItem.title} />
+        <div class="lightbox__media" class:is-doc={lightboxItem.isDocument}>
+          <img src={lightboxItem.image} alt={lightboxItem.title} />
+        </div>
         <div class="lightbox__body">
           <div class="lightbox__head">
             <div>
               <span class="tag">
-                {lightboxItem.category} • {lightboxItem.isConcept ? 'UI/UX Concept' : 'Live Production'} • {lightboxItem.region}
+                {lightboxItem.category} • {lightboxItem.isDocument ? 'Official PDF' : 'Live Production'} • {lightboxItem.region}
               </span>
               <h3>{lightboxItem.title}</h3>
             </div>
@@ -229,8 +345,18 @@
               {/each}
             </div>
             <div class="lightbox__actions">
+              {#if lightboxItem.pdfUrl}
+                <a href={lightboxItem.pdfUrl} target="_blank" rel="noopener" class="btn btn-primary">
+                  Open Official PDF ↗
+                </a>
+              {/if}
               {#if lightboxItem.liveUrl}
-                <a href={lightboxItem.liveUrl} target="_blank" rel="noopener" class="btn btn-primary">
+                <a
+                  href={lightboxItem.liveUrl}
+                  target="_blank"
+                  rel="noopener"
+                  class={lightboxItem.pdfUrl ? 'btn btn-ghost' : 'btn btn-primary'}
+                >
                   Open {lightboxItem.liveDomain} ↗
                 </a>
               {/if}
@@ -372,6 +498,15 @@
       transition: transform $transition-smooth;
     }
 
+    &--doc {
+      background: #0d111a;
+
+      img {
+        object-fit: contain;
+        padding: 0.5rem;
+      }
+    }
+
     &:hover {
       border-color: rgba(132, 181, 230, 0.55);
 
@@ -397,7 +532,7 @@
     font-weight: 600;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    opacity: 0.85;
+    opacity: 0.88;
     transform: translateY(2px);
     transition: opacity $transition-fast, transform $transition-fast;
 
@@ -407,10 +542,10 @@
       color: #ffffff;
     }
 
-    &--concept {
-      background: rgba(0, 0, 0, 0.62);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: rgba(255, 255, 255, 0.88);
+    &--doc {
+      background: rgba(11, 15, 26, 0.86);
+      border: 1px solid rgba(132, 181, 230, 0.55);
+      color: #bae6fd;
     }
   }
 
@@ -446,16 +581,9 @@
     &__visual {
       border-radius: 22px;
       overflow: hidden;
-      border: 1px solid rgba(13, 13, 13, 0.1);
-      background: #f5f5f7;
-      box-shadow: 0 20px 44px rgba(13, 13, 13, 0.14);
-
-      video {
-        width: 100%;
-        aspect-ratio: 16 / 10;
-        object-fit: cover;
-        display: block;
-      }
+      border: 1px solid rgba(13, 13, 13, 0.14);
+      background: #0b0e16;
+      box-shadow: 0 22px 48px rgba(13, 13, 13, 0.22);
     }
   }
 
@@ -499,7 +627,7 @@
     border-radius: 16px;
     background: #f5f5f7;
     border: 1px solid rgba(13, 13, 13, 0.08);
-    margin-bottom: 1.45rem;
+    margin-bottom: 1.15rem;
 
     strong {
       display: block;
@@ -512,6 +640,33 @@
     span {
       font-size: 0.74rem;
       color: #52525b;
+    }
+  }
+
+  .white-pdf-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 1.35rem;
+  }
+
+  .pdf-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.36rem 0.76rem;
+    border-radius: $radius-pill;
+    background: #eff6ff;
+    border: 1px solid rgba(1, 106, 212, 0.28);
+    font-family: $font-mono;
+    font-size: 0.71rem;
+    font-weight: 600;
+    color: $accent-cobalt;
+    transition: background $transition-fast, color $transition-fast, transform $transition-fast;
+
+    &:hover {
+      background: $accent-cobalt;
+      color: #ffffff;
+      transform: translateY(-1px);
     }
   }
 
@@ -565,27 +720,190 @@
   }
 
   .white-browser-bar {
-    height: 34px;
+    height: 38px;
     padding-inline: 0.9rem;
-    background: #e4e4e7;
-    border-bottom: 1px solid rgba(13, 13, 13, 0.08);
+    background: #0f1420;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     align-items: center;
-    gap: 0.38rem;
+    gap: 0.65rem;
+  }
+
+  .browser-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.34rem;
 
     span {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: rgba(13, 13, 13, 0.22);
+      background: rgba(255, 255, 255, 0.24);
+    }
+  }
+
+  .browser-domain {
+    font-family: $font-mono;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: $accent-blue-light;
+    margin-right: auto;
+  }
+
+  .slide-counter {
+    font-family: $font-mono;
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.56);
+  }
+
+  .bar-pdf-btn {
+    padding: 0.24rem 0.62rem;
+    border-radius: $radius-pill;
+    background: rgba(1, 106, 212, 0.85);
+    border: 1px solid rgba(132, 181, 230, 0.55);
+    font-family: $font-mono;
+    font-size: 0.66rem;
+    font-weight: 600;
+    color: #ffffff;
+    transition: background $transition-fast;
+
+    &:hover {
+      background: #0b7ae8;
+    }
+  }
+
+  .deck-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background: #0b0e16;
+    overflow: hidden;
+  }
+
+  .deck-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: scale(1.02);
+    transition: opacity 550ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+
+    &.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+      z-index: 1;
     }
 
-    a {
-      margin-left: auto;
-      font-family: $font-mono;
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: $accent-cobalt;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    &.is-doc img {
+      object-fit: contain;
+      padding: 0.65rem 0.65rem 3.2rem;
+    }
+  }
+
+  .deck-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    background: rgba(8, 12, 22, 0.66);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #ffffff;
+    font-size: 1.25rem;
+    line-height: 1;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background $transition-fast, transform $transition-fast;
+
+    &:hover {
+      background: $accent-cobalt;
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    &--prev {
+      left: 0.7rem;
+    }
+
+    &--next {
+      right: 0.7rem;
+    }
+  }
+
+  .deck-overlay {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 4;
+    padding: 0.85rem 1rem;
+    background: linear-gradient(to top, rgba(6, 9, 16, 0.94) 30%, rgba(6, 9, 16, 0.62) 78%, transparent);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.55rem 0.85rem;
+  }
+
+  .deck-caption {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-width: 0;
+
+    strong {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .deck-badge {
+    padding: 0.2rem 0.55rem;
+    border-radius: $radius-pill;
+    background: rgba(1, 106, 212, 0.85);
+    border: 1px solid rgba(132, 181, 230, 0.5);
+    font-family: $font-mono;
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: #ffffff;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .deck-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32rem;
+
+    button {
+      width: 14px;
+      height: 5px;
+      border-radius: $radius-pill;
+      border: none;
+      padding: 0;
+      background: rgba(255, 255, 255, 0.28);
+      cursor: pointer;
+      transition: width $transition-fast, background $transition-fast;
+
+      &.active {
+        width: 24px;
+        background: $accent-blue-light;
+      }
     }
   }
 
@@ -813,11 +1131,21 @@
       width: 100%;
       overflow: hidden;
       position: relative;
+    }
+
+    &__media {
+      background: #0a0d14;
 
       img {
         width: 100%;
-        max-height: 460px;
+        max-height: 480px;
         object-fit: cover;
+        display: block;
+      }
+
+      &.is-doc img {
+        object-fit: contain;
+        padding: 1rem;
       }
     }
 
@@ -825,6 +1153,7 @@
       position: absolute;
       top: 0.85rem;
       right: 0.85rem;
+      z-index: 5;
       width: 38px;
       height: 38px;
       border-radius: 50%;
