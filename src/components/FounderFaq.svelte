@@ -14,23 +14,25 @@
       <span class="eyebrow">Founder Spotlight</span>
       <div class="founder-card__portrait">
         <img
-          src="/media/founder-portrait.webp"
-          alt="Marcus Vance — Founder and CEO of Digital World AU"
+          src="/media/aeterna-dna-studio.webp"
+          alt="Dimitar Prodromov — AETERNA & Digital World AU Studio Architecture"
           loading="lazy"
         />
-        <span class="founder-badge">Sydney &amp; Melbourne HQ</span>
+        <span class="founder-badge">Sydney • Melbourne • Sofia</span>
       </div>
       <blockquote>
-        “A website shouldn’t be a passive digital brochure—it should be your hardest-working revenue engineer. We pair Awwwards-level visual craft with relentless engineering speed so every interaction earns trust.”
+        “A website shouldn’t be a passive digital brochure—it should be your hardest-working revenue engineer. We pair Awwwards-level visual craft with relentless Rust, Astro, and WebGL2 engineering speed so every interaction earns verifiable trust.”
       </blockquote>
       <div class="founder-card__footer">
         <div class="founder-card__meta">
-          <strong>Marcus Vance</strong>
-          <span>Founder &amp; CEO, Digital World AU</span>
+          <strong>Dimitar Prodromov</strong>
+          <span>Founder &amp; Principal Systems Architect, Digital World AU</span>
+          <div class="founder-links">
+            <a href="https://aeterna.website" target="_blank" rel="noopener">aeterna.website ↗</a>
+            <a href="https://github.com/papica777-eng" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="https://orcid.org/0009-0004-8070-1348" target="_blank" rel="noopener">ORCID ↗</a>
+          </div>
         </div>
-        <svg class="signature-svg" width="118" height="36" viewBox="0 0 140 42" fill="none" aria-hidden="true">
-          <path d="M8 31C18 11 26 9 29 27C32 14 42 10 46 28C54 20 65 18 72 25C82 14 96 9 104 24C112 21 123 19 134 22" stroke="#fcc1f4" stroke-width="2.1" stroke-linecap="round" opacity="0.85"/>
-        </svg>
       </div>
     </aside>
 
@@ -119,8 +121,28 @@
       }
 
       span {
+        display: block;
         font-size: 0.82rem;
         color: $accent-emerald;
+      }
+    }
+  }
+
+  .founder-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem 0.9rem;
+    margin-top: 0.65rem;
+
+    a {
+      font-family: $font-mono;
+      font-size: 0.74rem;
+      color: $accent-blue-light;
+      border-bottom: 1px dashed rgba(132, 181, 230, 0.4);
+
+      &:hover {
+        color: $accent-emerald;
+        border-bottom-color: $accent-emerald;
       }
     }
   }

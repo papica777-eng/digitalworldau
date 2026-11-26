@@ -76,7 +76,7 @@
             <div class="mega-promo">
               <img src="/media/hero-sculpture.webp" alt="" loading="lazy" />
               <div>
-                <span class="tag">Free 2-Week Diagnostic</span>
+                <span class="tag">Free 48-Hour Diagnostic</span>
                 <strong>Expert UX, Vitals &amp; SEO Audit</strong>
                 <a href="#contact" data-preset-audit class="mega-promo__cta" onclick={closeAll}>Claim Audit →</a>
               </div>

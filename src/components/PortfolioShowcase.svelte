@@ -19,7 +19,7 @@
         <span class="eyebrow">Selected Flagships &amp; Own Productions</span>
         <h2 class="section-title" id="projects-heading">Creating digital masterpieces every day.</h2>
         <p class="section-lead">
-          Explore our live Australian platforms—including <a href="https://anchialo.com" target="_blank" rel="noopener" class="inline-domain">anchialo.com ↗</a> and <a href="https://cptmma.com" target="_blank" rel="noopener" class="inline-domain">cptmma.com ↗</a>—alongside bespoke storefront and web engineering builds.
+          Explore our live production platforms—including <a href="https://anchialo.com" target="_blank" rel="noopener" class="inline-domain">anchialo.com ↗</a>, <a href="https://cptmma.com" target="_blank" rel="noopener" class="inline-domain">cptmma.com ↗</a>, and <a href="https://aeterna.website" target="_blank" rel="noopener" class="inline-domain">aeterna.website ↗</a>—alongside clearly marked UI/UX design concepts.
         </p>
       </div>
       <div class="filter-pills" role="tablist" aria-label="Filter projects by type">
@@ -43,12 +43,15 @@
         <button type="button" class="wall-card" onclick={() => (lightboxItem = project)}>
           <div class="wall-card__img">
             <img src={project.image} alt={`${project.title} desktop UI`} loading="lazy" />
+            <span class={project.isConcept ? 'wall-card__status wall-card__status--concept' : 'wall-card__status wall-card__status--live'}>
+              {project.isConcept ? 'UI/UX Concept' : '● Live Site'}
+            </span>
             <span class="wall-card__badge">{project.metric}</span>
           </div>
           <div class="wall-card__meta">
             <div>
               <strong>{project.title}</strong>
-              <span>{project.liveDomain ? `${project.liveDomain} ↗` : project.region}</span>
+              <span>{project.liveDomain ? `${project.liveDomain} ↗` : `Concept • ${project.region}`}</span>
             </div>
             <span class="tag">{project.category}</span>
           </div>
@@ -135,7 +138,9 @@
         <div class="lightbox__body">
           <div class="lightbox__head">
             <div>
-              <span class="tag">{lightboxItem.category} • {lightboxItem.region}</span>
+              <span class="tag">
+                {lightboxItem.category} • {lightboxItem.isConcept ? 'UI/UX Concept' : 'Live Production'} • {lightboxItem.region}
+              </span>
               <h3>{lightboxItem.title}</h3>
             </div>
             <strong class="lightbox__metric">{lightboxItem.metric}</strong>
@@ -221,8 +226,8 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    @include respond-up(xl) {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+    @include respond-up(lg) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 
@@ -251,6 +256,28 @@
 
     &:hover &__img img {
       transform: scale(1.05);
+    }
+
+    &__status {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      padding: 0.26rem 0.65rem;
+      border-radius: $radius-pill;
+      font-family: $font-mono;
+      font-size: 0.68rem;
+      font-weight: 700;
+      background: rgba(6, 7, 13, 0.88);
+
+      &--live {
+        border: 1px solid rgba(0, 245, 160, 0.52);
+        color: $accent-emerald;
+      }
+
+      &--concept {
+        border: 1px solid rgba(252, 193, 244, 0.48);
+        color: $accent-orchid;
+      }
     }
 
     &__badge {

@@ -1,13 +1,6 @@
 <script lang="ts">
   import GlobeCanvas from './GlobeCanvas.svelte';
   import { GLOBAL_REGIONS, TESTIMONIALS } from '../data/agencyData';
-
-  let activeCountry = $state<string>('All');
-  let filteredTestimonials = $derived(
-    activeCountry === 'All'
-      ? TESTIMONIALS
-      : TESTIMONIALS.filter((t) => t.country === activeCountry)
-  );
 </script>
 
 <section class="section global-section" aria-labelledby="global-heading">
@@ -24,8 +17,10 @@
           <span class="proof-card__kicker">Verifiable Live Productions</span>
           <strong>
             <a href="https://anchialo.com" target="_blank" rel="noopener">anchialo.com ↗</a>
-            <span>&amp;</span>
+            <span>•</span>
             <a href="https://cptmma.com" target="_blank" rel="noopener">cptmma.com ↗</a>
+            <span>•</span>
+            <a href="https://aeterna.website" target="_blank" rel="noopener">aeterna.website ↗</a>
           </strong>
           <span class="proof-card__sub">100% Fixed-Scope Milestones • Full IP Ownership</span>
         </div>
@@ -50,52 +45,35 @@
       </div>
     </div>
 
-    <div class="region-strip" data-reveal>
-      <button
-        type="button"
-        class:active={activeCountry === 'All'}
-        onclick={() => (activeCountry = 'All')}
-      >
-        All Markets
-      </button>
+    <div class="region-strip" data-reveal aria-label="Global delivery hubs">
       {#each GLOBAL_REGIONS as region}
-        <button
-          type="button"
-          class:active={activeCountry === region.name}
-          onclick={() => (activeCountry = region.name)}
-        >
+        <div class="hub-pill">
           <span class="code">{region.code}</span>
           <span>{region.name}</span>
           <small>{region.clients}</small>
-        </button>
+        </div>
       {/each}
     </div>
 
     <div class="testimonials-grid" data-reveal>
-      {#each (filteredTestimonials.length > 0 ? filteredTestimonials : TESTIMONIALS) as t}
+      {#each TESTIMONIALS as t}
         <article class="testimonial-card" data-glow-card>
           <div class="testimonial-card__top">
             <span class="tag">{t.country}</span>
-            {#if t.liveUrl}
-              <a href={t.liveUrl} target="_blank" rel="noopener" class="live-link">Live Site ↗</a>
-            {/if}
+            <a href={t.liveUrl} target="_blank" rel="noopener" class="live-link">
+              {t.liveDomain} ↗
+            </a>
           </div>
           <p class="testimonial-card__quote">“{t.quote}”</p>
           <div class="testimonial-card__author">
             {#if t.avatar}
               <img src={t.avatar} alt={t.name} loading="lazy" />
-            {:else}
-              <span class="monogram-badge" style={`--accent:${t.accent}`} aria-hidden="true">{t.monogram}</span>
             {/if}
             <div>
               <strong>{t.name}</strong>
-              {#if t.liveUrl}
-                <a href={t.liveUrl} target="_blank" rel="noopener" class="company-link">
-                  {t.role}, {t.company} ↗
-                </a>
-              {:else}
-                <span>{t.role}, {t.company}</span>
-              {/if}
+              <a href={t.liveUrl} target="_blank" rel="noopener" class="company-link">
+                {t.role}, {t.company} ↗
+              </a>
             </div>
           </div>
         </article>
@@ -143,7 +121,7 @@
       flex-wrap: wrap;
       align-items: center;
       gap: 0.5rem;
-      font-size: 1.08rem;
+      font-size: 1.04rem;
       color: #ffffff;
 
       a {
@@ -202,37 +180,28 @@
     flex-wrap: wrap;
     gap: 0.55rem;
     margin-bottom: 2.25rem;
+  }
 
-    button {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.5rem 0.92rem;
-      border-radius: $radius-pill;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid $border-subtle;
-      color: $text-secondary;
-      font-size: 0.82rem;
-      cursor: pointer;
-      transition: all $transition-fast;
+  .hub-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 0.92rem;
+    border-radius: $radius-pill;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid $border-subtle;
+    color: $text-secondary;
+    font-size: 0.82rem;
 
-      .code {
-        font-family: $font-mono;
-        font-size: 0.72rem;
-        color: $accent-blue-light;
-      }
+    .code {
+      font-family: $font-mono;
+      font-size: 0.72rem;
+      color: $accent-blue-light;
+    }
 
-      small {
-        color: $text-muted;
-        font-size: 0.72rem;
-      }
-
-      &.active,
-      &:hover {
-        border-color: rgba(0, 245, 160, 0.5);
-        background: rgba(1, 106, 212, 0.25);
-        color: #ffffff;
-      }
+    small {
+      color: $text-muted;
+      font-size: 0.72rem;
     }
   }
 
@@ -288,13 +257,8 @@
         font-size: 0.92rem;
       }
 
-      span,
       .company-link {
         font-size: 0.78rem;
-        color: $text-muted;
-      }
-
-      .company-link {
         color: $accent-blue-light;
       }
     }
@@ -305,20 +269,5 @@
     font-size: 0.74rem;
     color: $accent-emerald;
     font-weight: 700;
-  }
-
-  .monogram-badge {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: grid;
-    place-items: center;
-    font-family: $font-mono;
-    font-weight: 800;
-    font-size: 0.85rem;
-    color: var(--accent, #00f5a0);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    flex-shrink: 0;
   }
 </style>

@@ -4,7 +4,7 @@
   import { generateInquiryRef, validateBriefAttachment } from '../lib/wasm';
 
   const SCOPE_OPTIONS = [
-    'Free 2-Week Website Audit',
+    'Free 48-Hour Website Audit',
     'UI/UX & Web Design',
     'E-Commerce Store',
     'Custom Development',
@@ -54,11 +54,11 @@
 
       const auditTrigger = target.closest('[data-preset-audit]');
       if (auditTrigger) {
-        if (!selectedScopes.includes('Free 2-Week Website Audit')) {
-          selectedScopes = ['Free 2-Week Website Audit', ...selectedScopes];
+        if (!selectedScopes.includes('Free 48-Hour Website Audit')) {
+          selectedScopes = ['Free 48-Hour Website Audit', ...selectedScopes];
         }
         if (!message.trim()) {
-          message = 'Requesting the Free 2-Week Expert Website Audit (UX, Technical Core Web Vitals & SEO).';
+          message = 'Requesting the Free 48-Hour Expert Website Audit (UX, Technical Core Web Vitals & SEO).';
         }
         return;
       }
@@ -143,7 +143,7 @@
       <span class="eyebrow">Start a Conversation</span>
       <h2 class="section-title" id="contact-heading">Book a Call or Request a Tailored Proposal.</h2>
       <p class="section-lead">
-        Share your goals, timeline, and optional brief. Our Sydney and Melbourne leads respond within 1 business day with a structured scope—or your complimentary 2-week expert website audit.
+        Share your goals, timeline, and optional brief. Our Sydney and Melbourne leads respond within 1 business day with a structured scope—or your complimentary 48-hour expert website audit.
       </p>
 
       <div class="contact-cards">
@@ -221,30 +221,21 @@
                 <span>Phone Number</span>
                 <input type="tel" placeholder="+61 400 000 000" bind:value={phone} />
               </label>
-              <div class="field">
-                <div class="budget-head">
-                  <label for="budget-select">Estimated Budget ({currencyStore.code})</label>
-                  <button
-                    type="button"
-                    class="inline-currency-switch"
-                    onclick={() => currencyStore.toggle()}
-                  >
-                    Switch to {currencyStore.code === 'AUD' ? 'EUR (€)' : 'AUD (A$)'}
-                  </button>
-                </div>
+              <label class="field">
+                <span>Estimated Budget ({currencyStore.code})</span>
                 <select id="budget-select" bind:value={budgetIndex}>
                   {#each BUDGET_TIERS as _, idx}
                     <option value={idx}>{currencyStore.getTierLabel(idx)}</option>
                   {/each}
                 </select>
-              </div>
+              </label>
             </div>
 
             <label class="field">
               <span>Project Overview &amp; Objectives</span>
               <textarea
                 rows="4"
-                placeholder="Tell us about your current site, target KPIs, desired launch window, or request the Free 2-Week Website Audit..."
+                placeholder="Tell us about your current site, target KPIs, desired launch window, or request the Free 48-Hour Website Audit..."
                 bind:value={message}
               ></textarea>
             </label>
@@ -418,33 +409,6 @@
 
     @include respond-up(sm) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  .budget-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-
-    label {
-      font-size: 0.84rem;
-      font-weight: 600;
-      color: #cbd5e1;
-    }
-  }
-
-  .inline-currency-switch {
-    background: none;
-    border: none;
-    padding: 0;
-    font-family: $font-mono;
-    font-size: 0.7rem;
-    color: $accent-blue-light;
-    cursor: pointer;
-
-    &:hover {
-      color: $accent-emerald;
     }
   }
 

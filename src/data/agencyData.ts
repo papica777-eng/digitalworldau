@@ -41,6 +41,7 @@ export interface PortfolioItem {
   summary: string;
   liveUrl?: string;
   liveDomain?: string;
+  isConcept?: boolean;
 }
 
 export const PORTFOLIO_ITEMS: PortfolioItem[] = [
@@ -56,6 +57,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
       'Official Australian D2C store for certified topical Magnesium Gel & Magnesium Oil (253.14 g/L Magnesium Chloride & 70.36 g/L Magnesium Sulfate from Lake Pomorie) engineered for rapid muscle recovery & joint mobility.',
     liveUrl: 'https://anchialo.com',
     liveDomain: 'anchialo.com',
+    isConcept: false,
   },
   {
     id: 'cpt-mma-melbourne',
@@ -69,16 +71,33 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
       'Elite MMA, K1 kickboxing, wrestling & submission coaching platform in Melbourne led by ONE Championship veteran Sotir Kichukov—featuring 1-on-1 commitment protocols and private group intake.',
     liveUrl: 'https://cptmma.com',
     liveDomain: 'cptmma.com',
+    isConcept: false,
+  },
+  {
+    id: 'aeterna-platform',
+    title: 'AETERNA — Sovereign AI & WebGL2 Platform',
+    category: 'Web App',
+    metric: 'WebGL2 SDF • Post-Quantum',
+    region: 'Global Sovereign Cloud',
+    image: '/media/mockup-aeterna.webp',
+    stack: ['WebGL2 Raymarch', 'Rust / Wasm', 'Astro + Svelte 5'],
+    summary:
+      'Real-time WebGL2 SDF 4D/5D interactive biophysics studio, cryptographic telemetry interface, and zero-latency sovereign engineering portal.',
+    liveUrl: 'https://aeterna.website',
+    liveDomain: 'aeterna.website',
+    isConcept: false,
   },
   {
     id: 'bondi-botanicals',
-    title: 'Botanical Elixir — Bondi Concept',
+    title: 'Botanical Elixir — Bondi Skincare',
     category: 'Online Store',
     metric: '0.85s Mobile LCP Architecture',
     region: 'Sydney, Australia',
     image: '/media/mockup-bondi.webp',
     stack: ['Astro 5', 'Headless Commerce', 'Stripe'],
-    summary: 'Luxury botanical skincare storefront showcase engineered for sub-second mobile checkout and subscription renewals.',
+    summary:
+      'UI/UX Concept for a luxury Australian botanical skincare storefront engineered for sub-second mobile checkout and subscription renewals.',
+    isConcept: true,
   },
   {
     id: 'kestrel-roasters',
@@ -88,47 +107,21 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     region: 'Melbourne, Australia',
     image: '/media/mockup-roasters.webp',
     stack: ['Shopify Plus', 'Svelte 5', 'Klaviyo'],
-    summary: 'Small-batch Melbourne coffee storefront concept with interactive origin tasting profiles and recurring delivery builder.',
+    summary:
+      'UI/UX Concept for a small-batch Melbourne coffee roaster featuring origin tasting notes and a recurring delivery builder.',
+    isConcept: true,
   },
   {
     id: 'southern-cross-wealth',
-    title: 'Southern Cross Wealth',
+    title: 'Southern Cross Wealth Advisory',
     category: 'Corporate Website',
     metric: 'Interactive Wasm Calculators',
     region: 'Melbourne & APAC',
     image: '/media/mockup-wealth.webp',
     stack: ['TypeScript', 'Rust/Wasm', 'Edge CDN'],
-    summary: 'Institutional wealth education & advisory hub architecture featuring real-time calculators and gated executive briefings.',
-  },
-  {
-    id: 'alpen-medtech',
-    title: 'Alpen MedTech Diagnostics',
-    category: 'Corporate Website',
-    metric: '100/100 Core Web Vitals',
-    region: 'Zurich, Switzerland',
-    image: '/media/mockup-alpen.webp',
-    stack: ['Headless CMS', 'Modular SCSS', 'WCAG AA'],
-    summary: 'Multilingual clinical diagnostics portal architecture built for zero-latency European edge delivery and strict accessibility.',
-  },
-  {
-    id: 'atelier-lumiere',
-    title: 'Atelier Lumière Maison',
-    category: 'Online Store',
-    metric: 'Editorial Lookbook Commerce',
-    region: 'Paris, France',
-    image: '/media/mockup-lumiere.webp',
-    stack: ['WebGL Showcase', 'WooCommerce', 'Multi-Currency'],
-    summary: 'Architectural lighting & sculptural interior gallery design with bespoke dark editorial lookbooks and trade quoting.',
-  },
-  {
-    id: 'chronos-geneve',
-    title: 'Chronos Horology Lab',
-    category: 'Web App',
-    metric: 'Interactive 3D Configurator',
-    region: 'Geneva, Switzerland',
-    image: '/media/mockup-chrono.webp',
-    stack: ['Three.js', 'React.js', 'REST API'],
-    summary: 'Interactive mechanical calibre explorer and bespoke strap/bezel configurator built for high-ticket luxury retail.',
+    summary:
+      'UI/UX Concept for institutional wealth advisory teams pairing client education hubs with real-time deterministic financial calculators.',
+    isConcept: true,
   },
 ];
 
@@ -174,20 +167,22 @@ export const CASE_STUDIES = [
     ],
   },
   {
-    tag: 'Corporate FinTech Architecture',
-    client: 'Southern Cross Wealth Academy',
-    video: '/videos/case-wealth.mp4',
-    poster: '/media/mockup-wealth.webp',
-    headline: 'High-trust financial education & analytics platform architecture for APAC advisory teams',
+    tag: 'Live WebGL2 & Sovereign Platform',
+    client: 'AETERNA Sovereign Platform (aeterna.website)',
+    liveUrl: 'https://aeterna.website',
+    liveDomain: 'aeterna.website',
+    video: '/videos/case-aeterna.mp4',
+    poster: '/media/mockup-aeterna.webp',
+    headline: 'Interactive 8K WebGL2 SDF 4D/5D visual computation & bare-metal telemetry flagship',
     quote:
-      'Combining clean financial UI with deterministic WebAssembly calculators and structured technical SEO creates an authoritative enterprise lead engine built for Google Ads and organic search.',
-    author: 'Southern Cross Wealth',
-    role: 'Financial Education & Advisory Architecture',
-    avatar: '',
-    monogram: 'SC',
+      'Combining custom GLSL raymarched shaders, zero-bloat static Astro delivery, and Rust-powered determinism proves how real-time 3D engineering runs at 60fps directly in mobile and desktop browsers.',
+    author: 'Dimitar Prodromov',
+    role: 'Founder & Principal Systems Architect — AETERNA',
+    avatar: '/media/mockup-aeterna.webp',
+    monogram: 'AE',
     stats: [
-      { label: 'Calculator Speed', value: '<2ms Wasm' },
-      { label: 'SEO Schema', value: 'JSON-LD' },
+      { label: 'Shader Engine', value: 'WebGL2 SDF' },
+      { label: 'Frame Target', value: '60 FPS' },
       { label: 'Core Web Vitals', value: '100/100' },
     ],
   },
@@ -211,7 +206,8 @@ export interface ClientTestimonial {
   avatar?: string;
   monogram: string;
   accent: string;
-  liveUrl?: string;
+  liveUrl: string;
+  liveDomain: string;
   quote: string;
 }
 
@@ -225,6 +221,7 @@ export const TESTIMONIALS: ClientTestimonial[] = [
     monogram: 'CP',
     accent: '#00f5a0',
     liveUrl: 'https://cptmma.com',
+    liveDomain: 'cptmma.com',
     quote:
       'Digital World AU engineered cptmma.com with the exact discipline we demand on the mats—instant video playback, razor-sharp fight protocol breakdowns, and an application funnel built for serious Melbourne athletes.',
   },
@@ -237,48 +234,22 @@ export const TESTIMONIALS: ClientTestimonial[] = [
     monogram: 'AN',
     accent: '#38bdf8',
     liveUrl: 'https://anchialo.com',
+    liveDomain: 'anchialo.com',
     quote:
       'From interactive Lake Pomorie balneology storytelling to sub-second mobile checkout for our 253 g/L Magnesium Gel and Oil collection, anchialo.com delivers a seamless Australian shopping experience.',
   },
   {
-    name: 'Vitosha FinTech Labs',
-    role: 'Engineering Leadership',
-    company: 'Sofia, Bulgaria',
-    country: 'Bulgaria',
-    monogram: 'VF',
-    accent: '#84b5e6',
+    name: 'Dimitar Prodromov',
+    role: 'Founder & Principal Systems Architect',
+    company: 'AETERNA Technologies',
+    country: 'Bulgaria & Australia',
+    avatar: '/media/mockup-aeterna.webp',
+    monogram: 'AE',
+    accent: '#e879f9',
+    liveUrl: 'https://aeterna.website',
+    liveDomain: 'aeterna.website',
     quote:
-      'Rarely do you find a web studio that pairs sharp visual craft with clean systems engineering—zero bloat, containerised Docker deployments, and consistent 99+ Core Web Vitals.',
-  },
-  {
-    name: 'KronoMed Digital Team',
-    role: 'Growth & Marketing Ops',
-    company: 'Munich, Germany',
-    country: 'Germany',
-    monogram: 'KM',
-    accent: '#fcc1f4',
-    quote:
-      'Migrating our corporate architecture to a static edge-cached stack preserved every organic ranking while cutting Time to First Byte below 60 milliseconds across Europe.',
-  },
-  {
-    name: 'Atelier Lumière',
-    role: 'Brand & Digital Direction',
-    company: 'Paris, France',
-    country: 'France',
-    monogram: 'AL',
-    accent: '#ffc200',
-    quote:
-      'Every typography detail, dark-mode lookbook transition, and mobile interaction feels tailored to luxury interior buyers rather than assembled from a generic template.',
-  },
-  {
-    name: 'Helvetia Private Advisory',
-    role: 'Digital Transformation Desk',
-    company: 'Zurich, Switzerland',
-    country: 'Switzerland',
-    monogram: 'HP',
-    accent: '#00f5a0',
-    quote:
-      'Fixed-scope milestones, clean IP transfer, and strict privacy compliance from day one. Communication remained direct with senior engineers throughout delivery.',
+      'Every flagship we ship pairs zero-JS static Astro architecture, Dart Sass design systems, Rust/Wasm speed, and interactive WebGL2 geometry—giving ambitious brands measurable speed and authentic engineering ownership.',
   },
 ];
 
@@ -286,10 +257,10 @@ export const SERVICES_BENTO = [
   {
     step: '01',
     title: 'Website Audit',
-    preset: 'Free 2-Week Website Audit',
+    preset: 'Free 48-Hour Website Audit',
     subtitle: 'Forensic diagnostics before execution',
     items: ['UX Heuristic & Funnel Friction Audit', 'Core Web Vitals & Edge Speed Profiling', 'Full Technical SEO & Schema Crawl'],
-    highlight: 'Free 2-Week Audit',
+    highlight: 'Delivered in 48 Hours',
   },
   {
     step: '02',
