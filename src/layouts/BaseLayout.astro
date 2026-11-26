@@ -1,0 +1,94 @@
+---
+import '../styles/main.scss';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+}
+
+const {
+  title = 'Digital World AU — Award-Winning Digital Agency | Web Design, E-Commerce & Growth',
+  description = 'Digital World AU crafts high-converting websites, bespoke e-commerce stores, and performance marketing systems for ambitious brands in Australia and worldwide.',
+  canonical = 'https://digitalworldau.com/',
+} = Astro.props;
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Digital World AU',
+  url: 'https://digitalworldau.com',
+  email: 'hello@digitalworldau.com',
+  telephone: '+61 2 8000 4190',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Level 14, 275 George Street',
+    addressLocality: 'Sydney',
+    addressRegion: 'NSW',
+    postalCode: '2000',
+    addressCountry: 'AU',
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5.0',
+    reviewCount: '104',
+  },
+};
+---
+
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#05070d" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+  </head>
+  <body>
+    <slot />
+    <script>
+      // Lightweight IntersectionObserver for smooth scroll reveals + pointer glow tracking
+      const revealEls = document.querySelectorAll('[data-reveal]');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-revealed');
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+        );
+        revealEls.forEach((el) => io.observe(el));
+      } else {
+        revealEls.forEach((el) => el.classList.add('is-revealed'));
+      }
+
+      document.addEventListener('pointermove', (e) => {
+        const card = (e.target as HTMLElement | null)?.closest?.('[data-glow-card]') as HTMLElement | null;
+        if (!card) return;
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--my', `${e.clientY - rect.top}px`);
+      });
+    </script>
+  </body>
+</html>

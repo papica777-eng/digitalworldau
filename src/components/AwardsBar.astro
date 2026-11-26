@@ -1,0 +1,108 @@
+<section class="awards-section" aria-label="Industry recognition and awards">
+  <div class="container">
+    <p class="awards-section__label" data-reveal>Trust backed by real results</p>
+    <div class="awards-grid" data-reveal>
+      <div class="award-item">
+        <span class="award-wordmark">awwwards.</span>
+        <span class="award-sub">Site of the Day Nominee</span>
+      </div>
+      <div class="award-item">
+        <span class="award-wordmark">CSS DESIGN AWARDS</span>
+        <span class="award-sub">UI / UX Innovation</span>
+      </div>
+      <div class="award-item">
+        <span class="award-wordmark award-wordmark--serif">Forbes</span>
+        <span class="award-sub">Featured Digital Partner</span>
+      </div>
+      <div class="award-item">
+        <span class="award-wordmark">G2 REVIEWS</span>
+        <span class="award-sub">4.9 / 5.0 High Performer</span>
+      </div>
+      <div class="award-item">
+        <span class="award-wordmark award-wordmark--serif">Entrepreneur</span>
+        <span class="award-sub">Growth Engineering Spotlight</span>
+      </div>
+      <div class="award-item">
+        <span class="award-wordmark">VERIFIED REVIEWS</span>
+        <span class="award-sub">180+ Audited Deliveries</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @use '../styles/tokens' as *;
+  @use '../styles/mixins' as *;
+
+  .awards-section {
+    padding-block: 2.8rem;
+    border-top: 1px solid $border-subtle;
+    border-bottom: 1px solid $border-subtle;
+    background: rgba(11, 17, 32, 0.45);
+
+    &__label {
+      text-align: center;
+      font-family: $font-mono;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: $text-muted;
+      margin: 0 0 1.65rem;
+    }
+  }
+
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+
+    @include respond-up(md) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @include respond-up(lg) {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+
+  .award-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem 0.75rem;
+    border-radius: $radius-md;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.02);
+    opacity: 0.72;
+    filter: grayscale(100%);
+    transition: opacity $transition-fast, border-color $transition-fast, transform $transition-fast, filter $transition-fast;
+
+    &:hover {
+      opacity: 1;
+      filter: grayscale(0%);
+      border-color: rgba(0, 245, 160, 0.25);
+      transform: translateY(-2px);
+    }
+  }
+
+  .award-wordmark {
+    font-weight: 800;
+    font-size: 0.92rem;
+    letter-spacing: -0.02em;
+    color: #e2e8f0;
+
+    &--serif {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.08rem;
+      letter-spacing: 0.01em;
+    }
+  }
+
+  .award-sub {
+    margin-top: 0.3rem;
+    font-size: 0.7rem;
+    color: $text-muted;
+  }
+</style>

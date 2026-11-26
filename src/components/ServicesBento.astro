@@ -1,0 +1,124 @@
+---
+import { SERVICES_BENTO } from '../data/agencyData';
+---
+
+<section class="section" id="services" aria-labelledby="services-heading">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <span class="eyebrow">Core Capabilities</span>
+      <h2 class="section-title" id="services-heading">End-to-end digital execution built for conversion.</h2>
+      <p class="section-lead">
+        Four specialised practices under one roof—eliminating handoff friction between strategy, visual design, engineering, and performance marketing.
+      </p>
+    </div>
+
+    <div class="grid-4">
+      {SERVICES_BENTO.map((service) => (
+        <article class="service-card" data-glow-card data-reveal>
+          <div class="service-card__top">
+            <span class="service-card__step">{service.step}</span>
+            <span class="tag">{service.highlight}</span>
+          </div>
+          <h3>{service.title}</h3>
+          <p class="service-card__sub">{service.subtitle}</p>
+          <ul>
+            {service.items.map((item) => (
+              <li>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <a href="#contact" class="service-card__link">
+            Discuss {service.title}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @use '../styles/tokens' as *;
+  @use '../styles/mixins' as *;
+
+  .service-card {
+    @include interactive-card;
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+
+    &__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 1.35rem;
+    }
+
+    &__step {
+      font-family: $font-mono;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: $accent-emerald;
+    }
+
+    h3 {
+      margin: 0 0 0.4rem;
+      font-size: 1.38rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+    }
+
+    &__sub {
+      margin: 0 0 1.25rem;
+      color: $text-secondary;
+      font-size: 0.92rem;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0 0 1.65rem;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      flex: 1;
+
+      li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.55rem;
+        font-size: 0.9rem;
+        color: #cbd5e1;
+
+        svg {
+          color: $accent-emerald;
+          margin-top: 0.22rem;
+          flex-shrink: 0;
+        }
+      }
+    }
+
+    &__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: $accent-cyan;
+      transition: gap $transition-fast, color $transition-fast;
+
+      &:hover {
+        gap: 0.7rem;
+        color: $accent-emerald;
+      }
+    }
+  }
+</style>

@@ -1,0 +1,22 @@
+{
+  "name": "digitalworldau",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build:wasm": "cargo build --manifest-path rust-agency-wasm/Cargo.toml --target wasm32-unknown-unknown --release && node scripts/sync-wasm.mjs",
+    "build": "npm run build:wasm && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "cargo test --manifest-path rust-agency-wasm/Cargo.toml && node --test test/agency-wasm.test.mjs"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/svelte": "^7.2.5",
+    "astro": "^5.16.0",
+    "sass": "^1.86.0",
+    "svelte": "^5.59.1",
+    "typescript": "^5.9.3"
+  }
+}

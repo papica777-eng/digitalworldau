@@ -1,0 +1,79 @@
+@use './tokens' as *;
+@use './mixins' as *;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border-radius: $radius-pill;
+  font-weight: 700;
+  font-size: 0.94rem;
+  letter-spacing: -0.01em;
+  padding: 0.85rem 1.55rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform $transition-fast, box-shadow $transition-fast, background $transition-fast, border-color $transition-fast;
+  white-space: nowrap;
+
+  &:active {
+    transform: translateY(1px) scale(0.99);
+  }
+}
+
+.btn-primary {
+  background: $gradient-brand;
+  color: #031014;
+  box-shadow: 0 0 26px rgba(0, 245, 160, 0.25), 0 8px 20px rgba(0, 0, 0, 0.35);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 38px rgba(0, 245, 160, 0.42), 0 12px 26px rgba(0, 0, 0, 0.45);
+  }
+}
+
+.btn-ghost {
+  @include glass-surface;
+  color: $text-primary;
+  border-color: rgba(255, 255, 255, 0.14);
+
+  &:hover {
+    border-color: rgba(0, 245, 160, 0.45);
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+  }
+}
+
+.pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.42rem 0.95rem;
+  border-radius: $radius-pill;
+  background: rgba(0, 245, 160, 0.09);
+  border: 1px solid rgba(0, 245, 160, 0.28);
+  color: $accent-emerald;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.72rem;
+  border-radius: $radius-pill;
+  font-family: $font-mono;
+  font-size: 0.72rem;
+  font-weight: 500;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.24);
+  color: #bae6fd;
+}
+
+.stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  color: $accent-amber;
+}

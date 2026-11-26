@@ -1,0 +1,85 @@
+---
+import { TECH_STACK } from '../data/agencyData';
+---
+
+<section class="section" id="stack" aria-labelledby="stack-heading">
+  <div class="container">
+    <div class="section-header section-header--centered" data-reveal>
+      <span class="eyebrow">Technology Stack</span>
+      <h2 class="section-title" id="stack-heading">Our Technological Arsenal</h2>
+      <p class="section-lead">
+        Battle-tested design systems, modern frontend frameworks, reliable CMS architecture, and containerised cloud infrastructure.
+      </p>
+    </div>
+
+    <div class="tech-grid" data-reveal>
+      {TECH_STACK.map((tool) => (
+        <div class="tech-badge" data-glow-card>
+          <span class="tech-badge__monogram" aria-hidden="true">{tool.badge}</span>
+          <div class="tech-badge__meta">
+            <strong>{tool.name}</strong>
+            <span>{tool.category}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @use '../styles/tokens' as *;
+  @use '../styles/mixins' as *;
+
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+
+    @include respond-up(sm) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @include respond-up(lg) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .tech-badge {
+    @include interactive-card;
+    border-radius: $radius-md;
+    padding: 1.15rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    &__monogram {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-family: $font-mono;
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: $accent-emerald;
+      background: rgba(0, 245, 160, 0.08);
+      border: 1px solid rgba(0, 245, 160, 0.25);
+      flex-shrink: 0;
+    }
+
+    &__meta {
+      display: flex;
+      flex-direction: column;
+
+      strong {
+        font-size: 0.98rem;
+        color: $text-primary;
+      }
+
+      span {
+        font-size: 0.78rem;
+        color: $text-muted;
+      }
+    }
+  }
+</style>

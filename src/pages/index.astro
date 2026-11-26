@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AnnouncementBar from '../components/AnnouncementBar.astro';
+import HeaderNav from '../components/HeaderNav.svelte';
+import HeroShowreel from '../components/HeroShowreel.svelte';
+import AwardsBar from '../components/AwardsBar.astro';
+import PortfolioShowcase from '../components/PortfolioShowcase.svelte';
+import TestimonialsSection from '../components/TestimonialsSection.svelte';
+import TechArsenal from '../components/TechArsenal.astro';
+import ServicesBento from '../components/ServicesBento.astro';
+import FounderFaq from '../components/FounderFaq.svelte';
+import BlogHub from '../components/BlogHub.svelte';
+import QuoteForm from '../components/QuoteForm.svelte';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+
+<BaseLayout>
+  <AnnouncementBar />
+  <HeaderNav client:load />
+
+  <main>
+    <HeroShowreel client:load />
+    <AwardsBar />
+    <PortfolioShowcase client:visible />
+    <TestimonialsSection client:visible />
+    <TechArsenal />
+    <ServicesBento />
+    <FounderFaq client:visible />
+    <BlogHub client:visible />
+    <QuoteForm client:visible />
+  </main>
+
+  <SiteFooter />
+</BaseLayout>

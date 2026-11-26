@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AnnouncementBar from '../components/AnnouncementBar.astro';
+import HeaderNav from '../components/HeaderNav.svelte';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+
+<BaseLayout title="Privacy Policy — Digital World AU" canonical="https://digitalworldau.com/privacy">
+  <AnnouncementBar />
+  <HeaderNav client:load />
+  <main class="section">
+    <div class="container legal-wrap">
+      <span class="eyebrow">Privacy &amp; Data Protection</span>
+      <h1 class="section-title">Privacy Policy</h1>
+      <p class="section-lead">
+        Digital World AU respects your privacy under the Australian Privacy Principles (Privacy Act 1988 Cth) and applicable GDPR protections for European clients.
+      </p>
+      <div class="legal-card">
+        <h2>1. Information We Collect</h2>
+        <p>When you request a quote or free 2-week website audit, we collect only the contact details, budget tier, project notes, and optional brief attachments you explicitly submit.</p>
+        <h2>2. In-Browser Zero-Trust File Checks</h2>
+        <p>Attachment magic-byte verification (<code>agency_wasm.wasm</code>) runs locally inside your browser before transmission to ensure only safe document or image formats up to 10MB are attached.</p>
+        <h2>3. Contact</h2>
+        <p>Privacy inquiries may be directed to <a href="mailto:hello@digitalworldau.com">hello@digitalworldau.com</a>.</p>
+        <a href="/" class="btn btn-ghost">← Back to Home</a>
+      </div>
+    </div>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style lang="scss">
+  @use '../styles/tokens' as *;
+  @use '../styles/mixins' as *;
+
+  .legal-wrap {
+    max-width: 820px;
+  }
+
+  .legal-card {
+    @include glass-surface;
+    border-radius: $radius-lg;
+    padding: 2rem;
+    margin-top: 2rem;
+
+    h2 {
+      margin: 1.5rem 0 0.5rem;
+      font-size: 1.15rem;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    p {
+      margin: 0 0 1rem;
+      color: $text-secondary;
+    }
+
+    a:not(.btn) {
+      color: $accent-cyan;
+      text-decoration: underline;
+    }
+
+    .btn {
+      margin-top: 1rem;
+    }
+  }
+</style>

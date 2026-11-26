@@ -1,0 +1,87 @@
+@use './tokens' as *;
+@use './mixins' as *;
+
+.container {
+  width: 100%;
+  max-width: $container-max;
+  margin-inline: auto;
+  padding-inline: clamp(1.1rem, 4vw, 2.25rem);
+}
+
+.section {
+  padding-block: $section-pad-y;
+  position: relative;
+}
+
+.section-header {
+  max-width: 740px;
+  margin-bottom: clamp(2.25rem, 5vw, 3.75rem);
+
+  &--centered {
+    margin-inline: auto;
+    text-align: center;
+  }
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: $font-mono;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $accent-emerald;
+  margin-bottom: 0.85rem;
+
+  &::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: $accent-emerald;
+    box-shadow: 0 0 10px $accent-emerald;
+  }
+}
+
+.section-title {
+  @include heading-display;
+  font-size: clamp(2rem, 4.3vw, 3.35rem);
+  margin: 0 0 1rem;
+  background: $gradient-text;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-lead {
+  font-size: clamp(1rem, 1.45vw, 1.16rem);
+  color: $text-secondary;
+  margin: 0;
+  line-height: 1.65;
+}
+
+.grid-2 {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+
+  @include respond-up(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.grid-4 {
+  display: grid;
+  gap: 1.35rem;
+  grid-template-columns: 1fr;
+
+  @include respond-up(sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include respond-up(lg) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

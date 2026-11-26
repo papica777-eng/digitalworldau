@@ -1,0 +1,173 @@
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="#top" class="footer-logo">
+        <strong>Digital World</strong> <span>AU</span>
+      </a>
+      <p>
+        High-converting web design, bespoke e-commerce engineering, and performance marketing built in Australia for ambitious global brands.
+      </p>
+      <div class="footer-contact">
+        <a href="mailto:hello@digitalworldau.com">hello@digitalworldau.com</a>
+        <a href="tel:+61280004190">+61 2 8000 4190</a>
+        <span>Level 14, 275 George Street, Sydney NSW 2000, Australia</span>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Website Audit (UX &amp; SEO)</a></li>
+        <li><a href="#services">UI/UX &amp; Web Design</a></li>
+        <li><a href="#services">Custom Development</a></li>
+        <li><a href="#services">E-Commerce Platforms</a></li>
+        <li><a href="#services">SEO, PPC &amp; Email Growth</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Agency</h4>
+      <ul>
+        <li><a href="#projects">Case Studies &amp; Work</a></li>
+        <li><a href="#stack">Tech Arsenal</a></li>
+        <li><a href="#about">Founder &amp; FAQ</a></li>
+        <li><a href="#blog">Knowledge Hub</a></li>
+        <li><a href="#contact">Free 2-Week Audit</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Legal &amp; Trust</h4>
+      <ul>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Engagement</a></li>
+        <li><a href="#contact">IP Ownership Guarantee</a></li>
+        <li><a href="#top">digitalworldau.com</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <p>© {new Date().getFullYear()} Digital World AU. All rights reserved. Crafted in Sydney &amp; Melbourne.</p>
+    <p class="footer-tech">Astro 5 • Modular SCSS • Svelte 5 • Rust/WebAssembly</p>
+  </div>
+</footer>
+
+<style lang="scss">
+  @use '../styles/tokens' as *;
+  @use '../styles/mixins' as *;
+
+  .site-footer {
+    border-top: 1px solid $border-subtle;
+    background: #03050a;
+    padding-block: 4rem 2rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    gap: 2.25rem;
+    grid-template-columns: 1fr;
+
+    @include respond-up(sm) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include respond-up(lg) {
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    }
+  }
+
+  .footer-logo {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    font-size: 1.25rem;
+    margin-bottom: 0.85rem;
+
+    strong {
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    span {
+      font-family: $font-mono;
+      font-size: 0.82rem;
+      color: $accent-emerald;
+    }
+  }
+
+  .footer-brand p {
+    margin: 0 0 1.25rem;
+    color: $text-secondary;
+    font-size: 0.9rem;
+    max-width: 38ch;
+  }
+
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.86rem;
+
+    a {
+      color: $accent-cyan;
+      font-weight: 600;
+    }
+
+    span {
+      color: $text-muted;
+    }
+  }
+
+  .footer-col {
+    h4 {
+      margin: 0 0 1rem;
+      font-family: $font-mono;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: $accent-emerald;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.6rem;
+
+      a {
+        font-size: 0.9rem;
+        color: $text-secondary;
+        transition: color $transition-fast;
+
+        &:hover {
+          color: #ffffff;
+        }
+      }
+    }
+  }
+
+  .footer-bottom {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: $text-muted;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .footer-tech {
+    font-family: $font-mono;
+    font-size: 0.76rem;
+    color: $text-secondary;
+  }
+</style>

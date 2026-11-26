@@ -1,0 +1,66 @@
+@use './tokens' as *;
+
+@mixin respond-up($bp) {
+  @if $bp == sm {
+    @media (min-width: 540px) { @content; }
+  } @else if $bp == md {
+    @media (min-width: 768px) { @content; }
+  } @else if $bp == lg {
+    @media (min-width: 1024px) { @content; }
+  } @else if $bp == xl {
+    @media (min-width: 1280px) { @content; }
+  }
+}
+
+@mixin glass-surface($strong: false) {
+  @if $strong {
+    background: $bg-glass-strong;
+  } @else {
+    background: $bg-glass;
+  }
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid $border-subtle;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), $shadow-card;
+}
+
+@mixin interactive-card {
+  @include glass-surface;
+  border-radius: $radius-lg;
+  position: relative;
+  overflow: hidden;
+  transition: transform $transition-smooth, border-color $transition-smooth, box-shadow $transition-smooth;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: $gradient-card-glow;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity $transition-smooth;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 245, 160, 0.28);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 28px rgba(0, 245, 160, 0.09);
+
+    &::before {
+      opacity: 1;
+    }
+  }
+}
+
+@mixin heading-display {
+  font-family: $font-sans;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.06;
+  color: $text-primary;
+}
+
+@mixin focus-ring {
+  outline: 2px solid $accent-emerald;
+  outline-offset: 3px;
+}
