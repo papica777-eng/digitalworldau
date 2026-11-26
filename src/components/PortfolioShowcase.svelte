@@ -57,23 +57,30 @@
             class="marquee-card"
             class:marquee-card--doc={project.isDocument}
             onclick={() => (lightboxItem = project)}
+            onmouseenter={(e) => {
+              const v = e.currentTarget.querySelector('video');
+              if (v) v.play().catch(() => {});
+            }}
+            onmouseleave={(e) => {
+              const v = e.currentTarget.querySelector('video');
+              if (v) { v.pause(); v.currentTime = 0; }
+            }}
             aria-label={`Inspect ${project.title}`}
           >
+            <img src={project.image} alt={`${project.title} showcase preview`} loading="eager" decoding="async" />
             {#if project.video}
               <video
                 src={project.video}
                 poster={project.image}
-                autoplay
                 loop
                 muted
                 playsinline
-                preload="metadata"
+                preload="none"
+                class="marquee-video"
               ></video>
-            {:else}
-              <img src={project.image} alt={`${project.title} showcase preview`} loading="lazy" />
             {/if}
-            <span class="marquee-pill marquee-pill--live">
-              {project.video ? `▶ LIVE TOUR • ${project.liveDomain}` : project.isDocument ? `PDF • ${project.title.split('—')[0].trim()}` : `● ${project.liveDomain}`}
+            <span class={project.isDocument ? 'marquee-pill marquee-pill--doc' : 'marquee-pill marquee-pill--live'}>
+              {project.video ? `▶ LIVE TOUR • ${project.liveDomain}` : project.isDocument ? `PDF • ${project.title.split('—')[0].trim()}` : project.pdfUrl ? 'AU BROCHURE PDF' : `● ${project.liveDomain}`}
             </span>
           </button>
         {/each}
@@ -88,20 +95,27 @@
             class="marquee-card"
             class:marquee-card--doc={project.isDocument}
             onclick={() => (lightboxItem = project)}
+            onmouseenter={(e) => {
+              const v = e.currentTarget.querySelector('video');
+              if (v) v.play().catch(() => {});
+            }}
+            onmouseleave={(e) => {
+              const v = e.currentTarget.querySelector('video');
+              if (v) { v.pause(); v.currentTime = 0; }
+            }}
             aria-label={`Inspect ${project.title}`}
           >
+            <img src={project.image} alt={`${project.title} showcase preview`} loading="eager" decoding="async" />
             {#if project.video}
               <video
                 src={project.video}
                 poster={project.image}
-                autoplay
                 loop
                 muted
                 playsinline
-                preload="metadata"
+                preload="none"
+                class="marquee-video"
               ></video>
-            {:else}
-              <img src={project.image} alt={`${project.title} showcase preview`} loading="lazy" />
             {/if}
             <span class={project.isDocument ? 'marquee-pill marquee-pill--doc' : 'marquee-pill marquee-pill--live'}>
               {project.video ? `▶ LIVE TOUR • ${project.liveDomain}` : project.isDocument ? 'OFFICIAL PDF' : project.pdfUrl ? 'AU BROCHURE PDF' : `● ${project.liveDomain}`}
@@ -518,14 +532,19 @@
   .marquee-track {
     display: flex;
     width: max-content;
-    gap: 1.15rem;
+    gap: 1.25rem;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    contain: layout style paint;
 
     &--left {
-      animation: marqueeLeft 42s linear infinite;
+      animation: marqueeLeft 58s linear infinite;
     }
 
     &--right {
-      animation: marqueeRight 46s linear infinite;
+      animation: marqueeRight 58s linear infinite;
     }
   }
 
@@ -541,15 +560,30 @@
     cursor: pointer;
     flex-shrink: 0;
     box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    contain: paint layout;
     transition: transform $transition-smooth, border-color $transition-fast;
 
-    img,
-    video {
+    img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
       transition: transform $transition-smooth;
+    }
+
+    .marquee-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease, transform $transition-smooth;
     }
 
     &--doc {
@@ -564,8 +598,12 @@
     &:hover {
       border-color: rgba(132, 181, 230, 0.55);
 
-      img,
-      video {
+      img {
+        transform: scale(1.04);
+      }
+
+      .marquee-video {
+        opacity: 1;
         transform: scale(1.04);
       }
 
