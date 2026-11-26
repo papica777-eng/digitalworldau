@@ -1,0 +1,33 @@
+# Digital World AU (`https://digitalworldau.com/`)
+
+> Australian Web Design, E-Commerce & Google Ads Conversion Agency — Sydney & Melbourne HQ (`hello@digitalworldau.com`).
+
+## Core Services
+- **Free 48-Hour Expert Website Audit**: UX friction review, mobile Core Web Vitals speed diagnostics, and Google SEO opportunities delivered within 48 hours (`https://digitalworldau.com/#contact`).
+- **UI/UX & Bespoke Web Design**: High-contrast dark & editorial designs built mobile-first for conversion.
+- **Custom Websites & E-Commerce Stores**: High-speed websites and D2C storefronts built with Astro 5, Svelte 5, Modular SCSS, Rust/WebAssembly, WordPress, Stripe, and Cloudflare Edge.
+- **Google SEO & Paid Search CRO**: Local & national SEO, structured rich-result markup, and high-converting Google Ads landing pages.
+
+## Transparent Pricing (Fixed-Scope Milestones)
+- `€2,000 – €5,000` (`A$3,300 – A$8,250`): High-velocity conversion landing systems
+- `€5,000 – €10,000` (`A$8,250 – A$16,500`): Custom business websites & multi-page brand sites
+- `€10,000 – €20,000` (`A$16,500 – A$33,000`): High-converting e-commerce stores & portals
+- `€20,000 – €50,000` (`A$33,000 – A$82,500`): Bespoke multi-region commerce flagships & web platforms
+- **100% Client IP Ownership** upon milestone completion.
+
+## Verified Live Production Portfolio
+- **ANCHIALO Australia (`https://anchialo.com`)**: Australian D2C online store for certified Lake Pomorie Magnesium Gel & Oil dispatched from Melbourne.
+- **CPT MMA Melbourne (`https://cptmma.com`)**: Coaching academy platform led by ONE Championship veteran Sotir Kichukov (`0.78s` mobile load).
+- **AETERNA Digital Flagship (`https://aeterna.website`)**: Interactive 60fps 3D web platform achieving 100/100 Google PageSpeed metrics.
+
+## Leadership & Contact
+- **Founder & Lead Architect**: Dimitar Prodromov ([GitHub](https://github.com/papica777-eng), [ORCID](https://orcid.org/0009-0004-8070-1348), [aeterna.website](https://aeterna.website))
+- **Sydney Office**: Level 14, 275 George Street, Sydney NSW 2000, Australia
+- **Direct Desk**: `hello@digitalworldau.com` | `+61 2 8000 4190`
+
+## Key URLs
+- Homepage: https://digitalworldau.com/
+- Privacy Policy: https://digitalworldau.com/privacy/
+- Terms of Engagement: https://digitalworldau.com/terms/
+- XML Sitemap: https://digitalworldau.com/sitemap.xml
+- RSS Feed: https://digitalworldau.com/feed.xml

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Digital World AU — Web Design, E-Commerce &amp; Growth Feed</title>
+    <link>https://digitalworldau.com/</link>
+    <atom:link href="https://digitalworldau.com/feed.xml" rel="self" type="application/rss+xml" />
+    <description>Australian digital agency building fast websites, high-converting online stores, and Google Ads funnels for Sydney, Melbourne &amp; global brands.</description>
+    <language>en-AU</language>
+    <lastBuildDate>Thu, 26 Nov 2026 08:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Free 48-Hour Expert Website Audit — UX, Mobile Speed &amp; Google SEO</title>
+      <link>https://digitalworldau.com/#contact</link>
+      <guid isPermaLink="false">digitalworldau-audit-48h</guid>
+      <pubDate>Thu, 26 Nov 2026 08:00:00 +0000</pubDate>
+      <description>Complimentary conversion, mobile speed, and SEO diagnostic delivered as an actionable roadmap within 48 hours.</description>
+    </item>
+    <item>
+      <title>ANCHIALO Australia (anchialo.com) — Magnesium Recovery D2C Store Launch</title>
+      <link>https://digitalworldau.com/#projects</link>
+      <guid isPermaLink="false">digitalworldau-case-anchialo</guid>
+      <pubDate>Thu, 26 Nov 2026 08:00:00 +0000</pubDate>
+      <description>High-speed Australian online store for 253 g/L Lake Pomorie Magnesium Gel and Oil products dispatched from Melbourne.</description>
+    </item>
+    <item>
+      <title>CPT MMA Melbourne (cptmma.com) — Coaching &amp; Intake Platform</title>
+      <link>https://digitalworldau.com/#projects</link>
+      <guid isPermaLink="false">digitalworldau-case-cptmma</guid>
+      <pubDate>Thu, 26 Nov 2026 08:00:00 +0000</pubDate>
+      <description>Mobile-first martial arts and athletic coaching platform for ONE Championship veteran Sotir Kichukov with 0.78s mobile loading.</description>
+    </item>
+    <item>
+      <title>AETERNA Platform (aeterna.website) — Interactive Digital Flagship</title>
+      <link>https://digitalworldau.com/#projects</link>
+      <guid isPermaLink="false">digitalworldau-case-aeterna</guid>
+      <pubDate>Thu, 26 Nov 2026 08:00:00 +0000</pubDate>
+      <description>Interactive 60fps 3D web platform delivering instant global edge performance and 100/100 Google PageSpeed metrics.</description>
+    </item>
+    <item>
+      <title>How to Build a High-Converting Website for Beauty Salons &amp; Medspas</title>
+      <link>https://digitalworldau.com/#blog</link>
+      <guid isPermaLink="false">digitalworldau-blog-beauty-salon</guid>
+      <pubDate>Thu, 26 Nov 2026 08:00:00 +0000</pubDate>
+      <description>Frictionless 3-tap mobile booking flows, treatment menu psychology, and local Australian Google Business SEO.</description>
+    </item>
+  </channel>
+</rss>
