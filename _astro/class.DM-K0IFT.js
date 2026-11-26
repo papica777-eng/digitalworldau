@@ -1,1 +1,0 @@
-import{t as h}from"./attributes.C7YJlRmi.js";import{J as l,q as C,K as v,L as A,H,M as L}from"./template.DVG1m-cE.js";function q(r,S,t,b,f,i){var u=r[l];if(C||u!==t||u===void 0||v){var a=h(t,b,i);(!C||a!==A(r,"class"))&&(a==null?H(r,"class"):r.className=a),r[l]=t}else if(i&&f!==i)for(var o in i){var g=!!i[o];(f==null||g!==!!f[o])&&L(r,o,g)}return i}export{q as s};

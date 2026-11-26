@@ -1,0 +1,1 @@
+import{t as h}from"./attributes.C7YJlRmi.js";import{ac as l,ad as v,I as A,ae as S,q as C,af as m}from"./template.CyO1CHAI.js";function E(r,p,i,b,f,a){var u=r[l];if(C||u!==i||u===void 0||v){var t=h(i,b,a);(!C||t!==m(r,"class"))&&(t==null?A(r,"class"):r.className=t),r[l]=i}else if(a&&f!==a)for(var o in a){var g=!!a[o];(f==null||g!==!!f[o])&&S(r,o,g)}return a}export{E as s};
