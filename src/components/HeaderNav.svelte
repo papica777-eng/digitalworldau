@@ -1,4 +1,5 @@
 <script lang="ts">
+  import BrandLogo from './BrandLogo.svelte';
   import { MEGA_MENU } from '../data/agencyData';
   import { currencyStore } from '../lib/currency.svelte';
 
@@ -8,7 +9,7 @@
 
   $effect(() => {
     const onScroll = () => {
-      scrolled = window.scrollY > 18;
+      scrolled = window.scrollY > 24;
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -23,26 +24,9 @@
 
 <header class:scrolled class="site-header">
   <div class="container header-inner">
-    <a href="#top" class="brand" aria-label="Digital World AU Home" onclick={closeAll}>
-      <svg class="brand__mark" width="36" height="36" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-        <rect width="64" height="64" rx="16" fill="#06070d" />
-        <rect x="2" y="2" width="60" height="60" rx="14" stroke="url(#navGradV2)" stroke-width="3" />
-        <path d="M18 44V20h11c8.2 0 13.5 4.8 13.5 12S37.2 44 29 44H18Zm6.5-5.6h4.3c4.7 0 7.4-2.5 7.4-6.4s-2.7-6.4-7.4-6.4h-4.3v12.8Z" fill="url(#navGradV2)" />
-        <circle cx="48" cy="18" r="4.5" fill="#00f5a0" />
-        <defs>
-          <linearGradient id="navGradV2" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#00f5a0" />
-            <stop offset="0.52" stop-color="#016ad4" />
-            <stop offset="1" stop-color="#fcc1f4" />
-          </linearGradient>
-        </defs>
-      </svg>
-      <span class="brand__word">
-        <strong>Digital World</strong>
-        <span>AU</span>
-      </span>
-    </a>
+    <BrandLogo onclick={closeAll} />
 
+    <!-- Centered sleek obsidian floating pill nav matching agma.bg -->
     <nav class="desktop-nav" aria-label="Primary navigation">
       <div
         class="mega-trigger-wrap"
@@ -51,12 +35,12 @@
       >
         <button
           type="button"
-          class="nav-link nav-link--btn"
+          class="nav-link"
           aria-expanded={megaOpen}
           onclick={() => (megaOpen = !megaOpen)}
         >
           Services
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
             <path d="m6 9 6 6 6-6" />
           </svg>
         </button>
@@ -111,7 +95,7 @@
     <div class="header-actions">
       <button
         type="button"
-        class="currency-pill"
+        class="currency-text"
         onclick={() => currencyStore.toggle()}
         aria-label="Toggle display currency between AUD and EUR"
         title="Switch currency display (AUD / EUR)"
@@ -121,7 +105,10 @@
         <span class:active={currencyStore.code === 'EUR'}>EUR</span>
       </button>
 
-      <a href="#contact" class="btn btn-primary header-cta">Get a Quote</a>
+      <a href="#contact" class="cobalt-quote-cta">
+        <span>Get a Quote</span>
+        <span class="at-icon" aria-hidden="true">@</span>
+      </a>
 
       <button
         type="button"
@@ -159,7 +146,10 @@
         <a href="#about" class="mobile-link" onclick={closeAll}>About Us</a>
         <a href="#blog" class="mobile-link" onclick={closeAll}>Blog</a>
         <a href="#contact" class="mobile-link" onclick={closeAll}>Contact</a>
-        <a href="#contact" class="btn btn-primary mobile-cta" onclick={closeAll}>Get a Quote</a>
+        <a href="#contact" class="cobalt-quote-cta mobile-cta" onclick={closeAll}>
+          <span>Get a Quote</span>
+          <span class="at-icon" aria-hidden="true">@</span>
+        </a>
       </div>
     </div>
   {/if}
@@ -169,61 +159,40 @@
   @use '../styles/tokens' as *;
   @use '../styles/mixins' as *;
 
+  // Completely transparent at top so logo & nav float natively over the cobalt-black background
   .site-header {
     position: sticky;
     top: 0;
     z-index: 60;
-    background: rgba(6, 7, 13, 0.72);
-    backdrop-filter: blur(20px) saturate(150%);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-    transition: background $transition-fast, border-color $transition-fast;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: background $transition-fast, border-color $transition-fast, backdrop-filter $transition-fast;
 
     &.scrolled {
-      background: rgba(6, 7, 13, 0.92);
-      border-bottom-color: rgba(132, 181, 230, 0.16);
+      background: rgba(2, 3, 8, 0.84);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      border-bottom-color: rgba(255, 255, 255, 0.06);
     }
   }
 
   .header-inner {
-    height: 78px;
+    height: 84px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1.5rem;
-  }
-
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.72rem;
-    flex-shrink: 0;
-
-    &__word {
-      display: flex;
-      align-items: baseline;
-      gap: 0.35rem;
-      font-size: 1.14rem;
-      letter-spacing: -0.03em;
-
-      strong {
-        font-weight: 800;
-        color: #ffffff;
-      }
-
-      span {
-        font-family: $font-mono;
-        font-size: 0.78rem;
-        font-weight: 700;
-        color: $accent-emerald;
-      }
-    }
+    gap: 1.25rem;
   }
 
   .desktop-nav {
     display: none;
     align-items: center;
     gap: 1.85rem;
+    padding: 0.7rem 1.85rem;
+    border-radius: $radius-pill;
+    background: rgba(0, 0, 0, 0.56);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    backdrop-filter: blur(16px);
 
     @include respond-up(lg) {
       display: flex;
@@ -231,13 +200,13 @@
   }
 
   .nav-link {
-    font-size: 0.93rem;
-    font-weight: 600;
-    color: $text-secondary;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.78);
     transition: color $transition-fast;
     background: none;
     border: none;
-    padding: 0.45rem 0;
+    padding: 0.25rem 0;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -254,13 +223,13 @@
 
   .mega-dropdown {
     position: absolute;
-    top: calc(100% + 0.5rem);
-    left: -210px;
-    width: 880px;
+    top: calc(100% + 1.1rem);
+    left: -180px;
+    width: 860px;
     padding: 1.5rem;
     border-radius: $radius-lg;
     @include glass-surface(true);
-    border-color: rgba(132, 181, 230, 0.28);
+    border-color: rgba(132, 181, 230, 0.26);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 0.95fr;
     gap: 1.15rem;
@@ -273,7 +242,7 @@
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: $accent-emerald;
+    color: $accent-blue-light;
   }
 
   .mega-item {
@@ -297,15 +266,15 @@
     }
 
     &:hover {
-      background: rgba(1, 106, 212, 0.18);
+      background: rgba(1, 106, 212, 0.2);
     }
   }
 
   .mega-promo {
     border-radius: $radius-md;
     overflow: hidden;
-    background: rgba(2, 9, 50, 0.72);
-    border: 1px solid rgba(252, 193, 244, 0.24);
+    background: rgba(2, 9, 50, 0.78);
+    border: 1px solid rgba(252, 193, 244, 0.22);
     display: flex;
     flex-direction: column;
 
@@ -339,39 +308,65 @@
   .header-actions {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 1rem;
   }
 
-  .currency-pill {
+  // Frameless currency switcher directly embedded into dark background
+  .currency-text {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.42rem 0.78rem;
-    border-radius: $radius-pill;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid $border-subtle;
+    gap: 0.3rem;
+    background: transparent;
+    border: none;
+    padding: 0.25rem;
     font-family: $font-mono;
     font-size: 0.75rem;
-    color: $text-muted;
+    color: rgba(255, 255, 255, 0.45);
     cursor: pointer;
 
     .active {
-      color: $accent-emerald;
+      color: #ffffff;
       font-weight: 700;
     }
 
     .sep {
-      opacity: 0.4;
+      opacity: 0.35;
     }
   }
 
-  .header-cta {
+  // Electric cobalt pill CTA with circular '@' emblem mirroring agma.bg
+  .cobalt-quote-cta {
     display: none;
-    padding: 0.68rem 1.3rem;
-    font-size: 0.88rem;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.56rem 0.65rem 0.56rem 1.25rem;
+    border-radius: $radius-pill;
+    background: #016ad4;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.86rem;
+    box-shadow: 0 8px 26px rgba(1, 106, 212, 0.42);
+    transition: transform $transition-fast, background $transition-fast, box-shadow $transition-fast;
 
     @include respond-up(sm) {
       display: inline-flex;
+    }
+
+    &:hover {
+      transform: translateY(-1px);
+      background: #0278ef;
+      box-shadow: 0 12px 32px rgba(1, 106, 212, 0.62);
+    }
+
+    .at-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.78);
+      display: grid;
+      place-items: center;
+      font-size: 0.78rem;
+      font-weight: 800;
     }
   }
 
@@ -379,11 +374,11 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid $border-subtle;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.16);
     cursor: pointer;
 
     @include respond-up(lg) {
@@ -393,7 +388,7 @@
 
   .mobile-drawer {
     border-top: 1px solid $border-subtle;
-    background: rgba(6, 7, 13, 0.98);
+    background: rgba(2, 3, 8, 0.98);
     padding-block: 1.5rem 2rem;
 
     &__inner {
@@ -408,7 +403,7 @@
     font-size: 0.74rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: $accent-emerald;
+    color: $accent-blue-light;
     display: block;
     margin-bottom: 0.5rem;
   }
@@ -435,6 +430,8 @@
   }
 
   .mobile-cta {
+    display: inline-flex;
+    justify-content: center;
     margin-top: 0.5rem;
     width: 100%;
   }

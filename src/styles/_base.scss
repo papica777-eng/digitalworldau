@@ -33,11 +33,10 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(1100px 680px at 12% -5%, rgba(1, 106, 212, 0.24), transparent 58%),
-    radial-gradient(950px 620px at 88% 6%, rgba(95, 31, 87, 0.28), transparent 56%),
-    radial-gradient(900px 580px at 50% 34%, rgba(2, 9, 50, 0.72), transparent 68%),
-    radial-gradient(850px 520px at 80% 68%, rgba(0, 245, 160, 0.07), transparent 60%),
-    $bg-canvas;
+    radial-gradient(960px 640px at 8% 12%, rgba(1, 106, 212, 0.44), rgba(2, 9, 50, 0.36) 44%, transparent 68%),
+    radial-gradient(760px 560px at 94% 10%, rgba(95, 31, 87, 0.28), transparent 58%),
+    radial-gradient(880px 560px at 78% 68%, rgba(0, 245, 160, 0.06), transparent 60%),
+    #020308;
   color: $text-primary;
   line-height: 1.6;
   overflow-x: clip;

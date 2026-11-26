@@ -1,11 +1,13 @@
+---
+import BrandLogo from './BrandLogo.svelte';
+---
+
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-brand">
-      <a href="#top" class="footer-logo">
-        <strong>Digital World</strong> <span>AU</span>
-      </a>
+      <BrandLogo compact={true} />
       <p>
-        High-converting web design, bespoke e-commerce engineering, and performance marketing built in Australia for ambitious global brands.
+        High-converting web design, bespoke e-commerce engineering, and performance marketing crafted in Australia for ambitious global brands.
       </p>
       <div class="footer-contact">
         <a href="mailto:hello@digitalworldau.com">hello@digitalworldau.com</a>
@@ -49,7 +51,7 @@
 
   <div class="container footer-bottom">
     <p>© {new Date().getFullYear()} Digital World AU. All rights reserved. Crafted in Sydney &amp; Melbourne.</p>
-    <p class="footer-tech">Astro 5 • Modular SCSS • Svelte 5 • Rust/WebAssembly</p>
+    <p class="footer-tech">Astro 5 • Modular SCSS • Svelte 5 • Three.js PBR • Rust/Wasm</p>
   </div>
 </footer>
 
@@ -58,8 +60,8 @@
   @use '../styles/mixins' as *;
 
   .site-footer {
-    border-top: 1px solid $border-subtle;
-    background: #03050a;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    background: #020308;
     padding-block: 4rem 2rem;
   }
 
@@ -77,27 +79,8 @@
     }
   }
 
-  .footer-logo {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.35rem;
-    font-size: 1.25rem;
-    margin-bottom: 0.85rem;
-
-    strong {
-      font-weight: 800;
-      color: #ffffff;
-    }
-
-    span {
-      font-family: $font-mono;
-      font-size: 0.82rem;
-      color: $accent-emerald;
-    }
-  }
-
   .footer-brand p {
-    margin: 0 0 1.25rem;
+    margin: 1rem 0 1.25rem;
     color: $text-secondary;
     font-size: 0.9rem;
     max-width: 38ch;
@@ -110,7 +93,7 @@
     font-size: 0.86rem;
 
     a {
-      color: $accent-cyan;
+      color: $accent-blue-light;
       font-weight: 600;
     }
 
