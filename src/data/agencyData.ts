@@ -13,11 +13,11 @@ export const BUDGET_TIERS: BudgetTier[] = [
 ];
 
 export const CLIENT_AVATARS = [
+  '/media/sotir-kichukov.webp',
   'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=140&q=80',
   'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=140&q=80',
   'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=140&q=80',
   'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=140&q=80',
-  'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=140&q=80',
 ];
 
 export const MEGA_MENU = {
@@ -28,7 +28,7 @@ export const MEGA_MENU = {
   ],
   development: [
     { label: 'Custom Websites & Astro', desc: 'Sub-second static HTML, Svelte 5 & WebAssembly', href: '#services' },
-    { label: 'E-Commerce Flagships', desc: 'High-volume WooCommerce, Shopify Plus & headless', href: '#services' },
+    { label: 'E-Commerce Flagships', desc: 'High-volume D2C stores like anchialo.com', href: '#projects' },
     { label: 'Maintenance & Security SLA', desc: '24/7 edge monitoring, backups & hardening', href: '#services' },
   ],
   marketing: [
@@ -47,9 +47,37 @@ export interface PortfolioItem {
   image: string;
   stack: string[];
   summary: string;
+  liveUrl?: string;
+  liveDomain?: string;
 }
 
 export const PORTFOLIO_ITEMS: PortfolioItem[] = [
+  {
+    id: 'anchialo-australia',
+    title: 'ANCHIALO Australia — Magnesium Recovery',
+    category: 'Online Store',
+    metric: '253 g/L MgCl₂ • Melbourne Dispatch',
+    region: 'Melbourne, Australia',
+    image: '/media/mockup-anchialo.webp',
+    stack: ['E-Commerce Flagship', 'Schema SEO', 'Cloudflare Edge'],
+    summary:
+      'Official Australian D2C store for certified topical Magnesium Gel & Magnesium Oil (253.14 g/L Magnesium Chloride & 70.36 g/L Magnesium Sulfate from Lake Pomorie) engineered for rapid muscle recovery & joint mobility.',
+    liveUrl: 'https://anchialo.com',
+    liveDomain: 'anchialo.com',
+  },
+  {
+    id: 'cpt-mma-melbourne',
+    title: 'CPT MMA Melbourne — Sotir Kichukov',
+    category: 'Corporate Website',
+    metric: 'ONE Championship Veteran Academy',
+    region: 'Melbourne, Australia',
+    image: '/media/mockup-cptmma.webp',
+    stack: ['High-Frame Video', 'Application Funnel', 'Local SEO'],
+    summary:
+      'Elite MMA, K1 kickboxing, wrestling & submission coaching platform in Melbourne led by ONE Championship veteran Sotir Kichukov—featuring 1-on-1 commitment protocols and private group intake.',
+    liveUrl: 'https://cptmma.com',
+    liveDomain: 'cptmma.com',
+  },
   {
     id: 'bondi-botanicals',
     title: 'Botanical Elixir — Bondi AU',
@@ -110,48 +138,49 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     stack: ['Three.js', 'React.js', 'REST API'],
     summary: 'Interactive mechanical calibre explorer and bespoke strap/bezel configurator for private collectors.',
   },
-  {
-    id: 'volt-mobility',
-    title: 'Volt Fleet Telemetry OS',
-    category: 'Web App',
-    metric: '42% Faster Dispatch',
-    region: 'Munich, Germany',
-    image: '/media/mockup-mobility.webp',
-    stack: ['React.js', 'Docker', 'WebSockets'],
-    summary: 'Real-time EV charging and logistics dispatch interface connecting European corridors with APAC port hubs.',
-  },
-  {
-    id: 'harbourline-studio',
-    title: 'Harbourline Architecture',
-    category: 'Corporate Website',
-    metric: '2.9x Private Commissions',
-    region: 'Sydney, Australia',
-    image: '/media/mockup-atelier.webp',
-    stack: ['Astro', 'SCSS Motion', 'Schema SEO'],
-    summary: 'Editorial monograph website showcasing coastal Australian residential architecture in high-frame-rate motion.',
-  },
 ];
 
 export const CASE_STUDIES = [
   {
-    tag: 'Online Store',
-    client: 'Botanical Elixir — Bondi AU',
-    video: '/videos/case-bondi.mp4',
-    poster: '/media/mockup-bondi.webp',
-    headline: 'Re-architecting an Australian luxury skincare house for 0.85s mobile loads & +184% revenue growth',
+    tag: 'Online Store • Official AU Flagship',
+    client: 'ANCHIALO Australia (anchialo.com)',
+    liveUrl: 'https://anchialo.com',
+    liveDomain: 'anchialo.com',
+    video: '/videos/case-anchialo.mp4',
+    poster: '/media/mockup-anchialo.webp',
+    headline: 'Launching Australia’s premier Lake Pomorie Magnesium Gel & Oil recovery brand with Melbourne dispatch',
     quote:
-      'Digital World AU rebuilt our entire e-commerce experience from the ground up. Mobile load times dropped below 0.9 seconds and our recurring subscription checkout surged 184% in the first 90 days.',
-    author: 'Charlotte Hayes',
-    role: 'Head of Digital Commerce, Bondi Botanicals',
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80',
+      'Built from the ground up for maximum conversion and scientific authority—showcasing five signature botanical formulations (253.14 g/L Magnesium Chloride & 70.36 g/L Magnesium Sulfate) trusted by combat athletes and physiotherapy clinics across Australia.',
+    author: 'ANCHIALO Australia',
+    role: 'Official Australian D2C & Wholesale Store — Melbourne, VIC',
+    avatar: '/media/anchialo-gel.webp',
     stats: [
-      { label: 'Conversion Lift', value: '+184%' },
-      { label: 'Mobile LCP', value: '0.85s' },
-      { label: 'Avg. Order Value', value: '+34%' },
+      { label: 'MgCl₂ Concentration', value: '253 g/L' },
+      { label: 'Botanical Blends', value: '5 Formulas' },
+      { label: 'Core Web Vitals', value: '100/100' },
     ],
   },
   {
-    tag: 'Corporate Website',
+    tag: 'Sports & Coaching Platform • Melbourne',
+    client: 'CPT MMA Melbourne (cptmma.com)',
+    liveUrl: 'https://cptmma.com',
+    liveDomain: 'cptmma.com',
+    video: '/videos/case-cptmma.mp4',
+    poster: '/media/mockup-cptmma.webp',
+    headline: 'High-impact fight protocols & private application platform for ONE Championship veteran Sotir Kichukov',
+    quote:
+      'Every frame hits with the intensity of a real camp. The dark cinematic video architecture, interactive training protocols, and streamlined application funnel keep our Melbourne small-group and 1-on-1 coaching rosters booked with committed athletes.',
+    author: 'Sotir Kichukov',
+    role: 'Head Coach & ONE Championship Veteran — CPT MMA Melbourne',
+    avatar: '/media/sotir-kichukov.webp',
+    stats: [
+      { label: 'Coaching Tier', value: 'ONE Vet' },
+      { label: 'Mobile Speed', value: '0.78s LCP' },
+      { label: 'Athlete Intake', value: 'By Application' },
+    ],
+  },
+  {
+    tag: 'Corporate Website • FinTech',
     client: 'Southern Cross Wealth Academy',
     video: '/videos/case-wealth.mp4',
     poster: '/media/mockup-wealth.webp',
@@ -181,13 +210,22 @@ export const GLOBAL_REGIONS = [
 
 export const TESTIMONIALS = [
   {
-    name: 'Amelia Thornton',
-    role: 'Founder & CEO',
-    company: 'Harbourline Interiors (Sydney)',
+    name: 'Sotir Kichukov',
+    role: 'Head Coach & ONE Championship Veteran',
+    company: 'CPT MMA Melbourne (cptmma.com)',
     country: 'Australia',
-    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=260&q=80',
+    avatar: '/media/sotir-kichukov.webp',
     quote:
-      'From the initial two-week UX audit to launch day, Digital World AU operated like an embedded product squad. Our private showroom consultations doubled in eight weeks.',
+      'Digital World AU engineered cptmma.com with the exact discipline we demand on the mats—instant video playback, razor-sharp fight protocol breakdowns, and an application funnel that filters for serious Melbourne athletes.',
+  },
+  {
+    name: 'ANCHIALO Australia Team',
+    role: 'Official Australian Distribution',
+    company: 'anchialo.com (Melbourne, VIC)',
+    country: 'Australia',
+    avatar: '/media/anchialo-gel.webp',
+    quote:
+      'From interactive Lake Pomorie balneology storytelling to sub-second mobile checkout for our 253 g/L Magnesium Gel and Oil collection, anchialo.com sets the gold standard for wellness e-commerce in Australia.',
   },
   {
     name: 'Nikolay Georgiev',
@@ -224,15 +262,6 @@ export const TESTIMONIALS = [
     avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=260&q=80',
     quote:
       'Absolute precision, milestone discipline, and discreet security architecture. They delivered ahead of schedule and exceeded every Core Web Vitals benchmark.',
-  },
-  {
-    name: 'Ethan Brooks',
-    role: 'Head of Growth',
-    company: 'NorthStar SaaS (NYC & Toronto)',
-    country: 'USA',
-    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=260&q=80',
-    quote:
-      'Combining technical SEO with high-velocity landing architecture cut our paid CAC by 38% while lifting demo-to-close conversion across North America.',
   },
 ];
 

@@ -19,10 +19,10 @@
   <div class="container">
     <div class="portfolio-head" data-reveal>
       <div>
-        <span class="eyebrow">Selected Flagships</span>
+        <span class="eyebrow">Selected Flagships &amp; Own Productions</span>
         <h2 class="section-title" id="projects-heading">Creating digital masterpieces every day.</h2>
         <p class="section-lead">
-          Explore bespoke storefronts, institutional platforms, and web applications engineered for category leaders. Click any showcase to inspect full UI details.
+          Explore our live Australian flagship platforms—including <a href="https://anchialo.com" target="_blank" rel="noopener" class="inline-domain">anchialo.com ↗</a> and <a href="https://cptmma.com" target="_blank" rel="noopener" class="inline-domain">cptmma.com ↗</a>—alongside bespoke global storefronts and web applications.
         </p>
       </div>
       <div class="filter-pills" role="tablist" aria-label="Filter projects by type">
@@ -39,9 +39,46 @@
         {/each}
       </div>
     </div>
+
+    <!-- Prominent Live Australian Flagship Spotlight Banner for anchialo.com & cptmma.com -->
+    <div class="flagship-spotlight-grid" data-reveal>
+      <a href="https://anchialo.com" target="_blank" rel="noopener" class="flagship-banner" data-glow-card>
+        <div class="flagship-banner__media">
+          <img src="/media/mockup-anchialo.webp" alt="ANCHIALO Australia — anchialo.com" loading="lazy" />
+          <span class="live-pill">● LIVE IN AUSTRALIA</span>
+        </div>
+        <div class="flagship-banner__body">
+          <div class="flagship-banner__top">
+            <span class="tag">Official D2C Store • Melbourne Dispatch</span>
+            <span class="visit-cta">Visit anchialo.com ↗</span>
+          </div>
+          <h3>ANCHIALO Australia — Magnesium Gel &amp; Oil (253 g/L MgCl₂)</h3>
+          <p>
+            Five signature Lake Pomorie botanical formulations for rapid muscle recovery, joint mobility, and evening relaxation. Dispatched directly from Melbourne ($49 AUD).
+          </p>
+        </div>
+      </a>
+
+      <a href="https://cptmma.com" target="_blank" rel="noopener" class="flagship-banner" data-glow-card>
+        <div class="flagship-banner__media">
+          <img src="/media/mockup-cptmma.webp" alt="CPT MMA Melbourne — cptmma.com" loading="lazy" />
+          <span class="live-pill">● LIVE IN MELBOURNE</span>
+        </div>
+        <div class="flagship-banner__body">
+          <div class="flagship-banner__top">
+            <span class="tag">Combat Sports Academy • Melbourne VIC</span>
+            <span class="visit-cta">Visit cptmma.com ↗</span>
+          </div>
+          <h3>CPT MMA Melbourne — Sotir Kichukov (ONE Championship Vet)</h3>
+          <p>
+            Elite MMA, K1 kickboxing, wrestling &amp; submission coaching in Melbourne. Small-group intake by application and 1-on-1 fight protocols.
+          </p>
+        </div>
+      </a>
+    </div>
   </div>
 
-  <!-- Dual-Row Counter-Scrolling Mockup Wall modeled after agma.bg -->
+  <!-- Dual-Row Counter-Scrolling Mockup Wall -->
   {#if selected === 'All'}
     <div class="marquee-wall" aria-label="Interactive showcase wall">
       <div class="marquee-track marquee-track--left">
@@ -54,7 +91,7 @@
             <div class="wall-card__meta">
               <div>
                 <strong>{project.title}</strong>
-                <span>{project.region}</span>
+                <span>{project.liveDomain ? `${project.liveDomain} ↗` : project.region}</span>
               </div>
               <span class="tag">{project.category}</span>
             </div>
@@ -72,7 +109,7 @@
             <div class="wall-card__meta">
               <div>
                 <strong>{project.title}</strong>
-                <span>{project.region}</span>
+                <span>{project.liveDomain ? `${project.liveDomain} ↗` : project.region}</span>
               </div>
               <span class="tag">{project.category}</span>
             </div>
@@ -91,7 +128,7 @@
           <div class="wall-card__meta">
             <div>
               <strong>{project.title}</strong>
-              <span>{project.region}</span>
+              <span>{project.liveDomain ? `${project.liveDomain} ↗` : project.region}</span>
             </div>
             <span class="tag">{project.category}</span>
           </div>
@@ -100,14 +137,20 @@
     </div>
   {/if}
 
-  <!-- Featured Video Case Studies (modeled after Walls Beyond & 365 Financial Analyst on agma.bg) -->
+  <!-- Featured Video Case Studies (leading with anchialo.com & cptmma.com!) -->
   <div class="container case-studies">
     {#each CASE_STUDIES as study}
       <article class="case-card" data-glow-card data-reveal>
         <div class="case-card__visual">
-          <div class="browser-bar" aria-hidden="true">
+          <div class="browser-bar">
             <span></span><span></span><span></span>
-            <small>{study.client}</small>
+            {#if study.liveUrl}
+              <a href={study.liveUrl} target="_blank" rel="noopener" class="browser-url">
+                https://{study.liveDomain} ↗
+              </a>
+            {:else}
+              <small>{study.client}</small>
+            {/if}
           </div>
           <video
             src={study.video}
@@ -122,7 +165,7 @@
         <div class="case-card__content">
           <div class="case-card__tags">
             <span class="tag">{study.tag}</span>
-            <span class="live-chip">● Live Video Case Study</span>
+            <span class="live-chip">● Live Production Case Study</span>
           </div>
           <h3>{study.client}</h3>
           <p class="case-card__headline">{study.headline}</p>
@@ -140,12 +183,20 @@
             “{study.quote}”
           </blockquote>
 
-          <div class="case-author">
-            <img src={study.avatar} alt={study.author} loading="lazy" />
-            <div>
-              <strong>{study.author}</strong>
-              <span>{study.role}</span>
+          <div class="case-card__footer">
+            <div class="case-author">
+              <img src={study.avatar} alt={study.author} loading="lazy" />
+              <div>
+                <strong>{study.author}</strong>
+                <span>{study.role}</span>
+              </div>
             </div>
+
+            {#if study.liveUrl}
+              <a href={study.liveUrl} target="_blank" rel="noopener" class="btn btn-primary live-visit-btn">
+                Visit {study.liveDomain} ↗
+              </a>
+            {/if}
           </div>
         </div>
       </article>
@@ -172,9 +223,16 @@
                 <span>{tech}</span>
               {/each}
             </div>
-            <a href="#contact" class="btn btn-primary" onclick={() => (lightboxItem = null)}>
-              Build Something Similar
-            </a>
+            <div class="lightbox__actions">
+              {#if lightboxItem.liveUrl}
+                <a href={lightboxItem.liveUrl} target="_blank" rel="noopener" class="btn btn-primary">
+                  Open {lightboxItem.liveDomain} ↗
+                </a>
+              {/if}
+              <a href="#contact" class="btn btn-ghost" onclick={() => (lightboxItem = null)}>
+                Request Similar Build
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -204,17 +262,106 @@
     }
   }
 
+  .inline-domain {
+    color: $accent-emerald;
+    font-weight: 700;
+    border-bottom: 1px dashed rgba(0, 245, 160, 0.5);
+  }
+
   .portfolio-head {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
     justify-content: space-between;
     gap: 1.5rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2.25rem;
 
     > div:first-child {
-      max-width: 680px;
+      max-width: 700px;
     }
+  }
+
+  .flagship-spotlight-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 2.75rem;
+
+    @include respond-up(lg) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .flagship-banner {
+    @include interactive-card;
+    display: flex;
+    flex-direction: column;
+    border-color: rgba(0, 245, 160, 0.25);
+
+    &__media {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform $transition-smooth;
+      }
+    }
+
+    &:hover &__media img {
+      transform: scale(1.04);
+    }
+
+    &__body {
+      padding: 1.45rem 1.55rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      flex: 1;
+
+      h3 {
+        margin: 0;
+        font-size: 1.32rem;
+        letter-spacing: -0.02em;
+      }
+
+      p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: $text-secondary;
+      }
+    }
+
+    &__top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+  }
+
+  .live-pill {
+    position: absolute;
+    top: 0.85rem;
+    left: 0.85rem;
+    padding: 0.3rem 0.78rem;
+    border-radius: $radius-pill;
+    background: rgba(2, 3, 8, 0.88);
+    border: 1px solid rgba(0, 245, 160, 0.55);
+    color: $accent-emerald;
+    font-family: $font-mono;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  .visit-cta {
+    font-family: $font-mono;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: $accent-emerald;
   }
 
   .filter-pills {
@@ -335,13 +482,13 @@
 
       strong {
         display: block;
-        font-size: 1.04rem;
+        font-size: 1.02rem;
         color: #ffffff;
       }
 
       span:not(.tag) {
         font-size: 0.77rem;
-        color: $text-muted;
+        color: $accent-blue-light;
       }
     }
   }
@@ -397,10 +544,18 @@
       color: $text-secondary;
       font-size: 0.98rem;
     }
+
+    &__footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
   }
 
   .browser-bar {
-    height: 34px;
+    height: 36px;
     padding-inline: 0.9rem;
     background: rgba(255, 255, 255, 0.04);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -415,12 +570,19 @@
       background: rgba(255, 255, 255, 0.22);
     }
 
-    small {
+    small,
+    .browser-url {
       margin-left: auto;
       font-family: $font-mono;
-      font-size: 0.7rem;
-      color: $text-muted;
+      font-size: 0.74rem;
+      color: $accent-emerald;
+      font-weight: 600;
     }
+  }
+
+  .live-visit-btn {
+    padding: 0.68rem 1.25rem;
+    font-size: 0.84rem;
   }
 
   .live-chip {
@@ -441,7 +603,7 @@
 
     strong {
       display: block;
-      font-size: 1.32rem;
+      font-size: 1.28rem;
       color: $accent-emerald;
     }
 
@@ -456,7 +618,7 @@
     padding-left: 1rem;
     border-left: 2px solid $accent-orchid;
     color: #f1f5f9;
-    font-size: 0.95rem;
+    font-size: 0.94rem;
     font-style: italic;
   }
 
@@ -479,7 +641,7 @@
     }
 
     span {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: $text-muted;
     }
   }
@@ -488,7 +650,7 @@
     position: fixed;
     inset: 0;
     z-index: 110;
-    background: rgba(4, 6, 12, 0.86);
+    background: rgba(4, 6, 12, 0.88);
     backdrop-filter: blur(14px);
     display: grid;
     place-items: center;
@@ -557,6 +719,12 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
+    }
+
+    &__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
     }
   }
 

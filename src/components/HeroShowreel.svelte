@@ -78,10 +78,12 @@
       <div class="hero-sub-links">
         <button type="button" class="text-action" onclick={() => (reelModalOpen = true)}>
           <span class="play-icon" aria-hidden="true">▶</span>
-          Watch 60fps Agency Showreel
+          Watch 60fps Showreel
         </button>
         <span class="dot-sep" aria-hidden="true">•</span>
-        <a href="#projects" class="text-action">Explore Case Studies →</a>
+        <a href="https://anchialo.com" target="_blank" rel="noopener" class="text-action">anchialo.com ↗</a>
+        <span class="dot-sep" aria-hidden="true">•</span>
+        <a href="https://cptmma.com" target="_blank" rel="noopener" class="text-action">cptmma.com ↗</a>
       </div>
     </div>
 
