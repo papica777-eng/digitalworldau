@@ -13,9 +13,16 @@ test('audit_score_estimate calculates bounded UX/Tech/SEO scores', () => {
   assert.ok(mid >= 40 && mid <= 80, `Expected mid score, got ${mid}`);
 });
 
-test('convert_eur_cents_to_aud_cents uses integer atomic rounding', () => {
+test('convert_eur_cents_to_aud_cents and roi_projection_cents use integer atomic rounding', () => {
   const aud = wasm.convert_eur_cents_to_aud_cents(200_000n, 16_500);
   assert.equal(aud, 330_000n);
+  const roi = wasm.roi_projection_cents(40_000, 250, 15_000n);
+  assert.equal(roi, 15_000_000n);
+});
+
+test('compute_wave_displacement stays bounded in [-1000, 1000]', () => {
+  const d = wasm.compute_wave_displacement(420, -280, 1600);
+  assert.ok(d >= -1000 && d <= 1000);
 });
 
 test('validate_upload_header rejects executables and oversized files', () => {

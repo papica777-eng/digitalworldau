@@ -6,21 +6,84 @@ import { SERVICES_BENTO } from '../data/agencyData';
   <div class="container">
     <div class="section-header" data-reveal>
       <span class="eyebrow">Core Capabilities</span>
-      <h2 class="section-title" id="services-heading">End-to-end digital execution built for conversion.</h2>
+      <h2 class="section-title" id="services-heading">Four integrated disciplines engineered for compounding growth.</h2>
       <p class="section-lead">
-        Four specialised practices under one roof—eliminating handoff friction between strategy, visual design, engineering, and performance marketing.
+        Strategy, Awwwards-grade design, full-stack engineering, and measurable acquisition operating as one unified Australian &amp; global squad.
       </p>
     </div>
 
-    <div class="grid-4">
-      {SERVICES_BENTO.map((service) => (
+    <div class="bento-services">
+      {SERVICES_BENTO.map((service, idx) => (
         <article class="service-card" data-glow-card data-reveal>
+          <div class="service-card__viz" aria-hidden="true">
+            {idx === 0 && (
+              <svg viewBox="0 0 260 110" class="viz-svg">
+                <defs>
+                  <linearGradient id="auditGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#00f5a0"/>
+                    <stop offset="100%" stop-color="#016ad4"/>
+                  </linearGradient>
+                </defs>
+                <circle cx="58" cy="55" r="38" stroke="rgba(255,255,255,0.08)" stroke-width="7" fill="none"/>
+                <circle cx="58" cy="55" r="38" stroke="url(#auditGrad)" stroke-width="7" stroke-dasharray="226 240" stroke-linecap="round" fill="none" transform="rotate(-90 58 55)"/>
+                <text x="58" y="61" text-anchor="middle" fill="#ffffff" font-family="Plus Jakarta Sans" font-weight="800" font-size="20">99</text>
+                <rect x="116" y="24" width="124" height="14" rx="7" fill="rgba(255,255,255,0.06)"/>
+                <rect x="116" y="24" width="114" height="14" rx="7" fill="#00f5a0" opacity="0.85"/>
+                <rect x="116" y="48" width="124" height="14" rx="7" fill="rgba(255,255,255,0.06)"/>
+                <rect x="116" y="48" width="106" height="14" rx="7" fill="#38bdf8" opacity="0.85"/>
+                <rect x="116" y="72" width="124" height="14" rx="7" fill="rgba(255,255,255,0.06)"/>
+                <rect x="116" y="72" width="120" height="14" rx="7" fill="#fcc1f4" opacity="0.85"/>
+              </svg>
+            )}
+            {idx === 1 && (
+              <svg viewBox="0 0 260 110" class="viz-svg">
+                <rect x="18" y="18" width="140" height="74" rx="12" fill="rgba(1,106,212,0.18)" stroke="rgba(132,181,230,0.35)"/>
+                <rect x="30" y="30" width="64" height="10" rx="5" fill="#ffffff" opacity="0.9"/>
+                <rect x="30" y="46" width="98" height="7" rx="3.5" fill="rgba(255,255,255,0.4)"/>
+                <rect x="30" y="64" width="52" height="16" rx="8" fill="#00f5a0"/>
+                <rect x="136" y="32" width="104" height="62" rx="12" fill="rgba(95,31,87,0.55)" stroke="#fcc1f4" stroke-width="1.2"/>
+                <circle cx="156" cy="52" r="8" fill="#fcc1f4"/>
+                <circle cx="178" cy="52" r="8" fill="#016ad4"/>
+                <circle cx="200" cy="52" r="8" fill="#00f5a0"/>
+                <path d="M196 76l8 16 4-7 7-3-19-6Z" fill="#ffffff"/>
+              </svg>
+            )}
+            {idx === 2 && (
+              <svg viewBox="0 0 260 110" class="viz-svg">
+                <rect x="14" y="16" width="232" height="78" rx="12" fill="rgba(5,7,13,0.85)" stroke="rgba(56,189,248,0.3)"/>
+                <circle cx="30" cy="30" r="3.5" fill="#fb7185"/>
+                <circle cx="42" cy="30" r="3.5" fill="#ffc200"/>
+                <circle cx="54" cy="30" r="3.5" fill="#00f5a0"/>
+                <text x="28" y="54" fill="#84b5e6" font-family="JetBrains Mono, monospace" font-size="10">$ cargo build --wasm32 --release</text>
+                <text x="28" y="70" fill="#00f5a0" font-family="JetBrains Mono, monospace" font-size="10">✓ Edge TTFB: 38ms | 99.98% SLA</text>
+                <text x="28" y="84" fill="#fcc1f4" font-family="JetBrains Mono, monospace" font-size="9.5">✓ Zero-JS Static HTML + Islands</text>
+              </svg>
+            )}
+            {idx === 3 && (
+              <svg viewBox="0 0 260 110" class="viz-svg">
+                <defs>
+                  <linearGradient id="growthArea" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#00f5a0" stop-opacity="0.42"/>
+                    <stop offset="100%" stop-color="#00f5a0" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M18 88 C65 84, 95 62, 138 54 C178 46, 205 24, 242 18 L242 94 L18 94 Z" fill="url(#growthArea)"/>
+                <path d="M18 88 C65 84, 95 62, 138 54 C178 46, 205 24, 242 18" fill="none" stroke="#00f5a0" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="242" cy="18" r="5" fill="#ffffff" stroke="#00f5a0" stroke-width="3"/>
+                <rect x="24" y="20" width="88" height="24" rx="12" fill="rgba(0,245,160,0.14)" stroke="rgba(0,245,160,0.4)"/>
+                <text x="68" y="36" text-anchor="middle" fill="#00f5a0" font-family="JetBrains Mono, monospace" font-weight="700" font-size="10.5">+260% ROI</text>
+              </svg>
+            )}
+          </div>
+
           <div class="service-card__top">
             <span class="service-card__step">{service.step}</span>
             <span class="tag">{service.highlight}</span>
           </div>
+
           <h3>{service.title}</h3>
           <p class="service-card__sub">{service.subtitle}</p>
+
           <ul>
             {service.items.map((item) => (
               <li>
@@ -31,6 +94,7 @@ import { SERVICES_BENTO } from '../data/agencyData';
               </li>
             ))}
           </ul>
+
           <a href="#contact" class="service-card__link">
             Discuss {service.title}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
@@ -48,18 +112,45 @@ import { SERVICES_BENTO } from '../data/agencyData';
   @use '../styles/tokens' as *;
   @use '../styles/mixins' as *;
 
+  .bento-services {
+    display: grid;
+    gap: 1.35rem;
+    grid-template-columns: 1fr;
+
+    @include respond-up(sm) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include respond-up(xl) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
   .service-card {
     @include interactive-card;
-    padding: 1.75rem 1.5rem;
+    padding: 1.45rem;
     display: flex;
     flex-direction: column;
+
+    &__viz {
+      margin-bottom: 1.25rem;
+      border-radius: $radius-md;
+      background: linear-gradient(145deg, rgba(2, 9, 50, 0.65), rgba(12, 16, 34, 0.85));
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      overflow: hidden;
+
+      .viz-svg {
+        width: 100%;
+        height: auto;
+      }
+    }
 
     &__top {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 0.75rem;
-      margin-bottom: 1.35rem;
+      margin-bottom: 1rem;
     }
 
     &__step {
@@ -70,33 +161,33 @@ import { SERVICES_BENTO } from '../data/agencyData';
     }
 
     h3 {
-      margin: 0 0 0.4rem;
+      margin: 0 0 0.35rem;
       font-size: 1.38rem;
       font-weight: 800;
       letter-spacing: -0.025em;
     }
 
     &__sub {
-      margin: 0 0 1.25rem;
+      margin: 0 0 1.15rem;
       color: $text-secondary;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
     }
 
     ul {
       list-style: none;
-      margin: 0 0 1.65rem;
+      margin: 0 0 1.5rem;
       padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 0.7rem;
       flex: 1;
 
       li {
         display: flex;
         align-items: flex-start;
         gap: 0.55rem;
-        font-size: 0.9rem;
-        color: #cbd5e1;
+        font-size: 0.89rem;
+        color: #e2e8f0;
 
         svg {
           color: $accent-emerald;
@@ -112,7 +203,7 @@ import { SERVICES_BENTO } from '../data/agencyData';
       gap: 0.45rem;
       font-size: 0.88rem;
       font-weight: 700;
-      color: $accent-cyan;
+      color: $accent-blue-light;
       transition: gap $transition-fast, color $transition-fast;
 
       &:hover {

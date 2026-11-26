@@ -5,12 +5,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem;
+  gap: 0.6rem;
   border-radius: $radius-pill;
   font-weight: 700;
-  font-size: 0.94rem;
+  font-size: 0.95rem;
   letter-spacing: -0.01em;
-  padding: 0.85rem 1.55rem;
+  padding: 0.9rem 1.7rem;
   border: 1px solid transparent;
   cursor: pointer;
   transition: transform $transition-fast, box-shadow $transition-fast, background $transition-fast, border-color $transition-fast;
@@ -22,24 +22,24 @@
 }
 
 .btn-primary {
-  background: $gradient-brand;
-  color: #031014;
-  box-shadow: 0 0 26px rgba(0, 245, 160, 0.25), 0 8px 20px rgba(0, 0, 0, 0.35);
+  background: linear-gradient(135deg, #00f5a0 0%, #06b6d4 48%, #016ad4 100%);
+  color: #030b14;
+  box-shadow: 0 0 30px rgba(0, 245, 160, 0.28), 0 10px 24px rgba(1, 106, 212, 0.32);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 38px rgba(0, 245, 160, 0.42), 0 12px 26px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 0 44px rgba(0, 245, 160, 0.48), 0 14px 32px rgba(1, 106, 212, 0.42);
   }
 }
 
 .btn-ghost {
   @include glass-surface;
   color: $text-primary;
-  border-color: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.16);
 
   &:hover {
-    border-color: rgba(0, 245, 160, 0.45);
-    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(252, 193, 244, 0.55);
+    background: rgba(255, 255, 255, 0.09);
     transform: translateY(-2px);
   }
 }
@@ -47,27 +47,28 @@
 .pill-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  padding: 0.42rem 0.95rem;
+  gap: 0.6rem;
+  padding: 0.44rem 1rem;
   border-radius: $radius-pill;
-  background: rgba(0, 245, 160, 0.09);
-  border: 1px solid rgba(0, 245, 160, 0.28);
-  color: $accent-emerald;
-  font-size: 0.82rem;
+  background: rgba(1, 106, 212, 0.16);
+  border: 1px solid rgba(132, 181, 230, 0.32);
+  color: #e0f2fe;
+  font-size: 0.83rem;
   font-weight: 600;
   letter-spacing: 0.01em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .tag {
   display: inline-flex;
   align-items: center;
-  padding: 0.28rem 0.72rem;
+  padding: 0.3rem 0.78rem;
   border-radius: $radius-pill;
   font-family: $font-mono;
   font-size: 0.72rem;
-  font-weight: 500;
-  background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.24);
+  font-weight: 600;
+  background: rgba(1, 106, 212, 0.18);
+  border: 1px solid rgba(132, 181, 230, 0.28);
   color: #bae6fd;
 }
 

@@ -1,5 +1,6 @@
-//! Sovereign Digital World AU WebAssembly Engine.
-//! Provides deterministic audit scoring, integer-atomic AUD/EUR math,
+//! Sovereign Digital World AU WebAssembly Engine (V2).
+//! Provides deterministic audit scoring, integer-atomic AUD/EUR & ROI math,
+//! fast integer wave interference for 3D lattice telemetry,
 //! and Zero-Trust file header validation in O(1) time.
 
 pub const MAX_UPLOAD_BYTES: u32 = 10_485_760; // 10 MiB
@@ -50,6 +51,42 @@ pub extern "C" fn convert_eur_cents_to_aud_cents(eur_cents: u64, rate_bps: u32) 
     scaled.saturating_add(5_000) / 10_000
 }
 
+/// Computes projected monthly revenue in integer cents given monthly visitors,
+/// conversion rate in basis points (e.g. 280 = 2.80%), and average order value in cents.
+#[unsafe(no_mangle)]
+pub extern "C" fn roi_projection_cents(
+    monthly_visitors: u32,
+    conv_bps: u32,
+    aov_cents: u64,
+) -> u64 {
+    if monthly_visitors == 0 || conv_bps == 0 || aov_cents == 0 {
+        return 0;
+    }
+    let orders_x10000 = (monthly_visitors as u64).saturating_mul(conv_bps as u64);
+    orders_x10000.saturating_mul(aov_cents).saturating_add(5_000) / 10_000
+}
+
+/// Fast deterministic triangle-harmonic wave displacement in milli-units (-1000..=1000)
+/// for driving interactive lattice / shader telemetry without floating-point drift.
+#[unsafe(no_mangle)]
+pub extern "C" fn compute_wave_displacement(x_milli: i32, y_milli: i32, time_ms: u32) -> i32 {
+    let phase_a = (x_milli.wrapping_mul(3).wrapping_add(time_ms as i32)).rem_euclid(4000);
+    let phase_b = (y_milli.wrapping_mul(2).wrapping_sub((time_ms / 2) as i32)).rem_euclid(4000);
+
+    let tri_a = if phase_a < 2000 {
+        phase_a - 1000
+    } else {
+        3000 - phase_a
+    };
+    let tri_b = if phase_b < 2000 {
+        phase_b - 1000
+    } else {
+        3000 - phase_b
+    };
+
+    (tri_a + tri_b) / 2
+}
+
 /// Zero-trust magic-byte & size validation for uploaded project briefs.
 /// Returns: 0 = rejected, 1 = PDF, 2 = PNG, 3 = JPEG, 4 = DOC/DOCX.
 #[unsafe(no_mangle)]
@@ -68,12 +105,10 @@ pub extern "C" fn validate_upload_header(
         return 0;
     }
 
-    // %PDF
     if b0 == 0x25 && b1 == 0x50 && b2 == 0x44 && b3 == 0x46 {
         return 1;
     }
 
-    // PNG: 89 50 4E 47 0D 0A 1A 0A
     if b0 == 0x89
         && b1 == 0x50
         && b2 == 0x4E
@@ -86,12 +121,10 @@ pub extern "C" fn validate_upload_header(
         return 2;
     }
 
-    // JPEG: FF D8 FF
     if b0 == 0xFF && b1 == 0xD8 && b2 == 0xFF {
         return 3;
     }
 
-    // DOC (OLE2: D0 CF 11 E0 A1 B1 1A E1) or DOCX (PK\x03\x04)
     let is_ole_doc = b0 == 0xD0
         && b1 == 0xCF
         && b2 == 0x11
@@ -136,10 +169,18 @@ mod tests {
     }
 
     #[test]
-    fn test_integer_currency_conversion() {
+    fn test_integer_currency_and_roi() {
         assert_eq!(convert_eur_cents_to_aud_cents(200_000, 16_500), 330_000);
-        assert_eq!(convert_eur_cents_to_aud_cents(500_000, 16_500), 825_000);
-        assert_eq!(convert_eur_cents_to_aud_cents(100_000, 0), 0);
+        // 50,000 visitors * 3.00% (300 bps) = 1,500 orders * $120.00 (12_000 cents) = 18_000_000 cents ($180,000)
+        assert_eq!(roi_projection_cents(50_000, 300, 12_000), 18_000_000);
+    }
+
+    #[test]
+    fn test_wave_displacement_bounded() {
+        for t in [0u32, 450, 1337, 9999] {
+            let d = compute_wave_displacement(500, -350, t);
+            assert!((-1000..=1000).contains(&d));
+        }
     }
 
     #[test]

@@ -1,30 +1,56 @@
-<section class="awards-section" aria-label="Industry recognition and awards">
+<section class="awards-section" aria-label="Industry recognition and verified awards">
   <div class="container">
-    <p class="awards-section__label" data-reveal>Trust backed by real results</p>
+    <p class="awards-section__label" data-reveal>Trust backed by real results &amp; global industry recognition</p>
+
     <div class="awards-grid" data-reveal>
-      <div class="award-item">
-        <span class="award-wordmark">awwwards.</span>
-        <span class="award-sub">Site of the Day Nominee</span>
+      <div class="award-box" data-glow-card>
+        <svg class="award-logo" viewBox="0 0 180 42" fill="none" aria-label="Awwwards">
+          <path d="M18 10l5.2 22h5.4l4.6-15.6L37.8 32h5.4L48.4 10h-5.3l-3.1 14.8L35.6 10h-4.8L26.4 24.8 23.3 10H18Z" fill="currentColor"/>
+          <circle cx="53.5" cy="29.5" r="2.8" fill="#00f5a0"/>
+          <text x="64" y="27" fill="currentColor" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="16" letter-spacing="-0.5">awwwards</text>
+        </svg>
+        <span class="award-sub">Honoree &amp; Nominee</span>
       </div>
-      <div class="award-item">
-        <span class="award-wordmark">CSS DESIGN AWARDS</span>
-        <span class="award-sub">UI / UX Innovation</span>
+
+      <div class="award-box" data-glow-card>
+        <svg class="award-logo" viewBox="0 0 190 42" fill="none" aria-label="CSS Design Awards">
+          <polygon points="22,8 36,16 36,28 22,36 8,28 8,16" stroke="currentColor" stroke-width="2.4" fill="rgba(255,255,255,0.04)"/>
+          <path d="M16 22l4 4 8-8" stroke="#84b5e6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="45" y="21" fill="currentColor" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="12.5" letter-spacing="0.8">CSS DESIGN</text>
+          <text x="45" y="33" fill="rgba(255,255,255,0.65)" font-family="JetBrains Mono, monospace" font-weight="600" font-size="9.5" letter-spacing="1.6">AWARDS</text>
+        </svg>
+        <span class="award-sub">UI / UX / Innovation</span>
       </div>
-      <div class="award-item">
-        <span class="award-wordmark award-wordmark--serif">Forbes</span>
+
+      <div class="award-box" data-glow-card>
+        <svg class="award-logo" viewBox="0 0 160 42" fill="none" aria-label="Forbes">
+          <text x="80" y="29" text-anchor="middle" fill="currentColor" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="27" letter-spacing="-0.5">Forbes</text>
+        </svg>
         <span class="award-sub">Featured Digital Partner</span>
       </div>
-      <div class="award-item">
-        <span class="award-wordmark">G2 REVIEWS</span>
+
+      <div class="award-box" data-glow-card>
+        <svg class="award-logo" viewBox="0 0 165 42" fill="none" aria-label="G2 Reviews">
+          <path d="M26 7l13 7.5v15L26 37l-13-7.5v-15L26 7Z" stroke="currentColor" stroke-width="2.2" fill="rgba(1,106,212,0.18)"/>
+          <text x="26" y="26" text-anchor="middle" fill="#ffffff" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="13">G2</text>
+          <text x="48" y="26" fill="currentColor" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="15" letter-spacing="0.4">REVIEWS</text>
+        </svg>
         <span class="award-sub">4.9 / 5.0 High Performer</span>
       </div>
-      <div class="award-item">
-        <span class="award-wordmark award-wordmark--serif">Entrepreneur</span>
-        <span class="award-sub">Growth Engineering Spotlight</span>
+
+      <div class="award-box" data-glow-card>
+        <svg class="award-logo" viewBox="0 0 185 42" fill="none" aria-label="Entrepreneur">
+          <text x="92.5" y="27" text-anchor="middle" fill="currentColor" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="21" letter-spacing="-0.2">Entrepreneur</text>
+        </svg>
+        <span class="award-sub">Agency Growth Spotlight</span>
       </div>
-      <div class="award-item">
-        <span class="award-wordmark">VERIFIED REVIEWS</span>
-        <span class="award-sub">180+ Audited Deliveries</span>
+
+      <div class="award-box" data-glow-card>
+        <svg class="award-logo" viewBox="0 0 185 42" fill="none" aria-label="Trustpilot Verified Client Reviews">
+          <path d="M24 8l3.7 11.2H39l-9.2 6.7 3.5 11.1L24 30.2 14.7 37l3.5-11.1L9 19.2h11.3L24 8Z" fill="#00f5a0"/>
+          <text x="46" y="26" fill="currentColor" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="15.5" letter-spacing="-0.2">Trustpilot</text>
+        </svg>
+        <span class="award-sub">180+ Verified Deliveries</span>
       </div>
     </div>
   </div>
@@ -35,10 +61,10 @@
   @use '../styles/mixins' as *;
 
   .awards-section {
-    padding-block: 2.8rem;
+    padding-block: 3.1rem;
     border-top: 1px solid $border-subtle;
     border-bottom: 1px solid $border-subtle;
-    background: rgba(11, 17, 32, 0.45);
+    background: linear-gradient(180deg, rgba(2, 9, 50, 0.42), rgba(6, 7, 13, 0.65));
 
     &__label {
       text-align: center;
@@ -46,8 +72,8 @@
       font-size: 0.78rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: $text-muted;
-      margin: 0 0 1.65rem;
+      color: $accent-blue-light;
+      margin: 0 0 1.85rem;
     }
   }
 
@@ -65,44 +91,32 @@
     }
   }
 
-  .award-item {
+  .award-box {
+    @include interactive-card;
+    border-radius: $radius-md;
+    padding: 1.25rem 0.9rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 1rem 0.75rem;
-    border-radius: $radius-md;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    background: rgba(255, 255, 255, 0.02);
-    opacity: 0.72;
-    filter: grayscale(100%);
-    transition: opacity $transition-fast, border-color $transition-fast, transform $transition-fast, filter $transition-fast;
+    color: rgba(255, 255, 255, 0.82);
 
     &:hover {
-      opacity: 1;
-      filter: grayscale(0%);
-      border-color: rgba(0, 245, 160, 0.25);
-      transform: translateY(-2px);
+      color: #ffffff;
     }
   }
 
-  .award-wordmark {
-    font-weight: 800;
-    font-size: 0.92rem;
-    letter-spacing: -0.02em;
-    color: #e2e8f0;
-
-    &--serif {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 1.08rem;
-      letter-spacing: 0.01em;
-    }
+  .award-logo {
+    height: 36px;
+    width: auto;
+    max-width: 155px;
   }
 
   .award-sub {
-    margin-top: 0.3rem;
+    margin-top: 0.4rem;
     font-size: 0.7rem;
     color: $text-muted;
+    letter-spacing: 0.02em;
   }
 </style>

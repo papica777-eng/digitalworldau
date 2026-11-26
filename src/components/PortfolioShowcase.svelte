@@ -1,22 +1,29 @@
 <script lang="ts">
-  import { PORTFOLIO_ITEMS, CASE_STUDIES } from '../data/agencyData';
+  import { PORTFOLIO_ITEMS, CASE_STUDIES, type PortfolioItem } from '../data/agencyData';
 
   const categories = ['All', 'Online Store', 'Corporate Website', 'Web App'] as const;
   let selected = $state<(typeof categories)[number]>('All');
+  let lightboxItem = $state<PortfolioItem | null>(null);
 
   let filtered = $derived(
     selected === 'All'
       ? PORTFOLIO_ITEMS
       : PORTFOLIO_ITEMS.filter((item) => item.category === selected)
   );
+
+  let rowA = $derived(filtered.filter((_, i) => i % 2 === 0));
+  let rowB = $derived(filtered.filter((_, i) => i % 2 === 1));
 </script>
 
-<section class="section" id="projects" aria-labelledby="projects-heading">
+<section class="section portfolio-section" id="projects" aria-labelledby="projects-heading">
   <div class="container">
     <div class="portfolio-head" data-reveal>
       <div>
-        <span class="eyebrow">Selected Works</span>
+        <span class="eyebrow">Selected Flagships</span>
         <h2 class="section-title" id="projects-heading">Creating digital masterpieces every day.</h2>
+        <p class="section-lead">
+          Explore bespoke storefronts, institutional platforms, and web applications engineered for category leaders. Click any showcase to inspect full UI details.
+        </p>
       </div>
       <div class="filter-pills" role="tablist" aria-label="Filter projects by type">
         {#each categories as cat}
@@ -32,72 +39,170 @@
         {/each}
       </div>
     </div>
+  </div>
 
-    <div class="gallery-rail" data-reveal>
-      {#each filtered as project (project.id)}
-        <article class="project-card" data-glow-card>
-          <div class="project-card__media">
-            <img src={project.image} alt={`${project.title} UI mockup`} loading="lazy" />
-            <span class="project-card__metric">{project.metric}</span>
-          </div>
-          <div class="project-card__body">
-            <div class="project-card__top">
-              <span class="tag">{project.category}</span>
-              <span class="project-card__region">{project.region}</span>
+  <!-- Dual-Row Counter-Scrolling Mockup Wall modeled after agma.bg -->
+  {#if selected === 'All'}
+    <div class="marquee-wall" aria-label="Interactive showcase wall">
+      <div class="marquee-track marquee-track--left">
+        {#each [...rowA, ...rowA] as project, idx (`a-${project.id}-${idx}`)}
+          <button type="button" class="wall-card" onclick={() => (lightboxItem = project)}>
+            <div class="wall-card__img">
+              <img src={project.image} alt={`${project.title} desktop UI`} loading="lazy" />
+              <span class="wall-card__badge">{project.metric}</span>
             </div>
-            <h3>{project.title}</h3>
-            <p>{project.summary}</p>
-            <div class="project-card__stack">
-              {#each project.stack as tech}
+            <div class="wall-card__meta">
+              <div>
+                <strong>{project.title}</strong>
+                <span>{project.region}</span>
+              </div>
+              <span class="tag">{project.category}</span>
+            </div>
+          </button>
+        {/each}
+      </div>
+
+      <div class="marquee-track marquee-track--right">
+        {#each [...rowB, ...rowB] as project, idx (`b-${project.id}-${idx}`)}
+          <button type="button" class="wall-card" onclick={() => (lightboxItem = project)}>
+            <div class="wall-card__img">
+              <img src={project.image} alt={`${project.title} desktop UI`} loading="lazy" />
+              <span class="wall-card__badge">{project.metric}</span>
+            </div>
+            <div class="wall-card__meta">
+              <div>
+                <strong>{project.title}</strong>
+                <span>{project.region}</span>
+              </div>
+              <span class="tag">{project.category}</span>
+            </div>
+          </button>
+        {/each}
+      </div>
+    </div>
+  {:else}
+    <div class="container filtered-grid">
+      {#each filtered as project (project.id)}
+        <button type="button" class="wall-card wall-card--grid" onclick={() => (lightboxItem = project)}>
+          <div class="wall-card__img">
+            <img src={project.image} alt={`${project.title} desktop UI`} loading="lazy" />
+            <span class="wall-card__badge">{project.metric}</span>
+          </div>
+          <div class="wall-card__meta">
+            <div>
+              <strong>{project.title}</strong>
+              <span>{project.region}</span>
+            </div>
+            <span class="tag">{project.category}</span>
+          </div>
+        </button>
+      {/each}
+    </div>
+  {/if}
+
+  <!-- Featured Video Case Studies (modeled after Walls Beyond & 365 Financial Analyst on agma.bg) -->
+  <div class="container case-studies">
+    {#each CASE_STUDIES as study}
+      <article class="case-card" data-glow-card data-reveal>
+        <div class="case-card__visual">
+          <div class="browser-bar" aria-hidden="true">
+            <span></span><span></span><span></span>
+            <small>{study.client}</small>
+          </div>
+          <video
+            src={study.video}
+            poster={study.poster}
+            autoplay
+            loop
+            muted
+            playsinline
+          ></video>
+        </div>
+
+        <div class="case-card__content">
+          <div class="case-card__tags">
+            <span class="tag">{study.tag}</span>
+            <span class="live-chip">● Live Video Case Study</span>
+          </div>
+          <h3>{study.client}</h3>
+          <p class="case-card__headline">{study.headline}</p>
+
+          <div class="case-stats">
+            {#each study.stats as stat}
+              <div>
+                <strong>{stat.value}</strong>
+                <span>{stat.label}</span>
+              </div>
+            {/each}
+          </div>
+
+          <blockquote class="case-quote">
+            “{study.quote}”
+          </blockquote>
+
+          <div class="case-author">
+            <img src={study.avatar} alt={study.author} loading="lazy" />
+            <div>
+              <strong>{study.author}</strong>
+              <span>{study.role}</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    {/each}
+  </div>
+
+  {#if lightboxItem}
+    <div class="lightbox" role="dialog" aria-modal="true" aria-label={lightboxItem.title}>
+      <div class="lightbox__card">
+        <button type="button" class="lightbox__close" onclick={() => (lightboxItem = null)} aria-label="Close preview">×</button>
+        <img src={lightboxItem.image} alt={lightboxItem.title} />
+        <div class="lightbox__body">
+          <div class="lightbox__head">
+            <div>
+              <span class="tag">{lightboxItem.category} • {lightboxItem.region}</span>
+              <h3>{lightboxItem.title}</h3>
+            </div>
+            <strong class="lightbox__metric">{lightboxItem.metric}</strong>
+          </div>
+          <p>{lightboxItem.summary}</p>
+          <div class="lightbox__footer">
+            <div class="chips">
+              {#each lightboxItem.stack as tech}
                 <span>{tech}</span>
               {/each}
             </div>
+            <a href="#contact" class="btn btn-primary" onclick={() => (lightboxItem = null)}>
+              Build Something Similar
+            </a>
           </div>
-        </article>
-      {/each}
+        </div>
+      </div>
     </div>
-
-    <div class="case-studies">
-      {#each CASE_STUDIES as study}
-        <article class="case-card" data-glow-card data-reveal>
-          <div class="case-card__visual">
-            <img src={study.image} alt={`${study.client} digital platform preview`} loading="lazy" />
-          </div>
-          <div class="case-card__content">
-            <span class="tag">{study.tag}</span>
-            <h3>{study.client}</h3>
-            <p class="case-card__headline">{study.headline}</p>
-
-            <div class="case-stats">
-              {#each study.stats as stat}
-                <div>
-                  <strong>{stat.value}</strong>
-                  <span>{stat.label}</span>
-                </div>
-              {/each}
-            </div>
-
-            <blockquote class="case-quote">
-              “{study.quote}”
-            </blockquote>
-
-            <div class="case-author">
-              <img src={study.avatar} alt={study.author} loading="lazy" />
-              <div>
-                <strong>{study.author}</strong>
-                <span>{study.role}</span>
-              </div>
-            </div>
-          </div>
-        </article>
-      {/each}
-    </div>
-  </div>
+  {/if}
 </section>
 
 <style lang="scss">
   @use '../styles/tokens' as *;
   @use '../styles/mixins' as *;
+
+  @keyframes scrollLeft {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @keyframes scrollRight {
+    from {
+      transform: translate3d(-50%, 0, 0);
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
 
   .portfolio-head {
     display: flex;
@@ -105,7 +210,11 @@
     align-items: flex-end;
     justify-content: space-between;
     gap: 1.5rem;
-    margin-bottom: 2.25rem;
+    margin-bottom: 2.5rem;
+
+    > div:first-child {
+      max-width: 680px;
+    }
   }
 
   .filter-pills {
@@ -114,7 +223,7 @@
     gap: 0.45rem;
 
     button {
-      padding: 0.5rem 1rem;
+      padding: 0.52rem 1.05rem;
       border-radius: $radius-pill;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid $border-subtle;
@@ -126,42 +235,70 @@
 
       &.active,
       &:hover {
-        border-color: rgba(0, 245, 160, 0.45);
-        color: $accent-emerald;
-        background: rgba(0, 245, 160, 0.1);
+        border-color: rgba(0, 245, 160, 0.5);
+        color: #ffffff;
+        background: rgba(1, 106, 212, 0.28);
       }
     }
   }
 
-  .gallery-rail {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(295px, 360px);
+  .marquee-wall {
+    display: flex;
+    flex-direction: column;
     gap: 1.35rem;
-    overflow-x: auto;
-    padding-bottom: 1rem;
-    scroll-snap-type: x mandatory;
+    overflow: hidden;
+    padding-block: 0.5rem;
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
 
-    &::-webkit-scrollbar {
-      height: 6px;
+  .marquee-track {
+    display: flex;
+    gap: 1.35rem;
+    width: max-content;
+
+    &--left {
+      animation: scrollLeft 42s linear infinite;
     }
 
-    &::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 99px;
+    &--right {
+      animation: scrollRight 46s linear infinite;
+    }
+
+    &:hover {
+      animation-play-state: paused;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
     }
   }
 
-  .project-card {
-    @include interactive-card;
-    scroll-snap-align: start;
-    display: flex;
-    flex-direction: column;
+  .filtered-grid {
+    display: grid;
+    gap: 1.35rem;
+    grid-template-columns: 1fr;
 
-    &__media {
+    @include respond-up(md) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .wall-card {
+    @include interactive-card;
+    width: clamp(300px, 34vw, 440px);
+    padding: 0.85rem;
+    text-align: left;
+    cursor: pointer;
+
+    &--grid {
+      width: 100%;
+    }
+
+    &__img {
       position: relative;
-      aspect-ratio: 16 / 10;
+      border-radius: $radius-md;
       overflow: hidden;
+      aspect-ratio: 16 / 10;
 
       img {
         width: 100%;
@@ -171,131 +308,140 @@
       }
     }
 
-    &:hover &__media img {
-      transform: scale(1.04);
+    &:hover &__img img {
+      transform: scale(1.05);
     }
 
-    &__metric {
+    &__badge {
       position: absolute;
       bottom: 0.75rem;
       left: 0.75rem;
       padding: 0.3rem 0.72rem;
       border-radius: $radius-pill;
-      background: rgba(5, 7, 13, 0.84);
-      border: 1px solid rgba(0, 245, 160, 0.35);
+      background: rgba(6, 7, 13, 0.86);
+      border: 1px solid rgba(0, 245, 160, 0.42);
       color: $accent-emerald;
       font-family: $font-mono;
-      font-size: 0.73rem;
-      font-weight: 600;
+      font-size: 0.72rem;
+      font-weight: 700;
     }
 
-    &__body {
-      padding: 1.35rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-      flex: 1;
-
-      h3 {
-        margin: 0;
-        font-size: 1.2rem;
-      }
-
-      p {
-        margin: 0;
-        font-size: 0.88rem;
-        color: $text-secondary;
-        flex: 1;
-      }
-    }
-
-    &__top {
+    &__meta {
+      padding: 0.95rem 0.35rem 0.25rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0.5rem;
-    }
+      gap: 0.75rem;
 
-    &__region {
-      font-size: 0.75rem;
-      color: $text-muted;
-    }
+      strong {
+        display: block;
+        font-size: 1.04rem;
+        color: #ffffff;
+      }
 
-    &__stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 0.25rem;
-
-      span {
-        font-family: $font-mono;
-        font-size: 0.7rem;
+      span:not(.tag) {
+        font-size: 0.77rem;
         color: $text-muted;
-        padding: 0.18rem 0.5rem;
-        border-radius: 6px;
-        background: rgba(255, 255, 255, 0.04);
       }
     }
   }
 
   .case-studies {
-    margin-top: 3.5rem;
+    margin-top: 4.25rem;
     display: grid;
-    gap: 1.75rem;
+    gap: 2.25rem;
   }
 
   .case-card {
     @include interactive-card;
     padding: 1.5rem;
     display: grid;
-    gap: 1.75rem;
+    gap: 2rem;
     align-items: center;
 
     @include respond-up(lg) {
-      grid-template-columns: 0.92fr 1.08fr;
-      padding: 2rem;
+      grid-template-columns: 1.05fr 0.95fr;
+      padding: 2.15rem;
     }
 
     &__visual {
       border-radius: $radius-md;
       overflow: hidden;
-      aspect-ratio: 16 / 10;
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      background: #04060c;
 
-      img {
+      video {
         width: 100%;
-        height: 100%;
+        aspect-ratio: 16 / 10;
         object-fit: cover;
       }
     }
 
+    &__tags {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
     &__content {
       h3 {
-        margin: 0.75rem 0 0.4rem;
-        font-size: 1.65rem;
+        margin: 0.85rem 0 0.45rem;
+        font-size: clamp(1.45rem, 2.4vw, 1.85rem);
         letter-spacing: -0.025em;
       }
     }
 
     &__headline {
-      margin: 0 0 1.25rem;
+      margin: 0 0 1.35rem;
       color: $text-secondary;
       font-size: 0.98rem;
     }
+  }
+
+  .browser-bar {
+    height: 34px;
+    padding-inline: 0.9rem;
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    small {
+      margin-left: auto;
+      font-family: $font-mono;
+      font-size: 0.7rem;
+      color: $text-muted;
+    }
+  }
+
+  .live-chip {
+    font-family: $font-mono;
+    font-size: 0.72rem;
+    color: $accent-emerald;
   }
 
   .case-stats {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.85rem;
-    padding: 1rem;
+    padding: 1.05rem;
     border-radius: $radius-md;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid $border-subtle;
-    margin-bottom: 1.25rem;
+    background: rgba(1, 106, 212, 0.1);
+    border: 1px solid rgba(132, 181, 230, 0.2);
+    margin-bottom: 1.3rem;
 
     strong {
       display: block;
-      font-size: 1.25rem;
+      font-size: 1.32rem;
       color: $accent-emerald;
     }
 
@@ -306,10 +452,10 @@
   }
 
   .case-quote {
-    margin: 0 0 1.25rem;
+    margin: 0 0 1.3rem;
     padding-left: 1rem;
-    border-left: 2px solid $accent-emerald;
-    color: #e2e8f0;
+    border-left: 2px solid $accent-orchid;
+    color: #f1f5f9;
     font-size: 0.95rem;
     font-style: italic;
   }
@@ -320,20 +466,112 @@
     gap: 0.85rem;
 
     img {
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     strong {
       display: block;
-      font-size: 0.92rem;
+      font-size: 0.94rem;
     }
 
     span {
       font-size: 0.8rem;
       color: $text-muted;
+    }
+  }
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 110;
+    background: rgba(4, 6, 12, 0.86);
+    backdrop-filter: blur(14px);
+    display: grid;
+    place-items: center;
+    padding: 1.25rem;
+
+    &__card {
+      @include glass-surface(true);
+      border-radius: $radius-lg;
+      max-width: 860px;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+
+      img {
+        width: 100%;
+        max-height: 460px;
+        object-fit: cover;
+      }
+    }
+
+    &__close {
+      position: absolute;
+      top: 0.85rem;
+      right: 0.85rem;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(6, 7, 13, 0.8);
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    &__body {
+      padding: 1.6rem 1.8rem;
+
+      p {
+        color: $text-secondary;
+        margin: 0.75rem 0 1.35rem;
+      }
+    }
+
+    &__head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+
+      h3 {
+        margin: 0.5rem 0 0;
+        font-size: 1.5rem;
+      }
+    }
+
+    &__metric {
+      font-family: $font-mono;
+      font-size: 1rem;
+      color: $accent-emerald;
+    }
+
+    &__footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+
+    span {
+      font-family: $font-mono;
+      font-size: 0.75rem;
+      padding: 0.28rem 0.65rem;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      color: #cbd5e1;
     }
   }
 </style>

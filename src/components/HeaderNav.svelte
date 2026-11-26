@@ -24,16 +24,16 @@
 <header class:scrolled class="site-header">
   <div class="container header-inner">
     <a href="#top" class="brand" aria-label="Digital World AU Home" onclick={closeAll}>
-      <svg class="brand__mark" width="34" height="34" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-        <rect width="64" height="64" rx="16" fill="#0b1120" />
-        <rect x="2" y="2" width="60" height="60" rx="14" stroke="url(#navGrad)" stroke-width="3" />
-        <path d="M18 44V20h11c8.2 0 13.5 4.8 13.5 12S37.2 44 29 44H18Zm6.5-5.6h4.3c4.7 0 7.4-2.5 7.4-6.4s-2.7-6.4-7.4-6.4h-4.3v12.8Z" fill="url(#navGrad)" />
+      <svg class="brand__mark" width="36" height="36" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+        <rect width="64" height="64" rx="16" fill="#06070d" />
+        <rect x="2" y="2" width="60" height="60" rx="14" stroke="url(#navGradV2)" stroke-width="3" />
+        <path d="M18 44V20h11c8.2 0 13.5 4.8 13.5 12S37.2 44 29 44H18Zm6.5-5.6h4.3c4.7 0 7.4-2.5 7.4-6.4s-2.7-6.4-7.4-6.4h-4.3v12.8Z" fill="url(#navGradV2)" />
         <circle cx="48" cy="18" r="4.5" fill="#00f5a0" />
         <defs>
-          <linearGradient id="navGrad" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+          <linearGradient id="navGradV2" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
             <stop stop-color="#00f5a0" />
-            <stop offset="0.55" stop-color="#38bdf8" />
-            <stop offset="1" stop-color="#8b5cf6" />
+            <stop offset="0.52" stop-color="#016ad4" />
+            <stop offset="1" stop-color="#fcc1f4" />
           </linearGradient>
         </defs>
       </svg>
@@ -64,7 +64,7 @@
         {#if megaOpen}
           <div class="mega-dropdown" role="menu">
             <div class="mega-col">
-              <p class="mega-col__title">Design</p>
+              <p class="mega-col__title">01 • Design</p>
               {#each MEGA_MENU.design as item}
                 <a href={item.href} class="mega-item" onclick={closeAll}>
                   <strong>{item.label}</strong>
@@ -73,7 +73,7 @@
               {/each}
             </div>
             <div class="mega-col">
-              <p class="mega-col__title">Development</p>
+              <p class="mega-col__title">02 • Development</p>
               {#each MEGA_MENU.development as item}
                 <a href={item.href} class="mega-item" onclick={closeAll}>
                   <strong>{item.label}</strong>
@@ -82,13 +82,21 @@
               {/each}
             </div>
             <div class="mega-col">
-              <p class="mega-col__title">Marketing</p>
+              <p class="mega-col__title">03 • Marketing</p>
               {#each MEGA_MENU.marketing as item}
                 <a href={item.href} class="mega-item" onclick={closeAll}>
                   <strong>{item.label}</strong>
                   <span>{item.desc}</span>
                 </a>
               {/each}
+            </div>
+            <div class="mega-promo">
+              <img src="/media/hero-sculpture.webp" alt="" loading="lazy" />
+              <div>
+                <span class="tag">Free 2-Week Diagnostic</span>
+                <strong>Expert UX, Vitals &amp; SEO Audit</strong>
+                <a href="#contact" class="mega-promo__cta" onclick={closeAll}>Claim Audit →</a>
+              </div>
             </div>
           </div>
         {/if}
@@ -165,20 +173,20 @@
     position: sticky;
     top: 0;
     z-index: 60;
-    background: rgba(5, 7, 13, 0.72);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(6, 7, 13, 0.72);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     transition: background $transition-fast, border-color $transition-fast;
 
     &.scrolled {
-      background: rgba(5, 7, 13, 0.92);
-      border-bottom-color: rgba(255, 255, 255, 0.11);
+      background: rgba(6, 7, 13, 0.92);
+      border-bottom-color: rgba(132, 181, 230, 0.16);
     }
   }
 
   .header-inner {
-    height: 76px;
+    height: 78px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -188,14 +196,14 @@
   .brand {
     display: inline-flex;
     align-items: center;
-    gap: 0.7rem;
+    gap: 0.72rem;
     flex-shrink: 0;
 
     &__word {
       display: flex;
       align-items: baseline;
       gap: 0.35rem;
-      font-size: 1.12rem;
+      font-size: 1.14rem;
       letter-spacing: -0.03em;
 
       strong {
@@ -215,7 +223,7 @@
   .desktop-nav {
     display: none;
     align-items: center;
-    gap: 1.75rem;
+    gap: 1.85rem;
 
     @include respond-up(lg) {
       display: flex;
@@ -247,22 +255,22 @@
   .mega-dropdown {
     position: absolute;
     top: calc(100% + 0.5rem);
-    left: -140px;
-    width: 720px;
+    left: -210px;
+    width: 880px;
     padding: 1.5rem;
     border-radius: $radius-lg;
     @include glass-surface(true);
-    border-color: rgba(0, 245, 160, 0.2);
+    border-color: rgba(132, 181, 230, 0.28);
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: 1fr 1fr 1fr 0.95fr;
+    gap: 1.15rem;
     z-index: 80;
   }
 
   .mega-col__title {
     margin: 0 0 0.75rem;
     font-family: $font-mono;
-    font-size: 0.74rem;
+    font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: $accent-emerald;
@@ -270,26 +278,61 @@
 
   .mega-item {
     display: block;
-    padding: 0.65rem 0.75rem;
+    padding: 0.62rem 0.72rem;
     border-radius: $radius-sm;
     transition: background $transition-fast;
 
     strong {
       display: block;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: $text-primary;
-      margin-bottom: 0.18rem;
+      margin-bottom: 0.16rem;
     }
 
     span {
       display: block;
-      font-size: 0.77rem;
+      font-size: 0.75rem;
       color: $text-muted;
-      line-height: 1.4;
+      line-height: 1.38;
     }
 
     &:hover {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(1, 106, 212, 0.18);
+    }
+  }
+
+  .mega-promo {
+    border-radius: $radius-md;
+    overflow: hidden;
+    background: rgba(2, 9, 50, 0.72);
+    border: 1px solid rgba(252, 193, 244, 0.24);
+    display: flex;
+    flex-direction: column;
+
+    img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+    }
+
+    div {
+      padding: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      flex: 1;
+
+      strong {
+        font-size: 0.88rem;
+        line-height: 1.35;
+      }
+    }
+
+    &__cta {
+      margin-top: auto;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: $accent-emerald;
     }
   }
 
@@ -303,7 +346,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.42rem 0.75rem;
+    padding: 0.42rem 0.78rem;
     border-radius: $radius-pill;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid $border-subtle;
@@ -324,7 +367,7 @@
 
   .header-cta {
     display: none;
-    padding: 0.68rem 1.25rem;
+    padding: 0.68rem 1.3rem;
     font-size: 0.88rem;
 
     @include respond-up(sm) {
@@ -350,7 +393,7 @@
 
   .mobile-drawer {
     border-top: 1px solid $border-subtle;
-    background: rgba(5, 7, 13, 0.98);
+    background: rgba(6, 7, 13, 0.98);
     padding-block: 1.5rem 2rem;
 
     &__inner {

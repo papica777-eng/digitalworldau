@@ -1,9 +1,10 @@
 // Bridge to the compiled Rust -> WebAssembly engine (public/wasm/agency_wasm.wasm)
-// Includes deterministic fallbacks so SSR and early hydration stay instantaneous.
 
 export interface AgencyWasmExports {
   audit_score_estimate(lcpMs: number, clsMilli: number, seoChecksPassed: number): number;
   convert_eur_cents_to_aud_cents(eurCents: bigint, rateBps: number): bigint;
+  roi_projection_cents(monthlyVisitors: number, convBps: number, aovCents: bigint): bigint;
+  compute_wave_displacement(xMilli: number, yMilli: number, timeMs: number): number;
   validate_upload_header(
     b0: number,
     b1: number,
@@ -57,6 +58,18 @@ export async function convertEurCentsToAudCents(eurCents: number, rateBps = 1650
   return Math.floor((eurCents * rateBps + 5000) / 10000);
 }
 
+export async function projectMonthlyRoiCents(
+  monthlyVisitors: number,
+  convBps: number,
+  aovCents: number
+): Promise<number> {
+  const wasm = await getAgencyWasm();
+  if (wasm) {
+    return Number(wasm.roi_projection_cents(monthlyVisitors, convBps, BigInt(aovCents)));
+  }
+  return Math.floor((monthlyVisitors * convBps * aovCents + 5000) / 10000);
+}
+
 export type UploadKind = 'invalid' | 'pdf' | 'png' | 'jpg' | 'doc';
 
 const CODE_TO_KIND: Record<number, UploadKind> = {
@@ -82,7 +95,6 @@ export async function validateBriefAttachment(file: File): Promise<{ valid: bool
     return { valid: code !== 0, kind };
   }
 
-  // Fallback mirror check
   if (b(0) === 0x25 && b(1) === 0x50 && b(2) === 0x44 && b(3) === 0x46) return { valid: true, kind: 'pdf' };
   if (b(0) === 0x89 && b(1) === 0x50 && b(2) === 0x4e && b(3) === 0x47) return { valid: true, kind: 'png' };
   if (b(0) === 0xff && b(1) === 0xd8 && b(2) === 0xff) return { valid: true, kind: 'jpg' };

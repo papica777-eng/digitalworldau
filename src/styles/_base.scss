@@ -1,6 +1,18 @@
 @use './tokens' as *;
 @use './mixins' as *;
 
+@property --beam-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spinBeam {
+  to {
+    --beam-angle: 360deg;
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -21,17 +33,31 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(1200px 620px at 15% -8%, rgba(56, 189, 248, 0.14), transparent 55%),
-    radial-gradient(900px 540px at 88% 8%, rgba(139, 92, 246, 0.12), transparent 52%),
-    radial-gradient(800px 500px at 50% 45%, rgba(0, 245, 160, 0.05), transparent 60%),
+    radial-gradient(1100px 680px at 12% -5%, rgba(1, 106, 212, 0.24), transparent 58%),
+    radial-gradient(950px 620px at 88% 6%, rgba(95, 31, 87, 0.28), transparent 56%),
+    radial-gradient(900px 580px at 50% 34%, rgba(2, 9, 50, 0.72), transparent 68%),
+    radial-gradient(850px 520px at 80% 68%, rgba(0, 245, 160, 0.07), transparent 60%),
     $bg-canvas;
   color: $text-primary;
   line-height: 1.6;
   overflow-x: clip;
+  position: relative;
+
+  // Subtle architectural film grain so dark sapphire gradients never band
+  &::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.026;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
 }
 
 img,
-svg {
+svg,
+video {
   display: block;
   max-width: 100%;
 }
@@ -54,7 +80,7 @@ textarea {
 }
 
 ::selection {
-  background: rgba(0, 245, 160, 0.28);
+  background: rgba(1, 106, 212, 0.45);
   color: #ffffff;
 }
 
@@ -70,10 +96,25 @@ textarea {
   border: 0;
 }
 
+.beam-frame {
+  position: relative;
+  border-radius: $radius-xl;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--beam-angle),
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(1, 106, 212, 0.65) 22%,
+    rgba(252, 193, 244, 0.7) 32%,
+    rgba(0, 245, 160, 0.65) 42%,
+    rgba(255, 255, 255, 0.08) 58%
+  );
+  animation: spinBeam 9s linear infinite;
+}
+
 [data-reveal] {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 640ms cubic-bezier(0.22, 1, 0.36, 1), transform 640ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(24px);
+  transition: opacity 680ms cubic-bezier(0.22, 1, 0.36, 1), transform 680ms cubic-bezier(0.22, 1, 0.36, 1);
 
   &.is-revealed {
     opacity: 1;
@@ -84,6 +125,10 @@ textarea {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .beam-frame {
+    animation: none;
   }
 
   [data-reveal] {

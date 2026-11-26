@@ -3,6 +3,15 @@
   import { currencyStore } from '../lib/currency.svelte';
   import { generateInquiryRef, validateBriefAttachment } from '../lib/wasm';
 
+  const SCOPE_OPTIONS = [
+    'Free 2-Week Website Audit',
+    'UI/UX & Web Design',
+    'E-Commerce Store',
+    'Custom Development',
+    'SEO & Paid Growth',
+  ];
+
+  let selectedScopes = $state<string[]>(['UI/UX & Web Design']);
   let name = $state('');
   let email = $state('');
   let phone = $state('');
@@ -19,10 +28,21 @@
   let submittedRef = $state('');
   let submitting = $state(false);
 
+  function toggleScope(scope: string) {
+    if (selectedScopes.includes(scope)) {
+      selectedScopes = selectedScopes.filter((s) => s !== scope);
+    } else {
+      selectedScopes = [...selectedScopes, scope];
+    }
+  }
+
   $effect(() => {
     const auditBtn = document.querySelector('[data-preset-audit]');
     if (!auditBtn) return;
     const handler = () => {
+      if (!selectedScopes.includes('Free 2-Week Website Audit')) {
+        selectedScopes = ['Free 2-Week Website Audit', ...selectedScopes];
+      }
       if (!message.trim()) {
         message = 'Requesting the Free 2-Week Expert Website Audit (UX, Technical Core Web Vitals & SEO).';
       }
@@ -88,131 +108,148 @@
   <div class="container contact-grid">
     <div class="contact-info" data-reveal>
       <span class="eyebrow">Start a Conversation</span>
-      <h2 class="section-title" id="contact-heading">Book a Call or Get a Tailored Quote.</h2>
+      <h2 class="section-title" id="contact-heading">Book a Call or Request a Tailored Proposal.</h2>
       <p class="section-lead">
-        Share your objectives, timeline, and optional brief. Our Sydney and Melbourne leads respond within 1 business day with a structured scope—or a free 2-week expert audit.
+        Share your goals, timeline, and optional brief. Our Sydney and Melbourne leads respond within 1 business day with a structured scope—or your complimentary 2-week expert website audit.
       </p>
 
       <div class="contact-cards">
         <div class="info-pill">
-          <span>Direct Email</span>
+          <span>Direct Studio Desk</span>
           <a href="mailto:hello@digitalworldau.com">hello@digitalworldau.com</a>
         </div>
         <div class="info-pill">
-          <span>Sydney Studio</span>
+          <span>Australian Flagship</span>
           <strong>Level 14, 275 George St, Sydney NSW 2000</strong>
         </div>
         <div class="info-pill">
-          <span>Response SLA</span>
-          <strong>Under 24 Hours (AEST/AEDT)</strong>
+          <span>Guaranteed Turnaround</span>
+          <strong>Under 24 Hours (AEST / CET / EST)</strong>
         </div>
       </div>
     </div>
 
-    <div class="form-card" data-glow-card data-reveal>
-      {#if submittedRef}
-        <div class="success-box" role="status">
-          <span class="pill-badge">Brief Received</span>
-          <h3>Thank you, {name}.</h3>
-          <p>
-            Your project inquiry has been logged and verified with reference <code class="ref-code">{submittedRef}</code>. Our senior strategist will reach out to <strong>{email}</strong> shortly.
-          </p>
-          <button
-            type="button"
-            class="btn btn-ghost"
-            onclick={() => {
-              submittedRef = '';
-              message = '';
-              attachmentName = '';
-            }}
-          >
-            Submit Another Brief
-          </button>
-        </div>
-      {:else}
-        <form onsubmit={onSubmit} novalidate>
-          <div class="form-row-2">
-            <label class="field">
-              <span>Full Name *</span>
-              <input type="text" required placeholder="Olivia Bennett" bind:value={name} />
-            </label>
-            <label class="field">
-              <span>Work Email *</span>
-              <input type="email" required placeholder="olivia@company.com.au" bind:value={email} />
-            </label>
+    <div class="beam-frame" data-reveal>
+      <div class="form-card" data-glow-card>
+        {#if submittedRef}
+          <div class="success-box" role="status">
+            <span class="pill-badge">Brief Verified &amp; Logged</span>
+            <h3>Thank you, {name}.</h3>
+            <p>
+              Your inquiry ({selectedScopes.join(', ') || 'Custom Scope'}) has been registered under deterministic reference <code class="ref-code">{submittedRef}</code>. Our senior strategist will email <strong>{email}</strong> within one business day.
+            </p>
+            <button
+              type="button"
+              class="btn btn-ghost"
+              onclick={() => {
+                submittedRef = '';
+                message = '';
+                attachmentName = '';
+              }}
+            >
+              Submit Another Brief
+            </button>
           </div>
-
-          <div class="form-row-2">
-            <label class="field">
-              <span>Phone Number</span>
-              <input type="tel" placeholder="+61 400 000 000" bind:value={phone} />
-            </label>
-            <label class="field">
-              <span>Estimated Budget ({currencyStore.code})</span>
-              <select bind:value={budgetIndex}>
-                {#each BUDGET_TIERS as tier, idx}
-                  <option value={idx}>{currencyStore.getTierLabel(idx)}</option>
+        {:else}
+          <form onsubmit={onSubmit} novalidate>
+            <div class="scope-group">
+              <span class="scope-label">What can we help you build?</span>
+              <div class="scope-pills">
+                {#each SCOPE_OPTIONS as scope}
+                  <button
+                    type="button"
+                    class:selected={selectedScopes.includes(scope)}
+                    onclick={() => toggleScope(scope)}
+                  >
+                    {scope}
+                  </button>
                 {/each}
-              </select>
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <label class="field">
+                <span>Full Name *</span>
+                <input type="text" required placeholder="Olivia Bennett" bind:value={name} />
+              </label>
+              <label class="field">
+                <span>Work Email *</span>
+                <input type="email" required placeholder="olivia@company.com.au" bind:value={email} />
+              </label>
+            </div>
+
+            <div class="form-row-2">
+              <label class="field">
+                <span>Phone Number</span>
+                <input type="tel" placeholder="+61 400 000 000" bind:value={phone} />
+              </label>
+              <label class="field">
+                <span>Estimated Budget ({currencyStore.code})</span>
+                <select bind:value={budgetIndex}>
+                  {#each BUDGET_TIERS as _, idx}
+                    <option value={idx}>{currencyStore.getTierLabel(idx)}</option>
+                  {/each}
+                </select>
+              </label>
+            </div>
+
+            <label class="field">
+              <span>Project Overview &amp; Objectives</span>
+              <textarea
+                rows="4"
+                placeholder="Tell us about your current site, target KPIs, desired launch window, or request the Free 2-Week Website Audit..."
+                bind:value={message}
+              ></textarea>
             </label>
-          </div>
 
-          <label class="field">
-            <span>Project Overview &amp; Goals</span>
-            <textarea
-              rows="4"
-              placeholder="Tell us about your website, e-commerce goals, target launch window, or request a Free 2-Week Expert Audit..."
-              bind:value={message}
-            ></textarea>
-          </label>
+            <div
+              class="dropzone"
+              class:dragging
+              ondragover={(e) => {
+                e.preventDefault();
+                dragging = true;
+              }}
+              ondragleave={() => (dragging = false)}
+              ondrop={onDrop}
+            >
+              <input
+                id="brief-upload"
+                type="file"
+                accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
+                onchange={onFileInput}
+              />
+              <label for="brief-upload">
+                {#if attachmentName}
+                  <strong class="ok">✓ Verified {attachmentKind}: {attachmentName}</strong>
+                  <span>Checked locally via Rust/WebAssembly magic-byte inspector.</span>
+                {:else}
+                  <strong>Attach Project Brief, RFP or Wireframes</strong>
+                  <span>Drag &amp; drop or browse — .pdf, .doc, .png, .jpg up to 10MB</span>
+                {/if}
+              </label>
+            </div>
 
-          <div
-            class="dropzone"
-            class:dragging
-            ondragover={(e) => {
-              e.preventDefault();
-              dragging = true;
-            }}
-            ondragleave={() => (dragging = false)}
-            ondrop={onDrop}
-          >
-            <input
-              id="brief-upload"
-              type="file"
-              accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
-              onchange={onFileInput}
-            />
-            <label for="brief-upload">
-              {#if attachmentName}
-                <strong class="ok">Verified {attachmentKind}: {attachmentName}</strong>
-                <span>Validated in-browser via Rust/Wasm magic-byte check.</span>
-              {:else}
-                <strong>Attach Project Brief or Wireframes</strong>
-                <span>Drag &amp; drop or browse — .pdf, .doc, .png, .jpg up to 10MB</span>
-              {/if}
+            {#if attachmentError}
+              <p class="error-msg" role="alert">{attachmentError}</p>
+            {/if}
+
+            <label class="checkbox-field">
+              <input type="checkbox" bind:checked={acceptedPrivacy} />
+              <span>
+                I agree to the <a href="/privacy">Privacy Policy</a> and consent to Digital World AU processing my project inquiry.
+              </span>
             </label>
-          </div>
 
-          {#if attachmentError}
-            <p class="error-msg" role="alert">{attachmentError}</p>
-          {/if}
+            {#if formError}
+              <p class="error-msg" role="alert">{formError}</p>
+            {/if}
 
-          <label class="checkbox-field">
-            <input type="checkbox" bind:checked={acceptedPrivacy} />
-            <span>
-              I agree to the <a href="/privacy">Privacy Policy</a> and consent to Digital World AU storing my inquiry details to respond to my request.
-            </span>
-          </label>
-
-          {#if formError}
-            <p class="error-msg" role="alert">{formError}</p>
-          {/if}
-
-          <button type="submit" class="btn btn-primary submit-btn" disabled={submitting}>
-            {submitting ? 'Verifying Brief...' : 'Book a Call / Get a Quote'}
-          </button>
-        </form>
-      {/if}
+            <button type="submit" class="btn btn-primary submit-btn" disabled={submitting}>
+              {submitting ? 'Verifying Brief...' : 'Book a Call / Get a Quote'}
+            </button>
+          </form>
+        {/if}
+      </div>
     </div>
   </div>
 </section>
@@ -227,7 +264,7 @@
     align-items: start;
 
     @include respond-up(lg) {
-      grid-template-columns: 0.9fr 1.1fr;
+      grid-template-columns: 0.88fr 1.12fr;
       gap: 3.25rem;
     }
   }
@@ -241,7 +278,7 @@
   .info-pill {
     @include glass-surface;
     border-radius: $radius-md;
-    padding: 1rem 1.2rem;
+    padding: 1.05rem 1.25rem;
 
     span {
       display: block;
@@ -261,13 +298,46 @@
   }
 
   .form-card {
-    @include interactive-card;
+    @include glass-surface(true);
+    border-radius: calc(#{$radius-xl} - 1px);
     padding: clamp(1.5rem, 3vw, 2.25rem);
 
     form {
       display: flex;
       flex-direction: column;
       gap: 1.15rem;
+    }
+  }
+
+  .scope-label {
+    display: block;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 0.55rem;
+  }
+
+  .scope-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+
+    button {
+      padding: 0.44rem 0.88rem;
+      border-radius: $radius-pill;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: $text-secondary;
+      cursor: pointer;
+      transition: all $transition-fast;
+
+      &.selected {
+        background: rgba(0, 245, 160, 0.14);
+        border-color: $accent-emerald;
+        color: #ffffff;
+      }
     }
   }
 
@@ -295,10 +365,10 @@
     select,
     textarea {
       width: 100%;
-      padding: 0.8rem 0.95rem;
+      padding: 0.82rem 0.95rem;
       border-radius: $radius-sm;
       border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(5, 7, 13, 0.72);
+      background: rgba(6, 7, 13, 0.78);
       color: #ffffff;
       transition: border-color $transition-fast;
 
@@ -311,17 +381,17 @@
 
   .dropzone {
     position: relative;
-    border: 1.5px dashed rgba(56, 189, 248, 0.35);
+    border: 1.5px dashed rgba(132, 181, 230, 0.35);
     border-radius: $radius-md;
     padding: 1.15rem;
     text-align: center;
-    background: rgba(56, 189, 248, 0.04);
+    background: rgba(1, 106, 212, 0.06);
     transition: border-color $transition-fast, background $transition-fast;
 
     &.dragging,
     &:hover {
       border-color: $accent-emerald;
-      background: rgba(0, 245, 160, 0.06);
+      background: rgba(0, 245, 160, 0.08);
     }
 
     input {
@@ -367,7 +437,7 @@
     }
 
     a {
-      color: $accent-cyan;
+      color: $accent-blue-light;
       text-decoration: underline;
     }
   }
@@ -381,7 +451,7 @@
 
   .submit-btn {
     width: 100%;
-    padding-block: 0.98rem;
+    padding-block: 1rem;
     font-size: 1rem;
   }
 
@@ -403,7 +473,7 @@
   .ref-code {
     font-family: $font-mono;
     color: $accent-emerald;
-    background: rgba(0, 245, 160, 0.1);
+    background: rgba(0, 245, 160, 0.12);
     padding: 0.15rem 0.45rem;
     border-radius: 6px;
   }
