@@ -1,6 +1,7 @@
 ---
 import '../styles/main.scss';
 import CookieBanner from '../components/CookieBanner.svelte';
+import FluidBackground from '../components/FluidBackground.svelte';
 
 interface Props {
   title?: string;
@@ -57,7 +58,10 @@ const orgSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
   </head>
   <body>
-    <slot />
+    <FluidBackground client:idle />
+    <div class="page-shell">
+      <slot />
+    </div>
     <CookieBanner client:idle />
     <script>
       // Lightweight IntersectionObserver for smooth scroll reveals + pointer glow tracking
