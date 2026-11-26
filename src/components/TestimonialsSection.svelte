@@ -2,36 +2,92 @@
   import GlobeCanvas from './GlobeCanvas.svelte';
   import { GLOBAL_REGIONS, TESTIMONIALS } from '../data/agencyData';
 
+  type ContinentKey = 'Asia-Pacific' | 'Europe' | 'North America' | 'Global Enterprise';
+
+  const CONTINENT_GROUPS: Array<{
+    key: ContinentKey;
+    label: string;
+    defaultCode: string;
+  }> = [
+    { key: 'Europe', label: 'Europe', defaultCode: 'BG' },
+    { key: 'North America', label: 'North America', defaultCode: 'US' },
+    { key: 'Asia-Pacific', label: 'Asia-Pacific', defaultCode: 'AU' },
+    { key: 'Global Enterprise', label: 'Global Enterprise Pods', defaultCode: 'CH' },
+  ];
+
   let selectedRegionCode = $state<string>('AU');
+  let openContinent = $state<ContinentKey | null>('Asia-Pacific');
+
+  function regionsFor(key: ContinentKey) {
+    if (key === 'Global Enterprise') {
+      return GLOBAL_REGIONS.filter((r) => r.code === 'AU' || r.code === 'BG' || r.code === 'CH');
+    }
+    return GLOBAL_REGIONS.filter((r) => r.regionGroup === key);
+  }
+
+  function toggleContinent(group: (typeof CONTINENT_GROUPS)[number]) {
+    if (openContinent === group.key) {
+      openContinent = null;
+    } else {
+      openContinent = group.key;
+      selectedRegionCode = group.defaultCode;
+    }
+  }
+
+  function handleGlobeSelect(code: string) {
+    selectedRegionCode = code;
+    const match = GLOBAL_REGIONS.find((r) => r.code === code);
+    if (match) {
+      openContinent = match.regionGroup;
+    }
+  }
 </script>
 
 <section class="section global-section" aria-labelledby="global-heading">
   <div class="container">
     <div class="global-hero-grid" data-reveal>
       <div class="global-copy">
-        <span class="eyebrow">Global Reach &amp; Production Proof</span>
-        <h2 class="section-title" id="global-heading">Engineered in Australia. Trusted across 7 international markets.</h2>
+        <span class="eyebrow">Global Delivery &amp; Partnerships</span>
+        <h2 class="global-title" id="global-heading">Working with clients worldwide</h2>
         <p class="section-lead">
-          From Sydney and Melbourne to Sofia, Munich, Paris, Zurich, New York, and Toronto—select any market below to spin our 3D Earth straight to its live production hub.
+          Beyond Australia and Bulgaria, we rapidly scale digital flagship platforms across international hubs in Germany, France, Switzerland, the USA, and Canada.
         </p>
 
-        <div class="markets-selector" role="listbox" aria-label="Select global delivery market to focus Earth">
-          {#each GLOBAL_REGIONS as region}
-            <button
-              type="button"
-              role="option"
-              aria-selected={selectedRegionCode === region.code}
-              class="market-row"
-              class:active={selectedRegionCode === region.code}
-              onclick={() => (selectedRegionCode = region.code)}
-            >
-              <span class="market-row__code">{region.code}</span>
-              <span class="market-row__info">
-                <strong>{region.name}</strong>
-                <small>{region.hub} • {region.clients}</small>
-              </span>
-              <span class="market-row__domain">{region.projectDomain}</span>
-            </button>
+        <div class="continent-accordion" aria-label="Filter global delivery hubs by continent">
+          {#each CONTINENT_GROUPS as group}
+            {@const isOpen = openContinent === group.key}
+            {@const list = regionsFor(group.key)}
+            <div class="acc-item" class:open={isOpen}>
+              <button
+                type="button"
+                class="acc-trigger"
+                aria-expanded={isOpen}
+                onclick={() => toggleContinent(group)}
+              >
+                <span>{group.label}</span>
+                <span class="acc-plus" aria-hidden="true">+</span>
+              </button>
+
+              {#if isOpen}
+                <div class="acc-body">
+                  {#each list as region}
+                    <button
+                      type="button"
+                      class="acc-country"
+                      class:active={selectedRegionCode === region.code}
+                      onclick={() => (selectedRegionCode = region.code)}
+                    >
+                      <span class="acc-code">{region.code}</span>
+                      <span class="acc-name">
+                        <strong>{region.name}</strong>
+                        <small>{region.hub}</small>
+                      </span>
+                      <span class="acc-domain">{region.projectDomain}</span>
+                    </button>
+                  {/each}
+                </div>
+              {/if}
+            </div>
           {/each}
         </div>
       </div>
@@ -39,38 +95,8 @@
       <div class="global-earth-column">
         <GlobeCanvas
           selectedCode={selectedRegionCode}
-          onSelectRegion={(code) => (selectedRegionCode = code)}
+          onSelectRegion={handleGlobeSelect}
         />
-      </div>
-    </div>
-
-    <div class="proof-banner" data-glow-card data-reveal>
-      <div class="proof-banner__copy">
-        <span class="proof-banner__kicker">Verifiable Live Productions • 100% IP Ownership</span>
-        <div class="proof-banner__links">
-          <a href="https://anchialo.com" target="_blank" rel="noopener">anchialo.com ↗</a>
-          <span>·</span>
-          <a href="https://cptmma.com" target="_blank" rel="noopener">cptmma.com ↗</a>
-          <span>·</span>
-          <a href="https://aeterna.website" target="_blank" rel="noopener">aeterna.website ↗</a>
-          <span>·</span>
-          <a href="https://nasvetlo.website" target="_blank" rel="noopener">nasvetlo.website ↗</a>
-        </div>
-      </div>
-
-      <div class="studio-pod-chip">
-        <video
-          src="/videos/studio-atmos.mp4"
-          poster="/media/studio-team.webp"
-          autoplay
-          loop
-          muted
-          playsinline
-        ></video>
-        <div>
-          <span class="tag">Studio Pod Sync</span>
-          <strong>Dedicated Senior Design &amp; Engineering</strong>
-        </div>
       </div>
     </div>
 
@@ -109,97 +135,150 @@
     display: grid;
     gap: 2.25rem;
     align-items: center;
-    margin-bottom: 2.75rem;
+    margin-bottom: 3.25rem;
 
     @include respond-up(lg) {
-      grid-template-columns: 1fr 1.18fr;
-      gap: 3rem;
+      grid-template-columns: 0.84fr 1.16fr;
+      gap: 2.75rem;
     }
   }
 
-  .markets-selector {
-    margin-top: 1.75rem;
-    display: grid;
-    gap: 0.55rem;
+  .global-title {
+    font-family: $font-display;
+    font-weight: 500;
+    font-size: clamp(2.1rem, 4.1vw, 3.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: #ffffff;
+    margin: 0 0 1rem;
   }
 
-  .market-row {
-    @include glass-surface;
-    @include agma-border($radius-sm, 1);
+  .continent-accordion {
+    margin-top: 1.85rem;
+    display: grid;
+    gap: 0.72rem;
+  }
+
+  .acc-item {
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    overflow: hidden;
+    transition: border-color $transition-fast, background $transition-fast;
+
+    &.open {
+      background: rgba(255, 255, 255, 0.055);
+      border-color: rgba(132, 181, 230, 0.36);
+
+      .acc-plus {
+        transform: rotate(45deg);
+        color: $accent-blue-light;
+      }
+    }
+  }
+
+  .acc-trigger {
     width: 100%;
-    padding: 0.72rem 1rem;
-    border-radius: $radius-sm;
+    padding: 1.05rem 1.35rem;
+    background: transparent;
+    border: none;
     display: flex;
     align-items: center;
-    gap: 0.85rem;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    font-family: $font-display;
+    font-size: 0.96rem;
+    font-weight: 500;
+    color: #ffffff;
+    text-align: left;
+  }
+
+  .acc-plus {
+    font-size: 1.35rem;
+    font-weight: 400;
+    line-height: 1;
+    color: $accent-cobalt;
+    transition: transform $transition-fast, color $transition-fast;
+  }
+
+  .acc-body {
+    padding: 0 0.85rem 0.9rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .acc-country {
+    width: 100%;
+    padding: 0.62rem 0.8rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.025);
+    display: flex;
+    align-items: center;
+    gap: 0.72rem;
     text-align: left;
     cursor: pointer;
-    transition: transform $transition-fast, background $transition-fast, border-color $transition-fast;
+    transition: background $transition-fast, border-color $transition-fast;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.085);
-      transform: translateX(4px);
+      background: rgba(255, 255, 255, 0.075);
     }
 
     &.active {
-      background: rgba(1, 106, 212, 0.24);
+      background: rgba(1, 106, 212, 0.28);
       border-color: rgba(132, 181, 230, 0.55);
 
-      .market-row__code {
+      .acc-code {
         background: $accent-cobalt;
         color: #ffffff;
-        box-shadow: 0 0 14px rgba(1, 106, 212, 0.65);
       }
 
-      .market-row__domain {
+      .acc-domain {
         color: #ffffff;
       }
     }
+  }
 
-    &__code {
-      font-family: $font-mono;
-      font-size: 0.74rem;
-      font-weight: 700;
-      width: 34px;
-      height: 28px;
-      border-radius: 9px;
-      background: rgba(255, 255, 255, 0.07);
-      color: $accent-blue-light;
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      transition: background $transition-fast, color $transition-fast, box-shadow $transition-fast;
+  .acc-code {
+    font-family: $font-mono;
+    font-size: 0.72rem;
+    font-weight: 700;
+    width: 32px;
+    height: 26px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    color: $accent-blue-light;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  .acc-name {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+
+    strong {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #ffffff;
     }
 
-    &__info {
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-
-      strong {
-        font-family: $font-display;
-        font-size: 0.86rem;
-        font-weight: 500;
-        color: #ffffff;
-      }
-
-      small {
-        font-size: 0.74rem;
-        color: $text-muted;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    }
-
-    &__domain {
-      margin-left: auto;
-      font-family: $font-mono;
+    small {
       font-size: 0.72rem;
-      color: $accent-blue-light;
-      white-space: nowrap;
-      flex-shrink: 0;
+      color: $text-muted;
     }
+  }
+
+  .acc-domain {
+    margin-left: auto;
+    font-family: $font-mono;
+    font-size: 0.72rem;
+    color: $accent-blue-light;
+    white-space: nowrap;
   }
 
   .global-earth-column {
@@ -207,72 +286,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .proof-banner {
-    @include interactive-card;
-    padding: 1.15rem 1.45rem;
-    margin-bottom: 2.25rem;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.25rem;
-
-    &__kicker {
-      display: block;
-      font-family: $font-mono;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: $accent-blue-light;
-      margin-bottom: 0.45rem;
-    }
-
-    &__links {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.45rem 0.7rem;
-      font-family: $font-mono;
-      font-size: 0.92rem;
-      font-weight: 600;
-
-      a {
-        color: #ffffff;
-        transition: color $transition-fast;
-
-        &:hover {
-          color: $accent-blue-light;
-        }
-      }
-
-      span {
-        color: $text-muted;
-      }
-    }
-  }
-
-  .studio-pod-chip {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-
-    video {
-      width: 68px;
-      height: 52px;
-      border-radius: 12px;
-      object-fit: cover;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      flex-shrink: 0;
-    }
-
-    strong {
-      display: block;
-      margin-top: 0.28rem;
-      font-size: 0.82rem;
-      color: #ffffff;
-    }
   }
 
   .testimonials-grid {

@@ -68,12 +68,36 @@
     }
   `;
 
-  const EARTH_FRAG = `
-    uniform sampler2D uDayMap;
-    uniform sampler2D uNormalMap;
+  // Back hemisphere translucent X-ray depth layer (makes continents & fluid shine softly through)
+  const BACK_FRAG = `
     uniform sampler2D uSpecularMap;
+    uniform float uTexReady;
+
+    varying vec2 vUv;
+    varying vec3 vWorldNormal;
+    varying vec3 vWorldPos;
+
+    void main() {
+      float landMask = 0.25;
+      if (uTexReady > 0.5) {
+        landMask = 1.0 - smoothstep(0.18, 0.52, texture2D(uSpecularMap, vUv).r);
+      }
+
+      vec3 oceanBack = vec3(0.03, 0.05, 0.09);
+      vec3 landBack = vec3(0.06, 0.16, 0.30);
+      vec3 color = mix(oceanBack, landBack, landMask);
+      float alpha = mix(0.16, 0.36, landMask);
+
+      gl_FragColor = vec4(color, alpha);
+    }
+  `;
+
+  // Front sculptural deep-sapphire continents + translucent obsidian glass oceans
+  const FRONT_FRAG = `
+    uniform sampler2D uSpecularMap;
+    uniform sampler2D uNormalMap;
     uniform sampler2D uLightsMap;
-    uniform vec3 uSunDir;
+    uniform vec3 uKeyDir;
     uniform float uTexReady;
 
     varying vec2 vUv;
@@ -83,95 +107,64 @@
     varying vec3 vWorldPos;
 
     void main() {
-      vec3 sunDir = normalize(uSunDir);
       vec3 viewDir = normalize(cameraPosition - vWorldPos);
       vec3 geoN = normalize(vWorldNormal);
+      vec3 keyDir = normalize(uKeyDir);
 
-      vec3 dayRaw = vec3(0.05, 0.14, 0.34);
-      vec3 specSample = vec3(0.35);
-      vec3 lightsRaw = vec3(0.0);
+      float landMask = 0.0;
+      float coast = 0.0;
+      float lights = 0.0;
       vec3 N = geoN;
 
       if (uTexReady > 0.5) {
-        dayRaw = pow(texture2D(uDayMap, vUv).rgb, vec3(2.2));
+        float specCenter = texture2D(uSpecularMap, vUv).r;
+        landMask = 1.0 - smoothstep(0.18, 0.52, specCenter);
+
+        // Crisp dark coastline etching from adjacent texel contrast
+        float du = 1.0 / 2048.0;
+        float dv = 1.0 / 1024.0;
+        float sL = 1.0 - smoothstep(0.18, 0.52, texture2D(uSpecularMap, vUv - vec2(du, 0.0)).r);
+        float sR = 1.0 - smoothstep(0.18, 0.52, texture2D(uSpecularMap, vUv + vec2(du, 0.0)).r);
+        float sD = 1.0 - smoothstep(0.18, 0.52, texture2D(uSpecularMap, vUv - vec2(0.0, dv)).r);
+        float sU = 1.0 - smoothstep(0.18, 0.52, texture2D(uSpecularMap, vUv + vec2(0.0, dv)).r);
+        coast = clamp((abs(sL - sR) + abs(sD - sU)) * 1.4, 0.0, 1.0);
+
         vec3 nMap = texture2D(uNormalMap, vUv).xyz * 2.0 - 1.0;
-        nMap.xy *= 0.85;
+        nMap.xy *= 0.9;
         mat3 tbn = mat3(normalize(vWorldTangent), normalize(vWorldBitangent), geoN);
         N = normalize(tbn * nMap);
-        specSample = texture2D(uSpecularMap, vUv).rgb;
-        lightsRaw = pow(texture2D(uLightsMap, vUv).rgb, vec3(2.1));
+
+        lights = dot(texture2D(uLightsMap, vUv).rgb, vec3(0.333));
       }
 
-      float geoNdL = dot(geoN, sunDir);
-      float bumpNdL = max(dot(N, sunDir), 0.0);
-      float dayBlend = smoothstep(-0.18, 0.28, geoNdL);
+      // Sculptural sapphire terrain shading (#15497e -> #1d64ad)
+      float diffuse = clamp(dot(N, keyDir) * 0.55 + 0.52, 0.28, 1.15);
+      float rimView = pow(1.0 - max(dot(viewDir, geoN), 0.0), 3.1);
 
-      // Day illumination with subtle ambient blue earthshine
-      vec3 earthshine = dayRaw * vec3(0.06, 0.10, 0.22);
-      vec3 dayLit = dayRaw * (bumpNdL * 1.38 + 0.05) + earthshine;
+      vec3 landDeep = vec3(0.082, 0.286, 0.494);   // #15497e
+      vec3 landBright = vec3(0.114, 0.392, 0.678); // #1d64ad
+      vec3 landCol = mix(landDeep, landBright, diffuse * 0.82) * diffuse;
 
-      // Crisp specular sun reflection masked exclusively on ocean surfaces
-      vec3 halfVec = normalize(sunDir + viewDir);
-      float ndh = max(dot(N, halfVec), 0.0);
-      float oceanGlint = pow(ndh, 42.0) * specSample.r * dayBlend * 0.72;
-      dayLit += vec3(0.55, 0.80, 1.0) * oceanGlint;
+      // Delicate ice-blue urban node gleam on populated coastal zones
+      landCol += vec3(0.49, 0.83, 0.99) * pow(lights, 1.4) * 0.38;
+      // Etch crisp obsidian coastline outline
+      landCol = mix(landCol, vec3(0.043, 0.063, 0.102), coast * 0.72);
+      landCol += vec3(0.22, 0.74, 0.98) * rimView * 0.34;
 
-      // Golden city lights gleaming on the night hemisphere
-      float nightMask = smoothstep(0.08, -0.32, geoNdL);
-      vec3 nightLights = lightsRaw * vec3(1.18, 0.86, 0.48) * nightMask * 1.55;
+      // Translucent obsidian glass oceans + precision architectural lat/lng hairline grid
+      float latGrid = smoothstep(0.985, 0.998, abs(sin(vUv.y * 12.0 * 3.14159265)));
+      float lonGrid = smoothstep(0.988, 0.998, abs(sin(vUv.x * 24.0 * 3.14159265)));
+      float gridMask = clamp(latGrid + lonGrid, 0.0, 1.0);
 
-      // Warm twilight horizon scattering near the solar terminator
-      float twilight = exp(-pow((geoNdL + 0.02) * 5.2, 2.0));
-      vec3 twilightColor = vec3(0.18, 0.34, 0.72) * twilight * 0.22;
+      vec3 oceanCol = vec3(0.04, 0.06, 0.10);
+      oceanCol += vec3(0.22, 0.58, 0.96) * rimView * 0.78;
+      oceanCol += vec3(0.35, 0.68, 1.0) * gridMask * 0.045;
 
-      // Surface Rayleigh blue rim glow
-      float fresnel = pow(1.0 - max(dot(viewDir, geoN), 0.0), 3.3);
-      float sunSide = smoothstep(-0.45, 0.65, geoNdL);
-      vec3 rimGlow = mix(vec3(0.04, 0.22, 0.68), vec3(0.22, 0.74, 0.98), sunSide) * fresnel * 0.92;
+      vec3 finalCol = mix(oceanCol, landCol, landMask);
+      float oceanAlpha = clamp(0.44 + rimView * 0.36 + gridMask * 0.035, 0.42, 0.82);
+      float alpha = mix(oceanAlpha, 0.94, landMask);
 
-      vec3 color = mix(dayRaw * 0.025 + earthshine * 0.55, dayLit, dayBlend) + nightLights + twilightColor + rimGlow;
-
-      // Soft tone compression & sRGB encode
-      color = color / (color + vec3(0.85));
-      color = pow(clamp(color, 0.0, 1.0), vec3(1.0 / 2.2));
-
-      gl_FragColor = vec4(color, 1.0);
-    }
-  `;
-
-  const CLOUDS_VERT = `
-    varying vec2 vUv;
-    varying vec3 vWorldNormal;
-    varying vec3 vWorldPos;
-
-    void main() {
-      vUv = uv;
-      vWorldNormal = normalize(mat3(modelMatrix) * normal);
-      vec4 wp = modelMatrix * vec4(position, 1.0);
-      vWorldPos = wp.xyz;
-      gl_Position = projectionMatrix * viewMatrix * wp;
-    }
-  `;
-
-  const CLOUDS_FRAG = `
-    uniform sampler2D uCloudsMap;
-    uniform vec3 uSunDir;
-    uniform float uCloudsReady;
-
-    varying vec2 vUv;
-    varying vec3 vWorldNormal;
-    varying vec3 vWorldPos;
-
-    void main() {
-      if (uCloudsReady < 0.5) discard;
-      vec4 tex = texture2D(uCloudsMap, vUv);
-      float cloudDensity = tex.r;
-      if (cloudDensity < 0.04) discard;
-
-      float ndl = smoothstep(-0.25, 0.55, dot(normalize(vWorldNormal), normalize(uSunDir)));
-      vec3 col = mix(vec3(0.08, 0.14, 0.28), vec3(0.95, 0.98, 1.0), ndl);
-      float alpha = cloudDensity * mix(0.14, 0.52, ndl);
-      gl_FragColor = vec4(col, alpha);
+      gl_FragColor = vec4(finalCol, alpha);
     }
   `;
 
@@ -186,9 +179,9 @@
   const ATMO_FRAG = `
     varying vec3 vNormal;
     void main() {
-      float intensity = pow(0.64 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 3.2);
+      float intensity = pow(0.62 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 3.2);
       vec3 atmoColor = mix(vec3(0.004, 0.416, 0.831), vec3(0.22, 0.74, 0.98), clamp(intensity, 0.0, 1.0));
-      gl_FragColor = vec4(atmoColor, 1.0) * intensity * 1.15;
+      gl_FragColor = vec4(atmoColor, 1.0) * intensity * 0.58;
     }
   `;
 
@@ -211,7 +204,7 @@
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 60);
-    camera.position.set(0, 0.12, 4.45);
+    camera.position.set(0, 0.08, 4.75);
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
@@ -219,39 +212,36 @@
       powerPreference: 'high-performance',
     });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.08;
     hostEl.appendChild(renderer.domElement);
 
     const globeGroup = new THREE.Group();
     globeGroup.rotation.set(initial.rx, initial.ry, 0);
     scene.add(globeGroup);
 
-    const RADIUS = 1.48;
-    const sunDir = new THREE.Vector3(5.0, 2.2, 4.2).normalize();
+    const RADIUS = 1.62;
+    const keyDir = new THREE.Vector3(3.6, 2.4, 4.4).normalize();
 
     const loader = new THREE.TextureLoader();
     let loadedCount = 0;
 
-    const earthUniforms = {
-      uDayMap: { value: null as THREE.Texture | null },
-      uNormalMap: { value: null as THREE.Texture | null },
+    const backUniforms = {
       uSpecularMap: { value: null as THREE.Texture | null },
-      uLightsMap: { value: null as THREE.Texture | null },
-      uSunDir: { value: sunDir },
       uTexReady: { value: 0 },
     };
 
-    const cloudsUniforms = {
-      uCloudsMap: { value: null as THREE.Texture | null },
-      uSunDir: { value: sunDir },
-      uCloudsReady: { value: 0 },
+    const frontUniforms = {
+      uSpecularMap: { value: null as THREE.Texture | null },
+      uNormalMap: { value: null as THREE.Texture | null },
+      uLightsMap: { value: null as THREE.Texture | null },
+      uKeyDir: { value: keyDir },
+      uTexReady: { value: 0 },
     };
 
-    const markSurfaceTex = () => {
+    const markReady = () => {
       loadedCount += 1;
-      if (loadedCount >= 4) {
-        earthUniforms.uTexReady.value = 1;
+      if (loadedCount >= 3) {
+        backUniforms.uTexReady.value = 1;
+        frontUniforms.uTexReady.value = 1;
         texturesLoaded = true;
       }
     };
@@ -264,51 +254,47 @@
       return tex;
     };
 
-    const texDay = loader.load('/media/earth/earth_atmos_2048.jpg', (t) => {
-      earthUniforms.uDayMap.value = configureTex(t);
-      markSurfaceTex();
+    const texSpec = loader.load('/media/earth/earth_specular_2048.jpg', (t) => {
+      const cfg = configureTex(t);
+      backUniforms.uSpecularMap.value = cfg;
+      frontUniforms.uSpecularMap.value = cfg;
+      markReady();
     });
     const texNormal = loader.load('/media/earth/earth_normal_2048.jpg', (t) => {
-      earthUniforms.uNormalMap.value = configureTex(t);
-      markSurfaceTex();
-    });
-    const texSpec = loader.load('/media/earth/earth_specular_2048.jpg', (t) => {
-      earthUniforms.uSpecularMap.value = configureTex(t);
-      markSurfaceTex();
+      frontUniforms.uNormalMap.value = configureTex(t);
+      markReady();
     });
     const texLights = loader.load('/media/earth/earth_lights_2048.png', (t) => {
-      earthUniforms.uLightsMap.value = configureTex(t);
-      markSurfaceTex();
-    });
-    const texClouds = loader.load('/media/earth/earth_clouds_1024.png', (t) => {
-      cloudsUniforms.uCloudsMap.value = configureTex(t);
-      cloudsUniforms.uCloudsReady.value = 1;
+      frontUniforms.uLightsMap.value = configureTex(t);
+      markReady();
     });
 
-    // 1. Photorealistic NASA Planet Earth sphere
-    const earthGeo = new THREE.SphereGeometry(RADIUS, 96, 96);
-    const earthMat = new THREE.ShaderMaterial({
-      uniforms: earthUniforms,
+    const sphereGeo = new THREE.SphereGeometry(RADIUS, 96, 96);
+
+    // 1. Back hemisphere X-ray holographic sphere
+    const backMat = new THREE.ShaderMaterial({
+      uniforms: backUniforms,
       vertexShader: EARTH_VERT,
-      fragmentShader: EARTH_FRAG,
-    });
-    const earthMesh = new THREE.Mesh(earthGeo, earthMat);
-    globeGroup.add(earthMesh);
-
-    // 2. Drifting animated cloud sphere
-    const cloudsGeo = new THREE.SphereGeometry(RADIUS * 1.015, 72, 72);
-    const cloudsMat = new THREE.ShaderMaterial({
-      uniforms: cloudsUniforms,
-      vertexShader: CLOUDS_VERT,
-      fragmentShader: CLOUDS_FRAG,
+      fragmentShader: BACK_FRAG,
+      side: THREE.BackSide,
       transparent: true,
       depthWrite: false,
     });
-    const cloudsMesh = new THREE.Mesh(cloudsGeo, cloudsMat);
-    globeGroup.add(cloudsMesh);
+    globeGroup.add(new THREE.Mesh(sphereGeo, backMat));
 
-    // 3. Volumetric outer Rayleigh blue atmosphere halo
-    const atmoGeo = new THREE.SphereGeometry(RADIUS * 1.15, 72, 72);
+    // 2. Front sculptural sapphire continents + translucent obsidian oceans
+    const frontMat = new THREE.ShaderMaterial({
+      uniforms: frontUniforms,
+      vertexShader: EARTH_VERT,
+      fragmentShader: FRONT_FRAG,
+      side: THREE.FrontSide,
+      transparent: true,
+      depthWrite: true,
+    });
+    globeGroup.add(new THREE.Mesh(sphereGeo, frontMat));
+
+    // 3. Soft outer sapphire rim halo
+    const atmoGeo = new THREE.SphereGeometry(RADIUS * 1.11, 72, 72);
     const atmoMat = new THREE.ShaderMaterial({
       vertexShader: ATMO_VERT,
       fragmentShader: ATMO_FRAG,
@@ -317,81 +303,90 @@
       transparent: true,
       depthWrite: false,
     });
-    const atmoMesh = new THREE.Mesh(atmoGeo, atmoMat);
-    scene.add(atmoMesh);
+    scene.add(new THREE.Mesh(atmoGeo, atmoMat));
 
-    // 4. Interactive 3D pins, tangent pulse rings & geodesic routes from Sydney HQ
-    const sydney = latLngToVec3(-33.8688, 151.2093, RADIUS * 1.018);
-    const pinGeo = new THREE.SphereGeometry(0.032, 16, 16);
-    const ringGeo = new THREE.RingGeometry(0.044, 0.072, 28);
+    // 4. Concentric glowing cyan radar beacons (no crisscrossing lines)
+    const dotGeo = new THREE.CircleGeometry(0.024, 20);
+    const innerRingGeo = new THREE.RingGeometry(0.04, 0.056, 32);
+    const outerRingGeo = new THREE.RingGeometry(0.072, 0.09, 32);
 
     const hitMeshes: THREE.Mesh[] = [];
-    const pinRecords: Array<{
+    const beaconRecords: Array<{
       code: string;
-      pin: THREE.Mesh;
-      pinMat: THREE.MeshBasicMaterial;
-      ring: THREE.Mesh;
-      ringMat: THREE.MeshBasicMaterial;
+      dot: THREE.Mesh;
+      dotMat: THREE.MeshBasicMaterial;
+      innerRing: THREE.Mesh;
+      innerMat: THREE.MeshBasicMaterial;
+      outerRing: THREE.Mesh;
+      outerMat: THREE.MeshBasicMaterial;
     }> = [];
+
     const disposables: Array<{ dispose(): void }> = [
-      earthGeo,
-      earthMat,
-      cloudsGeo,
-      cloudsMat,
+      sphereGeo,
+      backMat,
+      frontMat,
       atmoGeo,
       atmoMat,
-      pinGeo,
-      ringGeo,
-      texDay,
-      texNormal,
+      dotGeo,
+      innerRingGeo,
+      outerRingGeo,
       texSpec,
+      texNormal,
       texLights,
-      texClouds,
     ];
 
-    for (const reg of GLOBAL_REGIONS) {
-      const pos = latLngToVec3(reg.lat, reg.lng, RADIUS * 1.018);
+    for (let idx = 0; idx < GLOBAL_REGIONS.length; idx++) {
+      const reg = GLOBAL_REGIONS[idx];
+      const pos = latLngToVec3(reg.lat, reg.lng, RADIUS * 1.012);
+      const normalOut = pos.clone().multiplyScalar(2);
 
-      const pinMat = new THREE.MeshBasicMaterial({
-        color: new THREE.Color(reg.code === selectedCode ? '#ffffff' : '#38bdf8'),
+      const dotMat = new THREE.MeshBasicMaterial({
+        color: new THREE.Color('#ffffff'),
+        side: THREE.DoubleSide,
       });
-      const pin = new THREE.Mesh(pinGeo, pinMat);
-      pin.position.copy(pos);
-      pin.userData.code = reg.code;
-      globeGroup.add(pin);
-      hitMeshes.push(pin);
+      const dot = new THREE.Mesh(dotGeo, dotMat);
+      dot.position.copy(pos);
+      dot.lookAt(normalOut);
+      dot.userData.code = reg.code;
+      globeGroup.add(dot);
+      hitMeshes.push(dot);
 
-      const ringMat = new THREE.MeshBasicMaterial({
+      const innerMat = new THREE.MeshBasicMaterial({
         color: new THREE.Color('#38bdf8'),
         side: THREE.DoubleSide,
         transparent: true,
-        opacity: 0.72,
+        opacity: 0.9,
       });
-      const ring = new THREE.Mesh(ringGeo, ringMat);
-      ring.position.copy(pos).multiplyScalar(1.002);
-      ring.lookAt(pos.clone().multiplyScalar(2));
-      ring.userData.code = reg.code;
-      globeGroup.add(ring);
-      hitMeshes.push(ring);
+      const innerRing = new THREE.Mesh(innerRingGeo, innerMat);
+      innerRing.position.copy(pos).multiplyScalar(1.001);
+      innerRing.lookAt(normalOut);
+      innerRing.userData.code = reg.code;
+      globeGroup.add(innerRing);
+      hitMeshes.push(innerRing);
 
-      pinRecords.push({ code: reg.code, pin, pinMat, ring, ringMat });
-      disposables.push(pinMat, ringMat);
+      const outerMat = new THREE.MeshBasicMaterial({
+        color: new THREE.Color('#0ea5e9'),
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.55,
+      });
+      const outerRing = new THREE.Mesh(outerRingGeo, outerMat);
+      outerRing.position.copy(pos).multiplyScalar(1.002);
+      outerRing.lookAt(normalOut);
+      outerRing.userData.code = reg.code;
+      globeGroup.add(outerRing);
+      hitMeshes.push(outerRing);
 
-      if (reg.code !== 'AU') {
-        const mid = sydney.clone().add(pos).multiplyScalar(0.5);
-        const dist = sydney.distanceTo(pos);
-        mid.normalize().multiplyScalar(RADIUS * 1.02 + dist * 0.34);
-
-        const curve = new THREE.QuadraticBezierCurve3(sydney, mid, pos);
-        const arcGeo = new THREE.BufferGeometry().setFromPoints(curve.getPoints(48));
-        const arcMat = new THREE.LineBasicMaterial({
-          color: new THREE.Color('#84b5e6'),
-          transparent: true,
-          opacity: 0.42,
-        });
-        globeGroup.add(new THREE.Line(arcGeo, arcMat));
-        disposables.push(arcGeo, arcMat);
-      }
+      beaconRecords.push({
+        code: reg.code,
+        dot,
+        dotMat,
+        innerRing,
+        innerMat,
+        outerRing,
+        outerMat,
+      });
+      disposables.push(dotMat, innerMat, outerMat);
     }
 
     const raycaster = new THREE.Raycaster();
@@ -408,8 +403,8 @@
 
     const resize = () => {
       if (!hostEl) return;
-      const w = hostEl.clientWidth || 380;
-      const h = hostEl.clientHeight || 380;
+      const w = hostEl.clientWidth || 420;
+      const h = hostEl.clientHeight || 420;
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h, false);
@@ -481,8 +476,6 @@
       rafId = requestAnimationFrame(tick);
       if (!visible) return;
 
-      cloudsMesh.rotation.y += 0.00045;
-
       if (!isDragging) {
         if (now < flyLockUntil) {
           const dY = shortestAngleDiff(globeGroup.rotation.y, targetRotY);
@@ -501,14 +494,20 @@
         }
       }
 
-      const pulse = 1 + 0.36 * (0.5 + 0.5 * Math.sin(now * 0.0042));
-      for (const rec of pinRecords) {
+      for (let i = 0; i < beaconRecords.length; i++) {
+        const rec = beaconRecords[i];
         const isActive = rec.code === selectedCode;
-        rec.pin.scale.setScalar(isActive ? 1.45 : 0.92);
-        rec.pinMat.color.set(isActive ? '#ffffff' : '#38bdf8');
-        rec.ring.scale.setScalar(isActive ? pulse * 1.45 : 0.95);
-        rec.ringMat.opacity = isActive ? 0.85 : 0.38;
-        rec.ringMat.color.set(isActive ? '#84b5e6' : '#016ad4');
+        const wave = 0.5 + 0.5 * Math.sin(now * 0.004 + i * 0.9);
+        rec.dot.scale.setScalar(isActive ? 1.35 : 0.95);
+        rec.dotMat.color.set(isActive ? '#ffffff' : '#bae6fd');
+
+        rec.innerRing.scale.setScalar(isActive ? 1.3 : 0.95);
+        rec.innerMat.opacity = isActive ? 0.95 : 0.72;
+        rec.innerMat.color.set(isActive ? '#7dd3fc' : '#38bdf8');
+
+        rec.outerRing.scale.setScalar((isActive ? 1.35 : 0.95) * (0.95 + 0.35 * wave));
+        rec.outerMat.opacity = (isActive ? 0.85 : 0.5) * (1.0 - 0.45 * wave);
+        rec.outerMat.color.set(isActive ? '#38bdf8' : '#0ea5e9');
       }
 
       renderer.render(scene, camera);
@@ -535,7 +534,7 @@
     class:ready={texturesLoaded}
     bind:this={hostEl}
     role="img"
-    aria-label="Interactive 3D photorealistic Planet Earth connecting Digital World AU in Sydney with 7 global markets"
+    aria-label="Interactive holographic 3D Planet Earth showcasing Digital World AU global delivery hubs"
   >
     <div class="globe-hotspot-card">
       <div class="hotspot-meta">
@@ -555,7 +554,7 @@
       </div>
     </div>
 
-    <span class="globe-drag-hint">Drag Earth or click pins to inspect markets</span>
+    <span class="globe-drag-hint">Drag Earth or click radar pins to inspect markets</span>
   </div>
 </div>
 
@@ -571,7 +570,7 @@
   .globe-wrap {
     position: relative;
     width: 100%;
-    height: 440px;
+    height: 500px;
     cursor: grab;
     background: transparent;
     border: none;
@@ -579,7 +578,7 @@
     overflow: visible;
 
     @include respond-up(lg) {
-      height: 540px;
+      height: 620px;
     }
 
     &:active {
@@ -627,7 +626,7 @@
     width: 9px;
     height: 9px;
     border-radius: 50%;
-    background: $accent-cobalt;
+    background: $accent-cyan;
     box-shadow: 0 0 12px $accent-cyan;
     flex-shrink: 0;
   }

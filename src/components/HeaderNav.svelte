@@ -39,114 +39,116 @@
 </script>
 
 <header class:scrolled class="site-header">
-  <div class="container header-inner">
-    <BrandLogo onclick={closeAll} />
+  <div class="header-shell">
+    <div class="header-inner">
+      <BrandLogo onclick={closeAll} />
 
-    <nav class="desktop-nav" aria-label="Primary navigation">
-      <div
-        class="mega-trigger-wrap"
-        onmouseenter={() => (megaOpen = true)}
-        onmouseleave={() => (megaOpen = false)}
-      >
-        <button
-          type="button"
-          class="nav-link"
-          aria-expanded={megaOpen}
-          onclick={() => (megaOpen = !megaOpen)}
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <div
+          class="mega-trigger-wrap"
+          onmouseenter={() => (megaOpen = true)}
+          onmouseleave={() => (megaOpen = false)}
         >
-          Services
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
-            <path d="m6 9 6 6 6-6" />
-          </svg>
-        </button>
+          <button
+            type="button"
+            class="nav-link"
+            aria-expanded={megaOpen}
+            onclick={() => (megaOpen = !megaOpen)}
+          >
+            Services
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
 
-        {#if megaOpen}
-          <div class="mega-dropdown" role="menu">
-            <div class="mega-col">
-              <p class="mega-col__title">01 • Design</p>
-              {#each MEGA_MENU.design as item}
-                <a href={item.href} data-preset-service={item.preset} class="mega-item" onclick={closeAll}>
-                  <strong>{item.label}</strong>
-                  <span>{item.desc}</span>
-                </a>
-              {/each}
-            </div>
-            <div class="mega-col">
-              <p class="mega-col__title">02 • Development</p>
-              {#each MEGA_MENU.development as item}
-                <a href={item.href} data-preset-service={item.preset} class="mega-item" onclick={closeAll}>
-                  <strong>{item.label}</strong>
-                  <span>{item.desc}</span>
-                </a>
-              {/each}
-            </div>
-            <div class="mega-col">
-              <p class="mega-col__title">03 • Marketing</p>
-              {#each MEGA_MENU.marketing as item}
-                <a href={item.href} data-preset-service={item.preset} class="mega-item" onclick={closeAll}>
-                  <strong>{item.label}</strong>
-                  <span>{item.desc}</span>
-                </a>
-              {/each}
-            </div>
-            <div class="mega-promo">
-              <img src="/media/hero-sculpture.webp" alt="" loading="lazy" />
-              <div>
-                <span class="tag">Free 48-Hour Diagnostic</span>
-                <strong>Expert UX, Vitals &amp; SEO Audit</strong>
-                <a href="#contact" data-preset-audit class="mega-promo__cta" onclick={closeAll}>Claim Audit →</a>
+          {#if megaOpen}
+            <div class="mega-dropdown" role="menu">
+              <div class="mega-col">
+                <p class="mega-col__title">01 • Design</p>
+                {#each MEGA_MENU.design as item}
+                  <a href={item.href} data-preset-service={item.preset} class="mega-item" onclick={closeAll}>
+                    <strong>{item.label}</strong>
+                    <span>{item.desc}</span>
+                  </a>
+                {/each}
+              </div>
+              <div class="mega-col">
+                <p class="mega-col__title">02 • Development</p>
+                {#each MEGA_MENU.development as item}
+                  <a href={item.href} data-preset-service={item.preset} class="mega-item" onclick={closeAll}>
+                    <strong>{item.label}</strong>
+                    <span>{item.desc}</span>
+                  </a>
+                {/each}
+              </div>
+              <div class="mega-col">
+                <p class="mega-col__title">03 • Marketing</p>
+                {#each MEGA_MENU.marketing as item}
+                  <a href={item.href} data-preset-service={item.preset} class="mega-item" onclick={closeAll}>
+                    <strong>{item.label}</strong>
+                    <span>{item.desc}</span>
+                  </a>
+                {/each}
+              </div>
+              <div class="mega-promo">
+                <img src="/media/hero-sculpture.webp" alt="" loading="lazy" />
+                <div>
+                  <span class="tag">Free 48-Hour Diagnostic</span>
+                  <strong>Expert UX, Vitals &amp; SEO Audit</strong>
+                  <a href="#contact" data-preset-audit class="mega-promo__cta" onclick={closeAll}>Claim Audit →</a>
+                </div>
               </div>
             </div>
-          </div>
-        {/if}
+          {/if}
+        </div>
+
+        <a href="/#projects" class="nav-link">Projects</a>
+        <a href="/#about" class="nav-link">About Us</a>
+        <a href="/#blog" class="nav-link">Blog</a>
+        <a href="/#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button
+          type="button"
+          class="currency-text"
+          onclick={switchCurrency}
+          aria-label="Toggle display currency between AUD and EUR"
+          title="Switch currency across pricing & quote form (AUD / EUR)"
+        >
+          <span class:active={activeCurrency === 'AUD'}>AUD</span>
+          <span class="sep">/</span>
+          <span class:active={activeCurrency === 'EUR'}>EUR</span>
+        </button>
+
+        <a href="/#contact" class="cobalt-quote-cta">
+          <span>Get a Quote</span>
+          <span class="arrow-circle" aria-hidden="true">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </span>
+        </a>
+
+        <button
+          type="button"
+          class="mobile-toggle"
+          aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={mobileOpen}
+          onclick={() => (mobileOpen = !mobileOpen)}
+        >
+          {#if mobileOpen}
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          {:else}
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+          {/if}
+        </button>
       </div>
-
-      <a href="/#projects" class="nav-link">Projects</a>
-      <a href="/#about" class="nav-link">About Us</a>
-      <a href="/#blog" class="nav-link">Blog</a>
-      <a href="/#contact" class="nav-link">Contact</a>
-    </nav>
-
-    <div class="header-actions">
-      <button
-        type="button"
-        class="currency-text"
-        onclick={switchCurrency}
-        aria-label="Toggle display currency between AUD and EUR"
-        title="Switch currency across pricing & quote form (AUD / EUR)"
-      >
-        <span class:active={activeCurrency === 'AUD'}>AUD</span>
-        <span class="sep">/</span>
-        <span class:active={activeCurrency === 'EUR'}>EUR</span>
-      </button>
-
-      <a href="/#contact" class="cobalt-quote-cta">
-        <span>Get a Quote</span>
-        <span class="arrow-circle" aria-hidden="true">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14" />
-            <path d="m12 5 7 7-7 7" />
-          </svg>
-        </span>
-      </a>
-
-      <button
-        type="button"
-        class="mobile-toggle"
-        aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
-        aria-expanded={mobileOpen}
-        onclick={() => (mobileOpen = !mobileOpen)}
-      >
-        {#if mobileOpen}
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <path d="M18 6 6 18M6 6l12 12" />
-          </svg>
-        {:else}
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <path d="M4 7h16M4 12h16M4 17h16" />
-          </svg>
-        {/if}
-      </button>
     </div>
   </div>
 
@@ -181,22 +183,36 @@
 
   .site-header {
     position: sticky;
-    top: 0;
+    top: 12px;
     z-index: 60;
+    padding-inline: clamp(0.75rem, 3vw, 1.75rem);
     background: transparent;
-    border-bottom: 1px solid transparent;
-    transition: background $transition-fast, border-color $transition-fast, backdrop-filter $transition-fast;
+    border: none;
+    pointer-events: none;
 
-    &.scrolled {
-      background: rgba(0, 0, 0, 0.56);
-      backdrop-filter: blur(20px) saturate(160%);
-      -webkit-backdrop-filter: blur(20px) saturate(160%);
-      border-bottom-color: rgba(255, 255, 255, 0.08);
+    &.scrolled .header-shell {
+      background: rgba(8, 10, 18, 0.72);
+      box-shadow: 0 20px 52px rgba(0, 0, 0, 0.65);
     }
   }
 
+  .header-shell {
+    @include agma-border(80px, 1);
+    max-width: $container-max;
+    margin: 4px auto 0;
+    padding-inline: clamp(1rem, 2.5vw, 1.85rem);
+    border-radius: 80px;
+    background: rgba(12, 14, 22, 0.42);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.42);
+    pointer-events: auto;
+    transition: background $transition-fast, box-shadow $transition-fast;
+  }
+
   .header-inner {
-    height: 84px;
+    height: 68px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -204,15 +220,9 @@
   }
 
   .desktop-nav {
-    @include agma-border(80px, 1);
     display: none;
     align-items: center;
-    gap: 1.85rem;
-    padding: 0.72rem 2rem;
-    border-radius: 80px;
-    background: rgba(255, 255, 255, 0.045);
-    backdrop-filter: blur(20px) saturate(150%);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    gap: 2.15rem;
 
     @include respond-up(lg) {
       display: flex;
@@ -417,8 +427,12 @@
   }
 
   .mobile-drawer {
-    border-top: 1px solid $border-subtle;
-    background: rgba(2, 3, 8, 0.98);
+    pointer-events: auto;
+    margin-top: 0.65rem;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(6, 8, 14, 0.94);
+    backdrop-filter: blur(18px);
     padding-block: 1.5rem 2rem;
 
     &__inner {

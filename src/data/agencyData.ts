@@ -137,6 +137,66 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
       'UI/UX Concept for institutional wealth advisory teams pairing client education hubs with instant, transparent financial calculators.',
     isConcept: true,
   },
+  {
+    id: 'alpen-outdoor',
+    title: 'Alpen Expedition Gear',
+    category: 'Online Store',
+    metric: 'High-Contrast Editorial Shop',
+    region: 'Zurich & Alps',
+    image: '/media/mockup-alpen.webp',
+    stack: ['Online Store', 'Lookbook UX', 'Multi-Currency'],
+    summary:
+      'UI/UX Concept for technical alpine apparel pairing interactive gear specs with multi-currency European checkout.',
+    isConcept: true,
+  },
+  {
+    id: 'atelier-bespoke',
+    title: 'Atelier Lumina Interiors',
+    category: 'Corporate Website',
+    metric: 'Architectural Portfolio System',
+    region: 'Paris & Sydney',
+    image: '/media/mockup-atelier.webp',
+    stack: ['Editorial Design', 'Spatial Gallery', 'Lead Funnel'],
+    summary:
+      'UI/UX Concept for bespoke architectural interiors with full-bleed project storytelling and private consultation booking.',
+    isConcept: true,
+  },
+  {
+    id: 'chrono-horology',
+    title: 'Chrono Swiss Horology',
+    category: 'Online Store',
+    metric: '3D Product Configurator',
+    region: 'Geneva, Switzerland',
+    image: '/media/mockup-chrono.webp',
+    stack: ['Luxury E-Commerce', 'WebGL Configurator', 'VIP Flow'],
+    summary:
+      'UI/UX Concept for luxury timepiece collectors featuring real-time WebGL dial inspection and concierge allocation.',
+    isConcept: true,
+  },
+  {
+    id: 'lumiere-skincare',
+    title: 'Lumière Clinical Aesthetics',
+    category: 'Corporate Website',
+    metric: 'Patient Booking Architecture',
+    region: 'Melbourne, VIC',
+    image: '/media/mockup-lumiere.webp',
+    stack: ['Clinical UX', 'Online Booking', 'Local SEO'],
+    summary:
+      'UI/UX Concept for dermatological clinics integrating practitioner credibility, treatment comparisons, and instant bookings.',
+    isConcept: true,
+  },
+  {
+    id: 'novadrive-mobility',
+    title: 'NovaDrive EV Fleet Platform',
+    category: 'Web App',
+    metric: 'Real-Time Telemetry Dashboard',
+    region: 'Sydney & Berlin',
+    image: '/media/mockup-mobility.webp',
+    stack: ['Web App', 'Fleet Analytics', 'SaaS Portal'],
+    summary:
+      'UI/UX Concept for commercial EV fleet operators uniting live range telemetry, charging schedules, and lease calculators.',
+    isConcept: true,
+  },
 ];
 
 export const CASE_STUDIES = [
