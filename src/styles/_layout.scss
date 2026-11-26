@@ -38,43 +38,43 @@
 .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-family: $font-mono;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  gap: 0.72rem;
+  font-family: $font-sans;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: $accent-emerald;
-  margin-bottom: 0.85rem;
+  color: rgba(255, 255, 255, 0.82);
+  margin-bottom: 1rem;
 
   &::before {
     content: '';
-    width: 7px;
-    height: 7px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background: $accent-emerald;
-    box-shadow: 0 0 10px $accent-emerald;
+    background: $accent-cobalt;
+    box-shadow: 0 0 14px rgba(1, 106, 212, 0.75);
+    flex-shrink: 0;
   }
 }
 
 .section-title {
   @include heading-display;
-  font-size: clamp(2rem, 4.3vw, 3.35rem);
-  letter-spacing: -0.04em;
+  font-size: clamp(1.85rem, 3.8vw, 3.1rem);
+  letter-spacing: -0.025em;
   margin: 0 0 1rem;
-  background: $gradient-text;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #ffffff;
+  background: none;
+  -webkit-text-fill-color: #ffffff;
 }
 
 .serif-accent {
-  font-family: $font-serif;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  -webkit-text-fill-color: #ffffff;
-  color: #ffffff;
+  font-family: $font-display;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  -webkit-text-fill-color: $accent-blue-light;
+  color: $accent-blue-light;
 }
 
 .section-lead {

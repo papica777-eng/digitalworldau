@@ -1,6 +1,8 @@
 <script lang="ts">
   import GlobeCanvas from './GlobeCanvas.svelte';
   import { GLOBAL_REGIONS, TESTIMONIALS } from '../data/agencyData';
+
+  let selectedRegionCode = $state<string>('AU');
 </script>
 
 <section class="section global-section" aria-labelledby="global-heading">
@@ -10,51 +12,66 @@
         <span class="eyebrow">Global Reach &amp; Production Proof</span>
         <h2 class="section-title" id="global-heading">Engineered in Australia. Trusted across 7 international markets.</h2>
         <p class="section-lead">
-          From Sydney and Melbourne to Sofia, Munich, Paris, Zurich, New York, and Toronto—our distributed engineering and growth pods ship category-defining digital flagships.
+          From Sydney and Melbourne to Sofia, Munich, Paris, Zurich, New York, and Toronto—select any market below to spin our 3D Earth straight to its live production hub.
         </p>
 
-        <div class="proof-card" data-glow-card>
-          <span class="proof-card__kicker">Verifiable Live Productions</span>
-          <strong>
-            <a href="https://anchialo.com" target="_blank" rel="noopener">anchialo.com ↗</a>
-            <span>•</span>
-            <a href="https://cptmma.com" target="_blank" rel="noopener">cptmma.com ↗</a>
-            <span>•</span>
-            <a href="https://aeterna.website" target="_blank" rel="noopener">aeterna.website ↗</a>
-            <span>•</span>
-            <a href="https://nasvetlo.website" target="_blank" rel="noopener">nasvetlo.website ↗</a>
-          </strong>
-          <span class="proof-card__sub">100% Fixed-Scope Milestones • Full IP Ownership</span>
+        <div class="markets-selector" role="listbox" aria-label="Select global delivery market to focus Earth">
+          {#each GLOBAL_REGIONS as region}
+            <button
+              type="button"
+              role="option"
+              aria-selected={selectedRegionCode === region.code}
+              class="market-row"
+              class:active={selectedRegionCode === region.code}
+              onclick={() => (selectedRegionCode = region.code)}
+            >
+              <span class="market-row__code">{region.code}</span>
+              <span class="market-row__info">
+                <strong>{region.name}</strong>
+                <small>{region.hub} • {region.clients}</small>
+              </span>
+              <span class="market-row__domain">{region.projectDomain}</span>
+            </button>
+          {/each}
         </div>
       </div>
 
-      <div class="global-visuals">
-        <GlobeCanvas />
-        <div class="studio-video-card" data-glow-card>
-          <video
-            src="/videos/studio-atmos.mp4"
-            poster="/media/studio-team.webp"
-            autoplay
-            loop
-            muted
-            playsinline
-          ></video>
-          <div class="studio-video-card__caption">
-            <span class="tag">Studio Pod Sync</span>
-            <strong>Dedicated Senior Design &amp; Engineering Squads</strong>
-          </div>
-        </div>
+      <div class="global-earth-column">
+        <GlobeCanvas
+          selectedCode={selectedRegionCode}
+          onSelectRegion={(code) => (selectedRegionCode = code)}
+        />
       </div>
     </div>
 
-    <div class="region-strip" data-reveal aria-label="Global delivery hubs">
-      {#each GLOBAL_REGIONS as region}
-        <div class="hub-pill">
-          <span class="code">{region.code}</span>
-          <span>{region.name}</span>
-          <small>{region.clients}</small>
+    <div class="proof-banner" data-glow-card data-reveal>
+      <div class="proof-banner__copy">
+        <span class="proof-banner__kicker">Verifiable Live Productions • 100% IP Ownership</span>
+        <div class="proof-banner__links">
+          <a href="https://anchialo.com" target="_blank" rel="noopener">anchialo.com ↗</a>
+          <span>·</span>
+          <a href="https://cptmma.com" target="_blank" rel="noopener">cptmma.com ↗</a>
+          <span>·</span>
+          <a href="https://aeterna.website" target="_blank" rel="noopener">aeterna.website ↗</a>
+          <span>·</span>
+          <a href="https://nasvetlo.website" target="_blank" rel="noopener">nasvetlo.website ↗</a>
         </div>
-      {/each}
+      </div>
+
+      <div class="studio-pod-chip">
+        <video
+          src="/videos/studio-atmos.mp4"
+          poster="/media/studio-team.webp"
+          autoplay
+          loop
+          muted
+          playsinline
+        ></video>
+        <div>
+          <span class="tag">Studio Pod Sync</span>
+          <strong>Dedicated Senior Design &amp; Engineering</strong>
+        </div>
+      </div>
     </div>
 
     <div class="testimonials-grid" data-reveal>
@@ -90,120 +107,171 @@
 
   .global-hero-grid {
     display: grid;
-    gap: 2rem;
+    gap: 2.25rem;
     align-items: center;
-    margin-bottom: 2.25rem;
+    margin-bottom: 2.75rem;
 
     @include respond-up(lg) {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1.18fr;
       gap: 3rem;
     }
   }
 
-  .proof-card {
+  .markets-selector {
+    margin-top: 1.75rem;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .market-row {
+    @include glass-surface;
+    @include agma-border($radius-sm, 1);
+    width: 100%;
+    padding: 0.72rem 1rem;
+    border-radius: $radius-sm;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    text-align: left;
+    cursor: pointer;
+    transition: transform $transition-fast, background $transition-fast, border-color $transition-fast;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.085);
+      transform: translateX(4px);
+    }
+
+    &.active {
+      background: rgba(1, 106, 212, 0.24);
+      border-color: rgba(132, 181, 230, 0.55);
+
+      .market-row__code {
+        background: $accent-cobalt;
+        color: #ffffff;
+        box-shadow: 0 0 14px rgba(1, 106, 212, 0.65);
+      }
+
+      .market-row__domain {
+        color: #ffffff;
+      }
+    }
+
+    &__code {
+      font-family: $font-mono;
+      font-size: 0.74rem;
+      font-weight: 700;
+      width: 34px;
+      height: 28px;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.07);
+      color: $accent-blue-light;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      transition: background $transition-fast, color $transition-fast, box-shadow $transition-fast;
+    }
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+
+      strong {
+        font-family: $font-display;
+        font-size: 0.86rem;
+        font-weight: 500;
+        color: #ffffff;
+      }
+
+      small {
+        font-size: 0.74rem;
+        color: $text-muted;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    &__domain {
+      margin-left: auto;
+      font-family: $font-mono;
+      font-size: 0.72rem;
+      color: $accent-blue-light;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  .global-earth-column {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .proof-banner {
     @include interactive-card;
-    margin-top: 1.85rem;
-    display: inline-flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    padding: 1.15rem 1.5rem;
-    border-radius: $radius-md;
-    border-color: rgba(0, 245, 160, 0.32);
+    padding: 1.15rem 1.45rem;
+    margin-bottom: 2.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
 
     &__kicker {
+      display: block;
       font-family: $font-mono;
       font-size: 0.72rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       color: $accent-blue-light;
+      margin-bottom: 0.45rem;
     }
 
-    strong {
+    &__links {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 1.04rem;
-      color: #ffffff;
+      gap: 0.45rem 0.7rem;
+      font-family: $font-mono;
+      font-size: 0.92rem;
+      font-weight: 600;
 
       a {
-        color: $accent-emerald;
+        color: #ffffff;
+        transition: color $transition-fast;
+
+        &:hover {
+          color: $accent-blue-light;
+        }
       }
 
       span {
         color: $text-muted;
-        font-weight: 500;
       }
     }
-
-    &__sub {
-      font-size: 0.78rem;
-      color: $text-muted;
-    }
   }
 
-  .global-visuals {
-    display: grid;
-    gap: 1rem;
-
-    @include respond-up(sm) {
-      grid-template-columns: 1.1fr 0.9fr;
-    }
-  }
-
-  .studio-video-card {
-    @include interactive-card;
-    height: 310px;
-    position: relative;
+  .studio-pod-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
 
     video {
-      width: 100%;
-      height: 100%;
+      width: 68px;
+      height: 52px;
+      border-radius: 12px;
       object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      flex-shrink: 0;
     }
 
-    &__caption {
-      position: absolute;
-      inset-inline: 0;
-      bottom: 0;
-      padding: 1rem;
-      background: linear-gradient(to top, rgba(6, 7, 13, 0.95), transparent);
-
-      strong {
-        display: block;
-        margin-top: 0.4rem;
-        font-size: 0.88rem;
-      }
-    }
-  }
-
-  .region-strip {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.55rem;
-    margin-bottom: 2.25rem;
-  }
-
-  .hub-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    padding: 0.5rem 0.92rem;
-    border-radius: $radius-pill;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid $border-subtle;
-    color: $text-secondary;
-    font-size: 0.82rem;
-
-    .code {
-      font-family: $font-mono;
-      font-size: 0.72rem;
-      color: $accent-blue-light;
-    }
-
-    small {
-      color: $text-muted;
-      font-size: 0.72rem;
+    strong {
+      display: block;
+      margin-top: 0.28rem;
+      font-size: 0.82rem;
+      color: #ffffff;
     }
   }
 
@@ -223,7 +291,7 @@
 
   .testimonial-card {
     @include interactive-card;
-    padding: 1.6rem;
+    padding: 1.65rem;
     display: flex;
     flex-direction: column;
     gap: 1.15rem;
@@ -236,7 +304,7 @@
 
     &__quote {
       margin: 0;
-      color: #f1f5f9;
+      color: rgba(255, 255, 255, 0.86);
       font-size: 0.94rem;
       line-height: 1.65;
       flex: 1;
@@ -269,7 +337,7 @@
   .live-link {
     font-family: $font-mono;
     font-size: 0.74rem;
-    color: $accent-emerald;
-    font-weight: 700;
+    color: $accent-blue-light;
+    font-weight: 600;
   }
 </style>

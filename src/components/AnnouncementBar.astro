@@ -14,9 +14,9 @@
   @use '../styles/tokens' as *;
 
   .announcement-bar {
-    background: rgba(4, 6, 14, 0.24);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     font-size: 0.8rem;
     padding-block: 0.62rem;
@@ -43,11 +43,11 @@
     }
 
     &__dot {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: $accent-emerald;
-      box-shadow: 0 0 10px $accent-emerald;
+      background: $accent-cobalt;
+      box-shadow: 0 0 10px rgba(1, 106, 212, 0.85);
       flex-shrink: 0;
     }
 
@@ -57,7 +57,7 @@
       transition: color $transition-fast;
 
       &:hover {
-        color: $accent-emerald;
+        color: #ffffff;
       }
     }
   }

@@ -1,17 +1,32 @@
-// V3 Design Tokens — Obsidian Liquid Prism & Optical Glass (VisionOS / Awwwards SOTD)
-$bg-canvas: #03040a;
-$bg-almost-black: #070912;
+// V4 Design Tokens — Agma Pure Obsidian Void & Diagonal Crystal Glass
+$bg-canvas: #000000;
+$bg-almost-black: #0d0d0d;
 $bg-sapphire-deep: #020932;
-$bg-surface: #0b1022;
-$bg-elevated: #11182f;
-$bg-glass: rgba(7, 10, 22, 0.20);
-$bg-glass-hover: rgba(11, 17, 34, 0.30);
-$bg-glass-strong: rgba(7, 10, 22, 0.42);
+$bg-surface: #0d0d0d;
+$bg-elevated: #141414;
+$bg-glass: rgba(255, 255, 255, 0.045);
+$bg-glass-hover: rgba(255, 255, 255, 0.085);
+$bg-glass-strong: rgba(13, 13, 13, 0.54);
 
-$border-subtle: rgba(255, 255, 255, 0.09);
+$border-subtle: rgba(255, 255, 255, 0.08);
 $border-crisp: rgba(255, 255, 255, 0.16);
-$border-glow: rgba(0, 229, 255, 0.42);
-$border-accent-cyan: rgba(56, 189, 248, 0.38);
+$border-glow: rgba(1, 106, 212, 0.48);
+$border-accent-cyan: rgba(132, 181, 230, 0.42);
+
+$agma-border-grad: linear-gradient(
+  107deg,
+  rgba(255, 255, 255, 0.58) 1.22%,
+  rgba(1, 106, 212, 0) 17.85%,
+  rgba(1, 106, 212, 0.01) 80.23%,
+  rgba(255, 255, 255, 0.58) 99.7%
+);
+$agma-border-grad-2: linear-gradient(
+  156deg,
+  rgba(255, 255, 255, 0.58) 1.22%,
+  rgba(1, 106, 212, 0) 17.85%,
+  rgba(1, 106, 212, 0.01) 80.23%,
+  rgba(255, 255, 255, 0.58) 99.7%
+);
 
 $text-primary: #ffffff;
 $text-secondary: rgba(255, 255, 255, 0.78);
@@ -27,25 +42,26 @@ $accent-violet: #8b5cf6;
 $accent-amber: #ffc200;
 $accent-rose: #fb7185;
 
-$gradient-brand: linear-gradient(135deg, #00f5a0 0%, #00e5ff 46%, #016ad4 100%);
-$gradient-agma-orb: radial-gradient(circle at 30% 25%, rgba(0, 102, 255, 0.28), rgba(124, 58, 237, 0.22) 48%, transparent 72%);
-$gradient-text: linear-gradient(118deg, #ffffff 15%, #e2e8f0 52%, #84b5e6 82%, #e0aaff 100%);
-$gradient-card-glow: radial-gradient(520px circle at var(--mx, 50%) var(--my, 50%), rgba(0, 229, 255, 0.14), rgba(124, 58, 237, 0.08) 38%, transparent 62%);
+$gradient-brand: linear-gradient(135deg, #016ad4 0%, #38bdf8 55%, #84b5e6 100%);
+$gradient-agma-orb: radial-gradient(circle at 30% 25%, rgba(1, 106, 212, 0.28), rgba(95, 31, 87, 0.22) 48%, transparent 72%);
+$gradient-text: linear-gradient(180deg, #ffffff 30%, rgba(255, 255, 255, 0.78) 100%);
+$gradient-card-glow: radial-gradient(520px circle at var(--mx, 50%) var(--my, 50%), rgba(1, 106, 212, 0.16), rgba(95, 31, 87, 0.12) 42%, transparent 66%);
 
+$font-display: 'Unbounded', -apple-system, BlinkMacSystemFont, sans-serif;
 $font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-$font-serif: 'Instrument Serif', Georgia, serif;
+$font-serif: 'Unbounded', sans-serif;
 $font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-$radius-sm: 12px;
-$radius-md: 18px;
-$radius-lg: 26px;
-$radius-xl: 32px;
+$radius-sm: 14px;
+$radius-md: 22px;
+$radius-lg: 32px;
+$radius-xl: 40px;
 $radius-pill: 9999px;
 
-$shadow-glow: 0 0 42px rgba(0, 229, 255, 0.24), 0 16px 40px rgba(0, 0, 0, 0.45);
-$shadow-card: 0 18px 46px rgba(0, 0, 0, 0.36);
+$shadow-glow: 0 0 42px rgba(1, 106, 212, 0.34), 0 18px 46px rgba(0, 0, 0, 0.55);
+$shadow-card: 0 18px 48px rgba(0, 0, 0, 0.48);
 
 $container-max: 1320px;
 $section-pad-y: clamp(4.75rem, 8.5vw, 8rem);
-$transition-fast: 180ms cubic-bezier(0.22, 1, 0.36, 1);
-$transition-smooth: 420ms cubic-bezier(0.22, 1, 0.36, 1);
+$transition-fast: 200ms cubic-bezier(0.22, 1, 0.36, 1);
+$transition-smooth: 450ms cubic-bezier(0.22, 1, 0.36, 1);

@@ -202,14 +202,104 @@ export const CASE_STUDIES = [
   },
 ];
 
-export const GLOBAL_REGIONS = [
-  { name: 'Australia', code: 'AU', clients: 'Sydney & Melbourne HQ', hub: 'Primary Hub', lat: -33.8688, lng: 151.2093 },
-  { name: 'Bulgaria', code: 'BG', clients: 'Engineering Hub', hub: 'Sofia & Burgas', lat: 42.6977, lng: 23.3219 },
-  { name: 'Germany', code: 'DE', clients: 'DACH Delivery', hub: 'Berlin & Munich', lat: 48.1351, lng: 11.582 },
-  { name: 'France', code: 'FR', clients: 'EU Commerce', hub: 'Paris & Lyon', lat: 48.8566, lng: 2.3522 },
-  { name: 'Switzerland', code: 'CH', clients: 'Enterprise Web', hub: 'Zurich & Geneva', lat: 47.3769, lng: 8.5417 },
-  { name: 'USA', code: 'US', clients: 'North America', hub: 'New York & Austin', lat: 40.7128, lng: -74.006 },
-  { name: 'Canada', code: 'CA', clients: 'North America', hub: 'Toronto & Vancouver', lat: 43.6532, lng: -79.3832 },
+export interface GlobalRegion {
+  name: string;
+  code: string;
+  clients: string;
+  hub: string;
+  regionGroup: 'Asia-Pacific' | 'Europe' | 'North America';
+  lat: number;
+  lng: number;
+  projectLabel: string;
+  projectDomain: string;
+  projectUrl: string;
+}
+
+export const GLOBAL_REGIONS: GlobalRegion[] = [
+  {
+    name: 'Australia',
+    code: 'AU',
+    clients: 'Sydney & Melbourne HQ',
+    hub: 'Sydney & Melbourne',
+    regionGroup: 'Asia-Pacific',
+    lat: -33.8688,
+    lng: 151.2093,
+    projectLabel: 'ANCHIALO AU & CPT MMA Melbourne',
+    projectDomain: 'anchialo.com',
+    projectUrl: 'https://anchialo.com',
+  },
+  {
+    name: 'Bulgaria',
+    code: 'BG',
+    clients: 'Engineering & Big Data Hub',
+    hub: 'Sofia & Burgas',
+    regionGroup: 'Europe',
+    lat: 42.6977,
+    lng: 23.3219,
+    projectLabel: 'AETERNA & NAsvetlo Civic Audit',
+    projectDomain: 'nasvetlo.website',
+    projectUrl: 'https://nasvetlo.website',
+  },
+  {
+    name: 'Germany',
+    code: 'DE',
+    clients: 'DACH Delivery',
+    hub: 'Berlin & Munich',
+    regionGroup: 'Europe',
+    lat: 48.1351,
+    lng: 11.582,
+    projectLabel: 'DACH Enterprise & E-Commerce Pod',
+    projectDomain: 'Start DACH Project',
+    projectUrl: '#contact',
+  },
+  {
+    name: 'France',
+    code: 'FR',
+    clients: 'EU Commerce',
+    hub: 'Paris & Lyon',
+    regionGroup: 'Europe',
+    lat: 48.8566,
+    lng: 2.3522,
+    projectLabel: 'Paris Editorial & Commerce Flagships',
+    projectDomain: 'Start EU Project',
+    projectUrl: '#contact',
+  },
+  {
+    name: 'Switzerland',
+    code: 'CH',
+    clients: 'Enterprise Web',
+    hub: 'Zurich & Geneva',
+    regionGroup: 'Europe',
+    lat: 47.3769,
+    lng: 8.5417,
+    projectLabel: 'Zurich Fintech & Private Wealth UX',
+    projectDomain: 'Start CH Project',
+    projectUrl: '#contact',
+  },
+  {
+    name: 'USA',
+    code: 'US',
+    clients: 'North America',
+    hub: 'New York & Austin',
+    regionGroup: 'North America',
+    lat: 40.7128,
+    lng: -74.006,
+    projectLabel: 'US Performance Funnel & SaaS Builds',
+    projectDomain: 'Start US Project',
+    projectUrl: '#contact',
+  },
+  {
+    name: 'Canada',
+    code: 'CA',
+    clients: 'North America',
+    hub: 'Toronto & Vancouver',
+    regionGroup: 'North America',
+    lat: 43.6532,
+    lng: -79.3832,
+    projectLabel: 'Canadian E-Commerce & Web Portals',
+    projectDomain: 'Start CA Project',
+    projectUrl: '#contact',
+  },
 ];
 
 export interface ClientTestimonial {

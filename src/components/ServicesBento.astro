@@ -135,8 +135,8 @@ import { SERVICES_BENTO } from '../data/agencyData';
     &__viz {
       margin-bottom: 1.25rem;
       border-radius: $radius-md;
-      background: rgba(5, 9, 22, 0.22);
-      border: 1px solid rgba(255, 255, 255, 0.09);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       overflow: hidden;
 
       .viz-svg {
@@ -157,14 +157,15 @@ import { SERVICES_BENTO } from '../data/agencyData';
       font-family: $font-mono;
       font-size: 0.85rem;
       font-weight: 700;
-      color: $accent-emerald;
+      color: $accent-cobalt;
     }
 
     h3 {
       margin: 0 0 0.35rem;
-      font-size: 1.38rem;
-      font-weight: 800;
-      letter-spacing: -0.025em;
+      font-family: $font-display;
+      font-size: 1.28rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
     }
 
     &__sub {
@@ -190,7 +191,7 @@ import { SERVICES_BENTO } from '../data/agencyData';
         color: #e2e8f0;
 
         svg {
-          color: $accent-emerald;
+          color: $accent-blue-light;
           margin-top: 0.22rem;
           flex-shrink: 0;
         }
@@ -202,13 +203,13 @@ import { SERVICES_BENTO } from '../data/agencyData';
       align-items: center;
       gap: 0.45rem;
       font-size: 0.88rem;
-      font-weight: 700;
+      font-weight: 600;
       color: $accent-blue-light;
       transition: gap $transition-fast, color $transition-fast;
 
       &:hover {
         gap: 0.7rem;
-        color: $accent-emerald;
+        color: #ffffff;
       }
     }
   }

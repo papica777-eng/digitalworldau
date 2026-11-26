@@ -374,7 +374,8 @@
 
   .form-card {
     @include glass-surface(true);
-    border-radius: calc(#{$radius-xl} - 1px);
+    @include agma-border(40px, 2);
+    border-radius: 40px;
     padding: clamp(1.5rem, 3vw, 2.25rem);
 
     form {
@@ -403,15 +404,16 @@
       font-size: 0.78rem;
       font-weight: 600;
       border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.045);
       color: $text-secondary;
       cursor: pointer;
       transition: all $transition-fast;
 
       &.selected {
-        background: rgba(0, 245, 160, 0.14);
-        border-color: $accent-emerald;
+        background: $accent-cobalt;
+        border-color: rgba(132, 181, 230, 0.65);
         color: #ffffff;
+        box-shadow: 0 6px 20px rgba(1, 106, 212, 0.38);
       }
     }
   }
@@ -440,24 +442,24 @@
     select,
     textarea {
       width: 100%;
-      padding: 0.82rem 0.95rem;
-      border-radius: $radius-sm;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      background: rgba(4, 7, 16, 0.34);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      padding: 0.85rem 1.05rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       color: #ffffff;
       transition: border-color $transition-fast, background $transition-fast;
 
       &:focus {
         outline: none;
-        background: rgba(6, 10, 24, 0.48);
-        border-color: $accent-emerald;
+        background: rgba(255, 255, 255, 0.085);
+        border-color: $accent-cobalt;
       }
     }
 
     select option {
-      background: #0b1022;
+      background: #0d0d0d;
       color: #ffffff;
     }
   }
@@ -465,18 +467,18 @@
   .dropzone {
     position: relative;
     border: 1.5px dashed rgba(132, 181, 230, 0.35);
-    border-radius: $radius-md;
+    border-radius: 18px;
     padding: 1.15rem;
     text-align: center;
-    background: rgba(5, 9, 22, 0.22);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.035);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     transition: border-color $transition-fast, background $transition-fast;
 
     &.dragging,
     &:hover {
-      border-color: $accent-emerald;
-      background: rgba(0, 245, 160, 0.08);
+      border-color: $accent-cobalt;
+      background: rgba(1, 106, 212, 0.14);
     }
 
     input {

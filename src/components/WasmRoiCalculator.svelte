@@ -220,7 +220,7 @@
 
     input[type='range'] {
       width: 100%;
-      accent-color: $accent-emerald;
+      accent-color: $accent-cobalt;
       cursor: pointer;
     }
   }
@@ -241,7 +241,7 @@
   .mono-val {
     font-family: $font-mono;
     font-size: 0.88rem;
-    color: $accent-emerald;
+    color: $accent-blue-light;
   }
 
   .slider-scale {
@@ -276,7 +276,8 @@
 
   .roi-telemetry {
     @include glass-surface(true);
-    border-radius: calc(#{$radius-xl} - 1px);
+    @include agma-border(36px, 2);
+    border-radius: 36px;
     padding: clamp(1.5rem, 3vw, 2.25rem);
     height: 100%;
     display: flex;
@@ -296,7 +297,7 @@
   .live-chip {
     font-family: $font-mono;
     font-size: 0.74rem;
-    color: $accent-emerald;
+    color: $accent-blue-light;
     font-weight: 700;
   }
 
@@ -311,7 +312,7 @@
   }
 
   .kpi-box {
-    background: rgba(5, 9, 22, 0.34);
+    background: rgba(255, 255, 255, 0.035);
     border: 1px solid $border-subtle;
     border-radius: $radius-md;
     padding: 1.1rem;
@@ -320,8 +321,8 @@
     gap: 0.35rem;
 
     &--accent {
-      border-color: rgba(0, 245, 160, 0.35);
-      background: rgba(0, 245, 160, 0.06);
+      border-color: rgba(1, 106, 212, 0.45);
+      background: rgba(1, 106, 212, 0.1);
     }
 
     span {
@@ -330,10 +331,11 @@
     }
 
     strong {
-      font-size: clamp(1.45rem, 2.5vw, 1.9rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: $accent-emerald;
+      font-family: $font-display;
+      font-size: clamp(1.35rem, 2.3vw, 1.8rem);
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      color: #ffffff;
     }
 
     small {
@@ -348,7 +350,7 @@
     gap: 0.9rem;
     padding: 1rem 1.1rem;
     border-radius: $radius-md;
-    background: rgba(4, 7, 16, 0.32);
+    background: rgba(255, 255, 255, 0.03);
     border: 1px solid $border-subtle;
   }
 
@@ -372,7 +374,7 @@
 
   .vital-modern {
     font-family: $font-mono;
-    color: $accent-emerald;
+    color: $accent-blue-light;
   }
 
   .vital-track {
@@ -392,7 +394,7 @@
     }
 
     &--modern {
-      background: linear-gradient(90deg, #00f5a0, #00e5ff, #016ad4);
+      background: linear-gradient(90deg, #016ad4, #38bdf8, #84b5e6);
     }
   }
 

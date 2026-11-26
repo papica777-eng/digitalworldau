@@ -5,12 +5,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
+  gap: 0.65rem;
   border-radius: $radius-pill;
-  font-weight: 700;
-  font-size: 0.95rem;
+  font-family: $font-display;
+  font-weight: 500;
+  font-size: 0.82rem;
   letter-spacing: -0.01em;
-  padding: 0.9rem 1.7rem;
+  padding: 0.92rem 1.75rem;
   border: 1px solid transparent;
   cursor: pointer;
   transition: transform $transition-fast, box-shadow $transition-fast, background $transition-fast, border-color $transition-fast;
@@ -22,59 +23,58 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #00f5a0 0%, #06b6d4 48%, #016ad4 100%);
-  color: #030b14;
-  box-shadow: 0 0 30px rgba(0, 245, 160, 0.28), 0 10px 24px rgba(1, 106, 212, 0.32);
+  background: $accent-cobalt;
+  color: #ffffff;
+  box-shadow: 0 10px 30px rgba(1, 106, 212, 0.38);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 44px rgba(0, 245, 160, 0.48), 0 14px 32px rgba(1, 106, 212, 0.42);
+    background: #0b7ae8;
+    box-shadow: 0 14px 40px rgba(1, 106, 212, 0.58);
   }
 }
 
 .btn-ghost {
   @include glass-surface;
+  @include agma-border(9999px, 1);
   color: $text-primary;
-  border-color: rgba(255, 255, 255, 0.16);
 
   &:hover {
-    border-color: rgba(252, 193, 244, 0.55);
     background: rgba(255, 255, 255, 0.09);
     transform: translateY(-2px);
   }
 }
 
 .pill-badge {
+  @include glass-surface;
+  @include agma-border(9999px, 1);
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.44rem 1rem;
+  padding: 0.44rem 1.05rem;
   border-radius: $radius-pill;
-  background: rgba(1, 106, 212, 0.16);
-  border: 1px solid rgba(132, 181, 230, 0.32);
-  color: #e0f2fe;
-  font-size: 0.83rem;
-  font-weight: 600;
+  color: #e2e8f0;
+  font-size: 0.82rem;
+  font-weight: 500;
   letter-spacing: 0.01em;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .tag {
   display: inline-flex;
   align-items: center;
-  padding: 0.3rem 0.78rem;
+  padding: 0.32rem 0.82rem;
   border-radius: $radius-pill;
   font-family: $font-mono;
   font-size: 0.72rem;
-  font-weight: 600;
-  background: rgba(1, 106, 212, 0.18);
-  border: 1px solid rgba(132, 181, 230, 0.28);
-  color: #bae6fd;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.86);
 }
 
 .stars {
   display: inline-flex;
   align-items: center;
-  gap: 0.2rem;
+  gap: 0.22rem;
   color: $accent-amber;
 }

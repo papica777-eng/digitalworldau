@@ -174,9 +174,9 @@
   @use '../styles/mixins' as *;
 
   .inline-domain {
-    color: $accent-emerald;
-    font-weight: 700;
-    border-bottom: 1px dashed rgba(0, 245, 160, 0.5);
+    color: $accent-blue-light;
+    font-weight: 600;
+    border-bottom: 1px dashed rgba(132, 181, 230, 0.55);
   }
 
   .portfolio-head {
@@ -198,21 +198,30 @@
     gap: 0.45rem;
 
     button {
-      padding: 0.52rem 1.05rem;
+      @include agma-border(9999px, 1);
+      padding: 0.52rem 1.1rem;
       border-radius: $radius-pill;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid $border-subtle;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       color: $text-secondary;
+      font-family: $font-sans;
       font-size: 0.84rem;
-      font-weight: 600;
+      font-weight: 500;
       cursor: pointer;
       transition: all $transition-fast;
 
-      &.active,
       &:hover {
-        border-color: rgba(0, 245, 160, 0.5);
         color: #ffffff;
-        background: rgba(1, 106, 212, 0.28);
+        background: rgba(255, 255, 255, 0.09);
+      }
+
+      &.active {
+        border-color: rgba(1, 106, 212, 0.75);
+        color: #ffffff;
+        background: $accent-cobalt;
+        box-shadow: 0 8px 24px rgba(1, 106, 212, 0.4);
       }
     }
   }
@@ -267,13 +276,13 @@
       font-family: $font-mono;
       font-size: 0.68rem;
       font-weight: 700;
-      background: rgba(4, 7, 15, 0.56);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.48);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
 
       &--live {
-        border: 1px solid rgba(0, 245, 160, 0.52);
-        color: $accent-emerald;
+        border: 1px solid rgba(56, 189, 248, 0.52);
+        color: $accent-blue-light;
       }
 
       &--concept {
@@ -288,11 +297,11 @@
       left: 0.75rem;
       padding: 0.3rem 0.72rem;
       border-radius: $radius-pill;
-      background: rgba(4, 7, 15, 0.56);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(0, 245, 160, 0.42);
-      color: $accent-emerald;
+      background: rgba(0, 0, 0, 0.48);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(132, 181, 230, 0.42);
+      color: #ffffff;
       font-family: $font-mono;
       font-size: 0.7rem;
       font-weight: 700;
@@ -401,20 +410,20 @@
       margin-left: auto;
       font-family: $font-mono;
       font-size: 0.74rem;
-      color: $accent-emerald;
+      color: $accent-blue-light;
       font-weight: 600;
     }
   }
 
   .live-visit-btn {
     padding: 0.68rem 1.25rem;
-    font-size: 0.84rem;
+    font-size: 0.8rem;
   }
 
   .live-chip {
     font-family: $font-mono;
     font-size: 0.72rem;
-    color: $accent-emerald;
+    color: $accent-blue-light;
   }
 
   .case-stats {
@@ -423,16 +432,18 @@
     gap: 0.85rem;
     padding: 1.05rem;
     border-radius: $radius-md;
-    background: rgba(0, 102, 255, 0.08);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(132, 181, 230, 0.2);
+    background: rgba(255, 255, 255, 0.035);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.09);
     margin-bottom: 1.3rem;
 
     strong {
       display: block;
-      font-size: 1.28rem;
-      color: $accent-emerald;
+      font-family: $font-display;
+      font-weight: 500;
+      font-size: 1.18rem;
+      color: #ffffff;
     }
 
     span {

@@ -3,49 +3,50 @@
 </script>
 
 <section class="hero" id="top" aria-labelledby="hero-heading">
-  <div class="container hero-grid">
-    <!-- Left Column: High-converting CRO Hero written for business buyers -->
-    <div class="hero-copy">
-      <div class="hero-trust-line">
-        <span class="trust-dot" aria-hidden="true"></span>
-        <span>Sydney &amp; Melbourne • 100% Client Ownership • 24h Response SLA</span>
+  <div class="container hero-stage">
+    <div class="hero-center">
+      <div class="hero-trust-pill">
+        <span class="stars" aria-label="5 out of 5 stars">
+          {#each [0, 1, 2, 3, 4] as _}
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2.5l2.93 5.95 6.57.95-4.75 4.63 1.12 6.54L12 17.48l-5.87 3.09 1.12-6.54L2.5 9.4l6.57-.95L12 2.5z" />
+            </svg>
+          {/each}
+        </span>
+        <span>Sydney &amp; Global • 100 / 100 PageSpeed • 4 Live Flagships</span>
       </div>
 
       <h1 class="hero-title" id="hero-heading">
-        Digital solutions<br />
-        that move <em class="serif-accent">business forward.</em>
+        Digital solutions that move business forward.
       </h1>
 
       <p class="hero-sub">
-        Your website shouldn’t merely look impressive—it must turn clicks into booked calls and online sales. We unite modern luxury design, instant page speed, and high-converting Google Ads funnels for ambitious brands.
+        Your website shouldn’t merely look impressive—it must turn clicks into booked calls and online sales. We unite crystal-grade luxury design, instant page speed, and high-converting Google Ads funnels for ambitious brands.
       </p>
 
       <div class="hero-action-row">
-        <a href="#contact" class="hero-white-cta">Get a Quote</a>
-        <a href="#contact" class="hero-audit-cta" data-preset-audit>
-          Free 48-Hour Website Audit
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
-            <path d="M5 12h14" />
-            <path d="m12 5 7 7-7 7" />
-          </svg>
+        <a href="#contact" class="hero-cobalt-cta">
+          <span>Get a Quote</span>
+          <span class="cta-arrow" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </span>
+        </a>
+
+        <a href="#contact" class="hero-glass-cta" data-preset-audit>
+          Free 48-Hour Website Audit →
         </a>
       </div>
 
-      <div class="hero-proof-strip" aria-label="Core studio guarantees">
-        <span><strong>100 / 100</strong> PageSpeed</span>
-        <span class="sep" aria-hidden="true">·</span>
-        <span><strong>&lt; 0.8s</strong> Mobile Load</span>
-        <span class="sep" aria-hidden="true">·</span>
-        <span><strong>100%</strong> IP Ownership</span>
-      </div>
-
       <div class="hero-sub-links">
-        <a href="#projects" class="text-action">Explore Live Projects →</a>
-        <a href="#roi-calculator" class="text-action">Estimate Wasm ROI →</a>
+        <a href="#projects" class="text-action">Explore Live Projects ↓</a>
+        <span class="sep" aria-hidden="true">·</span>
+        <a href="#roi-calculator" class="text-action">Calculate Wasm ROI ↓</a>
       </div>
     </div>
 
-    <!-- Right Column: Live Laptop + iPhone Device Showcase -->
     <div class="hero-visual">
       <HeroDeviceShowcase />
     </div>
@@ -57,130 +58,123 @@
   @use '../styles/mixins' as *;
 
   .hero {
-    padding-block: clamp(2.6rem, 5.5vw, 4.8rem) clamp(3.4rem, 6vw, 5.2rem);
+    padding-block: clamp(2.8rem, 6vw, 5.2rem) clamp(3.5rem, 7vw, 6rem);
     position: relative;
     overflow: hidden;
   }
 
-  .hero-grid {
-    display: grid;
-    gap: 2.5rem;
+  .hero-stage {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-
-    @include respond-up(lg) {
-      grid-template-columns: 0.94fr 1.06fr;
-      gap: 2.25rem;
-    }
   }
 
-  .hero-trust-line {
+  .hero-center {
+    min-height: 78vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-block: clamp(1.2rem, 3vw, 2.5rem);
+  }
+
+  .hero-trust-pill {
     @include glass-surface;
+    @include agma-border(80px, 1);
     display: inline-flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0.55rem;
-    padding: 0.42rem 0.95rem;
-    border-radius: $radius-pill;
-    font-family: $font-mono;
-    font-size: 0.74rem;
-    color: $accent-blue-light;
-    margin-bottom: 1.25rem;
-    letter-spacing: 0.02em;
-  }
-
-  .trust-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: $accent-emerald;
-    box-shadow: 0 0 10px $accent-emerald;
-    flex-shrink: 0;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 0.55rem 1.25rem;
+    border-radius: 80px;
+    font-family: $font-sans;
+    font-size: 0.84rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.88);
+    margin-bottom: 1.85rem;
   }
 
   .hero-title {
-    @include heading-display;
-    font-size: clamp(2.9rem, 5.4vw, 4.7rem);
-    line-height: 1.03;
-    letter-spacing: -0.04em;
-    margin: 0 0 1.45rem;
-    background: linear-gradient(125deg, #ffffff 22%, #e2e8f0 58%, #84b5e6 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .hero-proof-strip {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.55rem 0.8rem;
-    margin-bottom: 1.25rem;
-    font-family: $font-mono;
-    font-size: 0.78rem;
-    color: $text-secondary;
-
-    strong {
-      color: $accent-emerald;
-    }
-
-    .sep {
-      color: $text-muted;
-    }
+    font-family: $font-display;
+    font-weight: 500;
+    font-size: clamp(2.35rem, 5.2vw, 4.35rem);
+    line-height: 1.09;
+    letter-spacing: -0.025em;
+    color: #ffffff;
+    max-width: 18ch;
+    margin: 0 0 1.55rem;
   }
 
   .hero-sub {
-    font-size: clamp(0.98rem, 1.32vw, 1.1rem);
+    font-family: $font-sans;
+    font-weight: 300;
+    font-size: clamp(1.02rem, 1.45vw, 1.18rem);
+    line-height: 1.55;
     color: rgba(255, 255, 255, 0.76);
-    margin: 0 0 2.25rem;
-    max-width: 50ch;
-    line-height: 1.65;
+    max-width: 58ch;
+    margin: 0 0 2.35rem;
   }
 
   .hero-action-row {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.95rem 1.15rem;
-    margin-bottom: 1.5rem;
+    justify-content: center;
+    gap: 1rem 1.15rem;
+    margin-bottom: 1.65rem;
   }
 
-  .hero-white-cta {
+  .hero-cobalt-cta {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    padding: 0.95rem 2.15rem;
+    gap: 0.75rem;
+    padding: 0.68rem 0.78rem 0.68rem 1.65rem;
     border-radius: $radius-pill;
-    background: #ffffff;
-    color: #05070d;
-    font-weight: 800;
-    font-size: 0.94rem;
-    letter-spacing: -0.01em;
-    box-shadow: 0 12px 32px rgba(255, 255, 255, 0.16);
-    transition: transform $transition-fast, box-shadow $transition-fast, background $transition-fast;
+    background: $accent-cobalt;
+    color: #ffffff;
+    font-family: $font-display;
+    font-weight: 500;
+    font-size: 0.84rem;
+    box-shadow: 0 12px 34px rgba(1, 106, 212, 0.45);
+    transition: transform $transition-fast, background $transition-fast, box-shadow $transition-fast;
 
     &:hover {
       transform: translateY(-2px);
-      background: #e0f2fe;
-      box-shadow: 0 16px 38px rgba(1, 106, 212, 0.36);
+      background: #0b7ae8;
+      box-shadow: 0 16px 42px rgba(1, 106, 212, 0.62);
+    }
+
+    .cta-arrow {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.22);
+      color: #ffffff;
+      display: grid;
+      place-items: center;
     }
   }
 
-  .hero-audit-cta {
+  .hero-glass-cta {
+    @include glass-surface;
+    @include agma-border(9999px, 1);
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.95rem 1.65rem;
+    justify-content: center;
+    padding: 0.92rem 1.65rem;
     border-radius: $radius-pill;
-    background: linear-gradient(135deg, rgba(0, 245, 160, 0.16), rgba(1, 106, 212, 0.28));
-    border: 1px solid rgba(0, 245, 160, 0.52);
+    font-family: $font-display;
+    font-weight: 400;
+    font-size: 0.82rem;
     color: #ffffff;
-    font-weight: 700;
-    font-size: 0.92rem;
-    transition: transform $transition-fast, background $transition-fast, border-color $transition-fast;
+    transition: transform $transition-fast, background $transition-fast;
 
     &:hover {
       transform: translateY(-2px);
-      border-color: $accent-emerald;
-      background: linear-gradient(135deg, rgba(0, 245, 160, 0.28), rgba(1, 106, 212, 0.42));
+      background: rgba(255, 255, 255, 0.09);
     }
   }
 
@@ -188,24 +182,29 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.9rem;
+    justify-content: center;
+    gap: 0.75rem 1.1rem;
+
+    .sep {
+      color: rgba(255, 255, 255, 0.3);
+    }
   }
 
   .text-action {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    font-size: 0.86rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.72);
+    font-family: $font-mono;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.68);
     transition: color $transition-fast;
 
     &:hover {
-      color: $accent-emerald;
+      color: $accent-blue-light;
     }
   }
 
   .hero-visual {
+    margin-top: clamp(3.5rem, 7vw, 5.5rem);
+    max-width: 820px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -188,9 +188,9 @@
     transition: background $transition-fast, border-color $transition-fast, backdrop-filter $transition-fast;
 
     &.scrolled {
-      background: rgba(4, 6, 14, 0.48);
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background: rgba(0, 0, 0, 0.56);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
       border-bottom-color: rgba(255, 255, 255, 0.08);
     }
   }
@@ -204,15 +204,15 @@
   }
 
   .desktop-nav {
+    @include agma-border(80px, 1);
     display: none;
     align-items: center;
     gap: 1.85rem;
-    padding: 0.7rem 1.85rem;
-    border-radius: $radius-pill;
-    background: rgba(6, 10, 22, 0.32);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(16px) saturate(185%);
-    -webkit-backdrop-filter: blur(16px) saturate(185%);
+    padding: 0.72rem 2rem;
+    border-radius: 80px;
+    background: rgba(255, 255, 255, 0.045);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
 
     @include respond-up(lg) {
       display: flex;
@@ -356,8 +356,8 @@
     }
 
     .active {
-      background: rgba(1, 106, 212, 0.45);
-      color: $accent-emerald;
+      background: rgba(1, 106, 212, 0.55);
+      color: #ffffff;
       font-weight: 700;
     }
 
@@ -370,12 +370,13 @@
     display: none;
     align-items: center;
     gap: 0.65rem;
-    padding: 0.56rem 0.65rem 0.56rem 1.25rem;
+    padding: 0.6rem 0.72rem 0.6rem 1.3rem;
     border-radius: $radius-pill;
-    background: #016ad4;
+    background: $accent-cobalt;
     color: #ffffff;
-    font-weight: 700;
-    font-size: 0.86rem;
+    font-family: $font-display;
+    font-weight: 500;
+    font-size: 0.78rem;
     box-shadow: 0 8px 26px rgba(1, 106, 212, 0.42);
     transition: transform $transition-fast, background $transition-fast, box-shadow $transition-fast;
 
@@ -385,7 +386,7 @@
 
     &:hover {
       transform: translateY(-1px);
-      background: #0278ef;
+      background: #0b7ae8;
       box-shadow: 0 12px 32px rgba(1, 106, 212, 0.62);
     }
 
@@ -393,7 +394,7 @@
       width: 26px;
       height: 26px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.2);
       display: grid;
       place-items: center;
     }

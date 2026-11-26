@@ -51,6 +51,18 @@
       mobileBadge: 'Interactive Flagship',
       mobileCta: 'Explore Live →',
     },
+    {
+      id: 'nasvetlo',
+      domain: 'nasvetlo.website',
+      label: '2.23M-Record Audit',
+      url: 'https://nasvetlo.website',
+      video: '',
+      poster: '/media/mockup-nasvetlo.png',
+      mobileImg: '/media/mockup-nasvetlo.png',
+      mobileTitle: 'NAsvetlo Radar',
+      mobileBadge: '€53.22B • 206,907 Contracts',
+      mobileCta: 'Explore Audit →',
+    },
   ];
 
   let activeIndex = $state(0);
@@ -97,14 +109,18 @@
 
         <div class="laptop-screen">
           {#key activeSite.id}
-            <video
-              src={activeSite.video}
-              poster={activeSite.poster}
-              autoplay
-              loop
-              muted
-              playsinline
-            ></video>
+            {#if activeSite.video}
+              <video
+                src={activeSite.video}
+                poster={activeSite.poster}
+                autoplay
+                loop
+                muted
+                playsinline
+              ></video>
+            {:else}
+              <img src={activeSite.poster} alt={`${activeSite.domain} desktop UI`} loading="eager" />
+            {/if}
           {/key}
           <div class="screen-sheen" aria-hidden="true"></div>
         </div>
@@ -168,16 +184,16 @@
 
   .device-aura {
     position: absolute;
-    inset: 6% 8% 14%;
+    inset: 10% 12% 18%;
     border-radius: 50%;
     background: radial-gradient(
       circle,
-      rgba(1, 106, 212, 0.28) 0%,
-      rgba(0, 245, 160, 0.12) 45%,
-      rgba(95, 31, 87, 0.14) 70%,
-      transparent 85%
+      rgba(1, 106, 212, 0.16) 0%,
+      rgba(95, 31, 87, 0.1) 52%,
+      transparent 80%
     );
-    filter: blur(44px);
+    filter: blur(48px);
+    opacity: 0.72;
     pointer-events: none;
     z-index: 0;
   }
@@ -273,6 +289,7 @@
     background: #020308;
     aspect-ratio: 16 / 10;
 
+    img,
     video {
       width: 100%;
       height: 100%;
@@ -404,24 +421,26 @@
   }
 
   .site-pills {
-    margin-top: 0.9rem;
+    margin-top: 1.15rem;
     display: inline-flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.55rem;
 
     button {
-      position: relative;
+      @include agma-border(9999px, 1);
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      padding: 0.44rem 0.92rem;
+      padding: 0.48rem 0.98rem;
       border-radius: $radius-pill;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       font-family: $font-mono;
       font-size: 0.74rem;
-      color: rgba(255, 255, 255, 0.62);
+      color: rgba(255, 255, 255, 0.7);
       cursor: pointer;
       transition: all $transition-fast;
 
@@ -429,19 +448,23 @@
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.25);
+        background: rgba(255, 255, 255, 0.3);
         transition: background $transition-fast, box-shadow $transition-fast;
       }
 
-      &:hover,
+      &:hover {
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.09);
+      }
+
       &.active {
         color: #ffffff;
-        border-color: rgba(0, 245, 160, 0.55);
-        background: rgba(1, 106, 212, 0.24);
+        border-color: rgba(1, 106, 212, 0.7);
+        background: rgba(1, 106, 212, 0.35);
 
         .pill-dot {
-          background: $accent-emerald;
-          box-shadow: 0 0 8px $accent-emerald;
+          background: $accent-blue-light;
+          box-shadow: 0 0 10px $accent-cobalt;
         }
       }
     }
