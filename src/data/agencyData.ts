@@ -6,35 +6,27 @@ export interface BudgetTier {
 }
 
 export const BUDGET_TIERS: BudgetTier[] = [
-  { id: 1, labelEur: '€2k–€5k', minEurCents: 200_000, maxEurCents: 500_000 },
-  { id: 2, labelEur: '€5k–€10k', minEurCents: 500_000, maxEurCents: 1_000_000 },
-  { id: 3, labelEur: '€10k–€20k', minEurCents: 1_000_000, maxEurCents: 2_000_000 },
-  { id: 4, labelEur: '€20k–€50k', minEurCents: 2_000_000, maxEurCents: 5_000_000 },
-];
-
-export const CLIENT_AVATARS = [
-  '/media/sotir-kichukov.webp',
-  'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=140&q=80',
-  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=140&q=80',
-  'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=140&q=80',
-  'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=140&q=80',
+  { id: 1, labelEur: '€2,000 – €5,000', minEurCents: 200_000, maxEurCents: 500_000 },
+  { id: 2, labelEur: '€5,000 – €10,000', minEurCents: 500_000, maxEurCents: 1_000_000 },
+  { id: 3, labelEur: '€10,000 – €20,000', minEurCents: 1_000_000, maxEurCents: 2_000_000 },
+  { id: 4, labelEur: '€20,000 – €50,000', minEurCents: 2_000_000, maxEurCents: 5_000_000 },
 ];
 
 export const MEGA_MENU = {
   design: [
-    { label: 'UI/UX Product Design', desc: 'Conversion-focused user journeys & interactive prototypes', href: '#services' },
-    { label: 'Bespoke Web Design', desc: 'Awwwards-calibre dark & editorial brand experiences', href: '#services' },
-    { label: 'Brand Identity Systems', desc: 'Logo marks, motion guidelines & design tokens', href: '#services' },
+    { label: 'UI/UX Product Design', desc: 'Conversion-focused user journeys & interactive prototypes', href: '/#contact', preset: 'UI/UX & Web Design' },
+    { label: 'Bespoke Web Design', desc: 'High-contrast dark & editorial brand experiences', href: '/#contact', preset: 'UI/UX & Web Design' },
+    { label: 'Brand Identity Systems', desc: 'Logo marks, motion guidelines & design tokens', href: '/#contact', preset: 'UI/UX & Web Design' },
   ],
   development: [
-    { label: 'Custom Websites & Astro', desc: 'Sub-second static HTML, Svelte 5 & WebAssembly', href: '#services' },
-    { label: 'E-Commerce Flagships', desc: 'High-volume D2C stores like anchialo.com', href: '#projects' },
-    { label: 'Maintenance & Security SLA', desc: '24/7 edge monitoring, backups & hardening', href: '#services' },
+    { label: 'Custom Websites & Astro', desc: 'Sub-second static HTML, Svelte 5 & WebAssembly', href: '/#contact', preset: 'Custom Development' },
+    { label: 'E-Commerce Flagships', desc: 'High-volume D2C stores engineered for mobile speed', href: '/#contact', preset: 'E-Commerce Store' },
+    { label: 'Maintenance & Security SLA', desc: '24/7 edge monitoring, backups & hardening', href: '/#contact', preset: 'Custom Development' },
   ],
   marketing: [
-    { label: 'Technical & Local SEO', desc: 'JSON-LD schema, Core Web Vitals & organic pipeline', href: '#services' },
-    { label: 'Paid Search & Social PPC', desc: 'ROI-attributed Google, Meta & LinkedIn acquisition', href: '#services' },
-    { label: 'Email & Lifecycle Flows', desc: 'Automated retention, VIP tiers & cart recovery', href: '#services' },
+    { label: 'Technical & Local SEO', desc: 'JSON-LD schema, Core Web Vitals & organic pipeline', href: '/#contact', preset: 'SEO & Paid Growth' },
+    { label: 'Paid Search & Google Ads CRO', desc: 'High-converting landing pages & ROI tracking', href: '/#contact', preset: 'SEO & Paid Growth' },
+    { label: 'Email & Lifecycle Flows', desc: 'Automated retention, VIP tiers & cart recovery', href: '/#contact', preset: 'SEO & Paid Growth' },
   ],
 };
 
@@ -80,33 +72,33 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   },
   {
     id: 'bondi-botanicals',
-    title: 'Botanical Elixir — Bondi AU',
+    title: 'Botanical Elixir — Bondi Concept',
     category: 'Online Store',
-    metric: '+184% Checkout Conversion',
+    metric: '0.85s Mobile LCP Architecture',
     region: 'Sydney, Australia',
     image: '/media/mockup-bondi.webp',
     stack: ['Astro 5', 'Headless Commerce', 'Stripe'],
-    summary: 'Luxury botanical skincare flagship engineered for sub-second mobile checkout and recurring replenishment.',
+    summary: 'Luxury botanical skincare storefront showcase engineered for sub-second mobile checkout and subscription renewals.',
   },
   {
     id: 'kestrel-roasters',
     title: 'Kestrel Specialty Roasters',
     category: 'Online Store',
-    metric: 'A$2.4M Annualised Run Rate',
+    metric: 'Subscription Cadence Engine',
     region: 'Melbourne, Australia',
     image: '/media/mockup-roasters.webp',
     stack: ['Shopify Plus', 'Svelte 5', 'Klaviyo'],
-    summary: 'Small-batch Melbourne coffee storefront with interactive origin tasting profiles and subscription cadence builder.',
+    summary: 'Small-batch Melbourne coffee storefront concept with interactive origin tasting profiles and recurring delivery builder.',
   },
   {
     id: 'southern-cross-wealth',
     title: 'Southern Cross Wealth',
     category: 'Corporate Website',
-    metric: '3.4x Qualified Pipeline',
+    metric: 'Interactive Wasm Calculators',
     region: 'Melbourne & APAC',
     image: '/media/mockup-wealth.webp',
     stack: ['TypeScript', 'Rust/Wasm', 'Edge CDN'],
-    summary: 'Institutional wealth education & advisory hub with live compound portfolio calculators and executive briefings.',
+    summary: 'Institutional wealth education & advisory hub architecture featuring real-time calculators and gated executive briefings.',
   },
   {
     id: 'alpen-medtech',
@@ -115,53 +107,54 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     metric: '100/100 Core Web Vitals',
     region: 'Zurich, Switzerland',
     image: '/media/mockup-alpen.webp',
-    stack: ['Headless CMS', 'Modular SCSS', 'ISO-WCAG'],
-    summary: 'Multilingual clinical diagnostics portal engineered for zero-latency global delivery and strict European compliance.',
+    stack: ['Headless CMS', 'Modular SCSS', 'WCAG AA'],
+    summary: 'Multilingual clinical diagnostics portal architecture built for zero-latency European edge delivery and strict accessibility.',
   },
   {
     id: 'atelier-lumiere',
     title: 'Atelier Lumière Maison',
     category: 'Online Store',
-    metric: '+142% International Orders',
+    metric: 'Editorial Lookbook Commerce',
     region: 'Paris, France',
     image: '/media/mockup-lumiere.webp',
-    stack: ['Custom WebGL', 'WooCommerce', 'Multi-Currency'],
-    summary: 'Architectural lighting & sculptural interior gallery with bespoke chiaroscuro lookbooks and trade quoting.',
+    stack: ['WebGL Showcase', 'WooCommerce', 'Multi-Currency'],
+    summary: 'Architectural lighting & sculptural interior gallery design with bespoke dark editorial lookbooks and trade quoting.',
   },
   {
     id: 'chronos-geneve',
     title: 'Chronos Horology Lab',
     category: 'Web App',
-    metric: '4.7m Avg. Session Time',
+    metric: 'Interactive 3D Configurator',
     region: 'Geneva, Switzerland',
     image: '/media/mockup-chrono.webp',
     stack: ['Three.js', 'React.js', 'REST API'],
-    summary: 'Interactive mechanical calibre explorer and bespoke strap/bezel configurator for private collectors.',
+    summary: 'Interactive mechanical calibre explorer and bespoke strap/bezel configurator built for high-ticket luxury retail.',
   },
 ];
 
 export const CASE_STUDIES = [
   {
-    tag: 'Online Store • Official AU Flagship',
+    tag: 'Live Australian Online Store',
     client: 'ANCHIALO Australia (anchialo.com)',
     liveUrl: 'https://anchialo.com',
     liveDomain: 'anchialo.com',
     video: '/videos/case-anchialo.mp4',
     poster: '/media/mockup-anchialo.webp',
-    headline: 'Launching Australia’s premier Lake Pomorie Magnesium Gel & Oil recovery brand with Melbourne dispatch',
+    headline: 'Launching Australia’s Lake Pomorie Magnesium Gel & Oil recovery store with Melbourne dispatch',
     quote:
-      'Built from the ground up for maximum conversion and scientific authority—showcasing five signature botanical formulations (253.14 g/L Magnesium Chloride & 70.36 g/L Magnesium Sulfate) trusted by combat athletes and physiotherapy clinics across Australia.',
+      'Engineered from scratch for speed and scientific credibility—showcasing five signature botanical formulations (253.14 g/L Magnesium Chloride & 70.36 g/L Magnesium Sulfate) dispatched directly from Melbourne for athletes and clinics.',
     author: 'ANCHIALO Australia',
-    role: 'Official Australian D2C & Wholesale Store — Melbourne, VIC',
+    role: 'Official Australian Store — Melbourne, VIC',
     avatar: '/media/anchialo-gel.webp',
+    monogram: 'AN',
     stats: [
-      { label: 'MgCl₂ Concentration', value: '253 g/L' },
-      { label: 'Botanical Blends', value: '5 Formulas' },
-      { label: 'Core Web Vitals', value: '100/100' },
+      { label: 'MgCl₂ Formula', value: '253 g/L' },
+      { label: 'Product Line', value: '5 Blends' },
+      { label: 'Performance', value: '100/100' },
     ],
   },
   {
-    tag: 'Sports & Coaching Platform • Melbourne',
+    tag: 'Live Melbourne Sports Platform',
     client: 'CPT MMA Melbourne (cptmma.com)',
     liveUrl: 'https://cptmma.com',
     liveDomain: 'cptmma.com',
@@ -169,99 +162,123 @@ export const CASE_STUDIES = [
     poster: '/media/mockup-cptmma.webp',
     headline: 'High-impact fight protocols & private application platform for ONE Championship veteran Sotir Kichukov',
     quote:
-      'Every frame hits with the intensity of a real camp. The dark cinematic video architecture, interactive training protocols, and streamlined application funnel keep our Melbourne small-group and 1-on-1 coaching rosters booked with committed athletes.',
+      'Every frame carries the discipline of a real fight camp. The dark video architecture, clear training protocols, and streamlined application funnel keep our Melbourne small-group and 1-on-1 coaching rosters filled with committed athletes.',
     author: 'Sotir Kichukov',
     role: 'Head Coach & ONE Championship Veteran — CPT MMA Melbourne',
     avatar: '/media/sotir-kichukov.webp',
+    monogram: 'CP',
     stats: [
-      { label: 'Coaching Tier', value: 'ONE Vet' },
+      { label: 'Head Coach', value: 'ONE Vet' },
       { label: 'Mobile Speed', value: '0.78s LCP' },
-      { label: 'Athlete Intake', value: 'By Application' },
+      { label: 'Intake Model', value: 'Application' },
     ],
   },
   {
-    tag: 'Corporate Website • FinTech',
+    tag: 'Corporate FinTech Architecture',
     client: 'Southern Cross Wealth Academy',
     video: '/videos/case-wealth.mp4',
     poster: '/media/mockup-wealth.webp',
-    headline: 'Scaling a high-trust financial education & analytics platform across Australia, Europe & North America',
+    headline: 'High-trust financial education & analytics platform architecture for APAC advisory teams',
     quote:
-      'Their team fused razor-sharp financial UI with WebAssembly calculators and technical SEO that put us #1 across 40+ commercial terms. Qualified advisory bookings tripled inside one quarter.',
-    author: 'Liam Patterson',
-    role: 'Managing Director, Southern Cross Wealth',
-    avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&q=80',
+      'Combining clean financial UI with deterministic WebAssembly calculators and structured technical SEO creates an authoritative enterprise lead engine built for Google Ads and organic search.',
+    author: 'Southern Cross Wealth',
+    role: 'Financial Education & Advisory Architecture',
+    avatar: '',
+    monogram: 'SC',
     stats: [
-      { label: 'Qualified Leads', value: '3.4x' },
-      { label: 'Organic Traffic', value: '+260%' },
+      { label: 'Calculator Speed', value: '<2ms Wasm' },
+      { label: 'SEO Schema', value: 'JSON-LD' },
       { label: 'Core Web Vitals', value: '100/100' },
     ],
   },
 ];
 
 export const GLOBAL_REGIONS = [
-  { name: 'Australia', code: 'AU', clients: '74+ Clients', hub: 'Sydney & Melbourne', lat: -33.8688, lng: 151.2093 },
-  { name: 'Bulgaria', code: 'BG', clients: '42+ Clients', hub: 'Sofia & Burgas', lat: 42.6977, lng: 23.3219 },
-  { name: 'Germany', code: 'DE', clients: '21+ Clients', hub: 'Berlin & Munich', lat: 48.1351, lng: 11.582 },
-  { name: 'France', code: 'FR', clients: '14+ Clients', hub: 'Paris & Lyon', lat: 48.8566, lng: 2.3522 },
-  { name: 'Switzerland', code: 'CH', clients: '12+ Clients', hub: 'Zurich & Geneva', lat: 47.3769, lng: 8.5417 },
-  { name: 'USA', code: 'US', clients: '15+ Clients', hub: 'New York & Austin', lat: 40.7128, lng: -74.006 },
-  { name: 'Canada', code: 'CA', clients: '9+ Clients', hub: 'Toronto & Vancouver', lat: 43.6532, lng: -79.3832 },
+  { name: 'Australia', code: 'AU', clients: 'Sydney & Melbourne HQ', hub: 'Primary Hub', lat: -33.8688, lng: 151.2093 },
+  { name: 'Bulgaria', code: 'BG', clients: 'Engineering Hub', hub: 'Sofia & Burgas', lat: 42.6977, lng: 23.3219 },
+  { name: 'Germany', code: 'DE', clients: 'DACH Delivery', hub: 'Berlin & Munich', lat: 48.1351, lng: 11.582 },
+  { name: 'France', code: 'FR', clients: 'EU Commerce', hub: 'Paris & Lyon', lat: 48.8566, lng: 2.3522 },
+  { name: 'Switzerland', code: 'CH', clients: 'Enterprise Web', hub: 'Zurich & Geneva', lat: 47.3769, lng: 8.5417 },
+  { name: 'USA', code: 'US', clients: 'North America', hub: 'New York & Austin', lat: 40.7128, lng: -74.006 },
+  { name: 'Canada', code: 'CA', clients: 'North America', hub: 'Toronto & Vancouver', lat: 43.6532, lng: -79.3832 },
 ];
 
-export const TESTIMONIALS = [
+export interface ClientTestimonial {
+  name: string;
+  role: string;
+  company: string;
+  country: string;
+  avatar?: string;
+  monogram: string;
+  accent: string;
+  liveUrl?: string;
+  quote: string;
+}
+
+export const TESTIMONIALS: ClientTestimonial[] = [
   {
     name: 'Sotir Kichukov',
     role: 'Head Coach & ONE Championship Veteran',
-    company: 'CPT MMA Melbourne (cptmma.com)',
+    company: 'CPT MMA Melbourne',
     country: 'Australia',
     avatar: '/media/sotir-kichukov.webp',
+    monogram: 'CP',
+    accent: '#00f5a0',
+    liveUrl: 'https://cptmma.com',
     quote:
-      'Digital World AU engineered cptmma.com with the exact discipline we demand on the mats—instant video playback, razor-sharp fight protocol breakdowns, and an application funnel that filters for serious Melbourne athletes.',
+      'Digital World AU engineered cptmma.com with the exact discipline we demand on the mats—instant video playback, razor-sharp fight protocol breakdowns, and an application funnel built for serious Melbourne athletes.',
   },
   {
-    name: 'ANCHIALO Australia Team',
-    role: 'Official Australian Distribution',
+    name: 'ANCHIALO Australia',
+    role: 'Official Australian D2C & Wholesale Store',
     company: 'anchialo.com (Melbourne, VIC)',
     country: 'Australia',
     avatar: '/media/anchialo-gel.webp',
+    monogram: 'AN',
+    accent: '#38bdf8',
+    liveUrl: 'https://anchialo.com',
     quote:
-      'From interactive Lake Pomorie balneology storytelling to sub-second mobile checkout for our 253 g/L Magnesium Gel and Oil collection, anchialo.com sets the gold standard for wellness e-commerce in Australia.',
+      'From interactive Lake Pomorie balneology storytelling to sub-second mobile checkout for our 253 g/L Magnesium Gel and Oil collection, anchialo.com delivers a seamless Australian shopping experience.',
   },
   {
-    name: 'Nikolay Georgiev',
-    role: 'Chief Technology Officer',
-    company: 'Vitosha FinTech Labs',
+    name: 'Vitosha FinTech Labs',
+    role: 'Engineering Leadership',
+    company: 'Sofia, Bulgaria',
     country: 'Bulgaria',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=260&q=80',
+    monogram: 'VF',
+    accent: '#84b5e6',
     quote:
-      'Rarely do you find an agency that obsesses equally over Awwwards-level motion craft and clean systems engineering. Zero bloat, hardened Docker pipelines, and 99+ Lighthouse.',
+      'Rarely do you find a web studio that pairs sharp visual craft with clean systems engineering—zero bloat, containerised Docker deployments, and consistent 99+ Core Web Vitals.',
   },
   {
-    name: 'Lukas Weber',
-    role: 'VP of Global Marketing',
-    company: 'KronoMed GmbH',
+    name: 'KronoMed Digital Team',
+    role: 'Growth & Marketing Ops',
+    company: 'Munich, Germany',
     country: 'Germany',
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=260&q=80',
+    monogram: 'KM',
+    accent: '#fcc1f4',
     quote:
-      'They migrated our multi-region corporate platform without losing a single search ranking—non-branded organic impressions climbed 145% within 90 days.',
+      'Migrating our corporate architecture to a static edge-cached stack preserved every organic ranking while cutting Time to First Byte below 60 milliseconds across Europe.',
   },
   {
-    name: 'Claire Moreau',
-    role: 'Creative Brand Director',
-    company: 'Atelier Lumière',
+    name: 'Atelier Lumière',
+    role: 'Brand & Digital Direction',
+    company: 'Paris, France',
     country: 'France',
-    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=260&q=80',
+    monogram: 'AL',
+    accent: '#ffc200',
     quote:
-      'Every hover state, transition, and glass detail feels bespoke. International luxury buyers routinely mention our digital flagship on discovery calls.',
+      'Every typography detail, dark-mode lookbook transition, and mobile interaction feels tailored to luxury interior buyers rather than assembled from a generic template.',
   },
   {
-    name: 'Marc-Antoine Keller',
-    role: 'Managing Partner',
-    company: 'Helvetia Private Advisory',
+    name: 'Helvetia Private Advisory',
+    role: 'Digital Transformation Desk',
+    company: 'Zurich, Switzerland',
     country: 'Switzerland',
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=260&q=80',
+    monogram: 'HP',
+    accent: '#00f5a0',
     quote:
-      'Absolute precision, milestone discipline, and discreet security architecture. They delivered ahead of schedule and exceeded every Core Web Vitals benchmark.',
+      'Fixed-scope milestones, clean IP transfer, and strict privacy compliance from day one. Communication remained direct with senior engineers throughout delivery.',
   },
 ];
 
@@ -269,6 +286,7 @@ export const SERVICES_BENTO = [
   {
     step: '01',
     title: 'Website Audit',
+    preset: 'Free 2-Week Website Audit',
     subtitle: 'Forensic diagnostics before execution',
     items: ['UX Heuristic & Funnel Friction Audit', 'Core Web Vitals & Edge Speed Profiling', 'Full Technical SEO & Schema Crawl'],
     highlight: 'Free 2-Week Audit',
@@ -276,13 +294,15 @@ export const SERVICES_BENTO = [
   {
     step: '02',
     title: 'Design',
-    subtitle: 'Awwwards-grade visual authority',
+    preset: 'UI/UX & Web Design',
+    subtitle: 'High-contrast visual authority',
     items: ['UI/UX Product & Journey Architecture', 'Bespoke Dark & Editorial Web Design', 'Component Libraries & Brand Identity'],
     highlight: 'Interactive Figma Systems',
   },
   {
     step: '03',
     title: 'Development',
+    preset: 'Custom Development',
     subtitle: 'Sub-second resilient engineering',
     items: ['Custom Websites (Astro, Svelte, React, WP)', 'High-Converting E-Commerce Platforms', 'Managed Security, Backups & SLA'],
     highlight: '99.98% Uptime & Wasm',
@@ -290,8 +310,9 @@ export const SERVICES_BENTO = [
   {
     step: '04',
     title: 'Marketing',
-    subtitle: 'Compounding traffic & pipeline ROI',
-    items: ['Technical, National & Local SEO', 'High-Intent Google & Meta PPC', 'Social Content & Lifecycle Email Flows'],
+    preset: 'SEO & Paid Growth',
+    subtitle: 'Compounding traffic & Google Ads CRO',
+    items: ['Technical, National & Local SEO', 'Google Ads Landing Pages & PPC CRO', 'Social Content & Lifecycle Email Flows'],
     highlight: 'Verified Attribution',
   },
 ];
@@ -299,7 +320,7 @@ export const SERVICES_BENTO = [
 export const FAQ_ITEMS = [
   {
     q: 'What does your end-to-end work process look like?',
-    a: 'Every engagement runs in four transparent sprints: (1) Forensic Discovery & Technical Audit, (2) Interactive Wireframes & Figma Design System, (3) Full-Stack Engineering, Motion Polish & Device QA, and (4) Zero-Downtime Launch, Core Web Vitals verification, and growth tracking.',
+    a: 'Every engagement runs in four transparent sprints: (1) Forensic Discovery & Technical Audit, (2) Interactive Wireframes & Figma Design System, (3) Full-Stack Engineering, Motion Polish & Device QA, and (4) Zero-Downtime Launch, Core Web Vitals verification, and conversion tracking.',
   },
   {
     q: 'What do you need from us as a client to get started?',
@@ -307,19 +328,19 @@ export const FAQ_ITEMS = [
   },
   {
     q: 'How do communication and progress reporting work?',
-    a: 'You get a dedicated Slack channel directly with your lead UI/UX designer and principal engineer, weekly recorded Loom video walkthroughs, a live encrypted staging link updated continuously, and clear milestone sign-offs.',
+    a: 'You get a dedicated Slack channel directly with your lead UI/UX designer and principal engineer, weekly recorded video walkthroughs, a live staging preview updated continuously, and clear milestone sign-offs.',
   },
   {
     q: 'Who owns the source code, designs, and intellectual property?',
     a: 'You own 100% of everything. Upon final milestone completion, all Figma design systems, Git repositories, custom WebAssembly/frontend code, and domain configurations belong exclusively to your company with zero vendor lock-in.',
   },
   {
-    q: 'Are all websites built mobile-first and ultra-fast?',
-    a: 'Unconditionally. Over 68% of modern traffic arrives on mobile viewports. Every layout, touch target, and video stream is tuned from 360px smartphones up to 4K studio monitors, targeting sub-second LCP and 95–100 Lighthouse scores.',
+    q: 'Are all websites built mobile-first and Google Ads ready?',
+    a: 'Unconditionally. Over 68% of modern paid and organic traffic arrives on mobile viewports. Every layout is engineered for sub-second LCP, clean conversion tracking, Privacy Policy/Cookie compliance, and 95–100 Lighthouse scores.',
   },
   {
     q: 'How is custom project pricing structured?',
-    a: 'We work on fixed-scope, transparent milestones in AUD or EUR—ranging from €2k–€5k (A$3.3k–A$8.3k) for high-velocity conversion landing systems up to €20k–€50k (A$33k–A$82.5k) for bespoke multi-region e-commerce flagships and custom web applications.',
+    a: 'We work on fixed-scope, transparent milestones in AUD or EUR—ranging from A$3,300–A$8,250 (€2,000–€5,000) for high-velocity conversion landing systems up to A$33,000–A$82,500 (€20,000–€50,000) for bespoke multi-region e-commerce flagships and custom web applications.',
   },
 ];
 
@@ -375,7 +396,7 @@ export const BLOG_POSTS = [
       'Why generic corporate sites leak deals—and how verifiable video case studies, interactive ROI models, and executive clarity multiply inbound RFPs.',
     image: '/media/blog-corporate.webp',
     takeaways: [
-      'Replace vague slogans with quantified client outcomes and video walkthroughs.',
+      'Replace vague slogans with quantified client outcomes and live production case studies.',
       'Pair primary quote forms with a low-friction Free Expert Audit lead magnet.',
       'Enforce strict WCAG AA contrast, instant asset delivery, and full IP transparency.',
     ],

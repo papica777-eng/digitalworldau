@@ -43,8 +43,13 @@
 
 <section class="hero" id="top" aria-labelledby="hero-heading">
   <div class="container hero-grid">
-    <!-- Left Column: Pure frameless typography & proof embedded directly into the cobalt-black canvas -->
+    <!-- Left Column: High-converting CRO Hero with zero outbound distractions -->
     <div class="hero-copy">
+      <div class="hero-trust-line">
+        <span class="trust-dot" aria-hidden="true"></span>
+        <span>Sydney &amp; Melbourne • 100% Client IP Ownership • 24h Response SLA</span>
+      </div>
+
       <h1 class="hero-title" id="hero-heading">
         Digital solutions<br />
         that move business<br />
@@ -52,42 +57,31 @@
       </h1>
 
       <p class="hero-sub">
-        Your website shouldn’t merely look impressive—it must convert effortlessly. We unite Awwwards-grade design, Rust-speed engineering, and precision marketing to build digital flagships and e-commerce stores that dominate their category.
+        Your website shouldn’t merely look impressive—it must convert high-intent visitors into qualified revenue. We unite bespoke UI/UX design, Rust-speed engineering, and Google Ads conversion architecture for ambitious brands.
       </p>
 
       <div class="hero-action-row">
-        <!-- Frameless social proof embedded directly onto the dark background (zero box/border) -->
-        <div class="inline-proof">
-          <span class="inline-proof__clients">180+ Satisfied Clients</span>
-          <div class="inline-proof__rating">
-            <div class="stars" aria-label="5.0 out of 5 stars">
-              {#each Array(5) as _}
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
-              {/each}
-            </div>
-            <span class="rating-num">5.0</span>
-            <span class="google-word">Google<small>Reviews</small></span>
-          </div>
-        </div>
-
         <a href="#contact" class="hero-white-cta">Get a Quote</a>
+        <a href="#contact" class="hero-audit-cta" data-preset-audit>
+          Free 2-Week Website Audit
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
+          </svg>
+        </a>
       </div>
 
       <div class="hero-sub-links">
         <button type="button" class="text-action" onclick={() => (reelModalOpen = true)}>
           <span class="play-icon" aria-hidden="true">▶</span>
-          Watch 60fps Showreel
+          Watch 60fps Agency Showreel
         </button>
         <span class="dot-sep" aria-hidden="true">•</span>
-        <a href="https://anchialo.com" target="_blank" rel="noopener" class="text-action">anchialo.com ↗</a>
-        <span class="dot-sep" aria-hidden="true">•</span>
-        <a href="https://cptmma.com" target="_blank" rel="noopener" class="text-action">cptmma.com ↗</a>
+        <a href="#projects" class="text-action">Explore Case Studies →</a>
       </div>
     </div>
 
-    <!-- Right Column: Seamless floating Photorealistic 3D Liquid-Glass Sculpture (zero visible box) -->
+    <!-- Right Column: Interactive 360° Watchmaker PBR 3D Sculpture -->
     <div class="hero-visual">
       {#if activeMode === 'sculpture'}
         <div class="floating-3d-wrap">
@@ -148,10 +142,9 @@
         </div>
       {/if}
 
-      <!-- Ultra-minimal frameless mode switcher below the floating sculpture (zero heavy card chrome) -->
       <div class="mode-switcher" role="tablist" aria-label="Interactive hero views">
         <button type="button" role="tab" aria-selected={activeMode === 'sculpture'} class:active={activeMode === 'sculpture'} onclick={() => (activeMode = 'sculpture')}>
-          Live 3D Glass
+          360° PBR Sculpture
         </button>
         <button type="button" role="tab" aria-selected={activeMode === 'showreel'} class:active={activeMode === 'showreel'} onclick={() => (activeMode = 'showreel')}>
           Showreel
@@ -197,6 +190,26 @@
     }
   }
 
+  .hero-trust-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: $font-mono;
+    font-size: 0.74rem;
+    color: $accent-blue-light;
+    margin-bottom: 1.15rem;
+    letter-spacing: 0.02em;
+  }
+
+  .trust-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: $accent-emerald;
+    box-shadow: 0 0 10px $accent-emerald;
+    flex-shrink: 0;
+  }
+
   .hero-title {
     @include heading-display;
     font-size: clamp(2.65rem, 5.1vw, 4.35rem);
@@ -208,9 +221,9 @@
 
   .hero-sub {
     font-size: clamp(0.98rem, 1.32vw, 1.1rem);
-    color: rgba(255, 255, 255, 0.72);
-    margin: 0 0 2.35rem;
-    max-width: 48ch;
+    color: rgba(255, 255, 255, 0.74);
+    margin: 0 0 2.25rem;
+    max-width: 50ch;
     line-height: 1.65;
   }
 
@@ -218,63 +231,15 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 1.5rem 2.25rem;
+    gap: 0.95rem 1.15rem;
     margin-bottom: 1.75rem;
-  }
-
-  .inline-proof {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    background: transparent;
-    border: none;
-    padding: 0;
-
-    &__clients {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #ffffff;
-      letter-spacing: -0.01em;
-    }
-
-    &__rating {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-
-      .stars {
-        color: #ffffff;
-      }
-    }
-  }
-
-  .rating-num {
-    font-size: 0.92rem;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.88);
-  }
-
-  .google-word {
-    display: inline-flex;
-    flex-direction: column;
-    font-size: 1.02rem;
-    font-weight: 700;
-    line-height: 0.95;
-    color: #ffffff;
-
-    small {
-      font-size: 0.62rem;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.65);
-      margin-top: 2px;
-    }
   }
 
   .hero-white-cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.92rem 2.1rem;
+    padding: 0.95rem 2.15rem;
     border-radius: $radius-pill;
     background: #ffffff;
     color: #05070d;
@@ -288,6 +253,26 @@
       transform: translateY(-2px);
       background: #e0f2fe;
       box-shadow: 0 16px 38px rgba(1, 106, 212, 0.36);
+    }
+  }
+
+  .hero-audit-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.95rem 1.65rem;
+    border-radius: $radius-pill;
+    background: linear-gradient(135deg, rgba(0, 245, 160, 0.16), rgba(1, 106, 212, 0.28));
+    border: 1px solid rgba(0, 245, 160, 0.52);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.92rem;
+    transition: transform $transition-fast, background $transition-fast, border-color $transition-fast;
+
+    &:hover {
+      transform: translateY(-2px);
+      border-color: $accent-emerald;
+      background: linear-gradient(135deg, rgba(0, 245, 160, 0.28), rgba(1, 106, 212, 0.42));
     }
   }
 
@@ -307,7 +292,7 @@
     padding: 0;
     font-size: 0.85rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.66);
+    color: rgba(255, 255, 255, 0.68);
     cursor: pointer;
     transition: color $transition-fast;
 

@@ -14,30 +14,20 @@
   <div class="container">
     <div class="global-hero-grid" data-reveal>
       <div class="global-copy">
-        <span class="eyebrow">Global Reach &amp; Verified Proof</span>
+        <span class="eyebrow">Global Reach &amp; Production Proof</span>
         <h2 class="section-title" id="global-heading">Engineered in Australia. Trusted across 7 international markets.</h2>
         <p class="section-lead">
           From Sydney and Melbourne to Sofia, Munich, Paris, Zurich, New York, and Toronto—our distributed engineering and growth pods ship category-defining digital flagships.
         </p>
 
-        <div class="google-rating-card" data-glow-card>
-          <svg class="google-g" width="38" height="38" viewBox="0 0 48 48" aria-hidden="true">
-            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-          </svg>
-          <div>
-            <div class="stars" aria-label="5.0 out of 5 stars">
-              {#each Array(5) as _}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
-              {/each}
-            </div>
-            <strong>5.0 Rating / 100+ Reviews</strong>
-            <span>Verified Google Client Satisfaction</span>
-          </div>
+        <div class="proof-card" data-glow-card>
+          <span class="proof-card__kicker">Verifiable Live Productions</span>
+          <strong>
+            <a href="https://anchialo.com" target="_blank" rel="noopener">anchialo.com ↗</a>
+            <span>&amp;</span>
+            <a href="https://cptmma.com" target="_blank" rel="noopener">cptmma.com ↗</a>
+          </strong>
+          <span class="proof-card__sub">100% Fixed-Scope Milestones • Full IP Ownership</span>
         </div>
       </div>
 
@@ -66,7 +56,7 @@
         class:active={activeCountry === 'All'}
         onclick={() => (activeCountry = 'All')}
       >
-        All Markets (180+)
+        All Markets
       </button>
       {#each GLOBAL_REGIONS as region}
         <button
@@ -85,21 +75,27 @@
       {#each (filteredTestimonials.length > 0 ? filteredTestimonials : TESTIMONIALS) as t}
         <article class="testimonial-card" data-glow-card>
           <div class="testimonial-card__top">
-            <div class="stars" aria-label="5 star review">
-              {#each Array(5) as _}
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
-              {/each}
-            </div>
             <span class="tag">{t.country}</span>
+            {#if t.liveUrl}
+              <a href={t.liveUrl} target="_blank" rel="noopener" class="live-link">Live Site ↗</a>
+            {/if}
           </div>
           <p class="testimonial-card__quote">“{t.quote}”</p>
           <div class="testimonial-card__author">
-            <img src={t.avatar} alt={t.name} loading="lazy" />
+            {#if t.avatar}
+              <img src={t.avatar} alt={t.name} loading="lazy" />
+            {:else}
+              <span class="monogram-badge" style={`--accent:${t.accent}`} aria-hidden="true">{t.monogram}</span>
+            {/if}
             <div>
               <strong>{t.name}</strong>
-              <span>{t.role}, {t.company}</span>
+              {#if t.liveUrl}
+                <a href={t.liveUrl} target="_blank" rel="noopener" class="company-link">
+                  {t.role}, {t.company} ↗
+                </a>
+              {:else}
+                <span>{t.role}, {t.company}</span>
+              {/if}
             </div>
           </div>
         </article>
@@ -124,24 +120,43 @@
     }
   }
 
-  .google-rating-card {
+  .proof-card {
     @include interactive-card;
     margin-top: 1.85rem;
     display: inline-flex;
-    align-items: center;
-    gap: 1.1rem;
+    flex-direction: column;
+    gap: 0.35rem;
     padding: 1.15rem 1.5rem;
     border-radius: $radius-md;
-    border-color: rgba(255, 194, 0, 0.3);
+    border-color: rgba(0, 245, 160, 0.32);
 
-    strong {
-      display: block;
-      margin-top: 0.25rem;
-      font-size: 1.1rem;
-      color: #ffffff;
+    &__kicker {
+      font-family: $font-mono;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: $accent-blue-light;
     }
 
-    span {
+    strong {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.08rem;
+      color: #ffffff;
+
+      a {
+        color: $accent-emerald;
+      }
+
+      span {
+        color: $text-muted;
+        font-weight: 500;
+      }
+    }
+
+    &__sub {
       font-size: 0.78rem;
       color: $text-muted;
     }
@@ -273,10 +288,37 @@
         font-size: 0.92rem;
       }
 
-      span {
+      span,
+      .company-link {
         font-size: 0.78rem;
         color: $text-muted;
       }
+
+      .company-link {
+        color: $accent-blue-light;
+      }
     }
+  }
+
+  .live-link {
+    font-family: $font-mono;
+    font-size: 0.74rem;
+    color: $accent-emerald;
+    font-weight: 700;
+  }
+
+  .monogram-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-family: $font-mono;
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--accent, #00f5a0);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    flex-shrink: 0;
   }
 </style>

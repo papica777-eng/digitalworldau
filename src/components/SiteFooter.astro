@@ -19,11 +19,11 @@ import BrandLogo from './BrandLogo.svelte';
     <div class="footer-col">
       <h4>Services</h4>
       <ul>
-        <li><a href="#services">Website Audit (UX &amp; SEO)</a></li>
-        <li><a href="#services">UI/UX &amp; Web Design</a></li>
-        <li><a href="#services">Custom Development</a></li>
-        <li><a href="#services">E-Commerce Platforms</a></li>
-        <li><a href="#services">SEO, PPC &amp; Email Growth</a></li>
+        <li><a href="/#services">Website Audit (UX &amp; SEO)</a></li>
+        <li><a href="/#services">UI/UX &amp; Web Design</a></li>
+        <li><a href="/#services">Custom Development</a></li>
+        <li><a href="/#services">E-Commerce Platforms</a></li>
+        <li><a href="/#services">SEO, PPC &amp; Email Growth</a></li>
       </ul>
     </div>
 
@@ -32,9 +32,9 @@ import BrandLogo from './BrandLogo.svelte';
       <ul>
         <li><a href="https://anchialo.com" target="_blank" rel="noopener">anchialo.com — Magnesium AU ↗</a></li>
         <li><a href="https://cptmma.com" target="_blank" rel="noopener">cptmma.com — CPT MMA Melbourne ↗</a></li>
-        <li><a href="#projects">Case Studies &amp; Work</a></li>
-        <li><a href="#stack">Tech Arsenal</a></li>
-        <li><a href="#blog">Knowledge Hub</a></li>
+        <li><a href="/#projects">Case Studies &amp; Work</a></li>
+        <li><a href="/#stack">Tech Arsenal</a></li>
+        <li><a href="/#blog">Knowledge Hub</a></li>
       </ul>
     </div>
 
@@ -43,8 +43,17 @@ import BrandLogo from './BrandLogo.svelte';
       <ul>
         <li><a href="/privacy">Privacy Policy</a></li>
         <li><a href="/terms">Terms of Engagement</a></li>
-        <li><a href="#contact">IP Ownership Guarantee</a></li>
-        <li><a href="#top">digitalworldau.com</a></li>
+        <li>
+          <button
+            type="button"
+            class="footer-cookie-btn"
+            onclick="window.dispatchEvent(new Event('dw:open-cookies'))"
+          >
+            Cookie Settings
+          </button>
+        </li>
+        <li><a href="/#contact">IP Ownership Guarantee</a></li>
+        <li><a href="/">digitalworldau.com</a></li>
       </ul>
     </div>
   </div>
@@ -119,10 +128,16 @@ import BrandLogo from './BrandLogo.svelte';
       display: grid;
       gap: 0.6rem;
 
-      a {
+      a,
+      .footer-cookie-btn {
         font-size: 0.9rem;
         color: $text-secondary;
         transition: color $transition-fast;
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        text-align: left;
 
         &:hover {
           color: #ffffff;

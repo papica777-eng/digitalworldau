@@ -5,24 +5,30 @@ import HeaderNav from '../components/HeaderNav.svelte';
 import SiteFooter from '../components/SiteFooter.astro';
 ---
 
-<BaseLayout title="Privacy Policy — Digital World AU" canonical="https://digitalworldau.com/privacy">
+<BaseLayout title="Privacy Policy & Cookie Notice — Digital World AU" canonical="https://digitalworldau.com/privacy">
   <AnnouncementBar />
   <HeaderNav client:load />
   <main class="section">
     <div class="container legal-wrap">
-      <span class="eyebrow">Privacy &amp; Data Protection</span>
+      <span class="eyebrow">Privacy, Cookies &amp; Data Protection</span>
       <h1 class="section-title">Privacy Policy</h1>
       <p class="section-lead">
-        Digital World AU respects your privacy under the Australian Privacy Principles (Privacy Act 1988 Cth) and applicable GDPR protections for European clients.
+        Digital World AU complies with the Australian Privacy Principles under the Privacy Act 1988 (Cth), GDPR for European Union and Swiss clients, and Google Ads Consent Mode v2 requirements.
       </p>
       <div class="legal-card">
-        <h2>1. Information We Collect</h2>
-        <p>When you request a quote or free 2-week website audit, we collect only the contact details, budget tier, project notes, and optional brief attachments you explicitly submit.</p>
-        <h2>2. In-Browser Zero-Trust File Checks</h2>
-        <p>Attachment magic-byte verification (<code>agency_wasm.wasm</code>) runs locally inside your browser before transmission to ensure only safe document or image formats up to 10MB are attached.</p>
-        <h2>3. Contact</h2>
-        <p>Privacy inquiries may be directed to <a href="mailto:hello@digitalworldau.com">hello@digitalworldau.com</a>.</p>
-        <a href="/" class="btn btn-ghost">← Back to Home</a>
+        <h2>1. Information You Provide</h2>
+        <p>When you submit our quote or Free 2-Week Website Audit form, we collect only the name, work email, optional phone number, estimated budget tier, project notes, and optional brief attachments you choose to share.</p>
+
+        <h2>2. Cookies &amp; Google Ads Conversion Measurement</h2>
+        <p>Essential storage preserves your display currency preference (AUD / EUR) and consent state. Optional analytics and Google Ads conversion cookies are activated only with your consent via our Cookie Preferences banner and are used solely to measure inquiry attribution.</p>
+
+        <h2>3. Local Zero-Trust Attachment Inspection</h2>
+        <p>Uploaded project briefs (.pdf, .doc, .docx, .png, .jpg up to 10MB) are verified locally inside your browser using <code>agency_wasm.wasm</code> magic-byte inspection before submission.</p>
+
+        <h2>4. Data Access, Erasure &amp; Contact</h2>
+        <p>We never sell or rent personal information. To request access, correction, or deletion of your inquiry data, email <a href="mailto:hello@digitalworldau.com">hello@digitalworldau.com</a> or write to Level 14, 275 George Street, Sydney NSW 2000, Australia.</p>
+
+        <a href="/" class="btn btn-ghost">← Return to Digital World AU</a>
       </div>
     </div>
   </main>
@@ -58,7 +64,7 @@ import SiteFooter from '../components/SiteFooter.astro';
     }
 
     a:not(.btn) {
-      color: $accent-cyan;
+      color: $accent-blue-light;
       text-decoration: underline;
     }
 

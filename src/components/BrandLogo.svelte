@@ -5,7 +5,7 @@
     onclick?: () => void;
   }
 
-  let { compact = false, href = '#top', onclick }: Props = $props();
+  let { compact = false, href = '/', onclick }: Props = $props();
 </script>
 
 <a
@@ -24,7 +24,6 @@
     aria-hidden="true"
   >
     <defs>
-      <!-- Hyper-realistic 3D beveled electric-cobalt & chrome gradient for angled brackets -->
       <linearGradient id="dwBracketMetal" x1="0" y1="4" x2="48" y2="48" gradientUnits="userSpaceOnUse">
         <stop offset="0%" stop-color="#93c5fd"/>
         <stop offset="28%" stop-color="#0284c7"/>
@@ -33,7 +32,6 @@
         <stop offset="100%" stop-color="#00f5a0"/>
       </linearGradient>
 
-      <!-- Mirror-finish liquid-silver typography gradient -->
       <linearGradient id="dwWordChrome" x1="40" y1="6" x2="210" y2="42" gradientUnits="userSpaceOnUse">
         <stop offset="0%" stop-color="#ffffff"/>
         <stop offset="48%" stop-color="#f8fafc"/>
@@ -41,7 +39,6 @@
         <stop offset="100%" stop-color="#ffffff"/>
       </linearGradient>
 
-      <!-- Subtle orchid-cobalt rim glow on brackets -->
       <filter id="dwBracketGlow" x="-30%" y="-30%" width="160%" height="160%">
         <feGaussianBlur stdDeviation="2.6" result="b"/>
         <feMerge>
@@ -55,7 +52,6 @@
       </filter>
     </defs>
 
-    <!-- Left sculpted metallic '</' chevron — embedded directly into dark background, zero box -->
     <g filter="url(#dwBracketGlow)">
       <path
         d="M17.5 11.5 L4.5 22.5 L17.5 33.5"
@@ -87,7 +83,6 @@
       />
     </g>
 
-    <!-- Pure frameless razor-sharp lowercase architectural wordmark 'digitalworld' -->
     <g filter="url(#dwTextDepth)">
       <text
         x="36"
@@ -102,7 +97,6 @@
       </text>
     </g>
 
-    <!-- Right sculpted metallic '>' chevron -->
     <g filter="url(#dwBracketGlow)">
       <path
         d="M196 11.5 L209 22.5 L196 33.5"
@@ -121,7 +115,6 @@
       />
     </g>
 
-    <!-- Subscript 'studio • au' sitting directly beneath the right side like agma studio -->
     <text
       x="191"
       y="47.5"

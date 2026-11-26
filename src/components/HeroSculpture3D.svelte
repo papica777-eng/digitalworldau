@@ -1,190 +1,536 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import * as THREE from 'three';
-  import { getAgencyWasm } from '../lib/wasm';
+  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
   let hostEl: HTMLDivElement | undefined = $state();
   let isInteracting = $state(false);
+
+  interface ProceduralMetalMaps {
+    bumpMap: THREE.CanvasTexture;
+    roughnessMap: THREE.CanvasTexture;
+  }
+
+  function createBrushedMetalMaps(
+    seed: number,
+    contrast: number,
+    streakDensity: number,
+    rotation = 0
+  ): ProceduralMetalMaps {
+    const w = 1024;
+    const h = 512;
+
+    const bumpCanvas = document.createElement('canvas');
+    bumpCanvas.width = w;
+    bumpCanvas.height = h;
+    const bCtx = bumpCanvas.getContext('2d')!;
+
+    const roughCanvas = document.createElement('canvas');
+    roughCanvas.width = w;
+    roughCanvas.height = h;
+    const rCtx = roughCanvas.getContext('2d')!;
+
+    bCtx.fillStyle = '#808080';
+    bCtx.fillRect(0, 0, w, h);
+    rCtx.fillStyle = '#484848';
+    rCtx.fillRect(0, 0, w, h);
+
+    let s = seed >>> 0;
+    const rand = () => {
+      s = (s * 1664525 + 1013904223) >>> 0;
+      return s / 4294967296;
+    };
+
+    for (let i = 0; i < streakDensity; i++) {
+      const y = rand() * h;
+      const len = 160 + rand() * 860;
+      const x = rand() * w;
+      const thick = 0.55 + rand() * 1.65;
+      const v = Math.floor(128 + (rand() - 0.5) * 255 * contrast);
+      const rv = Math.floor(42 + rand() * 88 * contrast);
+
+      bCtx.strokeStyle = `rgba(${v},${v},${v},0.36)`;
+      bCtx.lineWidth = thick;
+      bCtx.beginPath();
+      bCtx.moveTo(x, y);
+      bCtx.lineTo(x + len, y + (rand() - 0.5) * 2.0);
+      bCtx.stroke();
+      if (x + len > w) {
+        bCtx.beginPath();
+        bCtx.moveTo(x - w, y);
+        bCtx.lineTo(x + len - w, y);
+        bCtx.stroke();
+      }
+
+      rCtx.strokeStyle = `rgba(${rv},${rv},${rv},0.28)`;
+      rCtx.lineWidth = thick;
+      rCtx.beginPath();
+      rCtx.moveTo(x, y);
+      rCtx.lineTo(x + len, y);
+      rCtx.stroke();
+    }
+
+    const bumpMap = new THREE.CanvasTexture(bumpCanvas);
+    bumpMap.wrapS = THREE.RepeatWrapping;
+    bumpMap.wrapT = THREE.RepeatWrapping;
+    bumpMap.repeat.set(2, 10);
+    bumpMap.rotation = rotation;
+    bumpMap.anisotropy = 8;
+
+    const roughnessMap = new THREE.CanvasTexture(roughCanvas);
+    roughnessMap.wrapS = THREE.RepeatWrapping;
+    roughnessMap.wrapT = THREE.RepeatWrapping;
+    roughnessMap.repeat.set(2, 10);
+    roughnessMap.rotation = rotation;
+    roughnessMap.anisotropy = 8;
+
+    return { bumpMap, roughnessMap };
+  }
+
+  function createStudioCycloramaEnv(renderer: THREE.WebGLRenderer): THREE.Texture {
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    pmrem.compileEquirectangularShader();
+
+    const envScene = new THREE.Scene();
+    envScene.background = new THREE.Color(0x020308);
+
+    const addPanel = (
+      color: number,
+      intensity: number,
+      w: number,
+      h: number,
+      pos: [number, number, number]
+    ) => {
+      const col = new THREE.Color(color).multiplyScalar(intensity);
+      const mat = new THREE.MeshBasicMaterial({ color: col, side: THREE.DoubleSide });
+      const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
+      mesh.position.set(pos[0], pos[1], pos[2]);
+      mesh.lookAt(0, 0, 0);
+      envScene.add(mesh);
+    };
+
+    // Calibrated dark-studio cyclorama softboxes (crisp white, ice-blue, cobalt & orchid-violet)
+    addPanel(0xffffff, 3.2, 9.5, 2.2, [3.2, 6.4, 4.8]);
+    addPanel(0xdcecff, 2.8, 1.8, 10.5, [-6.8, 1.4, 4.6]);
+    addPanel(0x38bdf8, 2.6, 2.0, 10.5, [7.0, 0.9, 3.8]);
+    addPanel(0xc898ff, 2.4, 6.2, 1.8, [0.0, -6.2, 3.2]);
+    addPanel(0xffffff, 2.4, 5.2, 1.2, [0.0, 7.6, -3.8]);
+
+    const rt = pmrem.fromScene(envScene, 0.032);
+    pmrem.dispose();
+    return rt.texture;
+  }
+
+  function buildSculptedTitaniumHelix(
+    phase: number,
+    radius: number,
+    height: number,
+    turns: number
+  ): THREE.BufferGeometry {
+    const segs = 192;
+    const profilePts = 20;
+    const halfW = 0.076;
+    const halfT = 0.029;
+
+    const positions: number[] = [];
+    const uvs: number[] = [];
+    const indices: number[] = [];
+
+    for (let i = 0; i <= segs; i++) {
+      const t = i / segs;
+      const y = (t - 0.5) * height;
+      const ang = t * Math.PI * 2 * turns + phase;
+
+      const endDist = Math.min(t, 1 - t);
+      const capScale =
+        endDist < 0.04 ? Math.sin((endDist / 0.04) * (Math.PI / 2)) * 0.68 + 0.32 : 1.0;
+      const waist = 0.94 + 0.06 * Math.sin(t * Math.PI);
+      const r = radius * waist;
+
+      const cx = Math.cos(ang) * r;
+      const cz = Math.sin(ang) * r;
+      const rx = Math.cos(ang);
+      const rz = Math.sin(ang);
+
+      for (let j = 0; j <= profilePts; j++) {
+        const a = (j / profilePts) * Math.PI * 2;
+        const ca = Math.cos(a);
+        const sa = Math.sin(a);
+        const superX = Math.sign(ca) * Math.pow(Math.abs(ca), 0.62);
+        const superY = Math.sign(sa) * Math.pow(Math.abs(sa), 0.56);
+        const groove = ca > 0.4 ? -0.004 * Math.cos(sa * Math.PI * 0.5) : 0;
+
+        const dr = (superX * halfT + groove) * capScale;
+        const dy = superY * halfW * capScale;
+
+        positions.push(cx + rx * dr, y + dy, cz + rz * dr);
+        uvs.push(j / profilePts, t * 4.0);
+      }
+    }
+
+    const stride = profilePts + 1;
+    for (let i = 0; i < segs; i++) {
+      for (let j = 0; j < profilePts; j++) {
+        const a = i * stride + j;
+        const b = a + 1;
+        const c = (i + 1) * stride + j;
+        const d = c + 1;
+        indices.push(a, c, b, b, c, d);
+      }
+    }
+
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+    geo.setIndex(indices);
+    geo.computeVertexNormals();
+    return geo;
+  }
+
+  function makeEllipseCurve(rx: number, ry: number): THREE.CatmullRomCurve3 {
+    const pts: THREE.Vector3[] = [];
+    const segs = 200;
+    for (let i = 0; i < segs; i++) {
+      const a = (i / segs) * Math.PI * 2;
+      pts.push(new THREE.Vector3(Math.cos(a) * rx, Math.sin(a) * ry, 0));
+    }
+    return new THREE.CatmullRomCurve3(pts, true);
+  }
+
+  function buildDashedOrbit(
+    rx: number,
+    ry: number,
+    dashCount: number,
+    tubeRadius: number,
+    mat: THREE.Material
+  ): THREE.Group {
+    const group = new THREE.Group();
+    const dashArc = (Math.PI * 2) / dashCount;
+    const fillFraction = 0.46;
+    const subSegs = 6;
+
+    for (let i = 0; i < dashCount; i++) {
+      const a0 = i * dashArc;
+      const pts: THREE.Vector3[] = [];
+      for (let s = 0; s <= subSegs; s++) {
+        const a = a0 + (s / subSegs) * dashArc * fillFraction;
+        pts.push(new THREE.Vector3(Math.cos(a) * rx, Math.sin(a) * ry, 0));
+      }
+      const curve = new THREE.CatmullRomCurve3(pts);
+      const geo = new THREE.TubeGeometry(curve, 6, tubeRadius, 8, false);
+      group.add(new THREE.Mesh(geo, mat));
+    }
+    return group;
+  }
 
   onMount(() => {
     if (!hostEl) return;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const scene = new THREE.Scene();
-    scene.background = null;
-
-    const camera = new THREE.PerspectiveCamera(30, 16 / 11, 0.1, 50);
-    camera.position.set(0, 0, 5.2);
-
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
-      premultipliedAlpha: false,
       powerPreference: 'high-performance',
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setClearColor(0x000000, 0);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.12;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     hostEl.appendChild(renderer.domElement);
 
-    const texLoader = new THREE.TextureLoader();
-    const sculptureTex = texLoader.load('/media/hero-sculpture.webp');
-    sculptureTex.colorSpace = THREE.SRGBColorSpace;
-    sculptureTex.minFilter = THREE.LinearFilter;
-    sculptureTex.magFilter = THREE.LinearFilter;
+    const scene = new THREE.Scene();
+    scene.background = null;
+    const envTex = createStudioCycloramaEnv(renderer);
+    scene.environment = envTex;
 
-    const rootGroup = new THREE.Group();
-    scene.add(rootGroup);
+    const camera = new THREE.PerspectiveCamera(34, 16 / 10.5, 0.1, 80);
+    camera.position.set(0, 0.08, 5.2);
 
-    // High-density 3D relief mesh extruded from the photorealistic liquid-glass sculpture
-    const planeGeo = new THREE.PlaneGeometry(4.55, 2.85, 180, 114);
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.enablePan = false;
+    controls.enableZoom = false;
 
-    const glassReliefMat = new THREE.ShaderMaterial({
+    // Calibrated directional studio lights
+    const keyLight = new THREE.DirectionalLight(0xdcecff, 2.2);
+    keyLight.position.set(4.2, 5.6, 5.2);
+    const rimLeft = new THREE.DirectionalLight(0x38bdf8, 1.5);
+    rimLeft.position.set(-5.2, 2.0, 2.8);
+    const violetBack = new THREE.DirectionalLight(0xc898ff, 1.3);
+    violetBack.position.set(0.0, -3.4, -4.8);
+    scene.add(new THREE.AmbientLight(0x161828, 0.55), keyLight, rimLeft, violetBack);
+
+    const root = new THREE.Group();
+    scene.add(root);
+
+    const tiMaps = createBrushedMetalMaps(1337, 0.88, 2200, 0.38);
+    const silverMaps = createBrushedMetalMaps(7919, 0.34, 850, 0.0);
+
+    // 1. CNC-Brushed Obsidian Black Titanium Helix Material
+    const titaniumMat = new THREE.MeshPhysicalMaterial({
+      color: 0x1b2232,
+      metalness: 0.94,
+      roughness: 0.3,
+      roughnessMap: tiMaps.roughnessMap,
+      bumpMap: tiMaps.bumpMap,
+      bumpScale: 0.018,
+      clearcoat: 0.34,
+      clearcoatRoughness: 0.2,
+      envMapIntensity: 1.8,
+    });
+
+    const pinMetalMat = new THREE.MeshPhysicalMaterial({
+      color: 0x334155,
+      metalness: 0.96,
+      roughness: 0.2,
+      clearcoat: 0.45,
+      envMapIntensity: 1.7,
+    });
+
+    // 2. Hairline Satin Silver-Cobalt Orbit Material
+    const silverCobaltMat = new THREE.MeshPhysicalMaterial({
+      color: 0x93c5fd,
+      emissive: 0x0b2a5b,
+      emissiveIntensity: 0.2,
+      metalness: 0.98,
+      roughness: 0.16,
+      roughnessMap: silverMaps.roughnessMap,
+      bumpMap: silverMaps.bumpMap,
+      bumpScale: 0.003,
+      clearcoat: 0.6,
+      clearcoatRoughness: 0.12,
+      envMapIntensity: 1.9,
+    });
+
+    const dashedOrbitMat = new THREE.MeshPhysicalMaterial({
+      color: 0x38bdf8,
+      emissive: 0x00f5a0,
+      emissiveIntensity: 0.28,
+      metalness: 0.94,
+      roughness: 0.2,
       transparent: true,
+      opacity: 0.84,
+      envMapIntensity: 1.6,
+    });
+
+    // 3. Translucent Faceted Sapphire-Violet Crystal Cage
+    const crystalFaceMat = new THREE.MeshPhysicalMaterial({
+      color: 0x3b1d8e,
+      emissive: 0x140b44,
+      emissiveIntensity: 0.38,
+      metalness: 0.08,
+      roughness: 0.06,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.06,
+      transparent: true,
+      opacity: 0.14,
       depthWrite: false,
-      uniforms: {
-        uTex: { value: sculptureTex },
-        uTime: { value: 0 },
-        uPointer: { value: new THREE.Vector2(0, 0) },
-      },
-      vertexShader: `
-        uniform sampler2D uTex;
-        uniform float uTime;
-        uniform vec2 uPointer;
-        varying vec2 vUv;
-        varying float vElev;
-
-        void main() {
-          vUv = uv;
-          vec3 sampleCol = texture2D(uTex, uv).rgb;
-          float luma = dot(sampleCol, vec3(0.299, 0.587, 0.114));
-          float mask = smoothstep(0.04, 0.18, luma);
-
-          // Organic 3D wave twist & breathing across the infinity ribbon
-          float waveX = sin(uv.x * 6.2831 - uTime * 1.45) * 0.085;
-          float waveY = cos(uv.y * 6.2831 + uTime * 1.15) * 0.065;
-          float twist = sin((uv.x - 0.5) * 4.5 + uTime * 1.1) * (uv.y - 0.5) * 0.24;
-
-          // Extrude the ribbon forward in 3D space based on its optical luminance
-          float zDepth = mask * (0.38 + luma * 0.34) + (waveX + waveY + twist) * mask;
-          vElev = luma * mask;
-
-          vec3 pos = position;
-          pos.z += zDepth;
-          // Subtle organic infinity flow expansion
-          pos.x += sin(uTime * 0.9 + uv.y * 3.14) * 0.035 * mask;
-          pos.y += cos(uTime * 1.1 + uv.x * 3.14) * 0.035 * mask;
-
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-        }
-      `,
-      fragmentShader: `
-        uniform sampler2D uTex;
-        uniform float uTime;
-        uniform vec2 uPointer;
-        varying vec2 vUv;
-        varying float vElev;
-
-        vec3 spectrum(float t) {
-          return 0.5 + 0.5 * cos(6.28318 * (t + vec3(0.0, 0.33, 0.67)));
-        }
-
-        void main() {
-          // Soft edge vignette so canvas borders never clip
-          vec2 edge = smoothstep(vec2(0.0), vec2(0.08), vUv) * smoothstep(vec2(0.0), vec2(0.08), 1.0 - vUv);
-          float vignette = edge.x * edge.y;
-
-          // Subtle internal liquid-crystal flow refraction along the glass strands
-          vec2 flowOffset = vec2(
-            sin(vUv.y * 14.0 + uTime * 1.8) * 0.0032,
-            cos(vUv.x * 12.0 - uTime * 1.5) * 0.0032
-          );
-
-          // Chromatic dispersion sampling (slight RGB prism separation on flowing waves)
-          vec2 uvR = vUv + flowOffset * 1.35 + uPointer * 0.004;
-          vec2 uvG = vUv + flowOffset;
-          vec2 uvB = vUv + flowOffset * 0.65 - uPointer * 0.004;
-
-          float r = texture2D(uTex, uvR).r;
-          float g = texture2D(uTex, uvG).g;
-          float b = texture2D(uTex, uvB).b;
-          vec3 baseCol = vec3(r, g, b);
-
-          float luma = dot(baseCol, vec3(0.299, 0.587, 0.114));
-          float maxCh = max(max(baseCol.r, baseCol.g), baseCol.b);
-
-          // Key out the dark studio background cleanly into 100% transparent alpha
-          float alpha = smoothstep(0.045, 0.19, maxCh * 0.75 + luma * 0.45) * vignette;
-          if (alpha < 0.005) discard;
-
-          // Estimate local surface normal from neighbor luminance for live moving studio light sweep
-          float eps = 0.0035;
-          float lx = dot(texture2D(uTex, vUv + vec2(eps, 0.0)).rgb, vec3(0.333)) - luma;
-          float ly = dot(texture2D(uTex, vUv + vec2(0.0, eps)).rgb, vec3(0.333)) - luma;
-          vec3 N = normalize(vec3(-lx * 14.0, -ly * 14.0, 1.0));
-
-          // Orbiting virtual studio key light + cursor light
-          vec3 lightPos = normalize(vec3(
-            sin(uTime * 1.15) * 0.75 + uPointer.x * 0.85,
-            cos(uTime * 0.9) * 0.65 + uPointer.y * 0.85,
-            0.9
-          ));
-          float spec = pow(max(dot(N, lightPos), 0.0), 28.0);
-          float rimSweep = pow(max(dot(N, normalize(vec3(-lightPos.x, -lightPos.y, 0.7))), 0.0), 16.0);
-
-          // Traveling iridescent caustic wave along the glass ribbon
-          float causticWave = sin((vUv.x * 5.5 - vUv.y * 3.0) - uTime * 1.65) * 0.5 + 0.5;
-          vec3 iridGlow = spectrum(vUv.x * 0.8 - uTime * 0.22 + luma) * vec3(0.45, 0.85, 1.25);
-
-          vec3 col = baseCol * 1.08;
-          col += iridGlow * pow(causticWave, 3.0) * 0.22 * smoothstep(0.15, 0.7, luma);
-          col += vec3(0.88, 0.95, 1.0) * spec * 0.55 * smoothstep(0.12, 0.6, maxCh);
-          col += vec3(0.0, 0.96, 0.68) * rimSweep * 0.24 * smoothstep(0.1, 0.5, maxCh);
-
-          gl_FragColor = vec4(col, alpha);
-        }
-      `,
+      side: THREE.DoubleSide,
+      envMapIntensity: 1.55,
     });
 
-    const sculptureMesh = new THREE.Mesh(planeGeo, glassReliefMat);
-    rootGroup.add(sculptureMesh);
-
-    // Subtle orbiting glassmorphic micro-caustic motes around the sculpture
-    const moteCount = 42;
-    const motePos = new Float32Array(moteCount * 3);
-    for (let i = 0; i < moteCount; i++) {
-      const a = (i / moteCount) * Math.PI * 2;
-      motePos[i * 3] = Math.cos(a) * (1.4 + Math.random() * 0.9);
-      motePos[i * 3 + 1] = Math.sin(a * 2) * (0.55 + Math.random() * 0.45);
-      motePos[i * 3 + 2] = (Math.random() - 0.5) * 0.8;
-    }
-    const moteGeo = new THREE.BufferGeometry();
-    moteGeo.setAttribute('position', new THREE.BufferAttribute(motePos, 3));
-    const moteMat = new THREE.PointsMaterial({
-      color: new THREE.Color('#84b5e6'),
-      size: 0.032,
+    const crystalEdgeMat = new THREE.MeshPhysicalMaterial({
+      color: 0xcba0ff,
+      emissive: 0x7c3aed,
+      emissiveIntensity: 0.78,
+      metalness: 0.38,
+      roughness: 0.14,
+      clearcoat: 0.9,
       transparent: true,
-      opacity: 0.45,
+      opacity: 0.86,
     });
-    const motes = new THREE.Points(moteGeo, moteMat);
-    rootGroup.add(motes);
 
-    let targetRotY = 0;
-    let targetRotX = 0;
+    const vertexNodeMat = new THREE.MeshPhysicalMaterial({
+      color: 0xe2e8f0,
+      emissive: 0x38bdf8,
+      emissiveIntensity: 0.95,
+      roughness: 0.12,
+      metalness: 0.45,
+    });
+
+    // Build inner Obsidian Titanium Double-Helix DNA
+    const dnaGroup = new THREE.Group();
+    root.add(dnaGroup);
+
+    const helixRadius = 0.29;
+    const helixHeight = 1.72;
+    const helixTurns = 1.52;
+    dnaGroup.add(
+      new THREE.Mesh(buildSculptedTitaniumHelix(0, helixRadius, helixHeight, helixTurns), titaniumMat),
+      new THREE.Mesh(buildSculptedTitaniumHelix(Math.PI, helixRadius, helixHeight, helixTurns), titaniumMat)
+    );
+
+    const innerLights: THREE.PointLight[] = [];
+    [-0.56, 0.0, 0.56].forEach((yPos, idx) => {
+      const col = idx === 1 ? 0x00f5a0 : 0x38bdf8;
+      const pl = new THREE.PointLight(col, 0.65, 1.05, 2.4);
+      pl.position.set(0, yPos, 0);
+      dnaGroup.add(pl);
+      innerLights.push(pl);
+    });
+
+    const rungCount = 13; // 12 rungs inside helix
+    const pinGeo = new THREE.CylinderGeometry(0.012, 0.012, 1.0, 14);
+    pinGeo.rotateZ(Math.PI / 2);
+    const collarGeo = new THREE.CylinderGeometry(0.02, 0.02, 0.016, 16);
+    collarGeo.rotateZ(Math.PI / 2);
+    const coreGeo = new THREE.CylinderGeometry(0.021, 0.021, 0.095, 16);
+    coreGeo.rotateZ(Math.PI / 2);
+
+    interface CapsuleNode {
+      coreMat: THREE.MeshPhysicalMaterial;
+      normY: number;
+    }
+    const capsules: CapsuleNode[] = [];
+
+    for (let i = 1; i < rungCount; i++) {
+      const t = i / rungCount;
+      const y = (t - 0.5) * helixHeight;
+      const ang = t * Math.PI * 2 * helixTurns;
+      const waist = 0.94 + 0.06 * Math.sin(t * Math.PI);
+      const r = helixRadius * waist;
+
+      const pair = new THREE.Group();
+      pair.position.y = y;
+      pair.rotation.y = -ang;
+
+      const rodLen = Math.max(0.06, r - 0.056);
+      const leftPin = new THREE.Mesh(pinGeo, pinMetalMat);
+      leftPin.scale.x = rodLen;
+      leftPin.position.x = -(0.056 + rodLen * 0.5);
+
+      const rightPin = new THREE.Mesh(pinGeo, pinMetalMat);
+      rightPin.scale.x = rodLen;
+      rightPin.position.x = 0.056 + rodLen * 0.5;
+
+      const collarL = new THREE.Mesh(collarGeo, pinMetalMat);
+      collarL.position.x = -0.056;
+      const collarR = new THREE.Mesh(collarGeo, pinMetalMat);
+      collarR.position.x = 0.056;
+
+      const coreMat = new THREE.MeshPhysicalMaterial({
+        color: 0xe6ffff,
+        emissive: i % 2 === 0 ? 0x00f5a0 : 0x38bdf8,
+        emissiveIntensity: 1.25,
+        roughness: 0.1,
+        metalness: 0.05,
+        clearcoat: 1.0,
+      });
+      const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+
+      pair.add(leftPin, rightPin, collarL, collarR, coreMesh);
+      dnaGroup.add(pair);
+      capsules.push({ coreMat, normY: t });
+    }
+
+    // Build Outer Translucent Faceted Sapphire-Violet Crystal Icosahedron Cage
+    const crystalGroup = new THREE.Group();
+    crystalGroup.rotation.set(0.22, 0.34, 0.08);
+    root.add(crystalGroup);
+
+    const icoRadius = 1.36;
+    const icoGeo = new THREE.IcosahedronGeometry(icoRadius, 0);
+    const facetMesh = new THREE.Mesh(icoGeo, crystalFaceMat);
+    facetMesh.renderOrder = 2;
+    crystalGroup.add(facetMesh);
+
+    const edgesGeo = new THREE.EdgesGeometry(icoGeo);
+    const posAttr = edgesGeo.attributes.position;
+    const edgeRadius = 0.0052;
+    const up = new THREE.Vector3(0, 1, 0);
+    const uniqueVerts = new Map<string, THREE.Vector3>();
+
+    for (let i = 0; i < posAttr.count; i += 2) {
+      const a = new THREE.Vector3().fromBufferAttribute(posAttr, i);
+      const b = new THREE.Vector3().fromBufferAttribute(posAttr, i + 1);
+      uniqueVerts.set(`${a.x.toFixed(3)},${a.y.toFixed(3)},${a.z.toFixed(3)}`, a);
+      uniqueVerts.set(`${b.x.toFixed(3)},${b.y.toFixed(3)},${b.z.toFixed(3)}`, b);
+
+      const dir = new THREE.Vector3().subVectors(b, a);
+      const len = dir.length();
+      const mid = new THREE.Vector3().addVectors(a, b).multiplyScalar(0.5);
+
+      const strutGeo = new THREE.CylinderGeometry(edgeRadius, edgeRadius, len, 10, 1);
+      const strut = new THREE.Mesh(strutGeo, crystalEdgeMat);
+      strut.position.copy(mid);
+      strut.quaternion.setFromUnitVectors(up, dir.normalize());
+      crystalGroup.add(strut);
+    }
+    edgesGeo.dispose();
+
+    const nodeGeo = new THREE.OctahedronGeometry(0.017, 0);
+    uniqueVerts.forEach((v) => {
+      const node = new THREE.Mesh(nodeGeo, vertexNodeMat);
+      node.position.copy(v);
+      crystalGroup.add(node);
+    });
+
+    // Build Sweeping Satin Silver-Cobalt Ellipses + Precision-Dashed Equatorial Orbit
+    const orbitGroup = new THREE.Group();
+    root.add(orbitGroup);
+
+    const orbitA = new THREE.Mesh(
+      new THREE.TubeGeometry(makeEllipseCurve(1.98, 0.96), 200, 0.011, 16, true),
+      silverCobaltMat
+    );
+    const holderA = new THREE.Group();
+    holderA.rotation.set(0.24, -0.18, 0.58);
+    holderA.add(orbitA);
+
+    const orbitB = new THREE.Mesh(
+      new THREE.TubeGeometry(makeEllipseCurve(1.94, 0.92), 200, 0.01, 16, true),
+      silverCobaltMat
+    );
+    const holderB = new THREE.Group();
+    holderB.rotation.set(-0.22, 0.22, -0.62);
+    holderB.add(orbitB);
+
+    const dashedRing = buildDashedOrbit(2.08, 2.08, 64, 0.0072, dashedOrbitMat);
+    dashedRing.rotation.x = Math.PI / 2;
+    const holderEq = new THREE.Group();
+    holderEq.rotation.set(0.24, 0.0, 0.04);
+    holderEq.add(dashedRing);
+
+    orbitGroup.add(holderA, holderB, holderEq);
+
+    // Subtle ambient starlight motes
+    const starCount = 72;
+    const starPos = new Float32Array(starCount * 3);
+    const starCol = new Float32Array(starCount * 3);
+    const c1 = new THREE.Color(0x00f5a0);
+    const c2 = new THREE.Color(0x38bdf8);
+    const c3 = new THREE.Color(0xfcc1f4);
+    for (let i = 0; i < starCount; i++) {
+      const r = 2.4 + Math.random() * 2.4;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      starPos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+      starPos[i * 3 + 1] = r * Math.cos(phi);
+      starPos[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta) - 0.6;
+      const pick = i % 3 === 0 ? c1 : i % 3 === 1 ? c2 : c3;
+      starCol[i * 3] = pick.r;
+      starCol[i * 3 + 1] = pick.g;
+      starCol[i * 3 + 2] = pick.b;
+    }
+    const starGeo = new THREE.BufferGeometry();
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    starGeo.setAttribute('color', new THREE.BufferAttribute(starCol, 3));
+    const starMat = new THREE.PointsMaterial({
+      size: 0.026,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.58,
+      depthWrite: false,
+    });
+    const starField = new THREE.Points(starGeo, starMat);
+    root.add(starField);
+
     let pointerX = 0;
     let pointerY = 0;
-    let pointerDown = false;
-    let lastPx = 0;
-    let lastPy = 0;
-    let userYaw = 0;
-    let userPitch = 0;
     let visible = true;
     let rafId = 0;
-
-    let wasmMod: Awaited<ReturnType<typeof getAgencyWasm>> = null;
-    void getAgencyWasm().then((w) => {
-      wasmMod = w;
-    });
 
     const resize = () => {
       if (!hostEl) return;
@@ -207,73 +553,56 @@
     );
     io.observe(hostEl);
 
-    const onDown = (e: PointerEvent) => {
-      pointerDown = true;
+    const onDown = () => {
       isInteracting = true;
-      lastPx = e.clientX;
-      lastPy = e.clientY;
     };
-
+    const onUp = () => {
+      isInteracting = false;
+    };
     const onMove = (e: PointerEvent) => {
       const rect = hostEl?.getBoundingClientRect();
-      if (rect) {
-        pointerX = THREE.MathUtils.clamp(((e.clientX - rect.left) / rect.width - 0.5) * 2, -1, 1);
-        pointerY = THREE.MathUtils.clamp(-((e.clientY - rect.top) / rect.height - 0.5) * 2, -1, 1);
-      }
-      if (pointerDown) {
-        const dx = e.clientX - lastPx;
-        const dy = e.clientY - lastPy;
-        lastPx = e.clientX;
-        lastPy = e.clientY;
-        userYaw = THREE.MathUtils.clamp(userYaw + dx * 0.006, -0.55, 0.55);
-        userPitch = THREE.MathUtils.clamp(userPitch + dy * 0.005, -0.42, 0.42);
-      }
-    };
-
-    const onUp = () => {
-      pointerDown = false;
-      isInteracting = false;
+      if (!rect) return;
+      pointerX = THREE.MathUtils.clamp(((e.clientX - rect.left) / rect.width - 0.5) * 2, -1, 1);
+      pointerY = THREE.MathUtils.clamp(-((e.clientY - rect.top) / rect.height - 0.5) * 2, -1, 1);
     };
 
     hostEl.addEventListener('pointerdown', onDown);
-    window.addEventListener('pointermove', onMove, { passive: true });
     window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointermove', onMove, { passive: true });
 
     const t0 = performance.now();
     const tick = (now: number) => {
       rafId = requestAnimationFrame(tick);
       if (!visible) return;
 
-      const sec = (now - t0) * 0.001;
-      glassReliefMat.uniforms.uTime.value = sec;
-      glassReliefMat.uniforms.uPointer.value.set(pointerX, pointerY);
-
+      const t = (now - t0) * 0.001;
       if (!reducedMotion) {
-        const wave = wasmMod
-          ? wasmMod.compute_wave_displacement(240, -180, Math.floor(sec * 1000)) / 1000
-          : Math.sin(sec * 1.15);
+        // Inner titanium helix rotates gracefully
+        dnaGroup.rotation.y = t * 0.26;
+        dnaGroup.rotation.x = pointerY * 0.08;
 
-        if (!pointerDown) {
-          userYaw *= 0.96;
-          userPitch *= 0.96;
+        // Outer translucent sapphire-violet crystal cage counter-rotates smoothly
+        crystalGroup.rotation.y = 0.34 - t * 0.16 + pointerX * 0.14;
+        crystalGroup.rotation.x = 0.22 + Math.sin(t * 0.24) * 0.08 + pointerY * 0.1;
+
+        // Sweeping satin orbits + dashed equatorial ring
+        orbitA.rotation.y = t * 0.14;
+        orbitB.rotation.y = -t * 0.12;
+        dashedRing.rotation.y = t * 0.18;
+
+        // Subtle pulse wave up the 12 quantum core capsules
+        const pulseY = ((t * 0.45) % 1.4) - 0.2;
+        for (let i = 0; i < capsules.length; i++) {
+          const cap = capsules[i];
+          const dist = Math.abs(cap.normY - pulseY);
+          const wave = Math.exp(-dist * dist * 22);
+          cap.coreMat.emissiveIntensity = 1.15 + 0.18 * Math.sin(t * 2.2 + i * 0.5) + wave * 1.1;
         }
 
-        // Smooth figure-8 3D sculptural rotation & tilt that keeps the full photorealistic silhouette natural
-        const autoYaw = Math.sin(sec * 0.75) * 0.24 + pointerX * 0.18 + userYaw;
-        const autoPitch = Math.cos(sec * 0.6) * 0.15 - pointerY * 0.14 + userPitch;
-        const autoRoll = Math.sin(sec * 0.45) * 0.065;
-
-        targetRotY += (autoYaw - targetRotY) * 0.07;
-        targetRotX += (autoPitch - targetRotX) * 0.07;
-
-        rootGroup.rotation.y = targetRotY;
-        rootGroup.rotation.x = targetRotX;
-        rootGroup.rotation.z = autoRoll;
-        rootGroup.position.y = wave * 0.065;
-
-        motes.rotation.z = sec * 0.12;
+        starField.rotation.y = t * 0.025;
       }
 
+      controls.update();
       renderer.render(scene, camera);
     };
     rafId = requestAnimationFrame(tick);
@@ -281,15 +610,24 @@
     return () => {
       cancelAnimationFrame(rafId);
       hostEl?.removeEventListener('pointerdown', onDown);
-      window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointermove', onMove);
       ro.disconnect();
       io.disconnect();
-      planeGeo.dispose();
-      glassReliefMat.dispose();
-      moteGeo.dispose();
-      moteMat.dispose();
-      sculptureTex.dispose();
+      controls.dispose();
+      envTex.dispose();
+      tiMaps.bumpMap.dispose();
+      tiMaps.roughnessMap.dispose();
+      silverMaps.bumpMap.dispose();
+      silverMaps.roughnessMap.dispose();
+      root.traverse((obj) => {
+        const mesh = obj as THREE.Mesh;
+        if (mesh.geometry) mesh.geometry.dispose();
+        if (mesh.material) {
+          if (Array.isArray(mesh.material)) mesh.material.forEach((m) => m.dispose());
+          else mesh.material.dispose();
+        }
+      });
       renderer.dispose();
       renderer.domElement.remove();
     };
@@ -301,7 +639,7 @@
   class:interacting={isInteracting}
   bind:this={hostEl}
   role="img"
-  aria-label="Interactive photorealistic 3D iridescent liquid-glass infinity sculpture floating on black background"
+  aria-label="Interactive 360-degree watchmaker PBR 3D titanium helix inside faceted sapphire crystal cage"
 >
   <div class="glass-aura" aria-hidden="true"></div>
 </div>
@@ -335,14 +673,14 @@
 
   .glass-aura {
     position: absolute;
-    width: 66%;
-    height: 58%;
+    width: 68%;
+    height: 60%;
     border-radius: 50%;
     background: radial-gradient(
       circle,
       rgba(1, 106, 212, 0.24) 0%,
-      rgba(252, 193, 244, 0.14) 44%,
-      rgba(0, 245, 160, 0.07) 68%,
+      rgba(124, 58, 237, 0.16) 44%,
+      rgba(0, 245, 160, 0.08) 68%,
       transparent 82%
     );
     filter: blur(46px);

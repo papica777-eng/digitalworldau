@@ -1,5 +1,6 @@
 ---
 import '../styles/main.scss';
+import CookieBanner from '../components/CookieBanner.svelte';
 
 interface Props {
   title?: string;
@@ -8,7 +9,7 @@ interface Props {
 }
 
 const {
-  title = 'Digital World AU — Award-Winning Digital Agency | Web Design, E-Commerce & Growth',
+  title = 'Digital World AU — Sovereign Digital Agency | Web Design, E-Commerce & Google Ads CRO',
   description = 'Digital World AU crafts high-converting websites, bespoke e-commerce stores, and performance marketing systems for ambitious brands in Australia and worldwide.',
   canonical = 'https://digitalworldau.com/',
 } = Astro.props;
@@ -27,11 +28,6 @@ const orgSchema = {
     addressRegion: 'NSW',
     postalCode: '2000',
     addressCountry: 'AU',
-  },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '5.0',
-    reviewCount: '104',
   },
 };
 ---
@@ -62,6 +58,7 @@ const orgSchema = {
   </head>
   <body>
     <slot />
+    <CookieBanner client:idle />
     <script>
       // Lightweight IntersectionObserver for smooth scroll reveals + pointer glow tracking
       const revealEls = document.querySelectorAll('[data-reveal]');

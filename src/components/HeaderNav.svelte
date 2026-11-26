@@ -26,7 +26,6 @@
   <div class="container header-inner">
     <BrandLogo onclick={closeAll} />
 
-    <!-- Centered sleek obsidian floating pill nav matching agma.bg -->
     <nav class="desktop-nav" aria-label="Primary navigation">
       <div
         class="mega-trigger-wrap"
@@ -50,7 +49,7 @@
             <div class="mega-col">
               <p class="mega-col__title">01 • Design</p>
               {#each MEGA_MENU.design as item}
-                <a href={item.href} class="mega-item" onclick={closeAll}>
+                <a href={item.href} data-preset-service={item.preset} class="mega-item" onclick={closeAll}>
                   <strong>{item.label}</strong>
                   <span>{item.desc}</span>
                 </a>
@@ -59,7 +58,7 @@
             <div class="mega-col">
               <p class="mega-col__title">02 • Development</p>
               {#each MEGA_MENU.development as item}
-                <a href={item.href} class="mega-item" onclick={closeAll}>
+                <a href={item.href} data-preset-service={item.preset} class="mega-item" onclick={closeAll}>
                   <strong>{item.label}</strong>
                   <span>{item.desc}</span>
                 </a>
@@ -68,7 +67,7 @@
             <div class="mega-col">
               <p class="mega-col__title">03 • Marketing</p>
               {#each MEGA_MENU.marketing as item}
-                <a href={item.href} class="mega-item" onclick={closeAll}>
+                <a href={item.href} data-preset-service={item.preset} class="mega-item" onclick={closeAll}>
                   <strong>{item.label}</strong>
                   <span>{item.desc}</span>
                 </a>
@@ -79,17 +78,17 @@
               <div>
                 <span class="tag">Free 2-Week Diagnostic</span>
                 <strong>Expert UX, Vitals &amp; SEO Audit</strong>
-                <a href="#contact" class="mega-promo__cta" onclick={closeAll}>Claim Audit →</a>
+                <a href="#contact" data-preset-audit class="mega-promo__cta" onclick={closeAll}>Claim Audit →</a>
               </div>
             </div>
           </div>
         {/if}
       </div>
 
-      <a href="#projects" class="nav-link">Projects</a>
-      <a href="#about" class="nav-link">About Us</a>
-      <a href="#blog" class="nav-link">Blog</a>
-      <a href="#contact" class="nav-link">Contact</a>
+      <a href="/#projects" class="nav-link">Projects</a>
+      <a href="/#about" class="nav-link">About Us</a>
+      <a href="/#blog" class="nav-link">Blog</a>
+      <a href="/#contact" class="nav-link">Contact</a>
     </nav>
 
     <div class="header-actions">
@@ -105,9 +104,14 @@
         <span class:active={currencyStore.code === 'EUR'}>EUR</span>
       </button>
 
-      <a href="#contact" class="cobalt-quote-cta">
+      <a href="/#contact" class="cobalt-quote-cta">
         <span>Get a Quote</span>
-        <span class="at-icon" aria-hidden="true">@</span>
+        <span class="arrow-circle" aria-hidden="true">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
+          </svg>
+        </span>
       </a>
 
       <button
@@ -136,19 +140,19 @@
         <div class="mobile-services">
           <span class="mobile-label">Services</span>
           <div class="mobile-chips">
-            <a href="#services" onclick={closeAll}>Design</a>
-            <a href="#services" onclick={closeAll}>Development</a>
-            <a href="#services" onclick={closeAll}>Marketing</a>
-            <a href="#services" onclick={closeAll}>Website Audit</a>
+            <a href="/#services" data-preset-service="UI/UX & Web Design" onclick={closeAll}>Design</a>
+            <a href="/#services" data-preset-service="Custom Development" onclick={closeAll}>Development</a>
+            <a href="/#services" data-preset-service="SEO & Paid Growth" onclick={closeAll}>Marketing</a>
+            <a href="/#contact" data-preset-audit onclick={closeAll}>Free Audit</a>
           </div>
         </div>
-        <a href="#projects" class="mobile-link" onclick={closeAll}>Projects</a>
-        <a href="#about" class="mobile-link" onclick={closeAll}>About Us</a>
-        <a href="#blog" class="mobile-link" onclick={closeAll}>Blog</a>
-        <a href="#contact" class="mobile-link" onclick={closeAll}>Contact</a>
-        <a href="#contact" class="cobalt-quote-cta mobile-cta" onclick={closeAll}>
+        <a href="/#projects" class="mobile-link" onclick={closeAll}>Projects</a>
+        <a href="/#about" class="mobile-link" onclick={closeAll}>About Us</a>
+        <a href="/#blog" class="mobile-link" onclick={closeAll}>Blog</a>
+        <a href="/#contact" class="mobile-link" onclick={closeAll}>Contact</a>
+        <a href="/#contact" class="cobalt-quote-cta mobile-cta" onclick={closeAll}>
           <span>Get a Quote</span>
-          <span class="at-icon" aria-hidden="true">@</span>
+          <span class="arrow-circle" aria-hidden="true">→</span>
         </a>
       </div>
     </div>
@@ -159,7 +163,6 @@
   @use '../styles/tokens' as *;
   @use '../styles/mixins' as *;
 
-  // Completely transparent at top so logo & nav float natively over the cobalt-black background
   .site-header {
     position: sticky;
     top: 0;
@@ -169,7 +172,7 @@
     transition: background $transition-fast, border-color $transition-fast, backdrop-filter $transition-fast;
 
     &.scrolled {
-      background: rgba(2, 3, 8, 0.84);
+      background: rgba(2, 3, 8, 0.86);
       backdrop-filter: blur(18px) saturate(140%);
       -webkit-backdrop-filter: blur(18px) saturate(140%);
       border-bottom-color: rgba(255, 255, 255, 0.06);
@@ -311,7 +314,6 @@
     gap: 1rem;
   }
 
-  // Frameless currency switcher directly embedded into dark background
   .currency-text {
     display: inline-flex;
     align-items: center;
@@ -334,7 +336,6 @@
     }
   }
 
-  // Electric cobalt pill CTA with circular '@' emblem mirroring agma.bg
   .cobalt-quote-cta {
     display: none;
     align-items: center;
@@ -358,15 +359,13 @@
       box-shadow: 0 12px 32px rgba(1, 106, 212, 0.62);
     }
 
-    .at-icon {
+    .arrow-circle {
       width: 26px;
       height: 26px;
       border-radius: 50%;
-      border: 1.5px solid rgba(255, 255, 255, 0.78);
+      background: rgba(255, 255, 255, 0.16);
       display: grid;
       place-items: center;
-      font-size: 0.78rem;
-      font-weight: 800;
     }
   }
 

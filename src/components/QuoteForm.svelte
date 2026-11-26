@@ -19,6 +19,7 @@
   let message = $state('');
   let acceptedPrivacy = $state(false);
   let dragging = $state(false);
+  let copiedEmail = $state(false);
 
   let attachmentName = $state('');
   let attachmentKind = $state('');
@@ -36,19 +37,43 @@
     }
   }
 
+  function copyEmail() {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      void navigator.clipboard.writeText('hello@digitalworldau.com');
+      copiedEmail = true;
+      setTimeout(() => {
+        copiedEmail = false;
+      }, 2200);
+    }
+  }
+
   $effect(() => {
-    const auditBtn = document.querySelector('[data-preset-audit]');
-    if (!auditBtn) return;
-    const handler = () => {
-      if (!selectedScopes.includes('Free 2-Week Website Audit')) {
-        selectedScopes = ['Free 2-Week Website Audit', ...selectedScopes];
+    const onDocumentClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      const auditTrigger = target.closest('[data-preset-audit]');
+      if (auditTrigger) {
+        if (!selectedScopes.includes('Free 2-Week Website Audit')) {
+          selectedScopes = ['Free 2-Week Website Audit', ...selectedScopes];
+        }
+        if (!message.trim()) {
+          message = 'Requesting the Free 2-Week Expert Website Audit (UX, Technical Core Web Vitals & SEO).';
+        }
+        return;
       }
-      if (!message.trim()) {
-        message = 'Requesting the Free 2-Week Expert Website Audit (UX, Technical Core Web Vitals & SEO).';
+
+      const serviceTrigger = target.closest('[data-preset-service]') as HTMLElement | null;
+      if (serviceTrigger) {
+        const preset = serviceTrigger.dataset.presetService;
+        if (preset && !selectedScopes.includes(preset)) {
+          selectedScopes = [preset, ...selectedScopes];
+        }
       }
     };
-    auditBtn.addEventListener('click', handler);
-    return () => auditBtn.removeEventListener('click', handler);
+
+    document.addEventListener('click', onDocumentClick);
+    return () => document.removeEventListener('click', onDocumentClick);
   });
 
   async function processFile(file: File | undefined) {
@@ -98,6 +123,14 @@
     try {
       const refCode = await generateInquiryRef(name.trim(), email.trim(), budgetIndex + 1);
       submittedRef = refCode;
+
+      const w = window as unknown as { gtag?: (...args: unknown[]) => void };
+      if (typeof w.gtag === 'function') {
+        w.gtag('event', 'generate_lead', {
+          currency: currencyStore.code,
+          event_label: selectedScopes.join(', '),
+        });
+      }
     } finally {
       submitting = false;
     }
@@ -114,9 +147,14 @@
       </p>
 
       <div class="contact-cards">
-        <div class="info-pill">
-          <span>Direct Studio Desk</span>
-          <a href="mailto:hello@digitalworldau.com">hello@digitalworldau.com</a>
+        <div class="info-pill info-pill--email">
+          <div>
+            <span>Direct Studio Desk</span>
+            <a href="mailto:hello@digitalworldau.com">hello@digitalworldau.com</a>
+          </div>
+          <button type="button" class="copy-email-btn" onclick={copyEmail}>
+            {copiedEmail ? '✓ Copied' : 'Copy Email'}
+          </button>
         </div>
         <div class="info-pill">
           <span>Australian Flagship</span>
@@ -183,14 +221,23 @@
                 <span>Phone Number</span>
                 <input type="tel" placeholder="+61 400 000 000" bind:value={phone} />
               </label>
-              <label class="field">
-                <span>Estimated Budget ({currencyStore.code})</span>
-                <select bind:value={budgetIndex}>
+              <div class="field">
+                <div class="budget-head">
+                  <label for="budget-select">Estimated Budget ({currencyStore.code})</label>
+                  <button
+                    type="button"
+                    class="inline-currency-switch"
+                    onclick={() => currencyStore.toggle()}
+                  >
+                    Switch to {currencyStore.code === 'AUD' ? 'EUR (€)' : 'AUD (A$)'}
+                  </button>
+                </div>
+                <select id="budget-select" bind:value={budgetIndex}>
                   {#each BUDGET_TIERS as _, idx}
                     <option value={idx}>{currencyStore.getTierLabel(idx)}</option>
                   {/each}
                 </select>
-              </label>
+              </div>
             </div>
 
             <label class="field">
@@ -236,7 +283,7 @@
             <label class="checkbox-field">
               <input type="checkbox" bind:checked={acceptedPrivacy} />
               <span>
-                I agree to the <a href="/privacy">Privacy Policy</a> and consent to Digital World AU processing my project inquiry.
+                I agree to the <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms of Engagement</a>.
               </span>
             </label>
 
@@ -280,6 +327,13 @@
     border-radius: $radius-md;
     padding: 1.05rem 1.25rem;
 
+    &--email {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
     span {
       display: block;
       font-family: $font-mono;
@@ -294,6 +348,23 @@
     strong {
       font-size: 0.98rem;
       color: $text-primary;
+    }
+  }
+
+  .copy-email-btn {
+    padding: 0.38rem 0.75rem;
+    border-radius: $radius-pill;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    font-family: $font-mono;
+    font-size: 0.72rem;
+    color: $accent-blue-light;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    &:hover {
+      border-color: $accent-emerald;
+      color: $accent-emerald;
     }
   }
 
@@ -347,6 +418,33 @@
 
     @include respond-up(sm) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .budget-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+
+    label {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+  }
+
+  .inline-currency-switch {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: $font-mono;
+    font-size: 0.7rem;
+    color: $accent-blue-light;
+    cursor: pointer;
+
+    &:hover {
+      color: $accent-emerald;
     }
   }
 

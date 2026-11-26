@@ -10,19 +10,25 @@ import SiteFooter from '../components/SiteFooter.astro';
   <HeaderNav client:load />
   <main class="section">
     <div class="container legal-wrap">
-      <span class="eyebrow">Legal Framework</span>
+      <span class="eyebrow">Commercial Terms</span>
       <h1 class="section-title">Terms of Engagement</h1>
       <p class="section-lead">
-        Clear, founder-friendly commercial terms governing audits, design sprints, custom development, and 100% client IP ownership.
+        Transparent, fixed-scope commercial terms governing complimentary website audits, UI/UX design sprints, custom development, and 100% client IP ownership.
       </p>
       <div class="legal-card">
-        <h2>1. Intellectual Property Ownership</h2>
-        <p>Upon final milestone settlement, 100% of custom source code, Figma design systems, and bespoke brand assets created under your engagement transfer exclusively to your business.</p>
-        <h2>2. Fixed-Scope Milestones</h2>
-        <p>Every engagement operates on written deliverables, staging review windows, and transparent AUD or EUR milestone schedules.</p>
-        <h2>3. Free 2-Week Expert Audit</h2>
-        <p>Complimentary UX, Core Web Vitals, and Technical SEO audits carry zero obligation and are delivered as actionable written roadmaps.</p>
-        <a href="/" class="btn btn-ghost">← Back to Home</a>
+        <h2>1. Full Intellectual Property Ownership</h2>
+        <p>Upon settlement of the final project milestone, 100% of custom source code, Figma design systems, WebAssembly modules, and bespoke digital assets created for your project transfer exclusively to your business.</p>
+
+        <h2>2. Fixed-Scope Milestones &amp; Currency</h2>
+        <p>Proposals are issued in Australian Dollars (AUD) or Euros (EUR) with clearly defined deliverables, staging review rounds, and zero surprise hourly overages.</p>
+
+        <h2>3. Free 2-Week Expert Website Audit</h2>
+        <p>Complimentary UX, Core Web Vitals, and Technical SEO audits carry zero contractual obligation and are delivered as a written action roadmap within 14 days.</p>
+
+        <h2>4. Governing Law &amp; Direct Contact</h2>
+        <p>These terms are governed by the laws of New South Wales, Australia. Questions may be sent directly to <a href="mailto:hello@digitalworldau.com">hello@digitalworldau.com</a>.</p>
+
+        <a href="/" class="btn btn-ghost">← Return to Digital World AU</a>
       </div>
     </div>
   </main>
@@ -55,6 +61,11 @@ import SiteFooter from '../components/SiteFooter.astro';
     p {
       margin: 0 0 1rem;
       color: $text-secondary;
+    }
+
+    a:not(.btn) {
+      color: $accent-blue-light;
+      text-decoration: underline;
     }
 
     .btn {

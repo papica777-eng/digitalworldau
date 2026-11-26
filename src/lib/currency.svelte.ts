@@ -7,14 +7,25 @@ export type CurrencyCode = 'AUD' | 'EUR';
 // 1 EUR = 1.6500 AUD (16500 basis points)
 const EUR_TO_AUD_BPS = 16_500;
 
+function formatAudDollars(cents: number): string {
+  const dollars = Math.round(cents / 100);
+  return `A$${dollars.toLocaleString('en-AU')}`;
+}
+
+function formatEurEuros(cents: number): string {
+  const euros = Math.round(cents / 100);
+  return `€${euros.toLocaleString('en-IE')}`;
+}
+
 class CurrencyStore {
   code = $state<CurrencyCode>('AUD');
-  audTiers = $state<string[]>([
-    'A$3.3k–A$8.3k',
-    'A$8.3k–A$16.5k',
-    'A$16.5k–A$33k',
-    'A$33k–A$82.5k',
-  ]);
+  audTiers = $state<string[]>(
+    BUDGET_TIERS.map((t) => {
+      const minCents = Math.floor((t.minEurCents * EUR_TO_AUD_BPS + 5000) / 10000);
+      const maxCents = Math.floor((t.maxEurCents * EUR_TO_AUD_BPS + 5000) / 10000);
+      return `${formatAudDollars(minCents)} – ${formatAudDollars(maxCents)}`;
+    })
+  );
 
   constructor() {
     if (typeof window !== 'undefined') {
@@ -35,7 +46,7 @@ class CurrencyStore {
     for (const tier of BUDGET_TIERS) {
       const minAudCents = await convertEurCentsToAudCents(tier.minEurCents, EUR_TO_AUD_BPS);
       const maxAudCents = await convertEurCentsToAudCents(tier.maxEurCents, EUR_TO_AUD_BPS);
-      formatted.push(`${formatCompactAud(minAudCents)}–${formatCompactAud(maxAudCents)}`);
+      formatted.push(`${formatAudDollars(minAudCents)} – ${formatAudDollars(maxAudCents)}`);
     }
     this.audTiers = formatted;
   }
@@ -43,16 +54,11 @@ class CurrencyStore {
   getTierLabel(index: number): string {
     const tier = BUDGET_TIERS[index];
     if (!tier) return '';
-    if (this.code === 'EUR') return tier.labelEur;
-    return `${this.audTiers[index]} (${tier.labelEur})`;
+    if (this.code === 'EUR') {
+      return `${formatEurEuros(tier.minEurCents)} – ${formatEurEuros(tier.maxEurCents)}`;
+    }
+    return this.audTiers[index];
   }
-}
-
-function formatCompactAud(cents: number): string {
-  const dollars = cents / 100;
-  const k = dollars / 1000;
-  const clean = Number.isInteger(k) ? k.toString() : k.toFixed(1).replace(/\.0$/, '');
-  return `A$${clean}k`;
 }
 
 export const currencyStore = new CurrencyStore();

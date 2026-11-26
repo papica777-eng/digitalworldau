@@ -10,9 +10,6 @@
       ? PORTFOLIO_ITEMS
       : PORTFOLIO_ITEMS.filter((item) => item.category === selected)
   );
-
-  let rowA = $derived(filtered.filter((_, i) => i % 2 === 0));
-  let rowB = $derived(filtered.filter((_, i) => i % 2 === 1));
 </script>
 
 <section class="section portfolio-section" id="projects" aria-labelledby="projects-heading">
@@ -22,7 +19,7 @@
         <span class="eyebrow">Selected Flagships &amp; Own Productions</span>
         <h2 class="section-title" id="projects-heading">Creating digital masterpieces every day.</h2>
         <p class="section-lead">
-          Explore our live Australian flagship platforms—including <a href="https://anchialo.com" target="_blank" rel="noopener" class="inline-domain">anchialo.com ↗</a> and <a href="https://cptmma.com" target="_blank" rel="noopener" class="inline-domain">cptmma.com ↗</a>—alongside bespoke global storefronts and web applications.
+          Explore our live Australian platforms—including <a href="https://anchialo.com" target="_blank" rel="noopener" class="inline-domain">anchialo.com ↗</a> and <a href="https://cptmma.com" target="_blank" rel="noopener" class="inline-domain">cptmma.com ↗</a>—alongside bespoke storefront and web engineering builds.
         </p>
       </div>
       <div class="filter-pills" role="tablist" aria-label="Filter projects by type">
@@ -39,51 +36,11 @@
         {/each}
       </div>
     </div>
-  </div>
 
-  <!-- Dual-Row Counter-Scrolling Mockup Wall -->
-  {#if selected === 'All'}
-    <div class="marquee-wall" aria-label="Interactive showcase wall">
-      <div class="marquee-track marquee-track--left">
-        {#each [...rowA, ...rowA] as project, idx (`a-${project.id}-${idx}`)}
-          <button type="button" class="wall-card" onclick={() => (lightboxItem = project)}>
-            <div class="wall-card__img">
-              <img src={project.image} alt={`${project.title} desktop UI`} loading="lazy" />
-              <span class="wall-card__badge">{project.metric}</span>
-            </div>
-            <div class="wall-card__meta">
-              <div>
-                <strong>{project.title}</strong>
-                <span>{project.liveDomain ? `${project.liveDomain} ↗` : project.region}</span>
-              </div>
-              <span class="tag">{project.category}</span>
-            </div>
-          </button>
-        {/each}
-      </div>
-
-      <div class="marquee-track marquee-track--right">
-        {#each [...rowB, ...rowB] as project, idx (`b-${project.id}-${idx}`)}
-          <button type="button" class="wall-card" onclick={() => (lightboxItem = project)}>
-            <div class="wall-card__img">
-              <img src={project.image} alt={`${project.title} desktop UI`} loading="lazy" />
-              <span class="wall-card__badge">{project.metric}</span>
-            </div>
-            <div class="wall-card__meta">
-              <div>
-                <strong>{project.title}</strong>
-                <span>{project.liveDomain ? `${project.liveDomain} ↗` : project.region}</span>
-              </div>
-              <span class="tag">{project.category}</span>
-            </div>
-          </button>
-        {/each}
-      </div>
-    </div>
-  {:else}
-    <div class="container filtered-grid">
+    <!-- Clean zero-duplicate Showcase Grid (each project appears exactly once) -->
+    <div class="showcase-grid" data-reveal>
       {#each filtered as project (project.id)}
-        <button type="button" class="wall-card wall-card--grid" onclick={() => (lightboxItem = project)}>
+        <button type="button" class="wall-card" onclick={() => (lightboxItem = project)}>
           <div class="wall-card__img">
             <img src={project.image} alt={`${project.title} desktop UI`} loading="lazy" />
             <span class="wall-card__badge">{project.metric}</span>
@@ -98,72 +55,76 @@
         </button>
       {/each}
     </div>
-  {/if}
 
-  <!-- Featured Video Case Studies (leading with anchialo.com & cptmma.com!) -->
-  <div class="container case-studies">
-    {#each CASE_STUDIES as study}
-      <article class="case-card" data-glow-card data-reveal>
-        <div class="case-card__visual">
-          <div class="browser-bar">
-            <span></span><span></span><span></span>
-            {#if study.liveUrl}
-              <a href={study.liveUrl} target="_blank" rel="noopener" class="browser-url">
-                https://{study.liveDomain} ↗
-              </a>
-            {:else}
-              <small>{study.client}</small>
-            {/if}
-          </div>
-          <video
-            src={study.video}
-            poster={study.poster}
-            autoplay
-            loop
-            muted
-            playsinline
-          ></video>
-        </div>
-
-        <div class="case-card__content">
-          <div class="case-card__tags">
-            <span class="tag">{study.tag}</span>
-            <span class="live-chip">● Live Production Case Study</span>
-          </div>
-          <h3>{study.client}</h3>
-          <p class="case-card__headline">{study.headline}</p>
-
-          <div class="case-stats">
-            {#each study.stats as stat}
-              <div>
-                <strong>{stat.value}</strong>
-                <span>{stat.label}</span>
-              </div>
-            {/each}
+    <!-- Featured Video Case Studies -->
+    <div class="case-studies">
+      {#each CASE_STUDIES as study}
+        <article class="case-card" data-glow-card data-reveal>
+          <div class="case-card__visual">
+            <div class="browser-bar">
+              <span></span><span></span><span></span>
+              {#if study.liveUrl}
+                <a href={study.liveUrl} target="_blank" rel="noopener" class="browser-url">
+                  https://{study.liveDomain} ↗
+                </a>
+              {:else}
+                <small>{study.client}</small>
+              {/if}
+            </div>
+            <video
+              src={study.video}
+              poster={study.poster}
+              autoplay
+              loop
+              muted
+              playsinline
+            ></video>
           </div>
 
-          <blockquote class="case-quote">
-            “{study.quote}”
-          </blockquote>
+          <div class="case-card__content">
+            <div class="case-card__tags">
+              <span class="tag">{study.tag}</span>
+              <span class="live-chip">● Live Case Study</span>
+            </div>
+            <h3>{study.client}</h3>
+            <p class="case-card__headline">{study.headline}</p>
 
-          <div class="case-card__footer">
-            <div class="case-author">
-              <img src={study.avatar} alt={study.author} loading="lazy" />
-              <div>
-                <strong>{study.author}</strong>
-                <span>{study.role}</span>
-              </div>
+            <div class="case-stats">
+              {#each study.stats as stat}
+                <div>
+                  <strong>{stat.value}</strong>
+                  <span>{stat.label}</span>
+                </div>
+              {/each}
             </div>
 
-            {#if study.liveUrl}
-              <a href={study.liveUrl} target="_blank" rel="noopener" class="btn btn-primary live-visit-btn">
-                Visit {study.liveDomain} ↗
-              </a>
-            {/if}
+            <blockquote class="case-quote">
+              “{study.quote}”
+            </blockquote>
+
+            <div class="case-card__footer">
+              <div class="case-author">
+                {#if study.avatar}
+                  <img src={study.avatar} alt={study.author} loading="lazy" />
+                {:else}
+                  <span class="monogram-avatar" aria-hidden="true">{study.monogram}</span>
+                {/if}
+                <div>
+                  <strong>{study.author}</strong>
+                  <span>{study.role}</span>
+                </div>
+              </div>
+
+              {#if study.liveUrl}
+                <a href={study.liveUrl} target="_blank" rel="noopener" class="btn btn-primary live-visit-btn">
+                  Visit {study.liveDomain} ↗
+                </a>
+              {/if}
+            </div>
           </div>
-        </div>
-      </article>
-    {/each}
+        </article>
+      {/each}
+    </div>
   </div>
 
   {#if lightboxItem}
@@ -207,24 +168,6 @@
   @use '../styles/tokens' as *;
   @use '../styles/mixins' as *;
 
-  @keyframes scrollLeft {
-    from {
-      transform: translate3d(0, 0, 0);
-    }
-    to {
-      transform: translate3d(-50%, 0, 0);
-    }
-  }
-
-  @keyframes scrollRight {
-    from {
-      transform: translate3d(-50%, 0, 0);
-    }
-    to {
-      transform: translate3d(0, 0, 0);
-    }
-  }
-
   .inline-domain {
     color: $accent-emerald;
     font-weight: 700;
@@ -242,89 +185,6 @@
     > div:first-child {
       max-width: 700px;
     }
-  }
-
-  .flagship-spotlight-grid {
-    display: grid;
-    gap: 1.5rem;
-    margin-bottom: 2.75rem;
-
-    @include respond-up(lg) {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  .flagship-banner {
-    @include interactive-card;
-    display: flex;
-    flex-direction: column;
-    border-color: rgba(0, 245, 160, 0.25);
-
-    &__media {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform $transition-smooth;
-      }
-    }
-
-    &:hover &__media img {
-      transform: scale(1.04);
-    }
-
-    &__body {
-      padding: 1.45rem 1.55rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-      flex: 1;
-
-      h3 {
-        margin: 0;
-        font-size: 1.32rem;
-        letter-spacing: -0.02em;
-      }
-
-      p {
-        margin: 0;
-        font-size: 0.9rem;
-        color: $text-secondary;
-      }
-    }
-
-    &__top {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.5rem;
-    }
-  }
-
-  .live-pill {
-    position: absolute;
-    top: 0.85rem;
-    left: 0.85rem;
-    padding: 0.3rem 0.78rem;
-    border-radius: $radius-pill;
-    background: rgba(2, 3, 8, 0.88);
-    border: 1px solid rgba(0, 245, 160, 0.55);
-    color: $accent-emerald;
-    font-family: $font-mono;
-    font-size: 0.7rem;
-    font-weight: 700;
-  }
-
-  .visit-cta {
-    font-family: $font-mono;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: $accent-emerald;
   }
 
   .filter-pills {
@@ -352,57 +212,28 @@
     }
   }
 
-  .marquee-wall {
-    display: flex;
-    flex-direction: column;
-    gap: 1.35rem;
-    overflow: hidden;
-    padding-block: 0.5rem;
-    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-  }
-
-  .marquee-track {
-    display: flex;
-    gap: 1.35rem;
-    width: max-content;
-
-    &--left {
-      animation: scrollLeft 42s linear infinite;
-    }
-
-    &--right {
-      animation: scrollRight 46s linear infinite;
-    }
-
-    &:hover {
-      animation-play-state: paused;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      animation: none;
-    }
-  }
-
-  .filtered-grid {
+  .showcase-grid {
     display: grid;
     gap: 1.35rem;
     grid-template-columns: 1fr;
 
-    @include respond-up(md) {
+    @include respond-up(sm) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include respond-up(xl) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 
   .wall-card {
     @include interactive-card;
-    width: clamp(300px, 34vw, 440px);
+    width: 100%;
     padding: 0.85rem;
     text-align: left;
     cursor: pointer;
-
-    &--grid {
-      width: 100%;
-    }
+    display: flex;
+    flex-direction: column;
 
     &__img {
       position: relative;
@@ -432,7 +263,7 @@
       border: 1px solid rgba(0, 245, 160, 0.42);
       color: $accent-emerald;
       font-family: $font-mono;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 700;
     }
 
@@ -442,22 +273,23 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.75rem;
+      flex: 1;
 
       strong {
         display: block;
-        font-size: 1.02rem;
+        font-size: 0.98rem;
         color: #ffffff;
       }
 
       span:not(.tag) {
-        font-size: 0.77rem;
+        font-size: 0.76rem;
         color: $accent-blue-light;
       }
     }
   }
 
   .case-studies {
-    margin-top: 4.25rem;
+    margin-top: 4rem;
     display: grid;
     gap: 2.25rem;
   }
@@ -607,6 +439,21 @@
       font-size: 0.78rem;
       color: $text-muted;
     }
+  }
+
+  .monogram-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-family: $font-mono;
+    font-weight: 800;
+    font-size: 0.85rem;
+    background: rgba(1, 106, 212, 0.24);
+    border: 1px solid rgba(132, 181, 230, 0.42);
+    color: $accent-emerald;
+    flex-shrink: 0;
   }
 
   .lightbox {
