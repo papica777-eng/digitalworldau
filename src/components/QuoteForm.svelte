@@ -29,6 +29,8 @@
   let budgetIndex = $state(0);
   let message = $state('');
   let companyWebsite = $state('');
+  let auditWebsite = $state('');
+  let isAuditMode = $derived(selectedScopes.includes('Free 48-Hour Website Audit'));
   let acceptedPrivacy = $state(false);
   let dragging = $state(false);
   let copiedEmail = $state(false);
@@ -145,6 +147,10 @@
       formError = 'Please enter a valid work email address.';
       return;
     }
+    if (isAuditMode && auditWebsite.trim().length < 3) {
+      formError = 'Please enter your current website URL so we can perform the audit.';
+      return;
+    }
     if (!acceptedPrivacy) {
       formError = 'Please accept our Privacy Policy before submitting.';
       return;
@@ -155,18 +161,22 @@
       const refCode = await generateInquiryRef(name.trim(), email.trim(), budgetIndex + 1);
       const scopesText = selectedScopes.join(', ') || 'Custom Scope';
       const budgetText = currencyStore.getTierLabelFor(budgetIndex, activeCurrency);
+      const auditLine = isAuditMode ? `Target Website for Audit: ${auditWebsite.trim()}` : '';
       const summaryLines = [
         `Reference: ${refCode}`,
         `Name: ${name.trim()}`,
         `Work Email: ${email.trim()}`,
         `Phone: ${phone.trim() || 'Not provided'}`,
+        auditLine,
         `Selected Services: ${scopesText}`,
         `Estimated Budget (${activeCurrency}): ${budgetText}`,
         `Attachment Verified: ${attachmentName || 'None'}`,
         '',
         'Project Overview:',
-        message.trim() || '(No additional notes)',
-      ];
+        isAuditMode
+          ? `Requested Free 48-Hour Website Audit for: ${auditWebsite.trim()}`
+          : (message.trim() || '(No additional notes)'),
+      ].filter(Boolean);
       const summaryBody = summaryLines.join('\n');
       submittedMailto = `mailto:hello@digitalworldau.com?subject=${encodeURIComponent(`[${refCode}] Project Inquiry — ${name.trim()}`)}&body=${encodeURIComponent(summaryBody)}`;
       submittedWhatsAppAu = `https://wa.me/61423269586?text=${encodeURIComponent(summaryBody)}`;
@@ -358,70 +368,94 @@
               </div>
             </div>
 
-            <div class="form-row-2">
-              <label class="field">
-                <span>Full Name *</span>
-                <input type="text" required placeholder="Olivia Bennett" bind:value={name} />
-              </label>
-              <label class="field">
-                <span>Work Email *</span>
-                <input type="email" required placeholder="olivia@company.com.au" bind:value={email} />
-              </label>
-            </div>
+            {#if isAuditMode}
+              <div class="form-row-2">
+                <label class="field">
+                  <span>Full Name *</span>
+                  <input type="text" required placeholder="Olivia Bennett" bind:value={name} />
+                </label>
+                <label class="field">
+                  <span>Work Email *</span>
+                  <input type="email" required placeholder="olivia@company.com.au" bind:value={email} />
+                </label>
+              </div>
 
-            <div class="form-row-2">
+              <div class="form-row-2">
+                <label class="field">
+                  <span>Phone Number (Call / WhatsApp)</span>
+                  <input type="tel" placeholder="+61 400 000 000" bind:value={phone} />
+                </label>
+                <label class="field">
+                  <span>Current Website to Audit *</span>
+                  <input type="text" required placeholder="https://yourbusiness.com.au" bind:value={auditWebsite} />
+                </label>
+              </div>
+            {:else}
+              <div class="form-row-2">
+                <label class="field">
+                  <span>Full Name *</span>
+                  <input type="text" required placeholder="Olivia Bennett" bind:value={name} />
+                </label>
+                <label class="field">
+                  <span>Work Email *</span>
+                  <input type="email" required placeholder="olivia@company.com.au" bind:value={email} />
+                </label>
+              </div>
+
+              <div class="form-row-2">
+                <label class="field">
+                  <span>Phone Number</span>
+                  <input type="tel" placeholder="+61 400 000 000" bind:value={phone} />
+                </label>
+                <label class="field">
+                  <span>Estimated Budget ({activeCurrency})</span>
+                  <select id="budget-select" bind:value={budgetIndex}>
+                    {#each BUDGET_TIERS as _, idx}
+                      <option value={idx}>{currencyStore.getTierLabelFor(idx, activeCurrency)}</option>
+                    {/each}
+                  </select>
+                </label>
+              </div>
+
               <label class="field">
-                <span>Phone Number</span>
-                <input type="tel" placeholder="+61 400 000 000" bind:value={phone} />
+                <span>Project Overview &amp; Objectives</span>
+                <textarea
+                  rows="4"
+                  placeholder="Tell us about your current site, target KPIs, desired launch window..."
+                  bind:value={message}
+                ></textarea>
               </label>
-              <label class="field">
-                <span>Estimated Budget ({activeCurrency})</span>
-                <select id="budget-select" bind:value={budgetIndex}>
-                  {#each BUDGET_TIERS as _, idx}
-                    <option value={idx}>{currencyStore.getTierLabelFor(idx, activeCurrency)}</option>
-                  {/each}
-                </select>
-              </label>
-            </div>
 
-            <label class="field">
-              <span>Project Overview &amp; Objectives</span>
-              <textarea
-                rows="4"
-                placeholder="Tell us about your current site, target KPIs, desired launch window, or request the Free 48-Hour Website Audit..."
-                bind:value={message}
-              ></textarea>
-            </label>
+              <div
+                class="dropzone"
+                class:dragging
+                ondragover={(e) => {
+                  e.preventDefault();
+                  dragging = true;
+                }}
+                ondragleave={() => (dragging = false)}
+                ondrop={onDrop}
+              >
+                <input
+                  id="brief-upload"
+                  type="file"
+                  accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
+                  onchange={onFileInput}
+                />
+                <label for="brief-upload">
+                  {#if attachmentName}
+                    <strong class="ok">✓ Verified {attachmentKind}: {attachmentName}</strong>
+                    <span>Checked privately inside your browser for security.</span>
+                  {:else}
+                    <strong>Attach Project Brief, RFP or Wireframes (Optional)</strong>
+                    <span>Drag &amp; drop or browse — .pdf, .doc, .png, .jpg up to 10MB</span>
+                  {/if}
+                </label>
+              </div>
 
-            <div
-              class="dropzone"
-              class:dragging
-              ondragover={(e) => {
-                e.preventDefault();
-                dragging = true;
-              }}
-              ondragleave={() => (dragging = false)}
-              ondrop={onDrop}
-            >
-              <input
-                id="brief-upload"
-                type="file"
-                accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
-                onchange={onFileInput}
-              />
-              <label for="brief-upload">
-                {#if attachmentName}
-                  <strong class="ok">✓ Verified {attachmentKind}: {attachmentName}</strong>
-                  <span>Checked privately inside your browser for security.</span>
-                {:else}
-                  <strong>Attach Project Brief, RFP or Wireframes</strong>
-                  <span>Drag &amp; drop or browse — .pdf, .doc, .png, .jpg up to 10MB</span>
-                {/if}
-              </label>
-            </div>
-
-            {#if attachmentError}
-              <p class="error-msg" role="alert">{attachmentError}</p>
+              {#if attachmentError}
+                <p class="error-msg" role="alert">{attachmentError}</p>
+              {/if}
             {/if}
 
             <label class="checkbox-field">
@@ -436,7 +470,13 @@
             {/if}
 
             <button type="submit" class="btn btn-primary submit-btn" disabled={submitting}>
-              {submitting ? 'Verifying Brief...' : 'Book a Call / Get a Quote'}
+              {#if submitting}
+                Verifying Brief...
+              {:else if isAuditMode}
+                Get My Free 48-Hour Website Audit →
+              {:else}
+                Book a Call / Get a Quote
+              {/if}
             </button>
           </form>
         {/if}

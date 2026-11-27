@@ -6,10 +6,11 @@ export interface BudgetTier {
 }
 
 export const BUDGET_TIERS: BudgetTier[] = [
-  { id: 1, labelEur: '€600 – €1,500', minEurCents: 60_000, maxEurCents: 150_000 },
-  { id: 2, labelEur: '€1,500 – €5,000', minEurCents: 150_000, maxEurCents: 500_000 },
-  { id: 3, labelEur: '€5,000 – €10,000', minEurCents: 500_000, maxEurCents: 1_000_000 },
-  { id: 4, labelEur: '€10,000 – €25,000+', minEurCents: 1_000_000, maxEurCents: 2_500_000 },
+  { id: 1, labelEur: '€300 – €600', minEurCents: 30_303, maxEurCents: 60_000 },
+  { id: 2, labelEur: '€600 – €1,500', minEurCents: 60_000, maxEurCents: 150_000 },
+  { id: 3, labelEur: '€1,500 – €5,000', minEurCents: 150_000, maxEurCents: 500_000 },
+  { id: 4, labelEur: '€5,000 – €10,000', minEurCents: 500_000, maxEurCents: 1_000_000 },
+  { id: 5, labelEur: '€10,000 – €25,000+', minEurCents: 1_000_000, maxEurCents: 2_500_000 },
 ];
 
 export const MEGA_MENU = {
@@ -771,7 +772,7 @@ export const FAQ_ITEMS = [
   },
   {
     q: 'How is custom project pricing structured?',
-    a: 'We work on transparent, fixed-scope milestones in AUD or EUR—starting from A$990–A$2,475 (€600–€1,500) for rapid-turnaround starter launchpads with modular feature add-ons, through A$2,475–A$8,250 (€1,500–€5,000) for comprehensive corporate platforms, up to A$16,500–A$41,250+ (€10,000–€25,000+) for custom multi-region e-commerce flagships and bespoke web applications.',
+    a: 'We work on transparent, fixed-scope milestones in AUD or EUR—starting from A$500–A$990 (€300–€600) for rapid-turnaround starter launchpads and one-page sprints, through A$990–A$2,475 (€600–€1,500) for multi-page conversion sites, up to A$16,500–A$41,250+ (€10,000–€25,000+) for custom multi-region e-commerce flagships and bespoke web applications.',
   },
 ];
 
