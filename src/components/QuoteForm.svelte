@@ -217,6 +217,13 @@
         __dwTracking?: { gadsId?: string; leadLabel?: string };
       };
       if (typeof w.gtag === 'function') {
+        // Google Ads Enhanced Conversions: send user data for SHA-256 matching
+        if (email.trim() || phone.trim()) {
+          w.gtag('set', 'user_data', {
+            email: email.trim().toLowerCase(),
+            phone_number: phone.trim() || undefined,
+          });
+        }
         w.gtag('event', 'generate_lead', {
           currency: activeCurrency,
           event_label: scopesText,
