@@ -119,6 +119,18 @@ function buildMimeMessage(params: {
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    try {
+      return await handleRequest(request, env, ctx);
+    } catch (err) {
+      return jsonResponse(
+        { ok: false, error: err instanceof Error ? err.message : String(err) },
+        500
+      );
+    }
+  },
+};
+
+async function handleRequest(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204 });
     }
@@ -294,5 +306,4 @@ export default {
       delivered,
       emailError: emailError || undefined,
     });
-  },
-};
+}
