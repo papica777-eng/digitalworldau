@@ -258,6 +258,9 @@
 </script>
 
 <section class="section contact-section" id="contact" aria-labelledby="contact-heading">
+  <div class="contact-ambient-silk" aria-hidden="true">
+    <img src="/media/silk-frame-glow.webp" alt="" loading="lazy" decoding="async" />
+  </div>
   <div class="container contact-grid">
     <div class="contact-info" data-reveal>
       <span class="eyebrow">{eyebrow}</span>
@@ -445,6 +448,30 @@
 <style lang="scss">
   @use '../styles/tokens' as *;
   @use '../styles/mixins' as *;
+
+  .contact-section {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-ambient-silk {
+    position: absolute;
+    inset: -15% -10%;
+    width: 120%;
+    height: 130%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.24;
+    mix-blend-mode: screen;
+    filter: blur(14px);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+  }
 
   .contact-grid {
     display: grid;
