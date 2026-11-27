@@ -214,8 +214,22 @@
 
       const w = window as unknown as {
         gtag?: (...args: unknown[]) => void;
+        dataLayer?: Record<string, unknown>[];
         __dwTracking?: { gadsId?: string; leadLabel?: string };
       };
+      // Standard Google Tag Manager (GTM) dataLayer push with Enhanced Conversions user_data
+      w.dataLayer = w.dataLayer || [];
+      w.dataLayer.push({
+        event: 'lead_form_submit',
+        lead_type: scopesText,
+        estimated_budget: budgetText,
+        currency: activeCurrency,
+        user_data: {
+          email: email.trim().toLowerCase(),
+          phone_number: phone.trim() || undefined,
+        },
+      });
+
       if (typeof w.gtag === 'function') {
         // Google Ads Enhanced Conversions: send user data for SHA-256 matching
         if (email.trim() || phone.trim()) {

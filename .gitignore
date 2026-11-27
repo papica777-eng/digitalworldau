@@ -6,6 +6,7 @@ dist/
 !.env.example
 rust-agency-wasm/target/
 sales-kit/ads-videos/
+sales-kit/creative-assets/
 *.log
 .DS_Store
 Thumbs.db
