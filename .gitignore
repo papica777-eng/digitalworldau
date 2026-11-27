@@ -7,6 +7,10 @@ dist/
 rust-agency-wasm/target/
 sales-kit/ads-videos/
 sales-kit/creative-assets/
+public/media/gemini_generated_*
+public/media/Gemini_Generated_*
+public/media/*.mp4
+!public/media/tour-*.mp4
 *.log
 .DS_Store
 Thumbs.db

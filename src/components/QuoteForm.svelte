@@ -26,7 +26,7 @@
   let name = $state('');
   let email = $state('');
   let phone = $state('');
-  let budgetIndex = $state(1);
+  let budgetIndex = $state(0);
   let message = $state('');
   let companyWebsite = $state('');
   let acceptedPrivacy = $state(false);
