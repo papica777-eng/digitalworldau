@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1200, initial-scale=1" />
+    <title>Digital World AU — OG Preview Card (1200x630)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 1200px;
+        height: 630px;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: #04060d;
+        color: #f8fafc;
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .card {
+        position: relative;
+        width: 1200px;
+        height: 630px;
+        padding: 46px 52px;
+        display: grid;
+        grid-template-columns: 528px 1fr;
+        gap: 36px;
+        align-items: center;
+        background:
+          radial-gradient(circle at 14% 18%, rgba(0, 240, 255, 0.16) 0%, transparent 46%),
+          radial-gradient(circle at 82% 24%, rgba(1, 106, 212, 0.22) 0%, transparent 50%),
+          radial-gradient(circle at 74% 88%, rgba(0, 245, 160, 0.12) 0%, transparent 44%),
+          #04060d;
+      }
+
+      /* Subtle 48px architectural grid */
+      .card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 48px 48px;
+        pointer-events: none;
+      }
+
+      /* Top subtle edge highlight */
+      .card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        pointer-events: none;
+      }
+
+      /* Left column */
+      .left-col {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+      }
+
+      .top-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .brand-lockup {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .brand-name {
+        font-family: 'Unbounded', sans-serif;
+        font-size: 19px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        color: #ffffff;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .au-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3px 9px;
+        border-radius: 6px;
+        background: linear-gradient(135deg, #00f0ff, #016ad4, #00f5a0);
+        color: #030712;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+      }
+
+      .location-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        align-self: flex-start;
+        padding: 7px 14px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.72);
+        border: 1px solid rgba(0, 240, 255, 0.24);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: #e2e8f0;
+      }
+
+      .live-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #00f5a0;
+        box-shadow: 0 0 10px rgba(0, 245, 160, 0.9);
+        flex-shrink: 0;
+      }
+
+      .hero-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      h1 {
+        margin: 0;
+        font-family: 'Unbounded', sans-serif;
+        font-size: 44px;
+        font-weight: 700;
+        line-height: 1.08;
+        letter-spacing: -0.025em;
+        color: #ffffff;
+      }
+
+      .grad {
+        background: linear-gradient(90deg, #00f0ff 0%, #60a5fa 48%, #00f5a0 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .subhead {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1.45;
+        color: #cbd5e1;
+        max-width: 495px;
+      }
+
+      .bottom-trust {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .cta-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        align-self: flex-start;
+        padding: 11px 18px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, rgba(0, 240, 255, 0.16), rgba(0, 245, 160, 0.16));
+        border: 1px solid rgba(0, 245, 160, 0.45);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        color: #6ee7b7;
+        box-shadow: 0 8px 28px rgba(0, 245, 160, 0.12);
+      }
+
+      .meta-row {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        font-weight: 500;
+        color: #94a3b8;
+        letter-spacing: 0.02em;
+      }
+
+      .meta-row strong {
+        color: #f8fafc;
+        font-weight: 600;
+      }
+
+      /* Right column: Device Showcase */
+      .right-col {
+        position: relative;
+        z-index: 2;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+      }
+
+      .device-stage {
+        position: relative;
+        width: 560px;
+        height: 452px;
+      }
+
+      .stage-glow {
+        position: absolute;
+        inset: 28px 18px 20px;
+        border-radius: 36px;
+        background: radial-gradient(
+          circle at 55% 45%,
+          rgba(0, 240, 255, 0.22),
+          rgba(1, 106, 212, 0.14) 55%,
+          transparent 80%
+        );
+        filter: blur(24px);
+        z-index: 0;
+      }
+
+      /* MacBook Pro Dark Titanium */
+      .laptop {
+        position: relative;
+        z-index: 1;
+        width: 505px;
+        margin-top: 12px;
+      }
+
+      .laptop-lid {
+        border-radius: 16px 16px 6px 6px;
+        padding: 10px 10px 8px;
+        background: linear-gradient(165deg, #272d3d 0%, #111623 100%);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow:
+          0 28px 64px rgba(0, 0, 0, 0.72),
+          inset 0 1px 0 rgba(255, 255, 255, 0.14);
+      }
+
+      .laptop-bar {
+        height: 30px;
+        padding: 0 10px 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .traffic-dots {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .traffic-dots span {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      .traffic-dots span:nth-child(1) {
+        background: #ff5f56;
+      }
+      .traffic-dots span:nth-child(2) {
+        background: #ffbd2e;
+      }
+      .traffic-dots span:nth-child(3) {
+        background: #27c93f;
+      }
+
+      .url-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 4px 12px;
+        border-radius: 999px;
+        background: rgba(6, 10, 20, 0.86);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 500;
+        color: #e2e8f0;
+      }
+
+      .device-tag {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        color: #00f0ff;
+        text-transform: uppercase;
+      }
+
+      .laptop-screen {
+        width: 100%;
+        height: 315px;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .laptop-screen img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+      }
+
+      .laptop-base {
+        width: 525px;
+        margin-left: -10px;
+        height: 12px;
+        border-radius: 2px 2px 12px 12px;
+        background: linear-gradient(180deg, #4b5563 0%, #1f2937 65%, #0f172a 100%);
+        border-top: 1px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.65);
+        position: relative;
+      }
+
+      .laptop-base::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 72px;
+        height: 4px;
+        border-radius: 0 0 4px 4px;
+        background: #0f172a;
+      }
+
+      /* iPhone 16 Pro Titanium Overlapping */
+      .iphone {
+        position: absolute;
+        right: 0;
+        bottom: 8px;
+        z-index: 3;
+        width: 176px;
+        height: 326px;
+        border-radius: 28px;
+        padding: 8px;
+        background: linear-gradient(160deg, #334155 0%, #0f172a 45%, #020617 100%);
+        border: 1.5px solid rgba(255, 255, 255, 0.26);
+        box-shadow:
+          -14px 20px 44px rgba(0, 0, 0, 0.85),
+          0 0 0 1px rgba(0, 0, 0, 0.6),
+          inset 0 1px 0 rgba(255, 255, 255, 0.22);
+      }
+
+      .iphone-screen {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        overflow: hidden;
+        background: #050811;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .dynamic-island {
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 4;
+        width: 54px;
+        height: 14px;
+        border-radius: 999px;
+        background: #000000;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .iphone-photo {
+        position: relative;
+        width: 100%;
+        height: 176px;
+        flex-shrink: 0;
+      }
+
+      .iphone-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+
+      .iphone-photo::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(5, 8, 17, 0.28) 0%, transparent 38%, rgba(5, 8, 17, 0.96) 100%);
+      }
+
+      .iphone-body {
+        position: relative;
+        z-index: 2;
+        margin-top: -18px;
+        padding: 0 12px 14px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: linear-gradient(180deg, rgba(5, 8, 17, 0) 0%, #070b14 18%);
+      }
+
+      .iphone-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        align-self: flex-start;
+        padding: 3px 8px;
+        border-radius: 999px;
+        background: rgba(0, 245, 160, 0.14);
+        border: 1px solid rgba(0, 245, 160, 0.36);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        color: #6ee7b7;
+        text-transform: uppercase;
+      }
+
+      .iphone-title {
+        margin: 8px 0 3px;
+        font-family: 'Unbounded', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #ffffff;
+        letter-spacing: -0.01em;
+      }
+
+      .iphone-sub {
+        margin: 0;
+        font-size: 11px;
+        line-height: 1.35;
+        color: #94a3b8;
+      }
+
+      .iphone-cta {
+        margin-top: 10px;
+        padding: 9px 10px;
+        border-radius: 9px;
+        background: linear-gradient(135deg, #00f5a0 0%, #00d9f5 100%);
+        color: #030712;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 11.5px;
+        font-weight: 700;
+        text-align: center;
+        letter-spacing: 0.01em;
+        box-shadow: 0 6px 18px rgba(0, 245, 160, 0.28);
+      }
+
+      .showcase-caption {
+        margin-top: 22px;
+        padding-left: 6px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11.5px;
+        font-weight: 500;
+        color: #94a3b8;
+        letter-spacing: 0.04em;
+      }
+
+      .showcase-caption span {
+        color: #00f0ff;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <section class="left-col">
+        <div class="top-meta">
+          <div class="brand-lockup">
+            <svg width="38" height="38" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="fg" x1="6" y1="10" x2="58" y2="54" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#93c5fd" />
+                  <stop offset="52%" stop-color="#016ad4" />
+                  <stop offset="100%" stop-color="#00f5a0" />
+                </linearGradient>
+              </defs>
+              <rect width="64" height="64" rx="14" fill="#0b1120" stroke="rgba(255,255,255,0.14)" stroke-width="2" />
+              <path d="M19 20 L8 32 L19 44" stroke="url(#fg)" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M36 17 L26 47" stroke="url(#fg)" stroke-width="4.8" stroke-linecap="round" />
+              <path d="M45 20 L56 32 L45 44" stroke="url(#fg)" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <div class="brand-name">
+              DIGITAL WORLD <span class="au-badge">AU</span>
+            </div>
+          </div>
+
+          <div class="location-pill">
+            <span class="live-dot"></span>
+            MELBOURNE &bull; SYDNEY &bull; EUROPE
+          </div>
+        </div>
+
+        <div class="hero-copy">
+          <h1>
+            Websites &amp; Stores<br />
+            That Bring You<br />
+            <span class="grad">Clients.</span>
+          </h1>
+          <p class="subhead">
+            Bespoke Web Design, Fast E-Commerce &amp; Google Ads Architecture.
+          </p>
+        </div>
+
+        <div class="bottom-trust">
+          <div class="cta-pill">
+            <span class="live-dot"></span>
+            FREE 48-HOUR WEBSITE AUDIT
+          </div>
+          <div class="meta-row">
+            <strong>98/100</strong> Speed &nbsp;&bull;&nbsp; <strong>AUD / EUR</strong> &nbsp;&bull;&nbsp; digitalworldau.com
+          </div>
+        </div>
+      </section>
+
+      <section class="right-col">
+        <div class="device-stage">
+          <div class="stage-glow"></div>
+
+          <div class="laptop">
+            <div class="laptop-lid">
+              <div class="laptop-bar">
+                <div class="traffic-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="url-pill">
+                  <span class="live-dot" style="width:6px;height:6px;"></span>
+                  https://anchialo.com
+                </div>
+                <span class="device-tag">AU E-Commerce</span>
+              </div>
+              <div class="laptop-screen">
+                <img src="../public/media/showcase/poster-anchialo-hero.webp" alt="ANCHIALO AU Live Storefront" />
+              </div>
+            </div>
+            <div class="laptop-base"></div>
+          </div>
+
+          <div class="iphone">
+            <div class="iphone-screen">
+              <div class="dynamic-island"></div>
+              <div class="iphone-photo">
+                <img src="../public/media/mockup-cptmma.webp" alt="CPT MMA Melbourne Mobile Flagship" />
+              </div>
+              <div class="iphone-body">
+                <div>
+                  <div class="iphone-badge">cptmma.com</div>
+                  <h2 class="iphone-title">CPT MMA<br />MELBOURNE</h2>
+                  <p class="iphone-sub">Melbourne Sports Platform</p>
+                </div>
+                <div class="iphone-cta">Apply Now &rarr;</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="showcase-caption">
+          <span>LIVE PRODUCTIONS</span> &nbsp;&bull;&nbsp; anchialo.com &nbsp;&bull;&nbsp; cptmma.com &nbsp;&bull;&nbsp; aeterna.website
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
