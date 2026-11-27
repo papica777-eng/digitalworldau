@@ -11,23 +11,36 @@
     'SEO & Paid Growth',
   ];
 
-  let selectedScopes = $state<string[]>(['UI/UX & Web Design']);
+  let {
+    defaultScope = 'UI/UX & Web Design',
+    eyebrow = 'Start a Conversation',
+    heading = 'Book a Call or Request a Tailored Proposal.',
+  }: {
+    defaultScope?: string;
+    eyebrow?: string;
+    heading?: string;
+  } = $props();
+
+  let selectedScopes = $state<string[]>([defaultScope]);
   let activeCurrency = $state<CurrencyCode>(currencyStore.code);
   let name = $state('');
   let email = $state('');
   let phone = $state('');
   let budgetIndex = $state(1);
   let message = $state('');
+  let companyWebsite = $state('');
   let acceptedPrivacy = $state(false);
   let dragging = $state(false);
   let copiedEmail = $state(false);
 
+  let attachmentFile = $state<File | null>(null);
   let attachmentName = $state('');
   let attachmentKind = $state('');
   let attachmentError = $state('');
 
   let formError = $state('');
   let submittedRef = $state('');
+  let deliveryChannel = $state('');
   let submittedMailto = $state('');
   let submittedWhatsAppAu = $state('');
   let submittedWhatsAppEu = $state('');
@@ -94,6 +107,7 @@
 
   async function processFile(file: File | undefined) {
     attachmentError = '';
+    attachmentFile = null;
     attachmentName = '';
     attachmentKind = '';
     if (!file) return;
@@ -103,6 +117,7 @@
       attachmentError = 'Unsupported file or exceeds 10MB limit. Allowed: .pdf, .doc, .docx, .png, .jpg.';
       return;
     }
+    attachmentFile = file;
     attachmentName = `${file.name} (${(file.size / 1024).toFixed(0)} KB)`;
     attachmentKind = result.kind.toUpperCase();
   }
@@ -138,8 +153,6 @@
     submitting = true;
     try {
       const refCode = await generateInquiryRef(name.trim(), email.trim(), budgetIndex + 1);
-      submittedRef = refCode;
-
       const scopesText = selectedScopes.join(', ') || 'Custom Scope';
       const budgetText = currencyStore.getTierLabelFor(budgetIndex, activeCurrency);
       const summaryLines = [
@@ -159,16 +172,63 @@
       submittedWhatsAppAu = `https://wa.me/61423269586?text=${encodeURIComponent(summaryBody)}`;
       submittedWhatsAppEu = `https://wa.me/359896849882?text=${encodeURIComponent(summaryBody)}`;
 
+      const fd = new FormData();
+      fd.set('refCode', refCode);
+      fd.set('name', name.trim());
+      fd.set('email', email.trim());
+      fd.set('phone', phone.trim());
+      fd.set('scopes', scopesText);
+      fd.set('currency', activeCurrency);
+      fd.set('budget', budgetText);
+      fd.set('message', message.trim());
+      fd.set('companyWebsite', companyWebsite);
       if (typeof window !== 'undefined') {
-        window.location.href = submittedMailto;
+        fd.set('pageUrl', window.location.href);
+      }
+      if (attachmentFile) {
+        fd.set('attachment', attachmentFile, attachmentFile.name);
       }
 
-      const w = window as unknown as { gtag?: (...args: unknown[]) => void };
+      let serverDelivered = false;
+      try {
+        const res = await fetch('/api/inquiry', {
+          method: 'POST',
+          body: fd,
+        });
+        if (res.ok) {
+          const json = (await res.json()) as { ok?: boolean; refCode?: string };
+          if (json.ok) {
+            serverDelivered = true;
+            submittedRef = json.refCode || refCode;
+            deliveryChannel = 'Direct Studio Inbox & Instant Alert';
+          }
+        }
+      } catch {
+        serverDelivered = false;
+      }
+
+      if (!serverDelivered) {
+        submittedRef = refCode;
+        deliveryChannel = 'Direct App Handoff';
+      }
+
+      const w = window as unknown as {
+        gtag?: (...args: unknown[]) => void;
+        __dwTracking?: { gadsId?: string; leadLabel?: string };
+      };
       if (typeof w.gtag === 'function') {
         w.gtag('event', 'generate_lead', {
           currency: activeCurrency,
           event_label: scopesText,
         });
+        const gadsId = w.__dwTracking?.gadsId;
+        const leadLabel = w.__dwTracking?.leadLabel;
+        if (gadsId && leadLabel) {
+          w.gtag('event', 'conversion', {
+            send_to: `${gadsId}/${leadLabel}`,
+            currency: activeCurrency,
+          });
+        }
       }
     } finally {
       submitting = false;
@@ -179,8 +239,8 @@
 <section class="section contact-section" id="contact" aria-labelledby="contact-heading">
   <div class="container contact-grid">
     <div class="contact-info" data-reveal>
-      <span class="eyebrow">Start a Conversation</span>
-      <h2 class="section-title" id="contact-heading">Book a Call or Request a Tailored Proposal.</h2>
+      <span class="eyebrow">{eyebrow}</span>
+      <h2 class="section-title" id="contact-heading">{heading}</h2>
       <p class="section-lead">
         Share your goals, timeline, and optional brief. Our Melbourne, Sydney, and Bulgaria (EU) engineering leads respond within 1 business day with a structured scope—or your complimentary 48-hour expert website audit.
       </p>
@@ -216,28 +276,32 @@
       <div class="form-card" data-glow-card>
         {#if submittedRef}
           <div class="success-box" role="status">
-            <span class="pill-badge">Brief Verified &amp; Logged</span>
+            <span class="pill-badge">✓ Delivered • {deliveryChannel}</span>
             <h3>Thank you, {name}.</h3>
             <p>
-              Your inquiry ({selectedScopes.join(', ') || 'Custom Scope'}) has been registered under deterministic reference <code class="ref-code">{submittedRef}</code>. Send directly via email or WhatsApp below—our senior strategist will reply to <strong>{email}</strong> within one business day.
+              Your inquiry ({selectedScopes.join(', ') || 'Custom Scope'}) has been delivered directly to <strong>hello@digitalworldau.com</strong> under reference <code class="ref-code">{submittedRef}</code>. Our senior strategist will reply to <strong>{email}</strong> within one business day—or connect instantly via WhatsApp below.
             </p>
             <div class="success-actions">
-              <a href={submittedMailto} class="btn btn-primary">
-                Open in Email App ↗
-              </a>
-              <a href={submittedWhatsAppAu} target="_blank" rel="noopener" class="btn btn-ghost">
+              <a href={submittedWhatsAppAu} target="_blank" rel="noopener" class="btn btn-primary">
                 WhatsApp Australia (+61) ↗
               </a>
               <a href={submittedWhatsAppEu} target="_blank" rel="noopener" class="btn btn-ghost">
                 WhatsApp Europe (+359) ↗
               </a>
+              {#if deliveryChannel !== 'Direct Studio Inbox & Instant Alert'}
+                <a href={submittedMailto} class="btn btn-ghost">
+                  Send via Email App ↗
+                </a>
+              {/if}
             </div>
             <button
               type="button"
               class="btn btn-ghost"
               onclick={() => {
                 submittedRef = '';
+                deliveryChannel = '';
                 message = '';
+                attachmentFile = null;
                 attachmentName = '';
               }}
             >
@@ -246,6 +310,15 @@
           </div>
         {:else}
           <form onsubmit={onSubmit} novalidate>
+            <input
+              type="text"
+              name="companyWebsite"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+              class="honeypot-field"
+              bind:value={companyWebsite}
+            />
             <div class="scope-group">
               <span class="scope-label">What can we help you build?</span>
               <div class="scope-pills">
@@ -591,6 +664,15 @@
     width: 100%;
     padding-block: 1rem;
     font-size: 1rem;
+  }
+
+  .honeypot-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
   }
 
   .success-box {

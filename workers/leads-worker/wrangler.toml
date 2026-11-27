@@ -1,0 +1,16 @@
+name = "digitalworldau-leads"
+main = "src/index.ts"
+compatibility_date = "2026-11-26"
+
+routes = [
+  { pattern = "digitalworldau.com/api/inquiry*", zone_name = "digitalworldau.com" },
+  { pattern = "www.digitalworldau.com/api/inquiry*", zone_name = "digitalworldau.com" }
+]
+
+[[kv_namespaces]]
+binding = "LEADS_KV"
+id = "576ba218faa24fbfbfb65b8bec82a036"
+
+[[send_email]]
+name = "INQUIRY_MAILER"
+destination_address = "papica777@gmail.com"

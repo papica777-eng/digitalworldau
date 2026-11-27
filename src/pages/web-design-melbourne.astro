@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AnnouncementBar from '../components/AnnouncementBar.astro';
+import HeaderNav from '../components/HeaderNav.svelte';
+import QuoteForm from '../components/QuoteForm.svelte';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const schema = [
+  {
+    '@type': 'Service',
+    name: 'Web Design & Development Melbourne',
+    serviceType: 'Web Design Agency',
+    provider: { '@id': 'https://digitalworldau.com/#organization' },
+    areaServed: { '@type': 'City', name: 'Melbourne' },
+    description:
+      'High-converting custom websites, fast online stores, and Google Ads landing pages engineered in Melbourne & Ringwood VIC with 100% client ownership.',
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'AUD',
+      price: '3300',
+      availability: 'https://schema.org/InStock',
+    },
+  },
+];
+---
+
+<BaseLayout
+  title="Web Design Melbourne & Ringwood — Fast High-Converting Websites | Digital World AU"
+  description="Melbourne web design & development studio (Ringwood VIC). Custom business websites, fast online stores, and Google Ads landing pages built for sub-second speed and measurable local leads."
+  canonical="https://digitalworldau.com/web-design-melbourne/"
+  pageType="landing"
+  extraSchema={schema}
+>
+  <AnnouncementBar />
+  <HeaderNav client:load />
+
+  <main>
+    <section class="section landing-hero">
+      <div class="container">
+        <span class="eyebrow">Melbourne, Ringwood &amp; Geelong • Victoria</span>
+        <h1 class="section-title">Web Design in Melbourne built for speed, trust &amp; Google Ads ROI.</h1>
+        <p class="section-lead">
+          Based at 60 Charter St, Ringwood VIC 3134, Digital World AU engineers bespoke websites, online stores, and local SEO hubs for Melbourne academies, retailers, and service businesses—backed by live Victorian productions.
+        </p>
+
+        <div class="landing-actions">
+          <a href="#contact" class="btn btn-primary" data-preset-service="UI/UX & Web Design">Request a Melbourne Quote</a>
+          <a href="/free-website-audit/" class="btn btn-ghost">Claim Free 48-Hour Website Audit →</a>
+        </div>
+
+        <div class="proof-strip">
+          <a href="https://anchialo.com" target="_blank" rel="noopener" class="proof-card" data-glow-card>
+            <strong>anchialo.com ↗</strong>
+            <span>Melbourne Dispatched D2C Magnesium Store</span>
+          </a>
+          <a href="https://cptmma.com" target="_blank" rel="noopener" class="proof-card" data-glow-card>
+            <strong>cptmma.com ↗</strong>
+            <span>ONE Vet Coaching &amp; K9 Tracker (0.78s Mobile)</span>
+          </a>
+          <a href="https://immersionmma.com.au" target="_blank" rel="noopener" class="proof-card" data-glow-card>
+            <strong>immersionmma.com.au ↗</strong>
+            <span>Ringwood #1 Rated Martial Arts Academy</span>
+          </a>
+          <a href="https://www.paintersofgeelong.com.au" target="_blank" rel="noopener" class="proof-card" data-glow-card>
+            <strong>paintersofgeelong.com.au ↗</strong>
+            <span>Geelong &amp; Surf Coast Local SEO Platform</span>
+          </a>
+        </div>
+
+        <div class="deliverables-grid">
+          <article class="deliv-card" data-glow-card>
+            <h3>01 • Built for Mobile Buyers</h3>
+            <p>Instant sub-second mobile page loads with clear calls-to-action, zero-drop forms, and click-to-call Australian phone routing (+61 423 269 586).</p>
+          </article>
+          <article class="deliv-card" data-glow-card>
+            <h3>02 • Local Melbourne SEO</h3>
+            <p>Clean technical structure, Victorian suburb schema, and dedicated landing pages built to rank in Melbourne, Ringwood, and Geelong searches.</p>
+          </article>
+          <article class="deliv-card" data-glow-card>
+            <h3>03 • 100% Ownership Guarantee</h3>
+            <p>Fixed-scope AUD pricing starting from A$3,300 with complete source code, Figma design, and domain ownership transferred exclusively to you.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <QuoteForm
+      client:load
+      defaultScope="UI/UX & Web Design"
+      eyebrow="Melbourne Studio Desk"
+      heading="Discuss your Melbourne website or e-commerce build."
+    />
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style lang="scss">
+  @use '../styles/tokens' as *;
+  @use '../styles/mixins' as *;
+
+  .landing-hero {
+    padding-bottom: 2rem;
+
+    .section-title {
+      max-width: 19ch;
+    }
+
+    .section-lead {
+      max-width: 68ch;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .landing-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .proof-strip {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+    margin-bottom: 2.5rem;
+
+    @include respond-up(sm) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include respond-up(lg) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .proof-card {
+    @include interactive-card;
+    border-radius: $radius-md;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+
+    strong {
+      color: $accent-emerald;
+      font-size: 1rem;
+    }
+
+    span {
+      font-size: 0.82rem;
+      color: $text-secondary;
+    }
+  }
+
+  .deliverables-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+
+    @include respond-up(lg) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .deliv-card {
+    @include interactive-card;
+    padding: 1.5rem;
+
+    h3 {
+      margin: 0 0 0.6rem;
+      font-size: 1.12rem;
+      color: #ffffff;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.92rem;
+      color: $text-secondary;
+    }
+  }
+</style>

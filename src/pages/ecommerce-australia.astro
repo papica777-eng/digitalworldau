@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AnnouncementBar from '../components/AnnouncementBar.astro';
+import HeaderNav from '../components/HeaderNav.svelte';
+import QuoteForm from '../components/QuoteForm.svelte';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const schema = [
+  {
+    '@type': 'Service',
+    name: 'E-Commerce Website Development Australia',
+    serviceType: 'E-Commerce Store Development',
+    provider: { '@id': 'https://digitalworldau.com/#organization' },
+    areaServed: { '@type': 'Country', name: 'Australia' },
+    description:
+      'High-converting Australian online stores, Stripe/Shopify/Headless D2C checkouts, and subscription storefronts proven on live brands like anchialo.com.',
+  },
+];
+---
+
+<BaseLayout
+  title="E-Commerce Development Australia — Fast D2C Online Stores | Digital World AU"
+  description="High-converting Australian e-commerce web design and online store engineering. Fast mobile checkout, AUD/EUR multi-currency, and SEO built for Australian D2C brands."
+  canonical="https://digitalworldau.com/ecommerce-australia/"
+  pageType="landing"
+  extraSchema={schema}
+>
+  <AnnouncementBar />
+  <HeaderNav client:load />
+
+  <main>
+    <section class="section landing-hero">
+      <div class="container">
+        <span class="eyebrow">Australian D2C &amp; Wholesale E-Commerce</span>
+        <h1 class="section-title">Online Stores engineered for instant mobile checkout.</h1>
+        <p class="section-lead">
+          Every 100ms delay on a product page drops cart completion. We design and launch blazing-fast Australian e-commerce flagships—like <a href="https://anchialo.com" target="_blank" rel="noopener" class="inline-domain">anchialo.com ↗</a>—with rich storytelling, effortless dose/variant selection, and Stripe/Apple Pay speed.
+        </p>
+
+        <div class="landing-actions">
+          <a href="#contact" class="btn btn-primary" data-preset-service="E-Commerce Store">Scope Your Online Store</a>
+          <a href="/free-website-audit/" class="btn btn-ghost">Audit Your Current Store Free →</a>
+        </div>
+
+        <div class="deliverables-grid">
+          <article class="deliv-card" data-glow-card>
+            <h3>Mobile-First Cart Architecture</h3>
+            <p>Sticky buy bars, transparent Melbourne/Sydney dispatch promises, and Apple Pay / Google Pay / Stripe checkout tuned for thumb navigation.</p>
+          </article>
+          <article class="deliv-card" data-glow-card>
+            <h3>Product Schema &amp; Merchant SEO</h3>
+            <p>Structured product attributes, pricing, and lab/quality proof built right into clean static product pages so Google Shopping and organic traffic compound.</p>
+          </article>
+          <article class="deliv-card" data-glow-card>
+            <h3>AUD &amp; Global Multi-Currency</h3>
+            <p>Sell seamlessly across Australia and Europe with instant currency switching, subscription cadence builders, and zero platform lock-in.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <QuoteForm
+      client:load
+      defaultScope="E-Commerce Store"
+      eyebrow="Australian E-Commerce Studio"
+      heading="Launch or scale your Australian online store."
+    />
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style lang="scss">
+  @use '../styles/tokens' as *;
+  @use '../styles/mixins' as *;
+
+  .landing-hero {
+    padding-bottom: 2rem;
+
+    .section-title {
+      max-width: 19ch;
+    }
+
+    .section-lead {
+      max-width: 68ch;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .inline-domain {
+    color: $accent-emerald;
+    font-weight: 700;
+    border-bottom: 1px dashed rgba(0, 245, 160, 0.5);
+  }
+
+  .landing-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2.75rem;
+  }
+
+  .deliverables-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+
+    @include respond-up(lg) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .deliv-card {
+    @include interactive-card;
+    padding: 1.5rem;
+
+    h3 {
+      margin: 0 0 0.6rem;
+      font-size: 1.12rem;
+      color: #ffffff;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.92rem;
+      color: $text-secondary;
+    }
+  }
+</style>

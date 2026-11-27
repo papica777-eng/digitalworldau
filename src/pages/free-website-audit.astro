@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AnnouncementBar from '../components/AnnouncementBar.astro';
+import HeaderNav from '../components/HeaderNav.svelte';
+import QuoteForm from '../components/QuoteForm.svelte';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const schema = [
+  {
+    '@type': 'Service',
+    name: 'Free 48-Hour Expert Website Audit',
+    serviceType: 'Website UX, Speed & SEO Audit',
+    provider: { '@id': 'https://digitalworldau.com/#organization' },
+    areaServed: ['Australia', 'Europe'],
+    description:
+      'Complimentary 48-hour diagnostic report covering mobile Core Web Vitals, conversion funnel leaks, and Google SEO opportunities.',
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'AUD',
+      price: '0',
+      availability: 'https://schema.org/InStock',
+    },
+  },
+];
+---
+
+<BaseLayout
+  title="Free 48-Hour Expert Website Audit — UX, Speed & SEO | Digital World AU"
+  description="Claim your complimentary 48-hour expert website audit covering mobile PageSpeed, Google Ads conversion leaks, and technical SEO. Zero obligation."
+  canonical="https://digitalworldau.com/free-website-audit/"
+  pageType="landing"
+  extraSchema={schema}
+>
+  <AnnouncementBar />
+  <HeaderNav client:load />
+
+  <main>
+    <section class="section landing-hero">
+      <div class="container">
+        <span class="eyebrow">Complimentary 48-Hour Diagnostic • Zero Obligation</span>
+        <h1 class="section-title">Free 48-Hour Expert Website Audit.</h1>
+        <p class="section-lead">
+          Find out exactly why mobile visitors bounce or why your Google Ads clicks aren’t converting. Within 48 hours, our Melbourne &amp; European leads inspect your URL manually and deliver a concrete, prioritised action roadmap.
+        </p>
+
+        <div class="landing-actions">
+          <a href="#contact" class="btn btn-primary" data-preset-audit>Request My 48-Hour Audit Now</a>
+          <a
+            href="/docs/Digital-World-AU-48h-Website-Audit-Template.pdf"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-ghost"
+          >
+            Preview Sample Audit Report PDF ↗
+          </a>
+        </div>
+
+        <div class="deliverables-grid">
+          <article class="deliv-card" data-glow-card>
+            <h3>1. Mobile Speed &amp; Core Web Vitals</h3>
+            <p>Full audit of heavy images, render-blocking scripts, and TTFB latency slowing down 4G/5G buyers.</p>
+          </article>
+          <article class="deliv-card" data-glow-card>
+            <h3>2. Above-the-Fold CRO &amp; Form Leaks</h3>
+            <p>Line-by-line review of headline clarity, CTA placement, trust proof, and form drop-off friction.</p>
+          </article>
+          <article class="deliv-card" data-glow-card>
+            <h3>3. Local SEO &amp; Tracking Health</h3>
+            <p>Checks on canonicals, sitemap/robots setup, Schema.org rich snippets, and Consent Mode v2 lead attribution.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <QuoteForm
+      client:load
+      defaultScope="Free 48-Hour Website Audit"
+      eyebrow="Claim Your Free Diagnostic"
+      heading="Paste your website URL & objectives for a 48-hour audit."
+    />
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style lang="scss">
+  @use '../styles/tokens' as *;
+  @use '../styles/mixins' as *;
+
+  .landing-hero {
+    padding-bottom: 2rem;
+
+    .section-title {
+      max-width: 19ch;
+    }
+
+    .section-lead {
+      max-width: 68ch;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .landing-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2.75rem;
+  }
+
+  .deliverables-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+
+    @include respond-up(lg) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .deliv-card {
+    @include interactive-card;
+    padding: 1.5rem;
+
+    h3 {
+      margin: 0 0 0.6rem;
+      font-size: 1.12rem;
+      color: #ffffff;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.92rem;
+      color: $text-secondary;
+    }
+  }
+</style>

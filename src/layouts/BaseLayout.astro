@@ -8,7 +8,8 @@ interface Props {
   title?: string;
   description?: string;
   canonical?: string;
-  pageType?: 'home' | 'legal';
+  pageType?: 'home' | 'legal' | 'landing' | 'article';
+  extraSchema?: Record<string, unknown>[];
 }
 
 const {
@@ -16,7 +17,13 @@ const {
   description = 'Digital World AU crafts high-converting websites, bespoke e-commerce stores, and performance marketing systems for ambitious brands in Australia and worldwide.',
   canonical = 'https://digitalworldau.com/',
   pageType = 'home',
+  extraSchema = [],
 } = Astro.props;
+
+const ga4Id = (import.meta.env.PUBLIC_GA4_ID || '').trim();
+const gadsId = (import.meta.env.PUBLIC_GADS_ID || '').trim();
+const gadsLeadLabel = (import.meta.env.PUBLIC_GADS_LEAD_LABEL || '').trim();
+const primaryGtagId = ga4Id || gadsId;
 
 const ogImage = 'https://digitalworldau.com/media/og-card.jpg';
 
@@ -173,6 +180,10 @@ if (pageType === 'home') {
   });
 }
 
+if (extraSchema.length > 0) {
+  graph.push(...extraSchema);
+}
+
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': graph,
@@ -184,6 +195,7 @@ const structuredData = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="bdmpPW3WH7zQk9GxVp6OhjqEzUDOkWGpxyBNtGHSmEs" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -222,6 +234,47 @@ const structuredData = {
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    <script is:inline define:vars={{ ga4Id, gadsId, gadsLeadLabel, primaryGtagId }}>
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () {
+        window.dataLayer.push(arguments);
+      };
+      window.__dwTracking = { ga4Id: ga4Id, gadsId: gadsId, leadLabel: gadsLeadLabel };
+
+      var consentState = {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+      };
+      try {
+        var rawConsent = localStorage.getItem('dw_au_cookie_consent_v1');
+        if (rawConsent) {
+          var parsedConsent = JSON.parse(rawConsent);
+          if (parsedConsent && parsedConsent.analytics) consentState.analytics_storage = 'granted';
+          if (parsedConsent && parsedConsent.ads) {
+            consentState.ad_storage = 'granted';
+            consentState.ad_user_data = 'granted';
+            consentState.ad_personalization = 'granted';
+          }
+        }
+      } catch (_) {}
+
+      window.gtag('consent', 'default', consentState);
+      if (primaryGtagId) {
+        window.gtag('js', new Date());
+        if (ga4Id) window.gtag('config', ga4Id, { send_page_view: true });
+        if (gadsId) window.gtag('config', gadsId);
+      }
+    </script>
+    {
+      primaryGtagId && (
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(primaryGtagId)}`}
+        />
+      )
+    }
   </head>
   <body>
     <FluidBackground client:idle />

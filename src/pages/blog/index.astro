@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AnnouncementBar from '../../components/AnnouncementBar.astro';
+import HeaderNav from '../../components/HeaderNav.svelte';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { BLOG_POSTS } from '../../data/agencyData';
+---
+
+<BaseLayout
+  title="Knowledge Hub & Playbooks — Web Design, SEO & E-Commerce | Digital World AU"
+  description="Practical guides and engineering playbooks for high-converting websites, beauty & clinic booking flows, marketplaces, news portals, and B2B authority sites."
+  canonical="https://digitalworldau.com/blog/"
+  pageType="landing"
+>
+  <AnnouncementBar />
+  <HeaderNav client:load />
+
+  <main class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Knowledge Hub</span>
+        <h1 class="section-title">Playbooks for high-converting digital products.</h1>
+        <p class="section-lead">
+          Actionable guides on conversion UX, fast mobile delivery, search visibility, and zero-drop inquiry funnels for Australian &amp; international businesses.
+        </p>
+      </div>
+
+      <div class="blog-index-grid">
+        {BLOG_POSTS.map((post) => (
+          <article class="blog-index-card" data-glow-card>
+            <a href={`/blog/${post.slug}/`} class="blog-index-card__img">
+              <img src={post.image} alt={post.title} loading="lazy" />
+            </a>
+            <div class="blog-index-card__body">
+              <div class="meta-row">
+                <span class="tag">{post.tag}</span>
+                <span>{post.readTime}</span>
+              </div>
+              <h2>
+                <a href={`/blog/${post.slug}/`}>{post.title}</a>
+              </h2>
+              <p>{post.excerpt}</p>
+              <a href={`/blog/${post.slug}/`} class="read-link">Read Full Guide →</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style lang="scss">
+  @use '../../styles/tokens' as *;
+  @use '../../styles/mixins' as *;
+
+  .blog-index-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+
+    @include respond-up(md) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .blog-index-card {
+    @include interactive-card;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    &__img {
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform $transition-smooth;
+      }
+
+      &:hover img {
+        transform: scale(1.04);
+      }
+    }
+
+    &__body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      flex: 1;
+
+      h2 {
+        margin: 0;
+        font-size: 1.32rem;
+        line-height: 1.3;
+      }
+
+      p {
+        margin: 0;
+        color: $text-secondary;
+        font-size: 0.94rem;
+        flex: 1;
+      }
+    }
+  }
+
+  .meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: $font-mono;
+    font-size: 0.74rem;
+    color: $text-muted;
+  }
+
+  .read-link {
+    font-weight: 700;
+    color: $accent-emerald;
+    font-size: 0.92rem;
+  }
+</style>

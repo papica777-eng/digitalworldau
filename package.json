@@ -7,6 +7,7 @@
     "dev": "astro dev",
     "build:wasm": "cargo build --manifest-path rust-agency-wasm/Cargo.toml --target wasm32-unknown-unknown --release && node scripts/sync-wasm.mjs",
     "build": "npm run build:wasm && astro build",
+    "deploy": "npm run build && npx wrangler pages deploy dist --project-name digitalworldau --branch main",
     "preview": "astro preview",
     "check": "astro check",
     "test": "cargo test --manifest-path rust-agency-wasm/Cargo.toml && node --test test/agency-wasm.test.mjs"

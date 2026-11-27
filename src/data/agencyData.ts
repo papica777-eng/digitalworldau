@@ -147,7 +147,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: 'Web App',
     metric: '4K Optical Planet Render',
     region: 'Deep Space Observatory',
-    image: '/media/showcase/astro-trappist-1e.jpg',
+    image: '/media/showcase/astro-trappist-1e.webp',
     stack: ['WebGL2 Planetarium', 'ERFA WebAssembly', '4K Optical Clarity'],
     summary:
       'Real-time interplanetary observatory and 4K optical clarification showcase rendering habitable-zone exoplanet TRAPPIST-1e and deep-space orbital telemetry.',
@@ -297,7 +297,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: 'Web App',
     metric: '4K Cinematic Orbital Mechanics',
     region: 'Exoplanetary Systems',
-    image: '/media/showcase/astro-exoplanet-orbit.jpg',
+    image: '/media/showcase/astro-exoplanet-orbit.webp',
     stack: ['Atmospheric Scattering', 'Orbital Physics', '60 FPS WebGL'],
     summary:
       'Photorealistic atmospheric Rayleigh scattering and high-dynamic-range celestial illumination simulation around extra-solar planets.',
@@ -370,7 +370,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: 'Web App',
     metric: '4K Photorealistic NASA Telemetry',
     region: 'Low Earth Orbit & AU',
-    image: '/media/showcase/astro-epic-earth.jpg',
+    image: '/media/showcase/astro-epic-earth.webp',
     stack: ['NASA DSCOVR EPIC', 'Atmospheric Shader', 'Three.js Core'],
     summary:
       'High-altitude true-color planetary Earth rendering showcasing Australian coastlines, cloud dynamics, and real-time solar terminator lines.',
@@ -522,7 +522,7 @@ export const CASE_STUDIES = [
     liveUrl: 'https://papica777-eng.github.io/aeterna-cosmic-observatory/',
     liveDomain: 'aeterna-cosmic-observatory',
     video: '',
-    poster: '/media/showcase/astro-trappist-1e.jpg',
+    poster: '/media/showcase/astro-trappist-1e.webp',
     headline: 'Real-time WebGL2 & WebAssembly Interplanetary Planetarium & 4K Exoplanet Optical Showcase',
     quote:
       'Compiled ERFA astrometry in WebAssembly paired with 4K NASA EPIC Earth and TRAPPIST-1e orbital optical renders demonstrates scientific-grade browser engineering at 60 FPS.',
@@ -780,6 +780,7 @@ export const BLOG_POSTS = [
     slug: 'beauty-salon-website-guide',
     tag: 'Booking & UX',
     readTime: '6 min read',
+    publishedAt: '2026-11-27',
     title: 'How to Build a High-Converting Website for Beauty Salons & Medspas',
     excerpt:
       'Frictionless 3-tap booking flows, treatment menu psychology, and local Australian Google Business SEO that turns social discovery into recurring appointments.',
@@ -789,11 +790,26 @@ export const BLOG_POSTS = [
       'Combine transparent duration/pricing tiers with verified client visual proof.',
       'Configure Google rich-result business data for local map-pack dominance.',
     ],
+    sections: [
+      {
+        heading: '1. Why Beauty & Medspa Traffic Leaks on Generic Websites',
+        body: 'Over 82% of cosmetic clinic and salon searches happen on smartphones—frequently after an Instagram reel, TikTok post, or Google Maps discovery. When a visitor lands on a slow gallery site without clear treatment pricing or immediate booking buttons, they abandon within 6 seconds and book the next salon on Google Maps.',
+      },
+      {
+        heading: '2. The 3-Tap Booking Architecture',
+        body: 'High-performing clinic sites anchor a persistent "Book Consultation" button right inside the sticky header and first mobile screen. Pair scannable treatment cards (Duration, Price Range, Recovery Time) with direct integration into Fresha, Timeless, Cliniko, or a zero-drop custom inquiry form.',
+      },
+      {
+        heading: '3. Local Suburb SEO & Before/After Social Proof',
+        body: 'Dedicated suburb & treatment pages—supported by structured LocalBusiness schema, fast compressed WebP visual galleries, and real client reviews—lower your Google Ads cost-per-click while building organic bookings every month.',
+      },
+    ],
   },
   {
     slug: 'scalable-news-portal-architecture',
     tag: 'Media Publishing',
     readTime: '8 min read',
+    publishedAt: '2026-11-27',
     title: 'Scaling High-Traffic News Portals for Instant Global Delivery',
     excerpt:
       'How modern edge-cached layouts and clean editorial pipelines absorb viral breaking-news spikes with instant page delivery worldwide.',
@@ -803,11 +819,26 @@ export const BLOG_POSTS = [
       'Automate Google News XML sitemaps and strict mobile performance budgets.',
       'Design high-readability dark/light typographic rhythm that lifts ad & subscription retention.',
     ],
+    sections: [
+      {
+        heading: '1. Stopping Traffic Spikes From Crashing Your Server',
+        body: 'Breaking news alerts send thousands of concurrent readers to the exact same URL within seconds. Traditional uncached CMS setups run repetitive database queries on every view—causing timeouts precisely when editorial attention peaks.',
+      },
+      {
+        heading: '2. Edge-First Publishing + Isolated Live Widgets',
+        body: 'By serving pre-built HTML directly from a global CDN edge (Cloudflare) while loading breaking tickers and reader comments as tiny independent widgets, readers experience sub-second article loads anywhere across Sydney, Melbourne, or Europe.',
+      },
+      {
+        heading: '3. Discoverability in Google News & AI Search',
+        body: 'Clean NewsArticle schema, fast hero images in WebP, automated XML/RSS feeds, and llms.txt indexing maximise visibility across Google Discover and modern AI assistants.',
+      },
+    ],
   },
   {
     slug: 'launching-classifieds-marketplace',
     tag: 'Marketplaces',
     readTime: '7 min read',
+    publishedAt: '2026-11-27',
     title: 'Launching a Profitable Classifieds Platform: Search, Trust & Monetisation',
     excerpt:
       'Designing sub-second category search, safe media uploads, and promoted seller tiers that compound marketplace liquidity.',
@@ -817,11 +848,26 @@ export const BLOG_POSTS = [
       'Run built-in browser security checks on uploaded listing photos automatically.',
       'Balance free organic listings with featured boosts and verified dealer subscriptions.',
     ],
+    sections: [
+      {
+        heading: '1. Liquidity Starts With Frictionless Search & Posting',
+        body: 'Every extra filter reload hurts buyer retention. Modern marketplaces keep suburb, radius, category, and price filtering responsive in milliseconds while generating clean canonical category URLs that rank naturally on Google.',
+      },
+      {
+        heading: '2. Zero-Trust Media Uploads & Buyer Confidence',
+        body: 'Inspecting uploaded listing files before they reach storage protects your platform against spoofed executables and oversized payloads, while verified seller badges raise buyer inquiry rates.',
+      },
+      {
+        heading: '3. Sustainable Revenue Beyond Display Ads',
+        body: 'Combine complimentary core listings (to attract volume) with high-margin featured homepage slots, bump-to-top micro-upgrades, and recurring dealership plans.',
+      },
+    ],
   },
   {
     slug: 'corporate-website-authority-blueprint',
     tag: 'B2B Strategy',
     readTime: '5 min read',
+    publishedAt: '2026-11-27',
     title: 'The Modern Corporate Website Blueprint for Enterprise Trust & Pipeline',
     excerpt:
       'Why generic corporate sites leak deals—and how verifiable video case studies, interactive calculators, and executive clarity multiply inbound inquiries.',
@@ -830,6 +876,20 @@ export const BLOG_POSTS = [
       'Replace vague slogans with quantified client outcomes and live production case studies.',
       'Pair primary quote forms with a low-friction Free Expert Audit lead magnet.',
       'Enforce crisp contrast, instant media delivery, and full ownership transparency.',
+    ],
+    sections: [
+      {
+        heading: '1. B2B Buyers Verify Before They Enquire',
+        body: 'Decision-makers investing A$5,000 to A$50,000+ check your speed, clarity, real client links, and leadership credibility before touching your contact form. Generic stock templates immediately erode authority.',
+      },
+      {
+        heading: '2. Turning Case Studies Into Interactive Proof',
+        body: 'Live walkthrough reels, clickable client domains, transparent fixed-scope AUD/EUR tiers, and a zero-drop server form that confirms delivery in-page lift qualified conversion rates dramatically compared to static mailto links.',
+      },
+      {
+        heading: '3. High-Intent Google Ads Alignment',
+        body: 'Routing paid search campaigns to tailored city & service URLs—backed by Consent Mode v2 and deterministic conversion events—improves Quality Score and lowers acquisition cost per booked call.',
+      },
     ],
   },
 ];

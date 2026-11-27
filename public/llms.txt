@@ -1,12 +1,21 @@
 # Digital World AU (`https://digitalworldau.com/`)
 
-> Australian & European Web Design, E-Commerce & Google Ads Conversion Agency — Melbourne, Sydney & Sofia/Pomorie HQ (`hello@digitalworldau.com`).
+> Australian Web Design, E-Commerce & Google Ads Conversion Agency — Melbourne, Sydney & EU Engineering (`hello@digitalworldau.com`).
 
-## Core Services
-- **Free 48-Hour Expert Website Audit**: UX friction review, mobile Core Web Vitals speed diagnostics, and Google SEO opportunities delivered within 48 hours (`https://digitalworldau.com/#contact`).
-- **UI/UX & Bespoke Web Design**: High-contrast dark & editorial designs built mobile-first for conversion.
-- **Custom Websites & E-Commerce Stores**: High-speed websites and D2C storefronts built with Astro 5, Svelte 5, Modular SCSS, Rust/WebAssembly, WordPress, Stripe, and Cloudflare Edge.
-- **Google SEO & Paid Search CRO**: Local & national SEO, structured rich-result markup, and high-converting Google Ads landing pages.
+## Core Pages & Google Ads Destinations
+- Homepage: https://digitalworldau.com/
+- Web Design Melbourne: https://digitalworldau.com/web-design-melbourne/
+- Web Design Sydney: https://digitalworldau.com/web-design-sydney/
+- E-Commerce Australia: https://digitalworldau.com/ecommerce-australia/
+- Free 48-Hour Website Audit: https://digitalworldau.com/free-website-audit/
+- Sample 48h Website Audit PDF: https://digitalworldau.com/docs/Digital-World-AU-48h-Website-Audit-Template.pdf
+- Knowledge Hub / Blog: https://digitalworldau.com/blog/
+
+## Playbooks & Guides
+- Beauty Salons & Medspas: https://digitalworldau.com/blog/beauty-salon-website-guide/
+- High-Traffic News Portals: https://digitalworldau.com/blog/scalable-news-portal-architecture/
+- Classifieds Marketplaces: https://digitalworldau.com/blog/launching-classifieds-marketplace/
+- Modern Corporate Blueprint: https://digitalworldau.com/blog/corporate-website-authority-blueprint/
 
 ## Transparent Pricing (Fixed-Scope Milestones)
 - `€2,000 – €5,000` (`A$3,300 – A$8,250`): High-velocity conversion landing systems
@@ -17,21 +26,20 @@
 
 ## Verified Live Production Portfolio
 - **ANCHIALO Australia (`https://anchialo.com`)**: Australian D2C online store for certified Lake Pomorie Magnesium Gel & Oil dispatched from Melbourne.
-- **CPT MMA Melbourne (`https://cptmma.com`)**: Dual-division combat coaching & 10-Week K9 portal led by ONE Championship veteran Sotir Kichukov (`0.78s` mobile load).
-- **Immersion Mixed Martial Arts (`https://immersionmma.com.au`)**: Melbourne's #1 rated BJJ, Muay Thai & MMA academy led by Coach Lee in Ringwood.
-- **Painters of Geelong (`https://www.paintersofgeelong.com.au`)**: High-converting residential & commercial painting platform across Geelong & Surf Coast.
-- **ASTRO Cosmic Observatory (`https://papica777-eng.github.io/aeterna-cosmic-observatory/`)**: Real-time WebGL2 & WebAssembly ERFA interplanetary planetarium & 4K exoplanet optical showcase.
-- **AETERNA Digital Flagship (`https://aeterna.website`)**: Interactive 60fps 3D web platform achieving 100/100 Google PageSpeed metrics.
-- **NAsvetlo Civic & Judicial Audit (`https://nasvetlo.website`)**: Production big-data audit cross-referencing 2,234,509 judicial records and €53.22B procurement in Bulgaria & EU.
+- **CPT MMA Melbourne (`https://cptmma.com`)**: Coaching academy platform led by ONE Championship veteran Sotir Kichukov (`0.78s` mobile load).
+- **Immersion MMA Melbourne (`https://immersionmma.com.au`)**: Melbourne Ringwood martial arts & BJJ flagship led by Coach Lee.
+- **Painters of Geelong (`https://www.paintersofgeelong.com.au`)**: Residential & commercial painting local SEO platform for Geelong & Surf Coast.
+- **ASTRO Observatory (`https://papica777-eng.github.io/aeterna-cosmic-observatory/`)**: Real-time WebGL2 & WebAssembly interplanetary 4K optical showcase.
+- **AETERNA Flagship (`https://aeterna.website`)**: Interactive 60fps 3D web platform achieving 100/100 Google PageSpeed metrics.
+- **NAsvetlo (`https://nasvetlo.website`)**: 2.23M-record civic & judicial audit platform.
 
 ## Leadership & Contact
 - **Founder & Lead Architect**: Dimitar Prodromov ([GitHub](https://github.com/papica777-eng), [ORCID](https://orcid.org/0009-0004-8070-1348), [aeterna.website](https://aeterna.website))
-- **Australia Hub (Melbourne & Sydney)**: 60 Charter Street, Ringwood, Melbourne VIC 3134, Australia | `+61 423 269 586`
-- **Europe & Bulgaria HQ (EU)**: 6 Trapezitsa Street, 8200 Pomorie (Burgas) & Sofia, Bulgaria | `+359 896 849 882`
+- **Melbourne / AU Office**: 60 Charter St, Ringwood, Melbourne VIC 3134 (`+61 423 269 586`)
+- **European HQ**: 6 Trapezitsa St, 8200 Pomorie & Sofia, Bulgaria (`+359 896 849 882`)
 - **Direct Desk**: `hello@digitalworldau.com`
 
-## Key URLs
-- Homepage: https://digitalworldau.com/
+## Policies & Feeds
 - Privacy Policy: https://digitalworldau.com/privacy/
 - Terms of Engagement: https://digitalworldau.com/terms/
 - XML Sitemap: https://digitalworldau.com/sitemap.xml

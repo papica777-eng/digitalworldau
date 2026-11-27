@@ -1,0 +1,286 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AnnouncementBar from '../../components/AnnouncementBar.astro';
+import HeaderNav from '../../components/HeaderNav.svelte';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { BLOG_POSTS } from '../../data/agencyData';
+
+export function getStaticPaths() {
+  return BLOG_POSTS.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const canonicalUrl = `https://digitalworldau.com/blog/${post.slug}/`;
+const related = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 3);
+
+const articleSchema = [
+  {
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt,
+    image: `https://digitalworldau.com${post.image}`,
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    mainEntityOfPage: canonicalUrl,
+    author: {
+      '@type': 'Person',
+      name: 'Dimitar Prodromov',
+      url: 'https://digitalworldau.com/',
+    },
+    publisher: {
+      '@id': 'https://digitalworldau.com/#organization',
+    },
+  },
+];
+---
+
+<BaseLayout
+  title={`${post.title} | Digital World AU`}
+  description={post.excerpt}
+  canonical={canonicalUrl}
+  pageType="article"
+  extraSchema={articleSchema}
+>
+  <AnnouncementBar />
+  <HeaderNav client:load />
+
+  <main class="section">
+    <div class="container article-wrap">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/blog/">Blog</a>
+        <span>/</span>
+        <span>{post.tag}</span>
+      </nav>
+
+      <article class="article-shell">
+        <div class="article-meta">
+          <span class="tag">{post.tag}</span>
+          <span>{post.readTime}</span>
+          <span>Updated {post.publishedAt}</span>
+        </div>
+
+        <h1 class="section-title article-title">{post.title}</h1>
+        <p class="section-lead article-lead">{post.excerpt}</p>
+
+        <div class="article-hero-img">
+          <img src={post.image} alt={post.title} />
+        </div>
+
+        <div class="article-body">
+          {post.sections.map((sec) => (
+            <section class="article-sec">
+              <h2>{sec.heading}</h2>
+              <p>{sec.body}</p>
+            </section>
+          ))}
+
+          <div class="takeaways-box" data-glow-card>
+            <h2>Key Implementation Takeaways</h2>
+            <ul>
+              {post.takeaways.map((tip) => (
+                <li>{tip}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div class="article-cta" data-glow-card>
+          <div>
+            <strong>Want us to audit your current site against this blueprint?</strong>
+            <p>Claim a complimentary 48-hour expert UX, mobile speed &amp; SEO audit with zero obligation.</p>
+          </div>
+          <div class="cta-row">
+            <a href="/free-website-audit/" class="btn btn-primary">Claim Free 48-Hour Audit →</a>
+            <a href="/#contact" class="btn btn-ghost">Book a Call</a>
+          </div>
+        </div>
+      </article>
+
+      <section class="related-sec" aria-label="More playbooks">
+        <h3>More Knowledge Hub Playbooks</h3>
+        <div class="related-grid">
+          {related.map((item) => (
+            <a href={`/blog/${item.slug}/`} class="related-card" data-glow-card>
+              <span class="tag">{item.tag}</span>
+              <strong>{item.title}</strong>
+              <small>{item.readTime} →</small>
+            </a>
+          ))}
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style lang="scss">
+  @use '../../styles/tokens' as *;
+  @use '../../styles/mixins' as *;
+
+  .article-wrap {
+    max-width: 880px;
+  }
+
+  .breadcrumb-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-family: $font-mono;
+    font-size: 0.76rem;
+    color: $text-muted;
+    margin-bottom: 1.5rem;
+
+    a {
+      color: $accent-blue-light;
+
+      &:hover {
+        color: $accent-emerald;
+      }
+    }
+  }
+
+  .article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.85rem;
+    font-family: $font-mono;
+    font-size: 0.76rem;
+    color: $text-muted;
+    margin-bottom: 1rem;
+  }
+
+  .article-title {
+    font-size: clamp(1.9rem, 3.8vw, 2.95rem);
+    margin-bottom: 1rem;
+  }
+
+  .article-lead {
+    margin-bottom: 2rem;
+  }
+
+  .article-hero-img {
+    border-radius: $radius-lg;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    margin-bottom: 2.25rem;
+    aspect-ratio: 16 / 9;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .article-sec {
+    margin-bottom: 1.75rem;
+
+    h2 {
+      font-size: 1.32rem;
+      margin: 0 0 0.55rem;
+      color: #ffffff;
+    }
+
+    p {
+      margin: 0;
+      font-size: 1.02rem;
+      line-height: 1.75;
+      color: $text-secondary;
+    }
+  }
+
+  .takeaways-box {
+    @include glass-surface(true);
+    border-radius: $radius-lg;
+    padding: 1.5rem 1.75rem;
+    margin: 2rem 0;
+
+    h2 {
+      margin: 0 0 0.85rem;
+      font-size: 1.15rem;
+      color: $accent-emerald;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1.25rem;
+      display: grid;
+      gap: 0.55rem;
+      color: #e2e8f0;
+    }
+  }
+
+  .article-cta {
+    @include interactive-card;
+    padding: 1.65rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+
+    strong {
+      display: block;
+      font-size: 1.12rem;
+      margin-bottom: 0.3rem;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: $text-secondary;
+    }
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .related-sec {
+    margin-top: 3.5rem;
+
+    h3 {
+      margin: 0 0 1rem;
+      font-size: 1.15rem;
+    }
+  }
+
+  .related-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+
+    @include respond-up(md) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .related-card {
+    @include interactive-card;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+
+    strong {
+      font-size: 0.95rem;
+      line-height: 1.35;
+      flex: 1;
+    }
+
+    small {
+      font-family: $font-mono;
+      font-size: 0.74rem;
+      color: $accent-emerald;
+    }
+  }
+</style>

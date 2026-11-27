@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Digital World AU — 48-Hour Expert Website Audit</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 14mm 14mm 16mm;
+      @bottom-left {
+        content: "Digital World AU • Melbourne • Sydney • EU — hello@digitalworldau.com";
+        font-family: "Plus Jakarta Sans", Arial, sans-serif;
+        font-size: 8pt;
+        color: #64748b;
+      }
+      @bottom-right {
+        content: "Page " counter(page) " of " counter(pages);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 8pt;
+        color: #64748b;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;
+      color: #0f172a;
+      background: #ffffff;
+      line-height: 1.5;
+      font-size: 10pt;
+    }
+    .cover {
+      background: linear-gradient(140deg, #020308 0%, #071330 55%, #016ad4 100%);
+      color: #ffffff;
+      border-radius: 14px;
+      padding: 26mm 20mm 22mm;
+      margin-bottom: 10mm;
+      page-break-after: always;
+    }
+    .brand {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11pt;
+      font-weight: 700;
+      color: #00f5a0;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16mm;
+    }
+    .eyebrow {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(0, 245, 160, 0.14);
+      border: 1px solid rgba(0, 245, 160, 0.45);
+      color: #00f5a0;
+      font-size: 8.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6mm;
+    }
+    .cover h1 {
+      font-size: 27pt;
+      line-height: 1.12;
+      margin: 0 0 6mm;
+      letter-spacing: -0.02em;
+    }
+    .cover p.lead {
+      font-size: 11.5pt;
+      color: #cbd5e1;
+      max-width: 145mm;
+      margin: 0 0 14mm;
+    }
+    .meta-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8mm;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .meta-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 9.5pt;
+    }
+    .meta-table td.label {
+      color: #84b5e6;
+      font-weight: 700;
+      width: 38%;
+    }
+    .kpi-grid {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+      margin-top: 12mm;
+    }
+    .kpi-cell {
+      display: table-cell;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 10px;
+      padding: 10px 12px;
+      text-align: center;
+    }
+    .kpi-cell strong {
+      display: block;
+      font-size: 16pt;
+      color: #00f5a0;
+    }
+    .kpi-cell span {
+      font-size: 8pt;
+      color: #e2e8f0;
+    }
+    h2 {
+      font-size: 15pt;
+      color: #020308;
+      border-left: 4px solid #016ad4;
+      padding-left: 10px;
+      margin: 0 0 5mm;
+    }
+    .page-break {
+      page-break-before: always;
+    }
+    .section-box {
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 12px 15px;
+      margin-bottom: 6mm;
+      background: #f8fafc;
+    }
+    .section-box h3 {
+      margin: 0 0 4px;
+      font-size: 11pt;
+      color: #016ad4;
+    }
+    table.audit-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 4mm 0 8mm;
+      font-size: 9.2pt;
+    }
+    table.audit-table th {
+      background: #0f172a;
+      color: #ffffff;
+      text-align: left;
+      padding: 8px 10px;
+      font-size: 8.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    table.audit-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+    .pill-pass { color: #059669; font-weight: 700; }
+    .pill-warn { color: #d97706; font-weight: 700; }
+    .pill-crit { color: #dc2626; font-weight: 700; }
+    .cta-box {
+      background: #020308;
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-top: 8mm;
+    }
+    .cta-box strong { color: #00f5a0; font-size: 11.5pt; }
+  </style>
+</head>
+<body>
+  <section class="cover">
+    <div class="brand">&lt;/digitalworld&gt; AU • Revenue-First Web Engineering</div>
+    <span class="eyebrow">48-Hour Executive Diagnostic Report</span>
+    <h1>Website Conversion, Speed &amp; Google Ads Audit</h1>
+    <p class="lead">
+      Forensic diagnostic blueprint identifying friction points costing mobile conversions, organic Google visibility, and paid search ROI—along with a prioritised 30-day recovery roadmap.
+    </p>
+
+    <table class="meta-table">
+      <tr><td class="label">Prepared For</td><td>[Client Business Name] — [https://client-domain.com.au]</td></tr>
+      <tr><td class="label">Primary Markets</td><td>Melbourne / Sydney / Geelong (Australia) &amp; European Union</td></tr>
+      <tr><td class="label">Prepared By</td><td>Dimitar Prodromov, Lead Architect — Digital World AU</td></tr>
+      <tr><td class="label">Audit Date &amp; SLA</td><td>[DD Month YYYY] • Delivered Within 48 Hours</td></tr>
+      <tr><td class="label">Direct Studio Desk</td><td>hello@digitalworldau.com • +61 423 269 586 • +359 896 849 882</td></tr>
+    </table>
+
+    <div class="kpi-grid">
+      <div class="kpi-cell"><strong>[ __/100 ]</strong><span>Mobile PageSpeed Score</span></div>
+      <div class="kpi-cell"><strong>[ _._ s ]</strong><span>First Screen Load (LCP)</span></div>
+      <div class="kpi-cell"><strong>[ __/100 ]</strong><span>Technical SEO Health</span></div>
+      <div class="kpi-cell"><strong>[ +25–60% ]</strong><span>Est. Conversion Uplift</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Pillar 1 • Above-the-Fold UX &amp; Conversion Friction</h2>
+    <div class="section-box">
+      <h3>What High-Intent Buyers Expect in the First 5 Seconds</h3>
+      <p>Over 68% of paid Google Ads and organic local clicks arrive on smartphones. If visitors cannot immediately tell what you do, trust your local credibility, and submit an inquiry without leaving your site, ad spend is wasted.</p>
+    </div>
+    <table class="audit-table">
+      <thead>
+        <tr><th style="width:28%;">Diagnostic Check</th><th style="width:16%;">Status</th><th>Finding &amp; Commercial Fix</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Value Proposition Clarity</strong></td>
+          <td><span class="pill-warn">[ACTION]</span></td>
+          <td>Replace generic slogans with a clear promise: target outcome, service area, and immediate primary CTA button above the fold.</td>
+        </tr>
+        <tr>
+          <td><strong>Zero-Drop Inquiry Capture</strong></td>
+          <td><span class="pill-crit">[HIGH IMPACT]</span></td>
+          <td>Ensure lead forms post directly to your inbox + instant phone alert with confirmation—never rely solely on <code>mailto:</code> links that drop 40%+ of mobile leads.</td>
+        </tr>
+        <tr>
+          <td><strong>Trust &amp; Verifiable Proof</strong></td>
+          <td><span class="pill-pass">[BENCHMARK]</span></td>
+          <td>Showcase real local clients, clickable case studies, verified Google Business reviews, and clear AU/EU contact numbers.</td>
+        </tr>
+        <tr>
+          <td><strong>Google Ads Consent &amp; Tracking</strong></td>
+          <td><span class="pill-warn">[VERIFY]</span></td>
+          <td>Deploy Consent Mode v2 cookie banner, GA4 <code>generate_lead</code> events, and Google Ads conversion attribution on dedicated landing URLs.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Pillar 2 • Mobile Speed, Core Web Vitals &amp; Technical SEO</h2>
+    <table class="audit-table">
+      <thead>
+        <tr><th style="width:28%;">Technical Metric</th><th style="width:16%;">Target</th><th>Audit Observation &amp; Remediation</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Hero &amp; Image Payloads</strong></td>
+          <td>&lt; 120 KB WebP</td>
+          <td>Convert heavy uncompressed JPG/PNG hero and showcase images into responsive WebP assets (up to 8x payload reduction).</td>
+        </tr>
+        <tr>
+          <td><strong>Render-Blocking JS / 3D</strong></td>
+          <td>Lazy-Loaded</td>
+          <td>Defer heavy 3D canvases and third-party scripts below the fold until scroll proximity to achieve 98–100/100 Mobile Performance.</td>
+        </tr>
+        <tr>
+          <td><strong>Local SEO &amp; Service URLs</strong></td>
+          <td>1 Intent / Page</td>
+          <td>Publish dedicated city/service pages (e.g., <code>/web-design-melbourne/</code>, <code>/ecommerce-australia/</code>) + Schema.org JSON-LD.</td>
+        </tr>
+        <tr>
+          <td><strong>Edge Caching &amp; Email Auth</strong></td>
+          <td>Cloudflare Edge</td>
+          <td>Serve HTML at the CDN edge (&lt; 60 ms TTFB) and authenticate outbound domain emails via SPF, DKIM, and DMARC.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="page-break">
+    <h2>Pillar 3 • 30-Day Quick Wins &amp; Fixed-Scope Investment Options</h2>
+    <table class="audit-table">
+      <thead>
+        <tr><th style="width:18%;">Timeline</th><th style="width:34%;">Deliverable Milestone</th><th>Measured Business Outcome</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Days 1–7</strong></td>
+          <td>Asset WebP Compression, Hero CRO Rewrite &amp; Serverless Lead Capture</td>
+          <td>Stops paid traffic lead leakage and slashes mobile load time immediately.</td>
+        </tr>
+        <tr>
+          <td><strong>Days 8–18</strong></td>
+          <td>Dedicated Google Ads Landing Pages &amp; Full Conversion Attribution</td>
+          <td>Boosts Google Ads Quality Score, lowering Cost-Per-Click and raising booked calls.</td>
+        </tr>
+        <tr>
+          <td><strong>Days 19–30</strong></td>
+          <td>Full Bespoke UI/UX Redesign, Interactive Proof &amp; Multi-Region Speed Deploy</td>
+          <td>98–100/100 Core Web Vitals, 100% IP handover, and scalable organic ranking growth.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="audit-table">
+      <thead>
+        <tr><th>Engagement Tier</th><th>Australia (AUD)</th><th>Europe (EUR)</th><th>Best Suited For</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Sprint Conversion Landing</strong></td>
+          <td>A$3,300 – A$8,250</td>
+          <td>€2,000 – €5,000</td>
+          <td>High-velocity Google Ads funnels &amp; local service businesses</td>
+        </tr>
+        <tr>
+          <td><strong>Corporate Website Flagship</strong></td>
+          <td>A$8,250 – A$16,500</td>
+          <td>€5,000 – €10,000</td>
+          <td>Bespoke multi-page authority websites with CMS &amp; local SEO</td>
+        </tr>
+        <tr>
+          <td><strong>High-Converting E-Commerce</strong></td>
+          <td>A$16,500 – A$33,000</td>
+          <td>€10,000 – €20,000</td>
+          <td>Fast D2C &amp; wholesale storefronts with multi-currency checkout</td>
+        </tr>
+        <tr>
+          <td><strong>Enterprise Platform</strong></td>
+          <td>A$33,000 – A$82,500</td>
+          <td>€20,000 – €50,000</td>
+          <td>Custom portals, interactive configurators &amp; global infrastructure</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="cta-box">
+      <strong>Next Step: Claim Your Live 15-Minute Audit Walkthrough</strong>
+      <p style="margin:6px 0 0; color:#e2e8f0; font-size:9.5pt;">
+        100% Fixed-Scope Milestones • 100% Full Code &amp; Design IP Ownership • Direct Senior Engineering Access.<br />
+        Reply directly to <strong>hello@digitalworldau.com</strong> or call <strong>+61 423 269 586</strong> (AU) / <strong>+359 896 849 882</strong> (EU).
+      </p>
+    </div>
+  </section>
+</body>
+</html>
