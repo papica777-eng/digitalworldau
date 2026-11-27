@@ -35,7 +35,7 @@
 
 ## Leadership & Contact
 - **Founder & Lead Architect**: Dimitar Prodromov ([GitHub](https://github.com/papica777-eng), [ORCID](https://orcid.org/0009-0004-8070-1348), [aeterna.website](https://aeterna.website))
-- **Melbourne / AU Office**: 60 Charter St, Ringwood, Melbourne VIC 3134 (`+61 423 269 586`)
+- **Melbourne / AU Office**: 56 Mantung Cres, Rowville, Melbourne VIC 3178 (`+61 423 269 586`)
 - **European HQ**: 6 Trapezitsa St, 8200 Pomorie & Sofia, Bulgaria (`+359 896 849 882`)
 - **Direct Desk**: `hello@digitalworldau.com`
 

@@ -282,7 +282,7 @@
         <div class="info-pill">
           <span>Australia Hub (Melbourne &amp; Sydney)</span>
           <a href="tel:+61423269586">+61 423 269 586</a>
-          <small>60 Charter St, Ringwood, Melbourne VIC 3134 &amp; Sydney NSW</small>
+          <small>56 Mantung Cres, Rowville, Melbourne VIC 3178 &amp; Sydney NSW</small>
         </div>
         <div class="info-pill">
           <span>Europe &amp; Bulgaria HQ (EU)</span>
