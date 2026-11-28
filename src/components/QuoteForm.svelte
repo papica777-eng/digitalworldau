@@ -289,15 +289,29 @@
             {copiedEmail ? '✓ Copied' : 'Copy Email'}
           </button>
         </div>
-        <div class="info-pill">
-          <span>Australia Hub (Melbourne &amp; Sydney)</span>
-          <a href="tel:+61423269586">+61 423 269 586</a>
-          <small>56 Mantung Cres, Rowville, Melbourne VIC 3178 &amp; Sydney NSW</small>
+        <div class="info-pill info-pill--phone">
+          <div>
+            <span>Australia Hub (Melbourne &amp; Sydney)</span>
+            <small>56 Mantung Cres, Rowville, Melbourne VIC 3178 &amp; Sydney NSW</small>
+          </div>
+          <a href="tel:+61423269586" class="phone-handset-btn" aria-label="Call Australia Desk (+61 423 269 586)" title="Call Australia Desk">
+            <svg class="handset-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <span>AU Call Direct</span>
+          </a>
         </div>
-        <div class="info-pill">
-          <span>Europe &amp; Bulgaria HQ (EU)</span>
-          <a href="tel:+359896849882">+359 896 849 882</a>
-          <small>6 Trapezitsa St, 8200 Pomorie (Burgas) &amp; Sofia, Bulgaria</small>
+        <div class="info-pill info-pill--phone">
+          <div>
+            <span>Europe &amp; Bulgaria HQ (EU)</span>
+            <small>6 Trapezitsa St, 8200 Pomorie (Burgas) &amp; Sofia, Bulgaria</small>
+          </div>
+          <a href="tel:+359896849882" class="phone-handset-btn phone-handset-btn--eu" aria-label="Call EU Desk (+359 896 849 882)" title="Call EU Desk">
+            <svg class="handset-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <span>EU Desk</span>
+          </a>
         </div>
         <div class="info-pill">
           <span>Guaranteed Turnaround</span>
@@ -535,11 +549,61 @@
     border-radius: $radius-md;
     padding: 1.05rem 1.25rem;
 
-    &--email {
+    &--email,
+    &--phone {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
+    }
+
+    .phone-handset-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: $radius-pill;
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      color: #10b981 !important;
+      font-weight: 600;
+      font-size: 0.78rem;
+      text-decoration: none;
+      flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+      transition: all 0.2s ease;
+
+      .handset-svg {
+        width: 14px;
+        height: 14px;
+        stroke: #10b981;
+        filter: drop-shadow(0 0 3px #10b981);
+      }
+
+      &:hover {
+        background: rgba(16, 185, 129, 0.25);
+        border-color: #10b981;
+        box-shadow: 0 0 18px rgba(16, 185, 129, 0.45);
+        transform: translateY(-1px);
+      }
+
+      &--eu {
+        background: rgba(56, 189, 248, 0.12);
+        border-color: rgba(56, 189, 248, 0.4);
+        color: #38bdf8 !important;
+        box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
+
+        .handset-svg {
+          stroke: #38bdf8;
+          filter: drop-shadow(0 0 3px #38bdf8);
+        }
+
+        &:hover {
+          background: rgba(56, 189, 248, 0.22);
+          border-color: #38bdf8;
+          box-shadow: 0 0 18px rgba(56, 189, 248, 0.4);
+        }
+      }
     }
 
     span {

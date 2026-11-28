@@ -28,8 +28,8 @@
 ## Verified Live Production Portfolio
 - **ANCHIALO Australia (`https://anchialo.com`)**: Australian D2C online store for certified Lake Pomorie Magnesium Gel & Oil dispatched from Melbourne.
 - **CPT MMA Melbourne (`https://cptmma.com`)**: Coaching academy platform led by ONE Championship veteran Sotir Kichukov (`0.78s` mobile load).
-- **Immersion MMA Melbourne (`https://immersionmma.com.au`)**: Melbourne Ringwood martial arts & BJJ flagship led by Coach Lee.
-- **Painters of Geelong (`https://www.paintersofgeelong.com.au`)**: Residential & commercial painting local SEO platform for Geelong & Surf Coast.
+- **Original Glazing 24/7 Melbourne (`https://originalglazing.com.au`)**: Emergency glass repair & architectural double-glazing platform for Greater Melbourne.
+- **BAMBUDDHA Desserts & Patisserie (`https://bambuddha.com.au`)**: Melbourne artisan patisserie showcase & live hospitality table reservation menu.
 - **ASTRO Observatory (`https://papica777-eng.github.io/aeterna-cosmic-observatory/`)**: Real-time WebGL2 & WebAssembly interplanetary 4K optical showcase.
 - **AETERNA Flagship (`https://aeterna.website`)**: Interactive 60fps 3D web platform achieving 100/100 Google PageSpeed metrics.
 - **NAsvetlo (`https://nasvetlo.website`)**: 2.23M-record civic & judicial audit platform.

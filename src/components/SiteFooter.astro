@@ -10,9 +10,21 @@ import BrandLogo from './BrandLogo.svelte';
         High-converting web design, bespoke e-commerce engineering, and performance marketing crafted in Australia for ambitious global brands.
       </p>
       <div class="footer-contact">
-        <a href="mailto:hello@digitalworldau.com">hello@digitalworldau.com</a>
-        <a href="tel:+61423269586">AU Desk: +61 423 269 586 (Melbourne &amp; Sydney)</a>
-        <a href="tel:+359896849882">EU / BG Desk: +359 896 849 882 (Sofia &amp; Burgas)</a>
+        <a href="mailto:hello@digitalworldau.com" class="footer-email">hello@digitalworldau.com</a>
+        <div class="footer-phones">
+          <a href="tel:+61423269586" class="phone-handset-btn phone-handset-btn--au" aria-label="Call Australian Desk (Melbourne): +61 423 269 586" title="Call Melbourne Desk (+61 423 269 586)">
+            <svg class="handset-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <span>AU Call Direct</span>
+          </a>
+          <a href="tel:+359896849882" class="phone-handset-btn phone-handset-btn--eu" aria-label="Call EU Desk: +359 896 849 882" title="Call EU Desk (+359 896 849 882)">
+            <svg class="handset-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <span>EU Desk</span>
+          </a>
+        </div>
         <span>AU: 56 Mantung Cres, Rowville, Melbourne VIC 3178</span>
         <span>EU: 6 Trapezitsa St, 8200 Pomorie (Burgas) &amp; Sofia, Bulgaria</span>
       </div>
@@ -34,8 +46,8 @@ import BrandLogo from './BrandLogo.svelte';
       <ul>
         <li><a href="https://anchialo.com" target="_blank" rel="noopener">anchialo.com — Magnesium AU ↗</a></li>
         <li><a href="https://cptmma.com" target="_blank" rel="noopener">cptmma.com — CPT MMA Melbourne ↗</a></li>
-        <li><a href="https://immersionmma.com.au" target="_blank" rel="noopener">immersionmma.com.au — Immersion MMA Melbourne ↗</a></li>
-        <li><a href="https://www.paintersofgeelong.com.au" target="_blank" rel="noopener">paintersofgeelong.com.au — Painters of Geelong ↗</a></li>
+        <li><a href="https://originalglazing.com.au" target="_blank" rel="noopener">originalglazing.com.au — Original Glazing Melbourne ↗</a></li>
+        <li><a href="https://bambuddha.com.au" target="_blank" rel="noopener">bambuddha.com.au — BAMBUDDHA Patisserie ↗</a></li>
         <li><a href="https://papica777-eng.github.io/aeterna-cosmic-observatory/" target="_blank" rel="noopener">ASTRO Cosmic Observatory — 4K Planetarium ↗</a></li>
         <li><a href="https://aeterna.website" target="_blank" rel="noopener">aeterna.website — Sovereign 3D Platform ↗</a></li>
         <li><a href="https://nasvetlo.website" target="_blank" rel="noopener">nasvetlo.website — 2.23M-Record Civic Audit ↗</a></li>
@@ -107,16 +119,72 @@ import BrandLogo from './BrandLogo.svelte';
   .footer-contact {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.5rem;
     font-size: 0.86rem;
 
-    a {
+    .footer-email {
       color: $accent-blue-light;
       font-weight: 600;
     }
 
+    .footer-phones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.2rem 0;
+    }
+
+    .phone-handset-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.42rem 0.82rem;
+      border-radius: $radius-pill;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      color: #10b981 !important;
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+
+      .handset-svg {
+        width: 14px;
+        height: 14px;
+        stroke: #10b981;
+        filter: drop-shadow(0 0 3px #10b981);
+      }
+
+      &:hover {
+        background: rgba(16, 185, 129, 0.24);
+        border-color: #10b981;
+        box-shadow: 0 0 16px rgba(16, 185, 129, 0.4);
+        transform: translateY(-1px);
+      }
+
+      &--eu {
+        background: rgba(56, 189, 248, 0.1);
+        border-color: rgba(56, 189, 248, 0.35);
+        color: #38bdf8 !important;
+        box-shadow: 0 0 10px rgba(56, 189, 248, 0.15);
+
+        .handset-svg {
+          stroke: #38bdf8;
+          filter: drop-shadow(0 0 3px #38bdf8);
+        }
+
+        &:hover {
+          background: rgba(56, 189, 248, 0.2);
+          border-color: #38bdf8;
+          box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
+        }
+      }
+    }
+
     span {
       color: $text-muted;
+      font-size: 0.8rem;
     }
   }
 

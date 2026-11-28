@@ -130,8 +130,8 @@ const graph: Record<string, unknown>[] = [
       'https://github.com/papica777-eng/digitalworldau',
       'https://anchialo.com',
       'https://cptmma.com',
-      'https://immersionmma.com.au',
-      'https://www.paintersofgeelong.com.au',
+      'https://originalglazing.com.au',
+      'https://bambuddha.com.au',
       'https://papica777-eng.github.io/aeterna-cosmic-observatory/',
       'https://aeterna.website',
       'https://nasvetlo.website',
@@ -293,6 +293,116 @@ const structuredData = {
       <slot />
     </div>
     <CookieBanner client:idle />
+
+    <!-- Persistent Glowing Green Handset Call Button (Mobile & Desktop) -->
+    <a
+      href="tel:+61423269586"
+      class="floating-call-btn"
+      aria-label="Direct Call Melbourne Desk: +61 423 269 586"
+      title="Direct Call Melbourne Desk (+61 423 269 586)"
+    >
+      <span class="call-pulse" aria-hidden="true"></span>
+      <svg class="call-handset-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      <span class="call-tooltip">Call Melbourne Desk</span>
+    </a>
+
+    <style is:global lang="scss">
+      .floating-call-btn {
+        position: fixed;
+        bottom: 24px;
+        left: 24px;
+        z-index: 999;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        box-shadow: 0 0 22px rgba(16, 185, 129, 0.55), 0 4px 14px rgba(0, 0, 0, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        text-decoration: none;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+
+        &:hover {
+          transform: scale(1.08);
+          box-shadow: 0 0 32px rgba(16, 185, 129, 0.75), 0 6px 18px rgba(0, 0, 0, 0.5);
+
+          .call-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+          }
+        }
+
+        .call-handset-svg {
+          width: 22px;
+          height: 22px;
+          stroke: #ffffff;
+          filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+        }
+
+        .call-pulse {
+          position: absolute;
+          inset: -4px;
+          border-radius: 50%;
+          border: 2px solid rgba(16, 185, 129, 0.6);
+          animation: callPulseAnimation 2.2s infinite ease-out;
+          pointer-events: none;
+        }
+
+        .call-tooltip {
+          position: absolute;
+          left: 64px;
+          white-space: nowrap;
+          background: rgba(10, 15, 29, 0.92);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(16, 185, 129, 0.4);
+          color: #10b981;
+          font-weight: 600;
+          font-size: 0.78rem;
+          padding: 6px 12px;
+          border-radius: 999px;
+          opacity: 0;
+          visibility: hidden;
+          transform: translateX(-8px);
+          transition: all 0.2s ease;
+          pointer-events: none;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+        }
+      }
+
+      @keyframes callPulseAnimation {
+        0% {
+          transform: scale(0.95);
+          opacity: 0.8;
+        }
+        50% {
+          transform: scale(1.22);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1.22);
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .floating-call-btn {
+          bottom: 20px;
+          left: 18px;
+          width: 48px;
+          height: 48px;
+
+          .call-handset-svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+    </style>
     <script>
       // Lightweight IntersectionObserver for smooth scroll reveals + pointer glow tracking
       const revealEls = document.querySelectorAll('[data-reveal]');
