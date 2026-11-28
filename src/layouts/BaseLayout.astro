@@ -21,8 +21,8 @@ const {
 } = Astro.props;
 
 const ga4Id = (import.meta.env.PUBLIC_GA4_ID || '').trim();
-const gadsId = (import.meta.env.PUBLIC_GADS_ID || '').trim();
-const gadsLeadLabel = (import.meta.env.PUBLIC_GADS_LEAD_LABEL || '').trim();
+const gadsId = (import.meta.env.PUBLIC_GADS_ID || 'AW-18599905732').trim();
+const gadsLeadLabel = (import.meta.env.PUBLIC_GADS_LEAD_LABEL || 'TGW8CObs6sAdEMSTkKVF').trim();
 const primaryGtagId = ga4Id || gadsId;
 
 const ogImage = 'https://digitalworldau.com/media/og-card-v2.jpg';

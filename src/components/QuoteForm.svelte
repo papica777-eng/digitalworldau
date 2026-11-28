@@ -252,12 +252,13 @@
           currency: activeCurrency,
           event_label: scopesText,
         });
-        const gadsId = w.__dwTracking?.gadsId;
-        const leadLabel = w.__dwTracking?.leadLabel;
+        const gadsId = w.__dwTracking?.gadsId || 'AW-18599905732';
+        const leadLabel = w.__dwTracking?.leadLabel || 'TGW8CObs6sAdEMSTkKVF';
         if (gadsId && leadLabel) {
           w.gtag('event', 'conversion', {
             send_to: `${gadsId}/${leadLabel}`,
-            currency: activeCurrency,
+            value: 1.0,
+            currency: activeCurrency || 'EUR',
           });
         }
       }
