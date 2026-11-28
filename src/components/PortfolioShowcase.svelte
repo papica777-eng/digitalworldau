@@ -79,7 +79,6 @@
           <button
             type="button"
             class="marquee-card"
-            class:marquee-card--doc={project.isDocument}
             onclick={() => (lightboxItem = project)}
             onmouseenter={(e) => {
               const v = e.currentTarget.querySelector('video');
@@ -91,21 +90,44 @@
             }}
             aria-label={`Inspect ${project.title}`}
           >
-            <img src={project.image} alt={`${project.title} showcase preview`} loading="eager" decoding="async" />
-            {#if project.video}
-              <video
-                src={project.video}
-                poster={project.image}
-                loop
-                muted
-                playsinline
-                preload="none"
-                class="marquee-video"
-              ></video>
-            {/if}
-            <span class={project.isDocument ? 'marquee-pill marquee-pill--doc' : 'marquee-pill marquee-pill--live'}>
-              {project.video ? `▶ LIVE TOUR • ${project.liveDomain}` : project.isDocument ? `PDF • ${project.title.split('—')[0].trim()}` : project.pdfUrl ? 'AU BROCHURE PDF' : `● ${project.liveDomain}`}
-            </span>
+            <!-- Browser Bar Chrome -->
+            <div class="card-browser-bar">
+              <div class="browser-dots" aria-hidden="true">
+                <span class="b-dot b-dot--red"></span>
+                <span class="b-dot b-dot--yellow"></span>
+                <span class="b-dot b-dot--green"></span>
+              </div>
+              <div class="browser-url-pill">
+                <svg class="lock-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span>https://{project.liveDomain || 'digitalworldau.com'}</span>
+              </div>
+              <span class="browser-badge">{project.category}</span>
+            </div>
+
+            <div class="card-media-viewport">
+              <img src={project.image} alt={`${project.title} live website showcase`} loading="eager" decoding="async" />
+              {#if project.video}
+                <video
+                  src={project.video}
+                  poster={project.image}
+                  loop
+                  muted
+                  playsinline
+                  preload="none"
+                  class="marquee-video"
+                ></video>
+              {/if}
+            </div>
+
+            <div class="card-caption-bar">
+              <div class="card-titles">
+                <strong>{project.title.split('—')[0].trim()}</strong>
+                <small>{project.metric}</small>
+              </div>
+              <span class="marquee-pill marquee-pill--live">
+                {project.video ? `▶ LIVE TOUR` : `● VIEW SITE`}
+              </span>
+            </div>
           </button>
         {/each}
       </div>
@@ -117,7 +139,6 @@
           <button
             type="button"
             class="marquee-card"
-            class:marquee-card--doc={project.isDocument}
             onclick={() => (lightboxItem = project)}
             onmouseenter={(e) => {
               const v = e.currentTarget.querySelector('video');
@@ -129,21 +150,44 @@
             }}
             aria-label={`Inspect ${project.title}`}
           >
-            <img src={project.image} alt={`${project.title} showcase preview`} loading="eager" decoding="async" />
-            {#if project.video}
-              <video
-                src={project.video}
-                poster={project.image}
-                loop
-                muted
-                playsinline
-                preload="none"
-                class="marquee-video"
-              ></video>
-            {/if}
-            <span class={project.isDocument ? 'marquee-pill marquee-pill--doc' : 'marquee-pill marquee-pill--live'}>
-              {project.video ? `▶ LIVE TOUR • ${project.liveDomain}` : project.isDocument ? 'OFFICIAL PDF' : project.pdfUrl ? 'AU BROCHURE PDF' : `● ${project.liveDomain}`}
-            </span>
+            <!-- Browser Bar Chrome -->
+            <div class="card-browser-bar">
+              <div class="browser-dots" aria-hidden="true">
+                <span class="b-dot b-dot--red"></span>
+                <span class="b-dot b-dot--yellow"></span>
+                <span class="b-dot b-dot--green"></span>
+              </div>
+              <div class="browser-url-pill">
+                <svg class="lock-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span>https://{project.liveDomain || 'digitalworldau.com'}</span>
+              </div>
+              <span class="browser-badge">{project.category}</span>
+            </div>
+
+            <div class="card-media-viewport">
+              <img src={project.image} alt={`${project.title} live website showcase`} loading="eager" decoding="async" />
+              {#if project.video}
+                <video
+                  src={project.video}
+                  poster={project.image}
+                  loop
+                  muted
+                  playsinline
+                  preload="none"
+                  class="marquee-video"
+                ></video>
+              {/if}
+            </div>
+
+            <div class="card-caption-bar">
+              <div class="card-titles">
+                <strong>{project.title.split('—')[0].trim()}</strong>
+                <small>{project.metric}</small>
+              </div>
+              <span class="marquee-pill marquee-pill--live">
+                {project.video ? `▶ LIVE TOUR` : `● VIEW SITE`}
+              </span>
+            </div>
           </button>
         {/each}
       </div>
@@ -605,26 +649,111 @@
 
   .marquee-card {
     position: relative;
-    width: clamp(290px, 28vw, 410px);
-    aspect-ratio: 16 / 10;
-    border-radius: 20px;
+    width: clamp(320px, 31vw, 450px);
+    aspect-ratio: 16 / 11;
+    border-radius: 16px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    background: #0d0d0d;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: #090d14;
     padding: 0;
     cursor: pointer;
     flex-shrink: 0;
-    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.65);
+    display: flex;
+    flex-direction: column;
     will-change: transform;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
-    contain: paint layout;
-    transition: transform $transition-smooth, border-color $transition-fast;
+    transition: transform $transition-smooth, border-color $transition-fast, box-shadow $transition-smooth;
+
+    &:hover {
+      border-color: rgba(0, 245, 160, 0.55);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.8), 0 0 28px rgba(0, 245, 160, 0.15);
+
+      .card-media-viewport img {
+        transform: scale(1.03);
+      }
+
+      .marquee-video {
+        opacity: 1;
+        transform: scale(1.03);
+      }
+    }
+  }
+
+  .card-browser-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 12px;
+    background: rgba(16, 22, 34, 0.96);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: 2;
+    flex-shrink: 0;
+    font-family: $font-mono;
+  }
+
+  .browser-dots {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .b-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+
+    &--red { background: #ff5f56; }
+    &--yellow { background: #ffbd2e; }
+    &--green { background: #27c93f; }
+  }
+
+  .browser-url-pill {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.66rem;
+    color: rgba(255, 255, 255, 0.75);
+
+    .lock-svg {
+      width: 10px;
+      height: 10px;
+      stroke: #10b981;
+    }
+
+    span {
+      max-width: 170px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .browser-badge {
+    font-size: 0.6rem;
+    color: #38bdf8;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+
+  .card-media-viewport {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+    background: #05070b;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: top center;
       display: block;
       transition: transform $transition-smooth;
     }
@@ -635,65 +764,62 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: top center;
       display: block;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.35s ease, transform $transition-smooth;
     }
+  }
 
-    &--doc {
-      background: #0d111a;
+  .card-caption-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: rgba(10, 14, 22, 0.96);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+    z-index: 2;
+  }
 
-      img {
-        object-fit: contain;
-        padding: 0.5rem;
-      }
+  .card-titles {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 1px;
+
+    strong {
+      font-size: 0.78rem;
+      color: #ffffff;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 230px;
     }
 
-    &:hover {
-      border-color: rgba(132, 181, 230, 0.55);
-
-      img {
-        transform: scale(1.04);
-      }
-
-      .marquee-video {
-        opacity: 1;
-        transform: scale(1.04);
-      }
-
-      .marquee-pill {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    small {
+      font-size: 0.66rem;
+      color: rgba(255, 255, 255, 0.55);
+      font-family: $font-mono;
     }
   }
 
   .marquee-pill {
-    position: absolute;
-    left: 0.85rem;
-    bottom: 0.85rem;
-    padding: 0.28rem 0.72rem;
+    padding: 0.22rem 0.62rem;
     border-radius: $radius-pill;
     font-family: $font-mono;
-    font-size: 0.68rem;
-    font-weight: 600;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    opacity: 0.88;
-    transform: translateY(2px);
-    transition: opacity $transition-fast, transform $transition-fast;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    flex-shrink: 0;
 
     &--live {
-      background: rgba(1, 106, 212, 0.78);
-      border: 1px solid rgba(132, 181, 230, 0.5);
-      color: #ffffff;
-    }
-
-    &--doc {
-      background: rgba(11, 15, 26, 0.86);
-      border: 1px solid rgba(132, 181, 230, 0.55);
-      color: #bae6fd;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      color: #10b981;
     }
   }
 
