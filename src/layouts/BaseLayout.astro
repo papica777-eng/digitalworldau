@@ -195,11 +195,33 @@ const structuredData = {
 <html lang="en-AU">
   <head>
     <!-- Google Tag Manager (GTM-KHPCXK3R) -->
-    <script is:inline async src="https://www.googletagmanager.com/gtm.js?id=GTM-KHPCXK3R"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      window.gtag =
+        window.gtag ||
+        function () {
+          window.dataLayer.push(arguments);
+        };
+      window.gtag('js', new Date());
+
+      var gtmInjected = false;
+      function injectGTM() {
+        if (gtmInjected) return;
+        gtmInjected = true;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-KHPCXK3R';
+        document.head.appendChild(s);
+      }
+
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(injectGTM, { timeout: 2500 });
+      } else {
+        setTimeout(injectGTM, 2000);
+      }
+      ['scroll', 'mousemove', 'touchstart', 'click', 'keydown'].forEach(function (evt) {
+        window.addEventListener(evt, injectGTM, { once: true, passive: true });
+      });
     </script>
     <!-- End Google Tag Manager -->
     <meta charset="UTF-8" />

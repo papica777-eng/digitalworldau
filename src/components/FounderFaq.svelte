@@ -38,6 +38,9 @@
           alt="Dimitar Prodromov signature"
           class="founder-signature"
           loading="lazy"
+          decoding="async"
+          width="1140"
+          height="466"
         />
       </div>
     </aside>

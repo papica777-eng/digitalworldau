@@ -11,7 +11,7 @@
             <span>IM</span>
             <span>PG</span>
           </div>
-          <span class="stars" aria-label="5 out of 5 stars">
+          <span class="stars" role="img" aria-label="5 out of 5 stars">
             {#each [0, 1, 2, 3, 4] as _}
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 2.5l2.93 5.95 6.57.95-4.75 4.63 1.12 6.54L12 17.48l-5.87 3.09 1.12-6.54L2.5 9.4l6.57-.95L12 2.5z" />

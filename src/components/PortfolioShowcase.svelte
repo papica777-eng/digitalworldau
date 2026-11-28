@@ -105,7 +105,14 @@
             </div>
 
             <div class="card-media-viewport">
-              <img src={project.image} alt={`${project.title} live website showcase`} loading="eager" decoding="async" />
+              <img
+                src={project.image}
+                alt={`${project.title} live website showcase`}
+                loading="lazy"
+                decoding="async"
+                width="417"
+                height="260"
+              />
               {#if project.video}
                 <video
                   src={project.video}
@@ -165,7 +172,14 @@
             </div>
 
             <div class="card-media-viewport">
-              <img src={project.image} alt={`${project.title} live website showcase`} loading="eager" decoding="async" />
+              <img
+                src={project.image}
+                alt={`${project.title} live website showcase`}
+                loading="lazy"
+                decoding="async"
+                width="417"
+                height="260"
+              />
               {#if project.video}
                 <video
                   src={project.video}
@@ -201,7 +215,7 @@
         <div class="case-white-card__copy">
           <div class="white-top-meta">
             <span class="white-kicker">{featuredStudy.tag}</span>
-            <span class="stars" aria-label="5 out of 5 stars">
+            <span class="stars" role="img" aria-label="5 out of 5 stars">
               {#each [0, 1, 2, 3, 4] as _}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M12 2.5l2.93 5.95 6.57.95-4.75 4.63 1.12 6.54L12 17.48l-5.87 3.09 1.12-6.54L2.5 9.4l6.57-.95L12 2.5z" />
@@ -314,14 +328,13 @@
                   <video
                     src={slide.video}
                     poster={slide.image}
-                    autoplay={idx === 0}
                     loop
                     muted
                     playsinline
-                    preload={idx === 0 ? 'metadata' : 'none'}
+                    preload="none"
                   ></video>
                 {:else}
-                  <img src={slide.image} alt={slide.title} loading={idx === 0 ? 'eager' : 'lazy'} />
+                  <img src={slide.image} alt={slide.title} loading="lazy" decoding="async" />
                 {/if}
               </div>
             {/each}
@@ -435,13 +448,13 @@
                 <video
                   src={study.video}
                   poster={study.poster}
-                  autoplay
                   loop
                   muted
                   playsinline
+                  preload="none"
                 ></video>
               {:else}
-                <img src={study.poster} alt={study.client} loading="lazy" />
+                <img src={study.poster} alt={study.client} loading="lazy" decoding="async" width="627" height="352" />
               {/if}
             </div>
           </article>
