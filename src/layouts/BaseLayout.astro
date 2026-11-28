@@ -193,6 +193,14 @@ const structuredData = {
 <!doctype html>
 <html lang="en-AU">
   <head>
+    <!-- Google Tag Manager (GTM-KHPCXK3R) -->
+    <script is:inline async src="https://www.googletagmanager.com/gtm.js?id=GTM-KHPCXK3R"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    </script>
+    <!-- End Google Tag Manager -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="bdmpPW3WH7zQk9GxVp6OhjqEzUDOkWGpxyBNtGHSmEs" />
@@ -236,10 +244,12 @@ const structuredData = {
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     <script is:inline define:vars={{ ga4Id, gadsId, gadsLeadLabel, primaryGtagId }}>
       window.dataLayer = window.dataLayer || [];
-      window.gtag = function () {
-        window.dataLayer.push(arguments);
-      };
-      window.__dwTracking = { ga4Id: ga4Id, gadsId: gadsId, leadLabel: gadsLeadLabel };
+      window.gtag =
+        window.gtag ||
+        function () {
+          window.dataLayer.push(arguments);
+        };
+      window.__dwTracking = { ga4Id: ga4Id, gadsId: gadsId, leadLabel: gadsLeadLabel, gtmId: 'GTM-KHPCXK3R' };
 
       var consentState = {
         analytics_storage: 'denied',
@@ -262,7 +272,6 @@ const structuredData = {
 
       window.gtag('consent', 'default', consentState);
       if (primaryGtagId) {
-        window.gtag('js', new Date());
         if (ga4Id) window.gtag('config', ga4Id, { send_page_view: true });
         if (gadsId) window.gtag('config', gadsId);
       }
@@ -288,6 +297,14 @@ const structuredData = {
     }
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-KHPCXK3R"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <FluidBackground client:idle />
     <div class="page-shell">
       <slot />
